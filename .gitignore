@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+*.pyc
+# datos pesados: no se versionan
+datos/forzamiento/era5/
+datos/forzamiento/fes2022/
+*.nc
+# salidas de simulación
+runs/*/outputs/
+build/
