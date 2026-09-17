@@ -20,6 +20,7 @@ for year in range(2016, 2026):
         f = OUT / f"era5_habana_{year}{month:02d}.nc"
         if f.exists() and f.stat().st_size > 0:
             continue
+        tmp = f.with_suffix(".nc.part")
         print("descargando", f.name, flush=True)
         c.retrieve("reanalysis-era5-single-levels", {
             "product_type": ["reanalysis"], "variable": VARS,
@@ -27,5 +28,6 @@ for year in range(2016, 2026):
             "day": [f"{d:02d}" for d in range(1, 32)],
             "time": [f"{h:02d}:00" for h in range(24)],
             "area": AREA, "data_format": "netcdf", "download_format": "unarchived",
-        }, str(f))
+        }, str(tmp))
+        tmp.rename(f)   # solo se da por bajado si termino entero
 print("ERA5 completo en", OUT)

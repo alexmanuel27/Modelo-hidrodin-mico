@@ -1,37 +1,53 @@
 #!/usr/bin/env bash
-# Paso 3: entorno + compilacion de SCHISM en el Mac (Apple Silicon).
-# Uso (Terminal):  bash scripts/instalar_entorno_mac.sh
+# Paso 3: entorno + compilacion de SCHISM en el Mac.
+# Uso (Terminal, desde la raiz del repo):  bash scripts/instalar_entorno_mac.sh
 # Instala miniforge en ~/miniforge3 (si no existe), crea el entorno "bahia",
 # clona SCHISM en ~/modelos/schism y compila pschism con el modulo AGE.
 # Los registros quedan en cluster/ para que Claude los revise.
-set -euo pipefail
+# Se puede relanzar: salta lo que ya esta hecho.
+set -eo pipefail
 PROJ="$(cd "$(dirname "$0")/.." && pwd)"
 LOG="$PROJ/cluster"
+mkdir -p "$LOG"
+trap 'echo "!! FALLO en la linea $LINENO. Revisa los .log de cluster/ y avisa a Claude." >&2' ERR
+
+{ echo "fecha: $(date)"; sw_vers 2>/dev/null; uname -m; xcode-select -p 2>&1 || true; } > "$LOG/sistema.txt"
+
 echo ">> 1/4 miniforge"
 if [ ! -x "$HOME/miniforge3/bin/conda" ]; then
+  ARCH="$(uname -m)"   # arm64 (Apple Silicon) o x86_64 (Intel)
   curl -fL -o /tmp/Miniforge3.sh \
-    https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-arm64.sh
+    "https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-MacOSX-${ARCH}.sh"
   bash /tmp/Miniforge3.sh -b -p "$HOME/miniforge3"
 fi
 source "$HOME/miniforge3/etc/profile.d/conda.sh"
 
 echo ">> 2/4 entorno 'bahia' (tarda unos minutos)"
 if ! conda env list | grep -q '^bahia '; then
+  # ParMETIS no hace falta: SCHISM lo trae incluido.
   conda create -y -n bahia -c conda-forge python=3.11 \
-    gfortran clang clangxx mpich netcdf-fortran parmetis cmake make git perl \
-    numpy scipy matplotlib pandas xarray netcdf4 pyproj cdsapi > "$LOG/entorno_conda.log" 2>&1
+    compilers mpich mpich-mpicc mpich-mpifort netcdf-fortran netcdf4 cmake make git perl \
+    numpy scipy matplotlib pandas xarray pyproj cdsapi > "$LOG/entorno_conda.log" 2>&1
 fi
 conda activate bahia
+{ echo "CONDA_PREFIX=$CONDA_PREFIX"; which mpif90 mpicc gfortran cmake nc-config nf-config;
+  mpif90 --version | head -1; nf-config --version; } > "$LOG/entorno_resumen.txt" 2>&1
 
 echo ">> 3/4 codigo SCHISM"
 mkdir -p "$HOME/modelos" && cd "$HOME/modelos"
 [ -d schism ] || git clone https://github.com/schism-dev/schism.git
 cd schism
 git log -1 --format='%H %cd' > "$LOG/schism_version.txt"
+ls cmake >> "$LOG/schism_version.txt"
 
 echo ">> 4/4 compilacion (5-15 min)"
 rm -rf build && mkdir build && cd build
-cmake -C ../cmake/SCHISM.local.build -C ../cmake/SCHISM.local.conda \
+CACHE=(-C ../cmake/SCHISM.local.build)
+[ -f ../cmake/SCHISM.local.conda ] && CACHE+=(-C ../cmake/SCHISM.local.conda)
+cmake "${CACHE[@]}" \
+      -DCMAKE_Fortran_COMPILER=mpif90 -DCMAKE_C_COMPILER=mpicc -DCMAKE_CXX_COMPILER=mpicxx \
+      -DNetCDF_FORTRAN_DIR="$CONDA_PREFIX" -DNetCDF_C_DIR="$CONDA_PREFIX" \
+      -DCMAKE_Fortran_FLAGS="-fallow-argument-mismatch" \
       -DUSE_AGE=ON -DCMAKE_BUILD_TYPE=Release ../src > "$LOG/schism_cmake.log" 2>&1
 make -j"$(sysctl -n hw.ncpu)" pschism > "$LOG/schism_make.log" 2>&1
 ls -l bin/ | tee "$LOG/schism_bin.txt"
