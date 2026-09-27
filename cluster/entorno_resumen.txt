@@ -1,0 +1,9 @@
+CONDA_PREFIX=/Users/alex/miniforge3/envs/bahia
+/Users/alex/miniforge3/envs/bahia/bin/mpif90
+/Users/alex/miniforge3/envs/bahia/bin/mpicc
+/Users/alex/miniforge3/envs/bahia/bin/gfortran
+/Users/alex/miniforge3/envs/bahia/bin/cmake
+/Users/alex/miniforge3/envs/bahia/bin/nc-config
+/Users/alex/miniforge3/envs/bahia/bin/nf-config
+GNU Fortran (conda-forge gcc 15.3.0-7) 15.3.0
+4.6.4

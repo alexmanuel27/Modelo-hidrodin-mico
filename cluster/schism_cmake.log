@@ -1,0 +1,214 @@
+loading initial cache file ../cmake/SCHISM.local.build
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:15 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:16 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:19 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:22 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:26 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:28 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:30 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:31 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:32 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:36 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:37 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:38 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:39 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:44 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:46 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:47 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:48 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:49 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:52 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:53 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:54 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:55 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:56 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:57 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:58 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:60 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:65 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:67 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (author) at /Users/alex/modelos/schism/cmake/SCHISM.local.build:68 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-author to suppress it.
+
+CMake Warning (deprecated) at CMakeLists.txt:9 (cmake_policy):
+  The OLD behavior for policy CMP0074 will be removed from a future version
+  of CMake.
+
+  The cmake-policies(7) manual explains that the OLD behaviors of all
+  policies are deprecated and that a policy should be set to OLD only under
+  specific short-term circumstances.  Projects should be ported to the NEW
+  behavior and not rely on setting a policy to OLD.
+This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+to suppress it.
+
+-- 
+################   Begin SCHISM Configuration   ################
+-- In-source builds not allowed
+-- The C compiler identification is Clang 21.1.8
+-- The Fortran compiler identification is GNU 15.3.0
+-- The CXX compiler identification is Clang 21.1.8
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Users/alex/miniforge3/envs/bahia/bin/mpicc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Checking whether Fortran compiler has -isysroot
+-- Checking whether Fortran compiler has -isysroot - no
+-- Checking whether Fortran compiler supports OSX deployment target flag
+-- Checking whether Fortran compiler supports OSX deployment target flag - yes
+-- Detecting Fortran compiler ABI info
+-- Detecting Fortran compiler ABI info - done
+-- Check for working Fortran compiler: /Users/alex/miniforge3/envs/bahia/bin/mpif90 - skipped
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Users/alex/miniforge3/envs/bahia/bin/mpicxx - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- 
+### Compiler combination and executables
+-- Compiler ID is GNU-Clang
+-- Fortran compiler is /Users/alex/miniforge3/envs/bahia/bin/mpif90
+-- C compiler is /Users/alex/miniforge3/envs/bahia/bin/mpicc
+-- 
+### Processing algorithmic switches and build options involving functionality for main project
+-- USE_AGE OPTION IS ON
+-- BLD_STANDALONE OPTION IS ON
+-- SH_MEM_COMM OPTION IS ON
+-- Build definition tags set to _AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL
+-- 
+### Configuring MPI Library
+-- Found MPI_C: /Users/alex/miniforge3/envs/bahia/bin/mpicc (found version "5.0")
+-- Found MPI_CXX: /Users/alex/miniforge3/envs/bahia/bin/mpicxx (found version "5.0")
+-- Found MPI_Fortran: /Users/alex/miniforge3/envs/bahia/bin/mpif90 (found version "5.0")
+-- Found MPI: TRUE (found version "5.0")
+-- MPIVERSION = 2
+-- 
+### Configuring NetCDF 
+-- Found NetCDF: /Users/alex/miniforge3/envs/bahia/include (found version "4.10.1") found components: C Fortran
+-- FindNetCDF defines targets:
+--   - NetCDF_VERSION [4.10.1]
+--   - NetCDF_PARALLEL [FALSE]
+--   - NetCDF_C_CONFIG_EXECUTABLE [/Users/alex/miniforge3/envs/bahia/bin/nc-config]
+--   - NetCDF::NetCDF_C [SHARED] [Root: /Users/alex/miniforge3/envs/bahia] Lib: /Users/alex/miniforge3/envs/bahia/lib/libnetcdf.dylib 
+--   - NetCDF_Fortran_CONFIG_EXECUTABLE [/Users/alex/miniforge3/envs/bahia/bin/nf-config]
+--   - NetCDF::NetCDF_Fortran [SHARED] [Root: /Users/alex/miniforge3/envs/bahia] Lib: /Users/alex/miniforge3/envs/bahia/lib/libnetcdff.dylib 
+-- 
+### Assigning output directories for binaries (bin), modules (include) and libraries (lib)
+-- 
+### Adding enabled libraries to project
+-- 
+### Configuring ParMETIS 
+-- Using SCHISM's internal ParMETIS library.
+-- Looking for execinfo.h
+-- Looking for execinfo.h - found
+-- Looking for getline
+-- Looking for getline - found
+-- checking for thread-local storage - found
+-- PARMETIS_DIR: /Users/alex/modelos/schism/src/ParMetis-4.0.3
+-- PARMETIS_VER: ParMetis-4.0.3
+-- hydro_extra_src=
+-- Mod libraries: 
+-- Added Hydro
+--  SCHISM version: develop
+--  GIT commit: 09f407e8
+-- Added Core
+-- All defines: 
+-- 
+### Configuring Driver
+Using schism module libraries core;hydro
+-- START: pschism:pschism
+-- Executable name with this configuration will be pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL
+-- 
+### Configuring Utilities
+-- In /Utility NetCDF_LIBS /Users/alex/miniforge3/envs/bahia/lib/libnetcdf.dylib;/Users/alex/miniforge3/envs/bahia/lib/libnetcdff.dylib
+-- In /Utility NetCDF_LIBS /Users/alex/miniforge3/envs/bahia/lib/libnetcdf.dylib;/Users/alex/miniforge3/envs/bahia/lib/libnetcdff.dylib
+-- In Utility/Gen_Hotstart
+-- In Utility/Grid_Scripts
+-- Configuring done (9.3s)
+-- Generating done (0.2s)
+-- Build files have been written to: /Users/alex/modelos/schism/build

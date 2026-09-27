@@ -324,3 +324,34 @@ Un login y un home comunes. Implicaciones:
   Cada miembro se divide en tramos de < 48 h con *hotstart*, o se dimensiona para caber.
 - **Hercules2 / Dragon2** para trabajos largos de pocos núcleos (p. ej. el 2D base).
 - Ejecutar `cluster/inventario.sh` en cada cluster que se use: los módulos no son iguales.
+
+## 14. Paso 3: entorno y SCHISM compilados en el Mac (27-sep)
+
+`scripts/instalar_entorno_mac.sh` funciona. Registros en `cluster/`.
+
+- Mac Apple Silicon (arm64), macOS 26.6.2, Command Line Tools instaladas.
+- Entorno conda `bahia` (miniforge): gfortran 15.3 (conda-forge), clang 21, MPICH (MPI 5.0),
+  NetCDF-C 4.10.1 / NetCDF-Fortran 4.6.4, CMake 4.4, Python 3.11 con cdsapi.
+- SCHISM `develop`, commit `09f407e8` (23-sep-2026), en `~/modelos/schism`.
+- Ejecutable: `~/modelos/schism/build/bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL`
+  (módulo AGE, limitador TVD van Leer, ParMETIS interno).
+- 56 avisos de tipo en llamadas MPI (normales con gfortran ≥ 10 y `-fallow-argument-mismatch`).
+
+**Tres fallos de SCHISM con la cadena conda (gfortran + clang) y cómo se resolvieron:**
+
+1. `cmake/SCHISMCompile.cmake` pasa `--preprocess` a gfortran cuando el compilador de C es
+   clang; gfortran lo interpreta como `-E` (solo preprocesar): los `.o` salen en texto y no hay
+   `.mod` ("Error copying Fortran module"). **Parche:** `--preprocess` → `-cpp`.
+2. `src/CMakeLists.txt` aplica ese indicador a todos los lenguajes (`add_compile_options`);
+   clang rechaza `-cpp` al compilar el C de ParMETIS. **Parche:** solo para Fortran
+   (`$<$<COMPILE_LANGUAGE:Fortran>:...>`).
+3. `cmake/SCHISM.local.conda` fija `PARMETIS_ROOT`; al no encontrar ParMETIS en conda dice que
+   vuelve al interno, pero no lo compila y el enlazado pide `-lparmetis`. **Solución:** no usar
+   ese archivo (los compiladores MPI se pasan por línea de comandos).
+
+Los dos parches los aplica el script sobre el clon local (originales en `*.orig`) y quedan
+anotados en `cluster/schism_version.txt`. **En CÉCI** probablemente no hagan falta (compiladores
+GNU o Intel sin clang), pero si aparece "Error copying Fortran module" es el fallo 1.
+
+**Pendiente del paso 3:** un caso de prueba corto (p. ej. un test de SCHISM o el 2D base con
+malla provisional) para medir el coste por paso de tiempo en el Mac antes de ir a CÉCI.

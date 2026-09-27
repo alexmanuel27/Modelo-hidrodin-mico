@@ -40,13 +40,25 @@ cd schism
 git log -1 --format='%H %cd' > "$LOG/schism_version.txt"
 ls cmake >> "$LOG/schism_version.txt"
 
+# Parche: con gfortran + clang (conda), SCHISMCompile.cmake pasa "--preprocess" a gfortran,
+# que equivale a -E (solo preprocesa): los .o salen en texto y no se generan los .mod
+# ("Error copying Fortran module"). Se cambia por -cpp. Queda anotado en schism_version.txt.
+if grep -q '"--preprocess"' cmake/SCHISMCompile.cmake; then
+  sed -i.orig 's/"--preprocess"/"-cpp"/g' cmake/SCHISMCompile.cmake
+  echo "parche local: --preprocess -> -cpp en cmake/SCHISMCompile.cmake" >> "$LOG/schism_version.txt"
+fi
+# ...y -cpp solo para Fortran: add_compile_options lo aplicaba tambien al C de ParMETIS y clang lo rechaza.
+if grep -qxF 'add_compile_options(${C_PREPROCESS_FLAG})' src/CMakeLists.txt; then
+  sed -i.orig 's/^add_compile_options(\${C_PREPROCESS_FLAG})$/add_compile_options($<$<COMPILE_LANGUAGE:Fortran>:${C_PREPROCESS_FLAG}>)/' src/CMakeLists.txt
+  echo "parche local: C_PREPROCESS_FLAG solo para Fortran en src/CMakeLists.txt" >> "$LOG/schism_version.txt"
+fi
+
 echo ">> 4/4 compilacion (5-15 min)"
 rm -rf build && mkdir build && cd build
-CACHE=(-C ../cmake/SCHISM.local.build)
-[ -f ../cmake/SCHISM.local.conda ] && CACHE+=(-C ../cmake/SCHISM.local.conda)
-cmake "${CACHE[@]}" \
+# Sin SCHISM.local.conda: fija PARMETIS_ROOT, no encuentra ParMETIS en conda y, por un fallo
+# de src/CMakeLists.txt, tampoco compila el interno -> "library not found for -lparmetis".
+cmake -C ../cmake/SCHISM.local.build \
       -DCMAKE_Fortran_COMPILER=mpif90 -DCMAKE_C_COMPILER=mpicc -DCMAKE_CXX_COMPILER=mpicxx \
-      -DNetCDF_FORTRAN_DIR="$CONDA_PREFIX" -DNetCDF_C_DIR="$CONDA_PREFIX" \
       -DCMAKE_Fortran_FLAGS="-fallow-argument-mismatch" \
       -DUSE_AGE=ON -DCMAKE_BUILD_TYPE=Release ../src > "$LOG/schism_cmake.log" 2>&1
 make -j"$(sysctl -n hw.ncpu)" pschism > "$LOG/schism_make.log" 2>&1
