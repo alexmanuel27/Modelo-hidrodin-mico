@@ -369,6 +369,8 @@ cortes de red del CDS que cdsapi reintentó solo. Registro: `cluster/era5_descar
   - `era5_habana_AAAAMM_accum.nc`: ssrd, strd, tp, acumulados en la hora anterior
     (J m⁻² y m). Para SCHISM (`sflux`) hay que pasarlos a flujos (÷ 3600 s) y a kg m⁻² s⁻¹.
 - Los 120 ZIP ya descargados se convirtieron así (240 archivos HDF5/NetCDF4).
+- **Verificado (30-sep):** 87 672 horas (= 10 años exactos), paso de 1 h sin huecos y sin NaN
+  en los 240 archivos. Rejilla ERA5 efectiva: 3 × 4 puntos (23,0–23,5 N; 82,75–82,0 W).
 
 **Siguiente:** convertir ERA5 al formato `sflux` de SCHISM (air/rad/prc) y un caso de
 prueba corto con malla provisional para medir el coste por paso de tiempo.
