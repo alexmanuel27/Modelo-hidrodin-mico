@@ -355,3 +355,20 @@ GNU o Intel sin clang), pero si aparece "Error copying Fortran module" es el fal
 
 **Pendiente del paso 3:** un caso de prueba corto (p. ej. un test de SCHISM o el 2D base con
 malla provisional) para medir el coste por paso de tiempo en el Mac antes de ir a CÉCI.
+
+## 15. Forzamiento atmosférico ERA5 descargado (27–30 sep)
+
+`scripts/descargar_era5.py` bajó los 120 meses (ene-2016 a dic-2025) en unas 51 h, con
+cortes de red del CDS que cdsapi reintentó solo. Registro: `cluster/era5_descarga.log`.
+
+- Zona 22,8–23,5 N, 82,8–81,9 W (rejilla 0,25°), horario, 40 MB en total, en
+  `datos/forzamiento/era5/` (no versionado).
+- **El CDS devuelve un ZIP** aunque se pida `unarchived`, porque mezcla variables
+  instantáneas y acumuladas. El script ahora lo separa en dos NetCDF por mes:
+  - `era5_habana_AAAAMM_instant.nc`: u10, v10, msl, t2m, d2m;
+  - `era5_habana_AAAAMM_accum.nc`: ssrd, strd, tp, acumulados en la hora anterior
+    (J m⁻² y m). Para SCHISM (`sflux`) hay que pasarlos a flujos (÷ 3600 s) y a kg m⁻² s⁻¹.
+- Los 120 ZIP ya descargados se convirtieron así (240 archivos HDF5/NetCDF4).
+
+**Siguiente:** convertir ERA5 al formato `sflux` de SCHISM (air/rad/prc) y un caso de
+prueba corto con malla provisional para medir el coste por paso de tiempo.

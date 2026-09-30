@@ -1,3 +1,689 @@
 descargando era5_habana_201601.nc
-2026-09-27 21:25:39,054 INFO Request ID is 471aba21-b37e-43c8-9ed5-5ff46a33c085
-2026-09-27 21:25:39,129 INFO status has been updated to accepted
+2026-09-27 21:38:39,961 INFO Request ID is c48f6fc8-84af-4bbf-8573-045f32cb37ba
+2026-09-27 21:38:40,038 INFO status has been updated to successful
+41a538072c7a3d0190fabcba2df13582.zip:   0%|          | 0.00/335k [00:00<?, ?B/s]41a538072c7a3d0190fabcba2df13582.zip: 100%|██████████| 335k/335k [00:00<00:00, 1.16MB/s]                                                                                        descargando era5_habana_201602.nc
+2026-09-27 21:38:41,903 INFO Request ID is b2389c6f-6640-46a4-9008-9fc39fff28c0
+2026-09-27 21:38:41,971 INFO status has been updated to accepted
+2026-09-27 21:38:55,504 INFO status has been updated to running
+2026-09-27 21:45:02,751 INFO status has been updated to successful
+48edc6368f70c1ba4ecc70992848cf81.zip:   0%|          | 0.00/321k [00:00<?, ?B/s]48edc6368f70c1ba4ecc70992848cf81.zip: 100%|██████████| 321k/321k [00:00<00:00, 1.02MB/s]                                                                                        descargando era5_habana_201603.nc
+2026-09-27 21:45:06,020 INFO Request ID is 7b7263c6-739d-4e68-9b0b-42c0360178fc
+2026-09-27 21:45:06,076 INFO status has been updated to accepted
+2026-09-27 21:45:20,650 INFO status has been updated to running
+2026-09-27 21:49:26,706 INFO status has been updated to successful
+cbf545a19b9fd88965b7a80b06dad372.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]cbf545a19b9fd88965b7a80b06dad372.zip: 100%|██████████| 331k/331k [00:00<00:00, 1.23MB/s]                                                                                        descargando era5_habana_201604.nc
+2026-09-27 21:49:29,164 INFO Request ID is 302253d7-5990-4b84-9aa6-bc4d91d393dd
+2026-09-27 21:49:31,669 INFO status has been updated to accepted
+2026-09-27 21:49:47,358 INFO status has been updated to running
+2026-09-27 21:55:58,237 INFO status has been updated to successful
+80c17932e4204734e4f24253c7c2989e.zip:   0%|          | 0.00/325k [00:00<?, ?B/s]80c17932e4204734e4f24253c7c2989e.zip: 100%|██████████| 325k/325k [00:00<00:00, 746kB/s]                                                                                       descargando era5_habana_201605.nc
+2026-09-27 21:56:00,365 INFO Request ID is 9cc9ffbc-b24e-424f-a88d-6899b58ea8b4
+2026-09-27 21:56:00,425 INFO status has been updated to accepted
+2026-09-27 21:56:21,647 INFO status has been updated to running
+2026-09-27 22:02:24,954 INFO status has been updated to successful
+ce2905822942948aa0db24e8e66db82e.zip:   0%|          | 0.00/333k [00:00<?, ?B/s]ce2905822942948aa0db24e8e66db82e.zip: 100%|██████████| 333k/333k [00:00<00:00, 927kB/s]                                                                                       descargando era5_habana_201606.nc
+2026-09-27 22:02:25,962 INFO Request ID is b3c0c7d4-7148-42e2-b404-a6f8fd2dbd83
+2026-09-27 22:02:26,076 INFO status has been updated to accepted
+2026-09-27 22:02:42,741 INFO status has been updated to running
+2026-09-27 22:08:49,146 INFO status has been updated to successful
+bb6ef2c0a05e747ffa1ee319d3d77652.zip:   0%|          | 0.00/330k [00:00<?, ?B/s]bb6ef2c0a05e747ffa1ee319d3d77652.zip: 100%|██████████| 330k/330k [00:00<00:00, 970kB/s]                                                                                       descargando era5_habana_201607.nc
+2026-09-27 22:08:52,584 INFO Request ID is 3117d6a9-a91d-4de6-ba6e-e85d9b6b8c7f
+2026-09-27 22:08:52,661 INFO status has been updated to accepted
+2026-09-27 22:09:07,962 INFO status has been updated to running
+2026-09-27 22:13:14,220 INFO status has been updated to successful
+61fdec35f91ae8bb5537a2a3f22e1469.zip:   0%|          | 0.00/333k [00:00<?, ?B/s]61fdec35f91ae8bb5537a2a3f22e1469.zip: 100%|██████████| 333k/333k [00:00<00:00, 1.18MB/s]                                                                                        descargando era5_habana_201608.nc
+2026-09-27 22:13:15,275 INFO Request ID is 9cc2cf10-6f84-42e1-8e11-899fc4e39375
+2026-09-27 22:13:15,335 INFO status has been updated to accepted
+2026-09-27 22:13:39,232 INFO status has been updated to running
+2026-09-27 22:19:38,979 INFO status has been updated to successful
+b8976c231286f3d3c2dd6c89dccd411c.zip:   0%|          | 0.00/335k [00:00<?, ?B/s]b8976c231286f3d3c2dd6c89dccd411c.zip: 100%|██████████| 335k/335k [00:00<00:00, 1.13MB/s]                                                                                        descargando era5_habana_201609.nc
+2026-09-27 22:19:40,182 INFO Request ID is 7a7a0ac0-e4b7-425e-9842-9287b2421069
+2026-09-27 22:19:42,747 INFO status has been updated to accepted
+2026-09-27 22:19:56,296 INFO status has been updated to running
+2026-09-27 22:26:02,219 INFO status has been updated to successful
+e386dfc859f5defffc9946901eab677b.zip:   0%|          | 0.00/329k [00:00<?, ?B/s]e386dfc859f5defffc9946901eab677b.zip: 100%|██████████| 329k/329k [00:00<00:00, 1.13MB/s]                                                                                        descargando era5_habana_201610.nc
+2026-09-27 22:26:03,176 INFO Request ID is a1d638d7-e981-4424-a7b8-d60910917f2c
+2026-09-27 22:26:03,474 INFO status has been updated to accepted
+2026-09-27 22:26:17,022 INFO status has been updated to running
+2026-09-27 22:32:23,291 INFO status has been updated to successful
+159e11c4f9a1ae3709f5fbb173e0ebef.zip:   0%|          | 0.00/335k [00:00<?, ?B/s]159e11c4f9a1ae3709f5fbb173e0ebef.zip: 100%|██████████| 335k/335k [00:00<00:00, 1.10MB/s]                                                                                        descargando era5_habana_201611.nc
+2026-09-27 22:32:24,384 INFO Request ID is d7377bef-1b80-4dff-a32a-682ee4144973
+2026-09-27 22:32:24,449 INFO status has been updated to accepted
+2026-09-27 22:32:38,250 INFO status has been updated to running
+2026-09-27 22:38:44,056 INFO status has been updated to successful
+87780bb7e2da4d7870412b26882f6016.zip:   0%|          | 0.00/325k [00:00<?, ?B/s]87780bb7e2da4d7870412b26882f6016.zip: 100%|██████████| 325k/325k [00:00<00:00, 1.03MB/s]                                                                                        descargando era5_habana_201612.nc
+2026-09-27 22:38:48,263 INFO Request ID is e033e110-3147-4e71-93a4-901e8dfb59f8
+2026-09-27 22:38:48,797 INFO status has been updated to accepted
+2026-09-27 22:39:05,190 INFO status has been updated to running
+2026-09-27 22:45:11,014 INFO status has been updated to successful
+5309554cac7d29ad0a20a096b4733abd.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]5309554cac7d29ad0a20a096b4733abd.zip: 100%|██████████| 332k/332k [00:00<00:00, 833kB/s]                                                                                       descargando era5_habana_201701.nc
+2026-09-27 22:45:12,292 INFO Request ID is a0a1d6b2-4e96-443d-8e6f-8c8f5d045379
+2026-09-27 22:45:12,609 INFO status has been updated to accepted
+2026-09-27 22:45:33,882 INFO status has been updated to running
+2026-09-27 22:49:32,899 INFO status has been updated to successful
+2ff0f7c8a5a142bb2533a1ba90a33430.zip:   0%|          | 0.00/333k [00:00<?, ?B/s]2ff0f7c8a5a142bb2533a1ba90a33430.zip: 100%|██████████| 333k/333k [00:00<00:00, 1.10MB/s]                                                                                        descargando era5_habana_201702.nc
+2026-09-27 22:49:37,195 INFO Request ID is a0fee542-b765-4f10-a3d6-b3165e941461
+2026-09-27 22:49:39,004 INFO status has been updated to accepted
+2026-09-27 22:49:54,827 INFO status has been updated to running
+2026-09-27 22:54:06,713 INFO status has been updated to successful
+adef144a5f85ad2c91713c41e7a6e7b2.zip:   0%|          | 0.00/315k [00:00<?, ?B/s]adef144a5f85ad2c91713c41e7a6e7b2.zip: 100%|██████████| 315k/315k [00:00<00:00, 719kB/s]                                                                                       descargando era5_habana_201703.nc
+2026-09-27 22:54:07,930 INFO Request ID is 37f3ed95-1aa1-4696-bba1-77778dc155ec
+2026-09-27 22:54:08,004 INFO status has been updated to accepted
+2026-09-27 22:56:04,112 INFO status has been updated to running
+2026-09-27 23:02:34,571 INFO status has been updated to successful
+a438c6e382dcabea4e9a0d6a95130256.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]a438c6e382dcabea4e9a0d6a95130256.zip: 100%|██████████| 331k/331k [00:00<00:00, 785kB/s]                                                                                       descargando era5_habana_201704.nc
+2026-09-27 23:02:36,636 INFO Request ID is 22f60dd6-4523-4d72-a0eb-bbe17409e201
+2026-09-27 23:02:37,225 INFO status has been updated to accepted
+2026-09-27 23:02:58,643 INFO status has been updated to running
+2026-09-27 23:08:57,140 INFO status has been updated to successful
+a810716df81381e2a210d66f2e45e576.zip:   0%|          | 0.00/329k [00:00<?, ?B/s]a810716df81381e2a210d66f2e45e576.zip: 100%|██████████| 329k/329k [00:00<00:00, 1.13MB/s]                                                                                        descargando era5_habana_201705.nc
+2026-09-27 23:08:59,439 INFO Request ID is 1c93b998-6477-487f-aafb-4426435389f0
+2026-09-27 23:08:59,513 INFO status has been updated to accepted
+2026-09-27 23:09:21,480 INFO status has been updated to running
+2026-09-27 23:15:20,049 INFO status has been updated to successful
+864d212bf90ee02c940f4cad99f94e49.zip:   0%|          | 0.00/333k [00:00<?, ?B/s]864d212bf90ee02c940f4cad99f94e49.zip: 100%|██████████| 333k/333k [00:00<00:00, 1.07MB/s]                                                                                        descargando era5_habana_201706.nc
+2026-09-27 23:15:23,712 INFO Request ID is c73b2994-7600-4a4b-8c2f-89e4dd4fc24d
+2026-09-27 23:15:23,788 INFO status has been updated to accepted
+2026-09-27 23:15:37,388 INFO status has been updated to running
+2026-09-27 23:23:47,958 INFO status has been updated to successful
+24441e43f371ea8223a9e77c3ce81569.zip:   0%|          | 0.00/330k [00:00<?, ?B/s]24441e43f371ea8223a9e77c3ce81569.zip: 100%|██████████| 330k/330k [00:00<00:00, 1.12MB/s]                                                                                        descargando era5_habana_201707.nc
+2026-09-27 23:23:49,137 INFO Request ID is 3a8df13d-7584-41d9-be13-f0c804521fef
+2026-09-27 23:23:49,194 INFO status has been updated to accepted
+2026-09-27 23:24:13,424 INFO status has been updated to running
+2026-09-27 23:30:11,697 INFO status has been updated to successful
+a4dbc1f407030e9ea9d67fa55ea4fbcb.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]a4dbc1f407030e9ea9d67fa55ea4fbcb.zip: 100%|██████████| 334k/334k [00:00<00:00, 1.08MB/s]                                                                                        descargando era5_habana_201708.nc
+2026-09-27 23:30:12,878 INFO Request ID is fc48c900-e531-478a-811f-8cefd289b9dd
+2026-09-27 23:30:13,002 INFO status has been updated to accepted
+2026-09-27 23:30:36,899 INFO status has been updated to running
+2026-09-27 23:34:36,491 INFO status has been updated to successful
+80b8d1cba1e888d2096993d49706b98.zip:   0%|          | 0.00/333k [00:00<?, ?B/s]80b8d1cba1e888d2096993d49706b98.zip: 100%|██████████| 333k/333k [00:00<00:00, 1.19MB/s]                                                                                       descargando era5_habana_201709.nc
+2026-09-27 23:34:37,370 INFO Request ID is 5644f1ec-608a-4627-a154-12da1acfe9aa
+2026-09-27 23:34:37,426 INFO status has been updated to accepted
+2026-09-27 23:34:54,296 INFO status has been updated to running
+2026-09-27 23:41:01,175 INFO status has been updated to successful
+57484e2c8bfbfdde00a4b7558668098f.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]57484e2c8bfbfdde00a4b7558668098f.zip: 100%|██████████| 331k/331k [00:00<00:00, 1.11MB/s]                                                                                        descargando era5_habana_201710.nc
+2026-09-27 23:41:02,234 INFO Request ID is b2c1771e-4b4b-439b-b0ca-8285c26897b1
+2026-09-27 23:41:02,304 INFO status has been updated to accepted
+2026-09-27 23:42:18,025 INFO status has been updated to running
+2026-09-27 23:49:21,945 INFO status has been updated to successful
+da34c0403ce05e66a13b10c504c4c138.zip:   0%|          | 0.00/337k [00:00<?, ?B/s]da34c0403ce05e66a13b10c504c4c138.zip: 100%|██████████| 337k/337k [00:00<00:00, 1.06MB/s]                                                                                        descargando era5_habana_201711.nc
+2026-09-27 23:49:24,506 INFO Request ID is f480aa54-0f05-4b4d-bb44-83547b1041fe
+2026-09-27 23:49:24,562 INFO status has been updated to accepted
+2026-09-27 23:49:38,113 INFO status has been updated to running
+2026-09-27 23:55:44,272 INFO status has been updated to successful
+52d1a1bcfaaf0a7895a74ac7405243f0.zip:   0%|          | 0.00/328k [00:00<?, ?B/s]52d1a1bcfaaf0a7895a74ac7405243f0.zip: 100%|██████████| 328k/328k [00:00<00:00, 1.05MB/s]                                                                                        descargando era5_habana_201712.nc
+Recovering from HTTP error [502 Bad Gateway], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-27 23:57:48,600 INFO Request ID is 1cc286c6-4b6b-4f97-a78f-140617abb44f
+2026-09-27 23:57:50,184 INFO status has been updated to accepted
+2026-09-27 23:58:46,252 INFO status has been updated to running
+2026-09-28 00:04:17,570 INFO status has been updated to successful
+1f109f77adc9e31f85d9581dcd0c3972.zip:   0%|          | 0.00/329k [00:00<?, ?B/s]1f109f77adc9e31f85d9581dcd0c3972.zip: 100%|██████████| 329k/329k [00:00<00:00, 1.13MB/s]                                                                                        descargando era5_habana_201801.nc
+2026-09-28 00:04:18,624 INFO Request ID is 3fc28123-03a1-4ff9-b360-66bd616d1d15
+2026-09-28 00:04:18,688 INFO status has been updated to accepted
+2026-09-28 00:05:08,819 INFO status has been updated to running
+2026-09-28 00:10:38,588 INFO status has been updated to successful
+7fa2c092212ff217ccbe605d9ace1cb1.zip:   0%|          | 0.00/335k [00:00<?, ?B/s]7fa2c092212ff217ccbe605d9ace1cb1.zip: 100%|██████████| 335k/335k [00:00<00:00, 603kB/s]                                                                                       descargando era5_habana_201802.nc
+2026-09-28 00:10:43,113 INFO Request ID is f3a69c1b-2eb9-4cdc-a0d2-1a3f6299ae4c
+2026-09-28 00:10:46,822 INFO status has been updated to accepted
+2026-09-28 00:10:55,742 INFO status has been updated to running
+Recovering from connection error [('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-28 02:13:28,564 INFO status has been updated to successful
+f51bbf6ddc2493264c8009eda0f69ebe.zip:   0%|          | 0.00/314k [00:00<?, ?B/s]f51bbf6ddc2493264c8009eda0f69ebe.zip: 100%|██████████| 314k/314k [00:00<00:00, 438kB/s]                                                                                       descargando era5_habana_201803.nc
+2026-09-28 02:13:30,779 INFO Request ID is 7ad99fd9-3365-4667-a58b-fc992fcab8dc
+2026-09-28 02:13:30,946 INFO status has been updated to accepted
+Recovering from connection error [('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-28 05:07:29,729 INFO status has been updated to successful
+2d69b90b4c471a6c965468a8e0b8fa7e.zip:   0%|          | 0.00/329k [00:00<?, ?B/s]2d69b90b4c471a6c965468a8e0b8fa7e.zip: 100%|██████████| 329k/329k [00:00<00:00, 389kB/s]                                                                                       descargando era5_habana_201804.nc
+Recovering from HTTP error [502 Bad Gateway], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-28 06:13:15,460 INFO Request ID is b291dc48-9d6a-4e54-841c-bd716ae205da
+2026-09-28 06:13:15,544 INFO status has been updated to accepted
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Read timed out. (read timeout=60)], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-28 09:05:59,139 INFO status has been updated to successful
+d618752e88195919d4802a47b3f08767.zip:   0%|          | 0.00/327k [00:00<?, ?B/s]d618752e88195919d4802a47b3f08767.zip: 100%|██████████| 327k/327k [00:00<00:00, 792kB/s]                                                                                       descargando era5_habana_201805.nc
+2026-09-28 09:06:01,509 INFO Request ID is c67e47e2-5812-4576-b9cd-d60269bee4e8
+2026-09-28 09:06:01,678 INFO status has been updated to accepted
+2026-09-28 09:06:23,362 INFO status has been updated to running
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Read timed out. (read timeout=60)], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-28 09:29:17,615 INFO status has been updated to successful
+9ece1b006712b117d3b5790822fd7907.zip:   0%|          | 0.00/340k [00:00<?, ?B/s]9ece1b006712b117d3b5790822fd7907.zip: 100%|██████████| 340k/340k [00:00<00:00, 613kB/s]                                                                                       descargando era5_habana_201806.nc
+2026-09-28 09:29:19,226 INFO Request ID is 38d997b8-77af-4818-a213-421a8a24494d
+2026-09-28 09:29:19,292 INFO status has been updated to accepted
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Read timed out. (read timeout=60)], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-28 10:19:31,071 INFO status has been updated to successful
+e928851e1f465db5328a23578e3fe321.zip:   0%|          | 0.00/327k [00:00<?, ?B/s]e928851e1f465db5328a23578e3fe321.zip: 100%|██████████| 327k/327k [00:04<00:00, 73.8kB/s]                                                                                        descargando era5_habana_201807.nc
+2026-09-28 10:19:38,510 INFO Request ID is 66e065d5-e588-4b69-aa83-65b70067f53f
+2026-09-28 10:19:38,624 INFO status has been updated to accepted
+2026-09-28 10:20:02,631 INFO status has been updated to running
+2026-09-28 10:24:20,813 INFO status has been updated to successful
+d578daa767f691f12bed094adffddd2e.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]d578daa767f691f12bed094adffddd2e.zip: 100%|██████████| 334k/334k [00:00<00:00, 1.15MB/s]                                                                                        descargando era5_habana_201808.nc
+2026-09-28 10:24:25,078 INFO Request ID is d50e2bba-2eb1-4e10-8ccc-cc17f40cce25
+2026-09-28 10:24:25,168 INFO status has been updated to accepted
+2026-09-28 10:25:43,185 INFO status has been updated to running
+Recovering from connection error [('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-28 10:50:29,383 INFO status has been updated to successful
+1dec995380cec99b009fb1533e782ead.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]1dec995380cec99b009fb1533e782ead.zip: 100%|██████████| 334k/334k [00:01<00:00, 216kB/s]                                                                                       descargando era5_habana_201809.nc
+2026-09-28 10:50:31,904 INFO Request ID is 1f3cb135-071c-4cae-a942-ed2b9405d2a8
+2026-09-28 10:50:32,072 INFO status has been updated to accepted
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Read timed out. (read timeout=60)], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-28 12:26:03,208 INFO status has been updated to successful
+9238e3b234bd2cefc500296f69709c50.zip:   0%|          | 0.00/330k [00:00<?, ?B/s]9238e3b234bd2cefc500296f69709c50.zip: 100%|██████████| 330k/330k [00:00<00:00, 719kB/s]                                                                                       descargando era5_habana_201810.nc
+2026-09-28 12:26:06,496 INFO Request ID is 061055ba-9e2e-4513-b337-698ea8e3c330
+2026-09-28 12:26:07,484 INFO status has been updated to accepted
+2026-09-28 12:36:30,169 INFO status has been updated to running
+2026-09-28 12:48:32,726 INFO status has been updated to successful
+54d5167f02f4c7521fc02cc0715aac30.zip:   0%|          | 0.00/333k [00:00<?, ?B/s]54d5167f02f4c7521fc02cc0715aac30.zip: 100%|██████████| 333k/333k [00:00<00:00, 1.14MB/s]                                                                                        descargando era5_habana_201811.nc
+2026-09-28 12:48:38,370 INFO Request ID is a891e9bc-c367-4acd-b7ac-0d39913a742a
+2026-09-28 12:48:38,873 INFO status has been updated to accepted
+2026-09-28 12:57:00,028 INFO status has been updated to running
+2026-09-28 13:01:01,929 INFO status has been updated to successful
+8e571f09d6f0c38390dc834ab0e904ec.zip:   0%|          | 0.00/327k [00:00<?, ?B/s]8e571f09d6f0c38390dc834ab0e904ec.zip: 100%|██████████| 327k/327k [00:00<00:00, 1.07MB/s]                                                                                        descargando era5_habana_201812.nc
+2026-09-28 13:01:03,107 INFO Request ID is 25518bdc-7d9c-44ff-b973-1e03a677d24f
+2026-09-28 13:01:03,174 INFO status has been updated to accepted
+2026-09-28 13:05:22,914 INFO status has been updated to running
+2026-09-28 13:09:23,724 INFO status has been updated to successful
+bc1037bd8b5d2de72b8ac83a21b61b08.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]bc1037bd8b5d2de72b8ac83a21b61b08.zip: 100%|██████████| 331k/331k [00:00<00:00, 964kB/s]                                                                                       descargando era5_habana_201901.nc
+2026-09-28 13:09:25,694 INFO Request ID is 8fedfb53-5965-4e47-a884-b87299a60c73
+2026-09-28 13:09:25,774 INFO status has been updated to accepted
+2026-09-28 13:09:47,524 INFO status has been updated to running
+2026-09-28 13:17:46,754 INFO status has been updated to successful
+5049ef3620ed7f5bb68fcd1e7a95bdbf.zip:   0%|          | 0.00/333k [00:00<?, ?B/s]5049ef3620ed7f5bb68fcd1e7a95bdbf.zip: 100%|██████████| 333k/333k [00:00<00:00, 967kB/s]                                                                                       descargando era5_habana_201902.nc
+2026-09-28 13:17:50,302 INFO Request ID is ccea8235-f9be-4360-b720-3bed184d076f
+2026-09-28 13:17:50,395 INFO status has been updated to accepted
+2026-09-28 13:24:16,711 INFO status has been updated to running
+2026-09-28 13:26:17,207 INFO status has been updated to successful
+181d29c53ec2bfaf9b9d4aaf543a8284.zip:   0%|          | 0.00/315k [00:00<?, ?B/s]181d29c53ec2bfaf9b9d4aaf543a8284.zip: 100%|██████████| 315k/315k [00:01<00:00, 235kB/s]                                                                                       descargando era5_habana_201903.nc
+2026-09-28 13:26:20,090 INFO Request ID is cccc0fcd-0d96-453d-a406-371271d5d5af
+2026-09-28 13:26:20,175 INFO status has been updated to accepted
+2026-09-28 13:38:44,965 INFO status has been updated to running
+2026-09-28 13:42:46,116 INFO status has been updated to successful
+46764727b3586b6bdc70deb7a78a828c.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]46764727b3586b6bdc70deb7a78a828c.zip: 100%|██████████| 331k/331k [00:00<00:00, 1.10MB/s]                                                                                        descargando era5_habana_201904.nc
+2026-09-28 13:42:48,155 INFO Request ID is 58836c85-0eb0-4a58-aba1-571429ea0b7f
+2026-09-28 13:42:48,447 INFO status has been updated to accepted
+2026-09-28 13:43:02,610 INFO status has been updated to running
+2026-09-28 13:47:09,935 INFO status has been updated to successful
+57ec733e439f738528972e4528de864d.zip:   0%|          | 0.00/326k [00:00<?, ?B/s]57ec733e439f738528972e4528de864d.zip: 100%|██████████| 326k/326k [00:00<00:00, 1.12MB/s]                                                                                        descargando era5_habana_201905.nc
+2026-09-28 13:47:10,868 INFO Request ID is 1d241be0-149e-472b-93aa-07c3e6096ec1
+2026-09-28 13:47:10,942 INFO status has been updated to accepted
+2026-09-28 13:55:37,418 INFO status has been updated to running
+2026-09-28 13:59:38,579 INFO status has been updated to successful
+6fb8e781b3dedee0b01f35bc8a150beb.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]6fb8e781b3dedee0b01f35bc8a150beb.zip: 100%|██████████| 334k/334k [00:00<00:00, 429kB/s]                                                                                       descargando era5_habana_201906.nc
+2026-09-28 13:59:44,340 INFO Request ID is 7fcfd74f-0f8e-46e5-976a-b3ce1bee75aa
+2026-09-28 13:59:44,394 INFO status has been updated to accepted
+2026-09-28 14:00:06,140 INFO status has been updated to running
+2026-09-28 14:04:11,344 INFO status has been updated to successful
+3e2b816b0119dfd023c818c68dad502d.zip:   0%|          | 0.00/329k [00:00<?, ?B/s]3e2b816b0119dfd023c818c68dad502d.zip: 100%|██████████| 329k/329k [00:01<00:00, 310kB/s]                                                                                       descargando era5_habana_201907.nc
+2026-09-28 14:04:18,653 INFO Request ID is 48876338-6599-4ac2-a619-67801c058d3a
+2026-09-28 14:04:19,067 INFO status has been updated to accepted
+2026-09-28 14:06:23,387 INFO status has been updated to running
+2026-09-28 14:10:49,239 INFO status has been updated to accepted
+2026-09-28 14:12:50,787 INFO status has been updated to running
+2026-09-28 14:18:52,632 INFO status has been updated to successful
+d29f9c0051ca7ad8e416c6e04cdde53f.zip:   0%|          | 0.00/336k [00:00<?, ?B/s]d29f9c0051ca7ad8e416c6e04cdde53f.zip: 100%|██████████| 336k/336k [00:00<00:00, 455kB/s]                                                                                       descargando era5_habana_201908.nc
+2026-09-28 14:18:54,636 INFO Request ID is 774454d1-bf59-46e3-82c8-223c0d9c356a
+2026-09-28 14:18:54,749 INFO status has been updated to accepted
+2026-09-28 14:19:28,265 INFO status has been updated to running
+2026-09-28 14:25:21,709 INFO status has been updated to successful
+127879fdebfdf117cf66059bc9d04e13.zip:   0%|          | 0.00/336k [00:00<?, ?B/s]127879fdebfdf117cf66059bc9d04e13.zip: 100%|██████████| 336k/336k [00:00<00:00, 476kB/s]                                                                                       descargando era5_habana_201909.nc
+2026-09-28 14:25:23,765 INFO Request ID is 8af50eed-5c98-4d3e-8b14-2043cf3f0b6a
+2026-09-28 14:25:24,760 INFO status has been updated to accepted
+2026-09-28 14:25:59,385 INFO status has been updated to running
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Read timed out. (read timeout=60)], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-28 15:09:19,521 INFO status has been updated to successful
+4bfca4053692175086060ef7e8cc8f6e.zip:   0%|          | 0.00/330k [00:00<?, ?B/s]4bfca4053692175086060ef7e8cc8f6e.zip: 100%|██████████| 330k/330k [00:00<00:00, 841kB/s]                                                                                       descargando era5_habana_201910.nc
+2026-09-28 15:09:21,614 INFO Request ID is a06ec190-8c22-47fe-b17c-45ade664a210
+2026-09-28 15:09:21,688 INFO status has been updated to accepted
+2026-09-28 15:15:43,185 INFO status has been updated to running
+2026-09-28 15:19:44,325 INFO status has been updated to successful
+ee02b90ce2fd6521952682bb3e540ef5.zip:   0%|          | 0.00/335k [00:00<?, ?B/s]ee02b90ce2fd6521952682bb3e540ef5.zip: 100%|██████████| 335k/335k [00:00<00:00, 504kB/s]                                                                                       descargando era5_habana_201911.nc
+2026-09-28 15:19:46,169 INFO Request ID is c7bcb597-63ef-422b-965c-1179df23316d
+2026-09-28 15:19:46,343 INFO status has been updated to accepted
+2026-09-28 16:00:23,548 INFO status has been updated to running
+2026-09-28 16:06:24,697 INFO status has been updated to successful
+ce497ef9ffa7579a4e21f8f5db145d46.zip:   0%|          | 0.00/326k [00:00<?, ?B/s]ce497ef9ffa7579a4e21f8f5db145d46.zip: 100%|██████████| 326k/326k [00:00<00:00, 898kB/s]                                                                                       descargando era5_habana_201912.nc
+2026-09-28 16:06:27,687 INFO Request ID is 259ccca1-d4b7-4828-b270-cdf5dd64b795
+2026-09-28 16:06:27,803 INFO status has been updated to accepted
+2026-09-28 16:26:56,213 INFO status has been updated to running
+2026-09-28 16:34:57,333 INFO status has been updated to successful
+73ffbd31d1d99c2c25ed8349395bcdad.zip:   0%|          | 0.00/333k [00:00<?, ?B/s]73ffbd31d1d99c2c25ed8349395bcdad.zip: 100%|██████████| 333k/333k [00:00<00:00, 1.09MB/s]                                                                                        descargando era5_habana_202001.nc
+2026-09-28 16:34:58,297 INFO Request ID is 83c2dd78-25e1-4175-8120-de5ebd0c0c8b
+2026-09-28 16:34:58,356 INFO status has been updated to accepted
+2026-09-28 16:45:20,297 INFO status has been updated to running
+2026-09-28 16:49:21,037 INFO status has been updated to successful
+4816a046500f3f02ce7df4d8664ef956.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]4816a046500f3f02ce7df4d8664ef956.zip: 100%|██████████| 332k/332k [00:00<00:00, 1.04MB/s]                                                                                        descargando era5_habana_202002.nc
+2026-09-28 16:49:22,157 INFO Request ID is 96dfc976-07b2-481b-a6ec-1a8938f33bef
+2026-09-28 16:49:22,233 INFO status has been updated to accepted
+2026-09-28 16:52:15,037 INFO status has been updated to running
+2026-09-28 16:57:44,438 INFO status has been updated to successful
+78ab63fba93c9912f78edc46e6f7c34d.zip:   0%|          | 0.00/322k [00:00<?, ?B/s]78ab63fba93c9912f78edc46e6f7c34d.zip: 100%|██████████| 322k/322k [00:00<00:00, 983kB/s]                                                                                       descargando era5_habana_202003.nc
+2026-09-28 16:57:45,369 INFO Request ID is cc09f285-9128-4f7b-ade2-a5ce7e566b86
+2026-09-28 16:57:47,275 INFO status has been updated to accepted
+Recovering from connection error [('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))], attempt 1 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/cc09f285-9128-4f7b-ade2-a5ce7e566b86?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 2 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/cc09f285-9128-4f7b-ade2-a5ce7e566b86?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 3 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/cc09f285-9128-4f7b-ade2-a5ce7e566b86?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 4 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/cc09f285-9128-4f7b-ade2-a5ce7e566b86?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 5 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/cc09f285-9128-4f7b-ade2-a5ce7e566b86?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 1 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/cc09f285-9128-4f7b-ade2-a5ce7e566b86?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 2 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/cc09f285-9128-4f7b-ade2-a5ce7e566b86?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 3 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/cc09f285-9128-4f7b-ade2-a5ce7e566b86?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 4 of 500
+Retrying in 120 seconds
+2026-09-28 17:28:40,122 INFO status has been updated to successful
+dff084477fd1f635261bcb72c35bc2d4.zip:   0%|          | 0.00/329k [00:00<?, ?B/s]dff084477fd1f635261bcb72c35bc2d4.zip: 100%|██████████| 329k/329k [00:00<00:00, 1.22MB/s]                                                                                        descargando era5_habana_202004.nc
+2026-09-28 17:28:41,092 INFO Request ID is ebcd2fac-0ab8-4eaf-9a03-c9bd19b012b1
+2026-09-28 17:28:41,148 INFO status has been updated to accepted
+Recovering from connection error [('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))], attempt 1 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/ebcd2fac-0ab8-4eaf-9a03-c9bd19b012b1?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 1 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/ebcd2fac-0ab8-4eaf-9a03-c9bd19b012b1?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 2 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/ebcd2fac-0ab8-4eaf-9a03-c9bd19b012b1?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 3 of 500
+Retrying in 120 seconds
+2026-09-28 17:51:35,303 INFO status has been updated to running
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/ebcd2fac-0ab8-4eaf-9a03-c9bd19b012b1?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 1 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/ebcd2fac-0ab8-4eaf-9a03-c9bd19b012b1?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 2 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/ebcd2fac-0ab8-4eaf-9a03-c9bd19b012b1?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 3 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/ebcd2fac-0ab8-4eaf-9a03-c9bd19b012b1?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 4 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/ebcd2fac-0ab8-4eaf-9a03-c9bd19b012b1?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 5 of 500
+Retrying in 120 seconds
+2026-09-28 18:03:36,532 INFO status has been updated to successful
+4b9cb13d10ea0d003d4df650ad2957b9.zip:   0%|          | 0.00/326k [00:00<?, ?B/s]4b9cb13d10ea0d003d4df650ad2957b9.zip: 100%|██████████| 326k/326k [00:00<00:00, 1.05MB/s]                                                                                        descargando era5_habana_202005.nc
+2026-09-28 18:03:37,537 INFO Request ID is abe64286-2123-48a7-b4df-19f32622268c
+2026-09-28 18:03:37,595 INFO status has been updated to accepted
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Read timed out. (read timeout=60)], attempt 1 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/abe64286-2123-48a7-b4df-19f32622268c?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 2 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/abe64286-2123-48a7-b4df-19f32622268c?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 3 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/abe64286-2123-48a7-b4df-19f32622268c?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 4 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/abe64286-2123-48a7-b4df-19f32622268c?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 5 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/abe64286-2123-48a7-b4df-19f32622268c?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 6 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/abe64286-2123-48a7-b4df-19f32622268c?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 7 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Max retries exceeded with url: /api/retrieve/v1/jobs/abe64286-2123-48a7-b4df-19f32622268c?log=True&request=True (Caused by NameResolutionError("HTTPSConnection(host='cds.climate.copernicus.eu', port=443): Failed to resolve 'cds.climate.copernicus.eu' ([Errno 8] nodename nor servname provided, or not known)"))], attempt 8 of 500
+Retrying in 120 seconds
+2026-09-28 18:35:02,158 INFO status has been updated to running
+2026-09-28 18:39:03,190 INFO status has been updated to successful
+f70c737a3a56761f58d854366bfdb0e0.zip:   0%|          | 0.00/336k [00:00<?, ?B/s]f70c737a3a56761f58d854366bfdb0e0.zip: 100%|██████████| 336k/336k [00:00<00:00, 750kB/s]                                                                                       descargando era5_habana_202006.nc
+2026-09-28 18:39:04,981 INFO Request ID is ffb239aa-0110-4002-a8ec-cfb1c909ccd4
+2026-09-28 18:39:05,316 INFO status has been updated to accepted
+Recovering from connection error [('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-28 19:46:12,556 INFO status has been updated to successful
+19b8833008f845123a781310f6cd1324.zip:   0%|          | 0.00/329k [00:00<?, ?B/s]19b8833008f845123a781310f6cd1324.zip: 100%|██████████| 329k/329k [00:00<00:00, 583kB/s]                                                                                       descargando era5_habana_202007.nc
+2026-09-28 19:46:15,004 INFO Request ID is 954920e9-9926-468c-b328-fb945b07c21a
+2026-09-28 19:46:15,097 INFO status has been updated to accepted
+2026-09-28 20:06:41,605 INFO status has been updated to running
+2026-09-28 20:08:42,044 INFO status has been updated to accepted
+2026-09-28 20:18:43,985 INFO status has been updated to running
+2026-09-28 20:22:46,432 INFO status has been updated to successful
+beb11907428c4deb36a9378b08d728ca.zip:   0%|          | 0.00/335k [00:00<?, ?B/s]beb11907428c4deb36a9378b08d728ca.zip: 100%|██████████| 335k/335k [00:00<00:00, 471kB/s]                                                                                       descargando era5_habana_202008.nc
+2026-09-28 20:22:48,127 INFO Request ID is 37a86ee1-d683-4434-920b-62d34bdc3bdc
+2026-09-28 20:22:49,335 INFO status has been updated to accepted
+2026-09-28 20:51:15,530 INFO status has been updated to running
+2026-09-28 20:55:16,506 INFO status has been updated to successful
+5c930bbaac34e70eb957d4dd814e5f68.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]5c930bbaac34e70eb957d4dd814e5f68.zip: 100%|██████████| 334k/334k [00:00<00:00, 671kB/s]                                                                                       descargando era5_habana_202009.nc
+2026-09-28 20:55:18,422 INFO Request ID is c4fb45ea-3cc1-488d-ac30-0748bae04e84
+2026-09-28 20:55:21,697 INFO status has been updated to accepted
+2026-09-28 21:33:53,618 INFO status has been updated to running
+2026-09-28 21:37:54,347 INFO status has been updated to successful
+1ca2e20be476a8c9a98556e07a4bc61b.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]1ca2e20be476a8c9a98556e07a4bc61b.zip: 100%|██████████| 331k/331k [00:00<00:00, 1.20MB/s]                                                                                        descargando era5_habana_202010.nc
+2026-09-28 21:37:55,534 INFO Request ID is bac0180c-99a1-4183-a17f-d12321ee015d
+2026-09-28 21:37:55,950 INFO status has been updated to accepted
+2026-09-28 21:56:27,467 INFO status has been updated to running
+2026-09-28 22:04:29,721 INFO status has been updated to successful
+110cdfb14fb2c589a63fc6d0859b88aa.zip:   0%|          | 0.00/337k [00:00<?, ?B/s]110cdfb14fb2c589a63fc6d0859b88aa.zip: 100%|██████████| 337k/337k [00:00<00:00, 1.12MB/s]                                                                                        descargando era5_habana_202011.nc
+2026-09-28 22:04:30,729 INFO Request ID is 961988ce-34ac-456d-b085-509820cfeabb
+2026-09-28 22:04:30,791 INFO status has been updated to accepted
+2026-09-28 22:20:57,508 INFO status has been updated to running
+2026-09-28 22:30:59,498 INFO status has been updated to successful
+6a41a83670853cc3f811692f0a1f755f.zip:   0%|          | 0.00/328k [00:00<?, ?B/s]6a41a83670853cc3f811692f0a1f755f.zip: 100%|██████████| 328k/328k [00:01<00:00, 270kB/s]                                                                                       descargando era5_habana_202012.nc
+2026-09-28 22:31:02,454 INFO Request ID is 466f6e80-fcde-4b57-94e8-467ec0a08bfb
+2026-09-28 22:31:02,558 INFO status has been updated to accepted
+2026-09-28 22:39:25,290 INFO status has been updated to running
+2026-09-28 22:43:26,360 INFO status has been updated to successful
+9be1ce0e3904b24d244af1254472c433.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]9be1ce0e3904b24d244af1254472c433.zip: 100%|██████████| 332k/332k [00:00<00:00, 1.11MB/s]                                                                                        descargando era5_habana_202101.nc
+2026-09-28 22:43:27,408 INFO Request ID is ae35ab86-1313-44b5-abfd-0a6f8c525dbe
+2026-09-28 22:43:27,473 INFO status has been updated to accepted
+2026-09-28 22:45:23,572 INFO status has been updated to running
+2026-09-28 22:51:49,096 INFO status has been updated to successful
+f6589fce3af292a614c35f83f6208384.zip:   0%|          | 0.00/329k [00:00<?, ?B/s]f6589fce3af292a614c35f83f6208384.zip: 100%|██████████| 329k/329k [00:00<00:00, 1.14MB/s]                                                                                        descargando era5_habana_202102.nc
+2026-09-28 22:51:50,086 INFO Request ID is 5d7ddbfb-817c-4793-8eb5-fa0c93683b12
+2026-09-28 22:51:50,152 INFO status has been updated to accepted
+2026-09-28 22:54:46,227 INFO status has been updated to running
+2026-09-28 23:00:13,549 INFO status has been updated to successful
+8169a3c8e5dd4531e6158c541d58527a.zip:   0%|          | 0.00/316k [00:00<?, ?B/s]8169a3c8e5dd4531e6158c541d58527a.zip: 100%|██████████| 316k/316k [00:00<00:00, 1.11MB/s]                                                                                        descargando era5_habana_202103.nc
+2026-09-28 23:00:14,697 INFO Request ID is 45345392-d400-4ba4-9c29-3fcfe1d744f4
+2026-09-28 23:00:17,609 INFO status has been updated to accepted
+2026-09-28 23:08:41,866 INFO status has been updated to running
+2026-09-28 23:16:43,397 INFO status has been updated to successful
+85830907124a28b5f880d68f39323d6e.zip:   0%|          | 0.00/330k [00:00<?, ?B/s]85830907124a28b5f880d68f39323d6e.zip: 100%|██████████| 330k/330k [00:00<00:00, 1.19MB/s]                                                                                        descargando era5_habana_202104.nc
+2026-09-28 23:16:44,572 INFO Request ID is 5aff47f1-63d9-47f3-ba4e-a0730abc2c8c
+2026-09-28 23:16:45,570 INFO status has been updated to accepted
+2026-09-28 23:17:07,593 INFO status has been updated to running
+2026-09-28 23:27:07,655 INFO status has been updated to successful
+a57a3ddf0a3b8418d7a1c06d47802f75.zip:   0%|          | 0.00/327k [00:00<?, ?B/s]a57a3ddf0a3b8418d7a1c06d47802f75.zip: 100%|██████████| 327k/327k [00:00<00:00, 955kB/s]                                                                                       descargando era5_habana_202105.nc
+2026-09-28 23:27:08,677 INFO Request ID is a8b6a4c6-2fca-4265-94be-351e9eb40812
+2026-09-28 23:27:08,753 INFO status has been updated to accepted
+2026-09-28 23:27:41,512 INFO status has been updated to running
+2026-09-28 23:33:31,005 INFO status has been updated to successful
+e2085d79498bf45e488d3c437fa627be.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]e2085d79498bf45e488d3c437fa627be.zip: 100%|██████████| 332k/332k [00:00<00:00, 1.11MB/s]                                                                                        descargando era5_habana_202106.nc
+2026-09-28 23:33:32,446 INFO Request ID is 421a6040-9c66-4180-8530-f0dc74a21a96
+2026-09-28 23:33:32,550 INFO status has been updated to accepted
+2026-09-28 23:37:53,694 INFO status has been updated to running
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Read timed out. (read timeout=60)], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-29 00:43:07,586 INFO status has been updated to successful
+b26ae7eee424bf0cd1fdfabaf055dd18.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]b26ae7eee424bf0cd1fdfabaf055dd18.zip: 100%|██████████| 331k/331k [00:00<00:00, 812kB/s]                                                                                       descargando era5_habana_202107.nc
+2026-09-29 00:43:09,835 INFO Request ID is 6fd0af76-0f4c-44ef-9b51-e1c106f40dd1
+2026-09-29 00:43:10,018 INFO status has been updated to accepted
+2026-09-29 00:43:43,060 INFO status has been updated to running
+2026-09-29 00:47:30,303 INFO status has been updated to successful
+669accb1fb8425291f35651ce235c3.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]669accb1fb8425291f35651ce235c3.zip: 100%|██████████| 334k/334k [00:00<00:00, 1.02MB/s]                                                                                      descargando era5_habana_202108.nc
+2026-09-29 00:47:33,802 INFO Request ID is 03b4f832-ea08-4754-8dbd-af9a4bd81e91
+2026-09-29 00:47:33,859 INFO status has been updated to accepted
+2026-09-29 00:48:06,878 INFO status has been updated to running
+2026-09-29 00:51:53,575 INFO status has been updated to successful
+ce4fc91b2e4b789207face7b2ff8b82c.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]ce4fc91b2e4b789207face7b2ff8b82c.zip: 100%|██████████| 334k/334k [00:00<00:00, 460kB/s]                                                                                       descargando era5_habana_202109.nc
+2026-09-29 00:51:56,267 INFO Request ID is 9da7a65d-f5b3-4a5e-940e-88e670e9fcf7
+2026-09-29 00:51:56,401 INFO status has been updated to accepted
+2026-09-29 00:52:10,147 INFO status has been updated to running
+2026-09-29 00:58:21,292 INFO status has been updated to successful
+7e5e6c9414a4a221f5a1c41fa6198c46.zip:   0%|          | 0.00/328k [00:00<?, ?B/s]7e5e6c9414a4a221f5a1c41fa6198c46.zip: 100%|██████████| 328k/328k [00:00<00:00, 336kB/s]                                                                                       descargando era5_habana_202110.nc
+2026-09-29 00:58:28,662 INFO Request ID is e4499a64-e5a6-4ca7-b90b-34a1ea53d5d7
+2026-09-29 00:58:28,761 INFO status has been updated to accepted
+2026-09-29 00:58:50,780 INFO status has been updated to running
+2026-09-29 01:02:51,320 INFO status has been updated to successful
+929badbc35e2321c2549890bac136baf.zip:   0%|          | 0.00/335k [00:00<?, ?B/s]929badbc35e2321c2549890bac136baf.zip: 100%|██████████| 335k/335k [00:00<00:00, 1.06MB/s]                                                                                        descargando era5_habana_202111.nc
+2026-09-29 01:02:52,270 INFO Request ID is 72b90d61-956e-4d98-ae8e-d4c1273c1c9b
+2026-09-29 01:02:52,327 INFO status has been updated to accepted
+2026-09-29 01:09:15,865 INFO status has been updated to running
+2026-09-29 01:15:18,357 INFO status has been updated to successful
+c01ead46dc53c50b5a8e7cedad29ff10.zip:   0%|          | 0.00/328k [00:00<?, ?B/s]c01ead46dc53c50b5a8e7cedad29ff10.zip: 100%|██████████| 328k/328k [00:00<00:00, 1.09MB/s]                                                                                        descargando era5_habana_202112.nc
+2026-09-29 01:15:20,796 INFO Request ID is 76c2c7be-c734-4000-8f26-8b4291cd0ede
+2026-09-29 01:15:20,941 INFO status has been updated to accepted
+2026-09-29 01:15:56,259 INFO status has been updated to running
+2026-09-29 01:19:43,609 INFO status has been updated to successful
+3fb023afeebc7048bc00f99460aa5120.zip:   0%|          | 0.00/330k [00:00<?, ?B/s]3fb023afeebc7048bc00f99460aa5120.zip: 100%|██████████| 330k/330k [00:00<00:00, 465kB/s]                                                                                       descargando era5_habana_202201.nc
+2026-09-29 01:19:47,723 INFO Request ID is 1077c6d2-e211-4727-86d3-bc824f3910ff
+2026-09-29 01:19:47,909 INFO status has been updated to accepted
+2026-09-29 01:20:10,580 INFO status has been updated to running
+2026-09-29 01:24:09,840 INFO status has been updated to successful
+2408b337ad47fdec5c1d54ccb82a1b14.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]2408b337ad47fdec5c1d54ccb82a1b14.zip: 100%|██████████| 332k/332k [00:00<00:00, 873kB/s]                                                                                       descargando era5_habana_202202.nc
+2026-09-29 01:24:11,085 INFO Request ID is ec33acfa-f9a7-41d0-9f05-fe3502459145
+2026-09-29 01:24:11,152 INFO status has been updated to accepted
+2026-09-29 01:24:33,782 INFO status has been updated to running
+2026-09-29 01:36:34,510 INFO status has been updated to successful
+b4536cac6e8fd5b38e740f8b12e0c4a1.zip:   0%|          | 0.00/316k [00:00<?, ?B/s]b4536cac6e8fd5b38e740f8b12e0c4a1.zip: 100%|██████████| 316k/316k [00:00<00:00, 902kB/s]                                                                                       descargando era5_habana_202203.nc
+2026-09-29 01:36:35,959 INFO Request ID is 51f29e16-e9b5-4139-b1eb-193f1218270e
+2026-09-29 01:36:36,267 INFO status has been updated to accepted
+2026-09-29 01:37:54,961 INFO status has been updated to running
+2026-09-29 01:42:58,857 INFO status has been updated to successful
+9db2c86bca95bcf44acf9a52278fa95c.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]9db2c86bca95bcf44acf9a52278fa95c.zip: 100%|██████████| 332k/332k [00:00<00:00, 720kB/s]                                                                                       descargando era5_habana_202204.nc
+2026-09-29 01:43:00,180 INFO Request ID is f621c874-0def-4f83-b13b-050c9eeb80b7
+2026-09-29 01:43:00,241 INFO status has been updated to accepted
+2026-09-29 01:43:24,691 INFO status has been updated to running
+2026-09-29 01:49:23,200 INFO status has been updated to successful
+8a8d3f412f2640b88c875cd1f789f39b.zip:   0%|          | 0.00/327k [00:00<?, ?B/s]8a8d3f412f2640b88c875cd1f789f39b.zip: 100%|██████████| 327k/327k [00:00<00:00, 541kB/s]                                                                                       descargando era5_habana_202205.nc
+2026-09-29 01:49:25,288 INFO Request ID is cf0ad50a-9e56-46c5-9c50-8dad352335cf
+2026-09-29 01:49:25,358 INFO status has been updated to accepted
+Recovering from connection error [('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-29 05:03:16,838 INFO status has been updated to successful
+14be0584d2cf9a9542fca265c8feae8.zip: 0.00B [00:00, ?B/s]14be0584d2cf9a9542fca265c8feae8.zip: 337kB [00:00, 641kB/s]                                                           descargando era5_habana_202206.nc
+Recovering from connection error [('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-29 06:02:34,209 INFO Request ID is 503f6ac8-7ce4-4007-8006-7d2b7fd52d34
+2026-09-29 06:02:34,998 INFO status has been updated to accepted
+2026-09-29 06:04:00,984 INFO status has been updated to running
+2026-09-29 06:10:30,650 INFO status has been updated to successful
+cdc1356f05cd6a69db0921cac3f03a9d.zip:   0%|          | 0.00/330k [00:00<?, ?B/s]cdc1356f05cd6a69db0921cac3f03a9d.zip: 100%|██████████| 330k/330k [00:01<00:00, 290kB/s]                                                                                       descargando era5_habana_202207.nc
+2026-09-29 06:10:34,109 INFO Request ID is ebda8b26-10c0-4c29-862b-6015c6b36015
+2026-09-29 06:10:34,260 INFO status has been updated to accepted
+2026-09-29 06:34:07,334 INFO status has been updated to running
+2026-09-29 08:02:28,099 INFO status has been updated to successful
+493fd5b445859076de67127eaf98ea0c.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]493fd5b445859076de67127eaf98ea0c.zip: 100%|██████████| 334k/334k [00:00<00:00, 939kB/s]                                                                                       descargando era5_habana_202208.nc
+2026-09-29 08:02:30,699 INFO Request ID is 40eddf9c-eed0-4a69-9598-166e989bb04f
+2026-09-29 08:02:30,782 INFO status has been updated to accepted
+2026-09-29 08:03:07,083 INFO status has been updated to running
+Recovering from connection error [('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-29 09:30:41,786 INFO status has been updated to successful
+e467ec30a1ba2abad35af38639c0d5ba.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]e467ec30a1ba2abad35af38639c0d5ba.zip: 100%|██████████| 334k/334k [00:00<00:00, 1.09MB/s]                                                                                        descargando era5_habana_202209.nc
+2026-09-29 09:30:43,476 INFO Request ID is 70c22ab5-9daa-4b9a-8294-d4eae70d1f67
+2026-09-29 09:30:43,602 INFO status has been updated to accepted
+2026-09-29 09:31:01,095 INFO status has been updated to running
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Read timed out. (read timeout=60)], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-29 10:18:19,848 INFO status has been updated to successful
+ac48c64fea5b7bdc7aac75cc1ec0a0d3.zip:   0%|          | 0.00/330k [00:00<?, ?B/s]ac48c64fea5b7bdc7aac75cc1ec0a0d3.zip: 100%|██████████| 330k/330k [00:00<00:00, 957kB/s]                                                                                       descargando era5_habana_202210.nc
+2026-09-29 10:18:21,067 INFO Request ID is f13dce66-d67c-4b94-885f-d2342e7b1a60
+2026-09-29 10:18:21,144 INFO status has been updated to accepted
+2026-09-29 10:54:54,351 INFO status has been updated to running
+2026-09-29 11:01:00,553 INFO status has been updated to successful
+1d28fa68b8e392cef3624acf5380e73a.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]1d28fa68b8e392cef3624acf5380e73a.zip: 100%|██████████| 331k/331k [00:00<00:00, 1.01MB/s]                                                                                        descargando era5_habana_202211.nc
+2026-09-29 11:01:08,463 INFO Request ID is 46813cc2-8867-4400-b0fb-fcad37ec7ede
+2026-09-29 11:01:08,612 INFO status has been updated to accepted
+2026-09-29 12:15:06,234 INFO status has been updated to running
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Read timed out. (read timeout=60)], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-29 12:33:24,537 INFO status has been updated to successful
+c892273930ea2cec507d293bd1258e1.zip:   0%|          | 0.00/327k [00:00<?, ?B/s]c892273930ea2cec507d293bd1258e1.zip: 100%|██████████| 327k/327k [00:00<00:00, 1.02MB/s]                                                                                       descargando era5_habana_202212.nc
+2026-09-29 12:33:25,628 INFO Request ID is 802363dd-aaf3-4ea9-b91c-b67ce85e4ea1
+2026-09-29 12:33:25,695 INFO status has been updated to accepted
+2026-09-29 13:01:52,121 INFO status has been updated to running
+2026-09-29 13:05:52,959 INFO status has been updated to successful
+44b1eb72f56445aa1fc3c4041a00639d.zip:   0%|          | 0.00/333k [00:00<?, ?B/s]44b1eb72f56445aa1fc3c4041a00639d.zip: 100%|██████████| 333k/333k [00:00<00:00, 1.13MB/s]                                                                                        descargando era5_habana_202301.nc
+2026-09-29 13:05:54,965 INFO Request ID is 3a44df69-2bde-4dec-963d-27e50903b0ed
+2026-09-29 13:05:55,042 INFO status has been updated to accepted
+2026-09-29 13:34:25,148 INFO status has been updated to running
+2026-09-29 13:38:25,832 INFO status has been updated to successful
+6de7fdfbc84aee67d8bd813323e3fa7b.zip:   0%|          | 0.00/329k [00:00<?, ?B/s]6de7fdfbc84aee67d8bd813323e3fa7b.zip: 100%|██████████| 329k/329k [00:00<00:00, 937kB/s]                                                                                       descargando era5_habana_202302.nc
+2026-09-29 13:38:26,840 INFO Request ID is e1d5a902-34fb-409b-a03a-40ca4d8e7364
+2026-09-29 13:38:26,917 INFO status has been updated to accepted
+2026-09-29 13:58:49,367 INFO status has been updated to running
+2026-09-29 14:06:52,891 INFO status has been updated to successful
+553a1b6612fbaae95e09157f4e6ca6db.zip:   0%|          | 0.00/314k [00:00<?, ?B/s]553a1b6612fbaae95e09157f4e6ca6db.zip: 100%|██████████| 314k/314k [00:00<00:00, 707kB/s]                                                                                       descargando era5_habana_202303.nc
+Recovering from HTTP error [502 Bad Gateway], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-29 14:08:59,239 INFO Request ID is 2a350339-fbe0-4017-b3da-5c65fb3ad413
+2026-09-29 14:08:59,358 INFO status has been updated to accepted
+2026-09-29 14:15:20,938 INFO status has been updated to running
+2026-09-29 14:19:22,832 INFO status has been updated to successful
+bc18f0bbf6d412f50e81b6fb0ecf4b6e.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]bc18f0bbf6d412f50e81b6fb0ecf4b6e.zip: 100%|██████████| 332k/332k [00:02<00:00, 141kB/s]                                                                                       descargando era5_habana_202304.nc
+2026-09-29 14:19:29,810 INFO Request ID is 9415002d-3330-4d2e-93c0-ac6195583554
+2026-09-29 14:19:30,260 INFO status has been updated to accepted
+2026-09-29 14:33:55,344 INFO status has been updated to running
+2026-09-29 14:37:56,245 INFO status has been updated to successful
+d55ee5fd8e1d9d4f77acebcf55d6bca8.zip:   0%|          | 0.00/327k [00:00<?, ?B/s]d55ee5fd8e1d9d4f77acebcf55d6bca8.zip: 100%|██████████| 327k/327k [00:00<00:00, 362kB/s]                                                                                       descargando era5_habana_202305.nc
+2026-09-29 14:38:02,314 INFO Request ID is 4a40321e-f489-4a7a-adc2-89ab76a63243
+2026-09-29 14:38:02,383 INFO status has been updated to accepted
+2026-09-29 14:52:35,389 INFO status has been updated to running
+2026-09-29 14:57:33,189 INFO status has been updated to successful
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Read timed out. (read timeout=60)], attempt 1 of 500
+Retrying in 120 seconds
+20f003d6037559fd2cf5422f9ef6ee37.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]20f003d6037559fd2cf5422f9ef6ee37.zip: 100%|██████████| 334k/334k [00:00<00:00, 1.08MB/s]                                                                                        descargando era5_habana_202306.nc
+Recovering from connection error [('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))], attempt 1 of 500
+Retrying in 120 seconds
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Read timed out. (read timeout=60)], attempt 2 of 500
+Retrying in 120 seconds
+2026-09-29 19:00:27,858 INFO Request ID is 151fd923-e445-4663-85a9-5ebea85523ec
+2026-09-29 19:00:27,944 INFO status has been updated to successful
+c3261641a76befdbbb6645185142630d.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]c3261641a76befdbbb6645185142630d.zip: 100%|██████████| 331k/331k [00:00<00:00, 1.07MB/s]                                                                                        descargando era5_habana_202307.nc
+2026-09-29 19:00:29,520 INFO Request ID is 220cc1fa-2968-4010-a0b1-ab94aeb9a10e
+2026-09-29 19:00:31,342 INFO status has been updated to accepted
+2026-09-29 19:00:54,035 INFO status has been updated to running
+2026-09-29 19:04:51,650 INFO status has been updated to successful
+5bb70e892ab15437e112a41ddf480a31.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]5bb70e892ab15437e112a41ddf480a31.zip: 100%|██████████| 332k/332k [00:00<00:00, 1.12MB/s]                                                                                        descargando era5_habana_202308.nc
+2026-09-29 19:04:52,565 INFO Request ID is e39f0ea3-45cd-43ac-a077-95d6b4a7cabc
+2026-09-29 19:04:53,847 INFO status has been updated to accepted
+2026-09-29 19:07:51,940 INFO status has been updated to running
+2026-09-29 19:13:20,533 INFO status has been updated to successful
+92af3ca0e860c17166aa52b6780f202e.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]92af3ca0e860c17166aa52b6780f202e.zip: 100%|██████████| 334k/334k [00:00<00:00, 708kB/s]                                                                                       descargando era5_habana_202309.nc
+2026-09-29 19:13:21,827 INFO Request ID is df1e8c9c-6dec-4526-82a4-bc404953a24f
+2026-09-29 19:13:21,896 INFO status has been updated to accepted
+2026-09-29 19:17:43,443 INFO status has been updated to running
+2026-09-29 19:21:43,959 INFO status has been updated to successful
+2e4b9377921afadb16af157b23a83637.zip:   0%|          | 0.00/330k [00:00<?, ?B/s]2e4b9377921afadb16af157b23a83637.zip: 100%|██████████| 330k/330k [00:00<00:00, 1.01MB/s]                                                                                        descargando era5_habana_202310.nc
+2026-09-29 19:21:45,128 INFO Request ID is df1e6a6b-65d5-4c72-95a4-bd6a13fa71f1
+2026-09-29 19:21:45,188 INFO status has been updated to accepted
+2026-09-29 19:21:59,698 INFO status has been updated to running
+2026-09-29 19:26:04,984 INFO status has been updated to successful
+cf5bf535ce257b3159ce84dc96025bd7.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]cf5bf535ce257b3159ce84dc96025bd7.zip: 100%|██████████| 334k/334k [00:00<00:00, 1.13MB/s]                                                                                        descargando era5_habana_202311.nc
+2026-09-29 19:26:06,261 INFO Request ID is ea206412-d007-4b64-98b7-c77877058a09
+2026-09-29 19:26:06,332 INFO status has been updated to accepted
+2026-09-29 19:26:42,076 INFO status has been updated to running
+2026-09-29 19:30:30,504 INFO status has been updated to successful
+a776b1b59ed28bcf41753b7592c41e19.zip:   0%|          | 0.00/327k [00:00<?, ?B/s]a776b1b59ed28bcf41753b7592c41e19.zip: 100%|██████████| 327k/327k [00:00<00:00, 1.09MB/s]                                                                                        descargando era5_habana_202312.nc
+2026-09-29 19:30:31,492 INFO Request ID is c65fd980-6227-4e91-b3a6-0849b10fd7a2
+2026-09-29 19:30:31,549 INFO status has been updated to accepted
+2026-09-29 19:38:58,704 INFO status has been updated to running
+2026-09-29 19:47:03,721 INFO status has been updated to successful
+d6e24c178edffa23034abb791b6ad8c8.zip:   0%|          | 0.00/333k [00:00<?, ?B/s]d6e24c178edffa23034abb791b6ad8c8.zip: 100%|██████████| 333k/333k [00:00<00:00, 1.16MB/s]                                                                                        descargando era5_habana_202401.nc
+2026-09-29 19:47:04,663 INFO Request ID is c335e17c-ba6b-4423-9ed1-5af877b08604
+2026-09-29 19:47:06,207 INFO status has been updated to accepted
+2026-09-29 19:57:27,768 INFO status has been updated to running
+2026-09-29 20:01:28,324 INFO status has been updated to successful
+739dce75157b2dc3f95193feb2775d6d.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]739dce75157b2dc3f95193feb2775d6d.zip: 100%|██████████| 332k/332k [00:00<00:00, 1.14MB/s]                                                                                        descargando era5_habana_202402.nc
+2026-09-29 20:01:29,450 INFO Request ID is 17b56c80-517a-4f07-aff9-20fbb244109d
+2026-09-29 20:01:29,521 INFO status has been updated to accepted
+2026-09-29 20:09:49,486 INFO status has been updated to running
+2026-09-29 20:11:50,730 INFO status has been updated to successful
+6548272a8270243e630ed47755b96a79.zip:   0%|          | 0.00/321k [00:00<?, ?B/s]6548272a8270243e630ed47755b96a79.zip: 100%|██████████| 321k/321k [00:00<00:00, 1.03MB/s]                                                                                        descargando era5_habana_202403.nc
+2026-09-29 20:11:53,013 INFO Request ID is a1f8de1c-84aa-4491-8913-95dd6dc063be
+2026-09-29 20:11:53,065 INFO status has been updated to accepted
+2026-09-29 20:24:15,875 INFO status has been updated to running
+2026-09-29 20:28:17,464 INFO status has been updated to successful
+886fb44e79552f0d2d443f7f13ee305d.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]886fb44e79552f0d2d443f7f13ee305d.zip: 100%|██████████| 332k/332k [00:00<00:00, 376kB/s]                                                                                       descargando era5_habana_202404.nc
+2026-09-29 20:28:19,439 INFO Request ID is 9d770564-a03b-402c-b5d6-aa8ae87b833e
+2026-09-29 20:28:19,505 INFO status has been updated to accepted
+2026-09-29 20:36:40,549 INFO status has been updated to running
+2026-09-29 20:38:40,790 INFO status has been updated to successful
+1017d30fc6f3dd9f685ec734bf63dc4e.zip:   0%|          | 0.00/323k [00:00<?, ?B/s]1017d30fc6f3dd9f685ec734bf63dc4e.zip: 100%|██████████| 323k/323k [00:00<00:00, 1.13MB/s]                                                                                        descargando era5_habana_202405.nc
+2026-09-29 20:38:43,504 INFO Request ID is 12fd95d4-f65f-45c1-bcd0-bfe3d0a1a828
+2026-09-29 20:38:43,705 INFO status has been updated to accepted
+2026-09-29 20:43:07,192 INFO status has been updated to running
+2026-09-29 20:47:07,884 INFO status has been updated to successful
+3941c94e21ad69ad581dc972447de166.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]3941c94e21ad69ad581dc972447de166.zip: 100%|██████████| 331k/331k [00:00<00:00, 441kB/s]                                                                                       descargando era5_habana_202406.nc
+2026-09-29 20:47:13,058 INFO Request ID is cc752b7d-f42b-4801-9e48-ae653fe7498b
+2026-09-29 20:47:13,324 INFO status has been updated to accepted
+2026-09-29 20:57:36,035 INFO status has been updated to running
+2026-09-29 20:59:36,366 INFO status has been updated to successful
+fb7d526d49c902aa91560cb18a4a35e3.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]fb7d526d49c902aa91560cb18a4a35e3.zip: 100%|██████████| 332k/332k [00:00<00:00, 995kB/s]                                                                                       descargando era5_habana_202407.nc
+2026-09-29 20:59:37,587 INFO Request ID is 54f758f2-9851-415d-8d6f-a2af5d7c128c
+2026-09-29 20:59:37,641 INFO status has been updated to accepted
+2026-09-29 21:11:59,371 INFO status has been updated to running
+2026-09-29 21:22:02,157 INFO status has been updated to successful
+50311fbb5cab2d7281543b42f753865f.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]50311fbb5cab2d7281543b42f753865f.zip: 100%|██████████| 332k/332k [00:00<00:00, 987kB/s]                                                                                       descargando era5_habana_202408.nc
+2026-09-29 21:22:03,292 INFO Request ID is 5dfe7ec0-e036-4907-8cd5-b2e6c59378f5
+2026-09-29 21:22:03,354 INFO status has been updated to accepted
+2026-09-29 21:30:24,857 INFO status has been updated to running
+2026-09-29 21:36:25,747 INFO status has been updated to successful
+f2d535606ff57bef9d316d467c8dc057.zip:   0%|          | 0.00/336k [00:00<?, ?B/s]f2d535606ff57bef9d316d467c8dc057.zip: 100%|██████████| 336k/336k [00:00<00:00, 820kB/s]                                                                                       descargando era5_habana_202409.nc
+2026-09-29 21:36:29,207 INFO Request ID is a8dd2843-b98e-449a-a76d-a1fde006daad
+2026-09-29 21:36:29,265 INFO status has been updated to accepted
+2026-09-29 21:44:50,780 INFO status has been updated to running
+2026-09-29 21:48:52,148 INFO status has been updated to successful
+ca7e575eb7241fa4a800a1f2085eda7b.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]ca7e575eb7241fa4a800a1f2085eda7b.zip: 100%|██████████| 331k/331k [00:00<00:00, 1.09MB/s]                                                                                        descargando era5_habana_202410.nc
+2026-09-29 21:48:53,202 INFO Request ID is 4aeb27d2-6d3a-4f08-a881-a8c298a066be
+2026-09-29 21:48:53,275 INFO status has been updated to accepted
+2026-09-29 22:03:14,973 INFO status has been updated to running
+2026-09-29 22:07:15,636 INFO status has been updated to successful
+ec285951a36cfee3a1660aa096911f2e.zip:   0%|          | 0.00/336k [00:00<?, ?B/s]ec285951a36cfee3a1660aa096911f2e.zip: 100%|██████████| 336k/336k [00:00<00:00, 903kB/s]                                                                                       descargando era5_habana_202411.nc
+2026-09-29 22:07:16,939 INFO Request ID is 43161843-5939-4cd2-8ff5-c85d2ea15bed
+2026-09-29 22:07:17,017 INFO status has been updated to accepted
+2026-09-29 22:11:37,492 INFO status has been updated to running
+2026-09-29 22:17:38,357 INFO status has been updated to successful
+2d465950dd6c7acfc2f7c6d674b06125.zip:   0%|          | 0.00/325k [00:00<?, ?B/s]2d465950dd6c7acfc2f7c6d674b06125.zip: 100%|██████████| 325k/325k [00:00<00:00, 1.06MB/s]                                                                                        descargando era5_habana_202412.nc
+2026-09-29 22:17:39,894 INFO Request ID is ce6a06d9-ee08-4722-a3fe-da8dc62fa5c8
+2026-09-29 22:17:39,957 INFO status has been updated to accepted
+2026-09-29 22:24:02,555 INFO status has been updated to running
+2026-09-29 22:30:03,916 INFO status has been updated to successful
+968a6ee5b5aa95b840ff47b49b9cc66b.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]968a6ee5b5aa95b840ff47b49b9cc66b.zip: 100%|██████████| 332k/332k [00:00<00:00, 994kB/s]                                                                                       descargando era5_habana_202501.nc
+2026-09-29 22:30:05,297 INFO Request ID is 3c22fcbb-bc1b-437d-8afa-d08e98973356
+2026-09-29 22:30:05,407 INFO status has been updated to accepted
+2026-09-29 22:36:31,204 INFO status has been updated to running
+2026-09-29 22:40:31,871 INFO status has been updated to successful
+473e12f1deb019121e4bd32d9fb843f8.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]473e12f1deb019121e4bd32d9fb843f8.zip: 100%|██████████| 331k/331k [00:00<00:00, 1.26MB/s]                                                                                        descargando era5_habana_202502.nc
+2026-09-29 22:40:34,280 INFO Request ID is 2c3016b2-638d-485b-bf33-f7534d87074a
+2026-09-29 22:40:34,754 INFO status has been updated to accepted
+2026-09-29 22:44:55,706 INFO status has been updated to running
+2026-09-29 22:48:56,347 INFO status has been updated to successful
+ea55fb32d9d3e0f5e1013cc8b32f7fec.zip:   0%|          | 0.00/315k [00:00<?, ?B/s]ea55fb32d9d3e0f5e1013cc8b32f7fec.zip: 100%|██████████| 315k/315k [00:00<00:00, 724kB/s]                                                                                       descargando era5_habana_202503.nc
+2026-09-29 22:48:57,842 INFO Request ID is 04e4eff3-ec4f-455f-996d-87f5260ae542
+2026-09-29 22:48:58,423 INFO status has been updated to accepted
+2026-09-29 22:53:18,027 INFO status has been updated to running
+2026-09-29 22:57:21,032 INFO status has been updated to successful
+c4d3d7eecd79f9ea0b79ff8765599068.zip:   0%|          | 0.00/330k [00:00<?, ?B/s]c4d3d7eecd79f9ea0b79ff8765599068.zip: 100%|██████████| 330k/330k [00:00<00:00, 1.17MB/s]                                                                                        descargando era5_habana_202504.nc
+2026-09-29 22:57:22,092 INFO Request ID is 077db578-5aa1-4990-9116-b6f66fb5b971
+2026-09-29 22:57:22,275 INFO status has been updated to accepted
+2026-09-29 23:00:16,724 INFO status has been updated to running
+2026-09-29 23:05:46,243 INFO status has been updated to successful
+a62f2a852a983e87f026226dec261bbe.zip:   0%|          | 0.00/325k [00:00<?, ?B/s]a62f2a852a983e87f026226dec261bbe.zip: 100%|██████████| 325k/325k [00:00<00:00, 990kB/s]                                                                                       descargando era5_habana_202505.nc
+2026-09-29 23:05:48,030 INFO Request ID is 098ccf60-8ab2-4ead-9642-7a331c21de28
+2026-09-29 23:05:48,098 INFO status has been updated to accepted
+2026-09-29 23:06:37,965 INFO status has been updated to running
+2026-09-29 23:12:10,420 INFO status has been updated to successful
+b65be1861c38ee125e4b2259ccd9f654.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]b65be1861c38ee125e4b2259ccd9f654.zip: 100%|██████████| 331k/331k [00:00<00:00, 948kB/s]                                                                                       descargando era5_habana_202506.nc
+2026-09-29 23:12:14,287 INFO Request ID is 66172e1e-18bd-4b0d-a1ab-1ab3d1114826
+2026-09-29 23:12:14,358 INFO status has been updated to accepted
+2026-09-30 00:13:40,912 INFO status has been updated to successful
+dfdb152fba0e9cb86f502dec4f852406.zip:   0%|          | 0.00/329k [00:00<?, ?B/s]dfdb152fba0e9cb86f502dec4f852406.zip: 100%|██████████| 329k/329k [00:00<00:00, 1.12MB/s]                                                                                        descargando era5_habana_202507.nc
+2026-09-30 00:13:42,916 INFO Request ID is c57072a3-05b3-4906-927f-ea05e90a139e
+2026-09-30 00:13:43,148 INFO status has been updated to accepted
+2026-09-30 00:14:15,940 INFO status has been updated to running
+Recovering from connection error [HTTPSConnectionPool(host='cds.climate.copernicus.eu', port=443): Read timed out. (read timeout=60)], attempt 1 of 500
+Retrying in 120 seconds
+2026-09-30 00:32:10,549 INFO status has been updated to successful
+6fd6ba36afe1cdb88c2fef7ba201c163.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]6fd6ba36afe1cdb88c2fef7ba201c163.zip: 100%|██████████| 334k/334k [00:00<00:00, 1.13MB/s]                                                                                        descargando era5_habana_202508.nc
+2026-09-30 00:32:13,257 INFO Request ID is d547cef5-b9b3-4ea0-960a-b951cc9d6378
+2026-09-30 00:32:15,751 INFO status has been updated to accepted
+2026-09-30 00:32:32,911 INFO status has been updated to running
+2026-09-30 00:36:39,468 INFO status has been updated to successful
+af4e9ab1f94c7a074822b00a946b1308.zip:   0%|          | 0.00/334k [00:00<?, ?B/s]af4e9ab1f94c7a074822b00a946b1308.zip: 100%|██████████| 334k/334k [00:00<00:00, 1.10MB/s]                                                                                        descargando era5_habana_202509.nc
+2026-09-30 00:36:40,946 INFO Request ID is 94f64a07-0f95-43f2-a7c7-090c7603e7fd
+2026-09-30 00:36:40,995 INFO status has been updated to accepted
+2026-09-30 00:37:02,839 INFO status has been updated to running
+2026-09-30 00:41:00,866 INFO status has been updated to successful
+1a54dcb785206926fdfec5eb495c20bb.zip:   0%|          | 0.00/332k [00:00<?, ?B/s]1a54dcb785206926fdfec5eb495c20bb.zip: 100%|██████████| 332k/332k [00:00<00:00, 1.07MB/s]                                                                                        descargando era5_habana_202510.nc
+2026-09-30 00:41:02,126 INFO Request ID is 234f27f4-8e4f-44bd-8b3c-19985bbd1538
+2026-09-30 00:41:02,190 INFO status has been updated to accepted
+2026-09-30 00:45:26,675 INFO status has been updated to running
+2026-09-30 00:47:26,984 INFO status has been updated to successful
+9022d3844faffbd75910f0d59ac5bc9e.zip:   0%|          | 0.00/335k [00:00<?, ?B/s]9022d3844faffbd75910f0d59ac5bc9e.zip: 100%|██████████| 335k/335k [00:00<00:00, 811kB/s]                                                                                       descargando era5_habana_202511.nc
+2026-09-30 00:47:28,257 INFO Request ID is 48fa1ba8-60a0-49f4-a28b-143b5db4f2f8
+2026-09-30 00:47:28,328 INFO status has been updated to accepted
+2026-09-30 00:47:41,916 INFO status has been updated to running
+2026-09-30 00:51:49,374 INFO status has been updated to successful
+3b9efcb8ba4afa91ccc4a7e3ada2d169.zip:   0%|          | 0.00/327k [00:00<?, ?B/s]3b9efcb8ba4afa91ccc4a7e3ada2d169.zip: 100%|██████████| 327k/327k [00:00<00:00, 980kB/s]                                                                                       descargando era5_habana_202512.nc
+2026-09-30 00:51:50,605 INFO Request ID is 5e5a26a4-a0ef-4540-912e-8b4e55d3736a
+2026-09-30 00:51:50,657 INFO status has been updated to accepted
+2026-09-30 00:52:14,465 INFO status has been updated to running
+2026-09-30 00:56:14,201 INFO status has been updated to successful
+b33a2da32f2fa45b12904640686bf11b.zip:   0%|          | 0.00/331k [00:00<?, ?B/s]b33a2da32f2fa45b12904640686bf11b.zip: 100%|██████████| 331k/331k [00:00<00:00, 951kB/s]                                                                                       ERA5 completo en /Users/alex/Nube /repos/Modelo-hidrodin-mico/datos/forzamiento/era5
