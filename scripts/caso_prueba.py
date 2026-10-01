@@ -22,12 +22,12 @@ RAIZ = Path(__file__).resolve().parent.parent
 CASO = os.environ.get("CASO", "")
 RUN = RAIZ / "runs" / ("prueba_idealizada" + (f"_{CASO}" if CASO else ""))
 NWS = int(os.environ.get("NWS", 2))            # 2: viento/presion ERA5; 0: solo marea
-ISHAPIRO = int(os.environ.get("ISHAPIRO", 1))
+ISHAPIRO = int(os.environ.get("ISHAPIRO", 1))  # 1: filtro fijo 0,5; 2: tipo Smagorinsky (shapiro.gr3)
 ESPONJA = int(os.environ.get("ESPONJA", 0))    # 1: friccion creciente en 250 m junto al borde abierto
 # Sin Coriolis por defecto: en este dominio de juguete (mar de 4 x 2 km, 30 m, abierto por 3 lados)
 # la rotacion + nivel impuesto en el borde da una inestabilidad que crece x2,7 cada ~3,5 h si hay
 # viento (ver docs/00_estado_y_plan.md, sec. 16). En la malla real hay que volver a probarlo.
-NCOR = int(os.environ.get("NCOR", 0))          # 1: Coriolis con la latitud de hgrid.ll; 0: sin rotacion  # 1: filtro fijo 0,5; 2: tipo Smagorinsky (shapiro.gr3)
+NCOR = int(os.environ.get("NCOR", 0))          # 1: Coriolis con la latitud de hgrid.ll; 0: sin rotacion
 SCHISM = Path(os.environ.get("SCHISM_DIR", Path.home() / "modelos" / "schism"))
 BIN = SCHISM / "build" / "bin" / "pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL"
 SFLUX = RAIZ / "datos" / "forzamiento" / "sflux"
