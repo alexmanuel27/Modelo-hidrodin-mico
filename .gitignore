@@ -8,3 +8,5 @@ datos/forzamiento/fes2022/
 # salidas de simulación
 runs/*/outputs/
 build/
+datos/forzamiento/sflux/
+runs/prueba_idealizada*/

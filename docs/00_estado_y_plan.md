@@ -374,3 +374,44 @@ cortes de red del CDS que cdsapi reintentó solo. Registro: `cluster/era5_descar
 
 **Siguiente:** convertir ERA5 al formato `sflux` de SCHISM (air/rad/prc) y un caso de
 prueba corto con malla provisional para medir el coste por paso de tiempo.
+
+## 16. Prueba de humo de SCHISM: caso idealizado (30-sep a 2-oct)
+
+Scripts: `scripts/era5_a_sflux.py` (ERA5 → `sflux` de SCHISM, 120 meses en
+`datos/forzamiento/sflux/`), `scripts/caso_prueba.py` (genera el caso),
+`scripts/revisar_prueba.py`, `scripts/diagnostico_prueba.py`, `scripts/diagnostico_forzamiento.py`.
+
+**Caso.** Geometría esquemática con las cifras del control analítico: bahía 2650 × 2000 m a 9 m
+(5,3 km²), canal 250 × 1530 m a 12,8 m, mar 4050 × 2000 m a 30 m, en su posición real.
+Malla de 50 m (5674 nodos, 10 868 triángulos), 10 capas sigma, dt = 100 s. Marea M2 de 0,15 m
+en los bordes N, E y O del mar; viento y presión ERA5 (`nws=2`); módulo AGE con el mar como fuente.
+
+**Resultado (2 días, enero de 2016, versión final del script).** La cadena funciona de punta a punta:
+compilación, `sflux`, `bctides` con trazador AGE, salidas `out2d`/`AGE_1`.
+- Marea en la bahía 14,9 cm (forzada 15): la bahía sube y baja en bloque, como predice el prisma.
+- Corriente en el canal 2,4 cm/s de media, 8,6 de máximo (control analítico 3–6,5 cm/s; el
+  esquema es más corto y ancho que la realidad, así que el orden de magnitud es lo que cuenta).
+- Mar: ≤ 0,19 m/s con viento ERA5 de 2–4 m/s.
+- AGE: escribe; 2 días no dan para la edad (renovación de semanas).
+
+**Coste en el Mac.** 0,47–0,54 s/paso con 1 proceso de cálculo → 7–8 min por día simulado.
+Con varios procesos MPI es ~30 veces **más lento**: MPICH de conda en macOS tiene mucha latencia
+(usa la interfaz de red). En el Mac: 1 proceso de cálculo + 2 *scribes* (`correr.sh` lo fija).
+Lanzar con `caffeinate -i` y la tapa abierta: en reposo va 2–4 veces más lento.
+
+**Lo aprendido (aplica a la malla real):**
+1. Todo `.gr3`/`.ic` necesita `ne np` reales en la cabecera.
+2. Ningún triángulo con los 3 nodos en el contorno (pasaba en esquinas SE/NO de la malla
+   cuadriculada); da ruido que crece.
+3. El mar no puede ser una caja cerrada por los lados: atrapa un modo este-oeste (~8 min).
+4. Sin advección de momento cerca del borde abierto (`nadv=0` + `adv.gr3` = 0 a < 250 m):
+   la ELM daba ~6 m/s espurios en el borde.
+5. `hgrid.ll` con suficientes decimales (8): con 3, los nodos vecinos compartían coordenadas.
+6. **Coriolis + nivel impuesto en el borde + viento → inestabilidad** (crece ×2,7 cada ~3,5 h y
+   satura en ~6 m/s). Sin viento no arranca; con esponja de fricción tampoco se arregla; sin
+   Coriolis desaparece. En este caso de juguete se usa `ncor=0`. **Pendiente de verificar con la
+   malla real** (borde abierto lejano, en aguas profundas y en un solo arco). Si persiste:
+   condición de borde con relajación de velocidades (Flather/`ifltype`) o dominio más grande.
+
+**Siguiente:** cuando llegue la batimetría (CUJAE o BA 414), malla real con borde en aguas
+profundas; repetir esta prueba con `ncor=1`; después, el 2D/3D base y el inventario de CÉCI.
