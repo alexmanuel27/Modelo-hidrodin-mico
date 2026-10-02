@@ -421,3 +421,32 @@ profundas; repetir esta prueba con `ncor=1`; después, el 2D/3D base y el invent
 No hay cuadrícula moderna abierta. Fuentes encontradas y propuesta (carta U.S. H.O. de 1889
 georreferenciada + 1898 + canal a 12,8 m + calados de muelles + GEBCO, con incertidumbre 1–2 m
 fuera del canal como dimensión del conjunto): ver `docs/resumen_para_articulo.md`, sección 4.
+
+## 18. Reorganización (2-oct): enfoque nuevo del artículo
+
+Pregunta: **¿qué partes de la bahía no se renuevan, y esa conclusión sobrevive a no tener datos?**
+Título provisional: "What can be known about flushing in a bay without data? Robust and
+fragile conclusions from a public-data ensemble model of Havana Bay, Cuba" (EMS).
+
+Reglas: (1) **solo datos públicos** con URL y fecha de acceso (`docs/procedencia_datos.md`);
+no se compra la BA 414; CUJAE/GEOCUBA/mareógrafo solo como comparación opcional.
+(2) **Acceso completo a CÉCI**: conjunto 3D de cientos de miembros + experimentos de mecanismo.
+
+| # | Trabajo | Scripts / salida | Estado |
+|---|---|---|---|
+| 1 | Batimetría pública: sondas de 1889 y 1898 (unidades y datum), canal 12,8 m, muelles, GEBCO, costa Sentinel-2 → 2 superficies + diferencia + campo aleatorio | `scripts/batimetria/` | en curso (descargas) |
+| 2 | Malla real (borde en aguas profundas, un arco; canal 10–20 m; ensenadas resueltas); prueba de humo con `ncor=1` | — | después de 1 |
+| 3 | Marea FES2022 (TPXO alternativa y dimensión del conjunto); recalcular `prisma_marea.py` | — | AVISO en trámite |
+| 4 | Caso base 3D (LSC², AGE, partículas) en CÉCI: coste por miembro; ¿cabe en 2 d o hotstart? Antes, `cluster/inventario.sh` | `cluster/` | inventario pedido |
+| 5 | Conjunto: Saltelli (SALib) sobre batimetría (realización + carta), fricción, viento (×0,8–1,2, ±15°), marea (FES/TPXO), caudales (×0,3–3) y flotabilidad, mezcla; N según coste; convergencia por bootstrap; job arrays | — | |
+| 6 | Mecanismo (factorial): marea / +viento / +viento+densidad | — | |
+| 7 | Salidas definidas antes de lanzar (ver abajo) | — | |
+| 8 | Tabla de procedencia de datos | `docs/procedencia_datos.md` | iniciada |
+
+Salidas (7): (a) por miembro, edad media y percentiles por zona (canal, cuenca principal,
+Marimelena, Guasabacoa, Atarés) + mapas 2D superficie/fondo; (b) P(edad > 30 d) por zona y en
+mapa; (c) Sobol primer orden y total por zona; (d) flujo neto e intercambio en la sección del canal
+por experimento; (e) partículas por foco: fracción retenida a 30/60/90 d; (f) trazador en superficie
+en la rejilla Sentinel-2 (UTM 17N, 20 m, E 361139–365896, N 2556342–2561392) a ~16:00 UTC.
+
+Figuras finales (en inglés) → `publication plan/modelo-hidrodin-mico/articulo/figuras/`.
