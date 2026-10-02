@@ -415,3 +415,9 @@ Lanzar con `caffeinate -i` y la tapa abierta: en reposo va 2–4 veces más lent
 
 **Siguiente:** cuando llegue la batimetría (CUJAE o BA 414), malla real con borde en aguas
 profundas; repetir esta prueba con `ncor=1`; después, el 2D/3D base y el inventario de CÉCI.
+
+## 17. Batimetría: búsqueda en internet (2-oct)
+
+No hay cuadrícula moderna abierta. Fuentes encontradas y propuesta (carta U.S. H.O. de 1889
+georreferenciada + 1898 + canal a 12,8 m + calados de muelles + GEBCO, con incertidumbre 1–2 m
+fuera del canal como dimensión del conjunto): ver `docs/resumen_para_articulo.md`, sección 4.
