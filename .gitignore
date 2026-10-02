@@ -10,3 +10,5 @@ runs/*/outputs/
 build/
 datos/forzamiento/sflux/
 runs/prueba_idealizada*/
+datos/batimetria/fuentes/*.jpg
+datos/batimetria/fuentes/*.tif

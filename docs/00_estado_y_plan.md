@@ -450,3 +450,28 @@ por experimento; (e) partículas por foco: fracción retenida a 30/60/90 d; (f) 
 en la rejilla Sentinel-2 (UTM 17N, 20 m, E 361139–365896, N 2556342–2561392) a ~16:00 UTC.
 
 Figuras finales (en inglés) → `publication plan/modelo-hidrodin-mico/articulo/figuras/`.
+
+## 19. Batimetría pública: primeras fuentes (2-oct)
+
+Descargado (`datos/batimetria/fuentes/descargas.tsv` con URL, fecha y sha256):
+- **GEBCO 2026 Global** (+ TID), 22,9–23,4 N, 82,6–82,1 W, 120 × 120 celdas de 15″.
+  **La bahía no existe en GEBCO**: dentro sale como tierra (TID 0, cotas +5 a +50 m).
+  Fuera, el talud es muy abrupto: frente a la bocana −126 m a ~1 km, −313 m a 2 km,
+  −725 m a 3,5 km, −1220 m a 5 km. Casi todo es TID 40 (predicho por gravimetría satelital),
+  con algo de TID 44; sondas directas (TID 11 monohaz, 16 lidar) solo en celdas aisladas.
+  Consecuencia: el borde abierto de la malla puede ir a 3–5 km de la costa ya en aguas de
+  700–1200 m; un solo arco es fácil. GEBCO solo sirve fuera de la bahía.
+- **Prácticos (2018)**: texto extraído en `practicos_puerto_habana_2018.txt`. Canal 1530 m,
+  rumbo 124°, 220–330 m, 12,8 m; calado máx. 11,43 m (11,58 con pleamar ≥ 0,2 m). Canales de
+  acceso: refinería y dique seco 11,58 m, Atarés 10,5 m, Guasabacoa 9,75 m. Fondeaderos:
+  La Tasajera 10,0 m, Casablanca 6,7 m. ~60 calados de muelles (1,6–11 m).
+  Frases citables: "Las corrientes de marea en el interior del puerto son imperceptibles";
+  fuera de la entrada, a la altura de Punta Barlovento, una corriente cruza el canal con
+  hasta 4 nudos en mayo–junio; viento dominante NE con giro diurno (brisa) a S por la tarde.
+  Uso: calado = profundidad mínima (cota superior del fondo) en cada muelle, una vez
+  georreferenciados los muelles (pendiente, con OpenStreetMap).
+- **Carta de 1898** = U.S. H.O. **chart n.º 307**, ed. 1898 (BPL G9096.P5 svar .U55 no. 307 1898).
+  El enlace de descarga daba HTML; se baja ahora del servidor IIIF (7994 × 5527 px).
+- Pendiente: carta de 1889 (Harvard, manual) y línea de costa Sentinel-2.
+
+**Actualización 2 oct (tarde).** Descargada la carta "1889" de Harvard (GeoTIFF 640 MB + metadato FGDC). El metadato aclara que es la carta H.O. *Harbor of Havana: from the most recent Spanish surveys to 1879* (1.ª ed. 1882, ed. 1889, ~1:8 000): **los sondeos son de levantamientos españoles hasta 1879**, no de 1889. Georreferenciada a la carta H.O. de 1962 en NAD27 Cuba Norte con RMS 18,3 m (el error de posición entra en el campo aleatorio). La carta 1898 (H.O. 307) puede ser en buena parte la misma fuente: hay que comparar sondeo a sondeo antes de tratarlas como dos batimetrías independientes. Documentación y términos de uso de GEBCO guardados en `fuentes/`.
