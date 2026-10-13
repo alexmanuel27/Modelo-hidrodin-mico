@@ -483,3 +483,10 @@ Descargado (`datos/batimetria/fuentes/descargas.tsv` con URL, fecha y sha256):
 - Canal de entrada: 7–9¼ brazas (13–17 m) en 1879 y 8–10 brazas (15–18 m) en 1887, más profundo que los 12,8 m que garantizan hoy los prácticos (calado de proyecto, no fondo natural).
 - El GeoTIFF de Harvard **viene en WGS84 geográfico** (EPSG:4326, píxel 6,37e-6° ≈ 0,65 m), no en NAD27 como dice el metadato: píxel → lon/lat es directo. La de 1898 (JPEG IIIF) no está georreferenciada: se ajustará con puntos de control comunes con la de 1889 (misma plancha).
 - Siguiente: digitalizar los sondeos (1889 primero porque ya está georreferenciada), georreferenciar la de 1898 y digitalizarla, y comparar las dos.
+
+**Actualización 13 oct (tarde) — sondeos de 1879 digitalizados.**
+- 1117 sondeos leídos a mano de la carta H.O. 307 (ed. 1889, levantamientos hasta 1879) sobre teselas con cuadrícula de píxeles (`scripts/batimetria/02_teselas.py`), pasados a lon/lat WGS84 y metros (`04_sondeos_a_coordenadas.py`, con comprobación del faro del Morro) → `datos/batimetria/sondeos/sondeos_1889.csv` (columnas lon, lat, brazas, prof_m, dudoso, x_pix, y_pix).
+- Cubren toda la bahía (canal, cuenca principal, Marimelena, Guasabacoa, Atarés) y la franja exterior hasta ~1,7 km al oeste de la entrada. Figura de control: `docs/figuras/control_sondeos_1889.png` (y `03_control_sondeos.py` para revisar a resolución completa).
+- `dudoso=1` (36): lectura dudosa, casi todas fracciones "⅓"/"⅙" en los bajos (la carta usa tercios de braza en aguas muy someras). `dudoso=2` (5): sondeos "sin fondo a 109 brazas" fuera de la plataforma (cota mínima, no profundidad).
+- Incluye las etiquetas de las isóbatas de 3 y 5 brazas como puntos de esa profundidad.
+- Pendiente: segunda pasada de revisión a resolución completa por zonas, y la carta de 1898 (levantamientos hasta 1887).
