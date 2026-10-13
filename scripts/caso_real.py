@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 """Caso SCHISM con la malla real (09_malla.py) y la batimetria de un miembro del conjunto (08).
 
-Prueba de humo y de coste: marea M2 uniforme PROVISIONAL (0,15 m) hasta tener FES2022, viento ERA5,
+Marea FES2022b en el borde abierto (scripts/marea_fes2022.py; MAREA=m2 -> M2 uniforme de 0,15 m de prueba), viento ERA5,
 3D barotropico, Coriolis activado por defecto, modulo AGE (edad del agua desde que sale del mar).
 
 Uso:  python scripts/caso_real.py [dias]            (por defecto 2)
-      variables: CASO (nombre), NCOR (1), NWS (2), CARTA (1887), ALFA (0), SEMILLA (-1 = sin campo aleatorio)
+      variables: CASO (nombre), NCOR (1), NWS (2), CARTA (1887), ALFA (0), SEMILLA (-1 = sin campo aleatorio),
+                 MAREA (fes si existe datos/marea/fes2022_habana.json; si no m2)
       Mac:   bash runs/real_<CASO>/correr.sh
       CECI:  ver runs/real_<CASO>/correr_slurm.sh
-Requiere numpy y scipy, y datos/batimetria/superficies/*.nc (07) + datos/malla/hgrid.{gr3,ll} (09).
+Requiere numpy, scipy y, con MAREA=fes, pyTMD (correcciones nodales; pip install pyTMD), y datos/batimetria/superficies/*.nc (07) + datos/malla/hgrid.{gr3,ll} (09).
 """
 import os, re, sys
 from pathlib import Path
@@ -35,7 +36,11 @@ SUP = RAIZ / "datos" / "batimetria" / "superficies"
 RNDAY = float(sys.argv[1]) if len(sys.argv) > 1 else 2.0
 DT = 100.0
 INICIO = (2016, 1, 1)
-M2_AMP = 0.15                 # m, PROVISIONAL (FES2022 pendiente)
+M2_AMP = 0.15                 # m, solo con MAREA=m2 (prueba)
+FES = RAIZ / "datos" / "marea" / "fes2022_habana.json"
+MAREA = os.environ.get("MAREA", "fes" if FES.exists() else "m2")
+FREC = dict(m2=1.405189e-4, s2=1.454441e-4, n2=1.378797e-4, k2=1.458423e-4, k1=7.292117e-5, o1=6.759774e-5,
+            p1=7.251056e-5, q1=6.495854e-5, m4=2.810378e-4, ms4=2.859630e-4, mn4=2.783986e-4)   # rad/s
 H_TOPE = 200.0                # m: profundidad maxima del modelo (el talud llega a 1200 m; solo importa la onda de marea)
 NV = 16                       # niveles verticales: S puros; con h_s > fondo maximo SCHISM no pide niveles Z (h_s = H_TOPE+10)
 D_ADV = 800.0                 # m: sin adveccion de momento a menos de esto del borde abierto
@@ -62,6 +67,35 @@ def escribir_gr3(ruta, x, y, val, tri, cabecera="gr3", resto=None):
         f.writelines(f"{k+1} {x[k]:.8f} {y[k]:.8f} {val[k]:.6g}\n" for k in range(len(x)))
         f.writelines(f"{k+1} 3 {t[0]+1} {t[1]+1} {t[2]+1}\n" for k, t in enumerate(tri))
         if resto: f.write("\n".join(resto))
+
+
+def armonicos_fes(lon, lat):
+    """Amplitud (m) y fase (grados, Greenwich) de cada constituyente de FES2022 en (lon, lat): bilineal en
+    complejo (sin saltos de fase); si un vecino es tierra/NaN, el punto valido mas cercano."""
+    out = {}
+    for c, d in __import__("json").loads(FES.read_text()).items():
+        z = np.array(d["amp_m"]) * np.exp(-1j * np.radians(np.array(d["fase_grados"])))
+        glo, gla = np.array(d["lon"]), np.array(d["lat"])
+        orden = np.argsort(gla); gla, z = gla[orden], z[orden]
+        f = RegularGridInterpolator((gla, glo), z, bounds_error=False, fill_value=np.nan)
+        v = f(np.c_[lat, lon])
+        ok = np.isfinite(z); GA, GO = np.meshgrid(gla, glo, indexing="ij")
+        for k in np.where(~np.isfinite(v))[0]:
+            v[k] = z[ok][np.argmin(np.hypot(GA[ok] - lat[k], GO[ok] - lon[k]))]
+        out[c] = (np.abs(v), np.degrees(-np.angle(v)) % 360)
+    return out
+
+
+def nodales(constituyentes, dias):
+    """(f, V0+u en grados) para bctides.in: V0 al inicio, f y u a mitad de la simulacion (pyTMD, convencion FES)."""
+    try:
+        from pyTMD.arguments import arguments
+    except ImportError:
+        sys.exit("MAREA=fes necesita pyTMD:  pip install pyTMD")
+    mjd0 = (np.datetime64(f"{INICIO[0]:04d}-{INICIO[1]:02d}-{INICIO[2]:02d}") - np.datetime64("1858-11-17")).astype(int)
+    _, _, G = arguments(np.array([float(mjd0)]), constituyentes, corrections="FES")
+    pu, pf, _ = arguments(np.array([mjd0 + dias / 2]), constituyentes, corrections="FES")
+    return pf[0], (G[0] + np.degrees(pu[0])) % 360
 
 
 def main():
@@ -98,10 +132,21 @@ def main():
         f"2 !ivcor\n{NV} 1 {H_TOPE + 10:.1f} !nvrt, kz, h_s\nZ levels\n1 -{H_TOPE + 10:.1f}\nS levels\n5. 0. 1.e-4 !h_c, theta_b, theta_f\n"
         + "".join(f"{k+1} {-1 + k / (NV - 1):.4f}\n" for k in range(NV)))
     (RUN / "ts.ic").write_text(f"2\n1 -{H_TOPE + 10:.0f}. 28. 36.\n2 0. 28. 36.\n")
-    (RUN / "bctides.in").write_text(
-        f"{INICIO} marea M2 PROVISIONAL uniforme\n0 40. !ntip, tip_dp\n1 !nbfr\nM2\n1.405189e-04 1.0 0.0\n"
-        f"1 !nope\n{len(abierto)} 3 0 0 0 0 !nodos, elev=armonica, vel, T, S, AGE\nM2\n"
-        + "".join(f"{M2_AMP} 0.\n" for _ in abierto))
+    if MAREA == "fes":
+        arm = armonicos_fes(lon[abierto], lat[abierto]); cs = list(arm)
+        ff, eq = nodales(cs, RNDAY)
+        b = [f"{INICIO} marea FES2022b ({len(cs)} constituyentes)", "0 40. !ntip, tip_dp", f"{len(cs)} !nbfr"]
+        b += [f"{c.upper()}\n{FREC[c]:.6e} {ff[k]:.5f} {eq[k]:.3f}" for k, c in enumerate(cs)]
+        b += ["1 !nope", f"{len(abierto)} 3 0 0 0 0 !nodos, elev=armonica, vel, T, S, AGE"]
+        for c in cs:
+            b += [c.upper()] + [f"{a:.5f} {g:.2f}" for a, g in zip(*arm[c])]
+        (RUN / "bctides.in").write_text("\n".join(b) + "\n")
+        print("marea FES2022 en el borde: " + ", ".join(f"{c.upper()} {arm[c][0].mean() * 100:.1f} cm" for c in cs))
+    else:
+        (RUN / "bctides.in").write_text(
+            f"{INICIO} marea M2 de prueba uniforme\n0 40. !ntip, tip_dp\n1 !nbfr\nM2\n1.405189e-04 1.0 0.0\n"
+            f"1 !nope\n{len(abierto)} 3 0 0 0 0 !nodos, elev=armonica, vel, T, S, AGE\nM2\n"
+            + "".join(f"{M2_AMP} 0.\n" for _ in abierto))
     s = RUN / "sflux"; s.mkdir(exist_ok=True)
     for q in s.glob("*.nc"): q.unlink()
     y0, m0, _ = INICIO; nmes = int(np.ceil(RNDAY / 28)) + 1
