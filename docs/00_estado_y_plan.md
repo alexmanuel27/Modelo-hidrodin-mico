@@ -487,6 +487,6 @@ Descargado (`datos/batimetria/fuentes/descargas.tsv` con URL, fecha y sha256):
 **Actualización 13 oct (tarde) — sondeos de 1879 digitalizados.**
 - 1117 sondeos leídos a mano de la carta H.O. 307 (ed. 1889, levantamientos hasta 1879) sobre teselas con cuadrícula de píxeles (`scripts/batimetria/02_teselas.py`), pasados a lon/lat WGS84 y metros (`04_sondeos_a_coordenadas.py`, con comprobación del faro del Morro) → `datos/batimetria/sondeos/sondeos_1889.csv` (columnas lon, lat, brazas, prof_m, dudoso, x_pix, y_pix).
 - Cubren toda la bahía (canal, cuenca principal, Marimelena, Guasabacoa, Atarés) y la franja exterior hasta ~1,7 km al oeste de la entrada. Figura de control: `docs/figuras/control_sondeos_1889.png` (y `03_control_sondeos.py` para revisar a resolución completa).
-- `dudoso=1` (36): lectura dudosa, casi todas fracciones "⅓"/"⅙" en los bajos (la carta usa tercios de braza en aguas muy someras). `dudoso=2` (5): sondeos "sin fondo a 109 brazas" fuera de la plataforma (cota mínima, no profundidad).
+- `dudoso=1` (41): lectura dudosa, casi todas fracciones "⅓"/"⅙" en los bajos (la carta usa tercios de braza en aguas muy someras). `dudoso=2` (4): sondeos "sin fondo a 109 brazas" fuera de la plataforma (cota mínima, no profundidad).
 - Incluye las etiquetas de las isóbatas de 3 y 5 brazas como puntos de esa profundidad.
 - Pendiente: segunda pasada de revisión a resolución completa por zonas, y la carta de 1898 (levantamientos hasta 1887).
