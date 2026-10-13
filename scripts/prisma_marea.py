@@ -23,10 +23,13 @@ L_CANAL = 1530.0               # m, longitud del canal de entrada (practicos, Pu
 # Entradas: (caso central, minimo, maximo) y de donde salen
 # ---------------------------------------------------------------------------
 ENTRADAS = {
-    # area de la lamina de agua. 5.2 km2 (fuentes divulgativas). +-10 % hasta digitalizar la carta
-    "A_km2":   (5.2, 4.7, 5.7),
-    # profundidad media. 9 m (fuentes divulgativas; 47 hm3 / 5.2 km2 = 9.0 m, coherente)
-    "h_m":     (9.0, 7.0, 11.0),
+    # area de la lamina de agua: 4.91 km2 con la costa actual de OSM (bahia + canal; 07_superficies.py).
+    # Antes (hasta 13-oct-2026): 5.2 km2 (4.7-5.7) de fuentes divulgativas.
+    "A_km2":   (4.91, 4.7, 5.2),
+    # profundidad media: 5.2 m (carta 1887, sin dragado) a 7.3 m (1879 + dragado a calados de practicos);
+    # moda 6.2 m = estado de dragado intermedio (08_batimetria_conjunto.py, volumenes_conjunto.json).
+    # Antes: 9 m (7-11) de fuentes divulgativas (47 hm3), que las cartas no sostienen (ver docs, sec. 19).
+    "h_m":     (6.2, 5.2, 7.3),
     # rango mareal. Practicos: pleamar superior media 0.4 m, bajamar inferior media 0.1 m
     # -> rango diurno mayor ~0.3 m. Predicciones publicas: 0.3-0.45 m en sicigias.
     "R_m":     (0.30, 0.20, 0.50),
