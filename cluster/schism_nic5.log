@@ -1,0 +1,876 @@
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+
+The following have been reloaded with a version change:
+  1) releases/2021b => releases/2023b
+
+
+Currently Loaded Modules:
+  1) tis/2018.01                      (S)
+  2) releases/2023b                   (S)
+  3) GCCcore/13.2.0
+  4) zlib/1.2.13-GCCcore-13.2.0
+  5) binutils/2.40-GCCcore-13.2.0
+  6) GCC/13.2.0
+  7) numactl/2.0.16-GCCcore-13.2.0
+  8) XZ/5.4.4-GCCcore-13.2.0
+  9) libxml2/2.11.5-GCCcore-13.2.0
+ 10) libpciaccess/0.17-GCCcore-13.2.0
+ 11) hwloc/2.9.2-GCCcore-13.2.0
+ 12) OpenSSL/1.1
+ 13) libevent/2.1.12-GCCcore-13.2.0
+ 14) UCX/1.15.0-GCCcore-13.2.0
+ 15) libfabric/1.19.0-GCCcore-13.2.0
+ 16) PMIx/4.2.6-GCCcore-13.2.0
+ 17) UCC/1.2.0-GCCcore-13.2.0
+ 18) OpenMPI/4.1.6-GCC-13.2.0
+ 19) OpenBLAS/0.3.24-GCC-13.2.0
+ 20) FlexiBLAS/3.3.1-GCC-13.2.0
+ 21) FFTW/3.3.10-GCC-13.2.0
+ 22) gompi/2023b
+ 23) FFTW.MPI/3.3.10-gompi-2023b
+ 24) ScaLAPACK/2.2.0-gompi-2023b-fb
+ 25) foss/2023b
+ 26) Szip/2.1.1-GCCcore-13.2.0
+ 27) HDF5/1.14.3-gompi-2023b
+ 28) cURL/8.3.0-GCCcore-13.2.0
+ 29) gzip/1.13-GCCcore-13.2.0
+ 30) lz4/1.9.4-GCCcore-13.2.0
+ 31) zstd/1.5.5-GCCcore-13.2.0
+ 32) bzip2/1.0.8-GCCcore-13.2.0
+ 33) netCDF/4.9.2-gompi-2023b
+ 34) netCDF-Fortran/4.6.1-gompi-2023b
+ 35) ncurses/6.4-GCCcore-13.2.0
+ 36) libarchive/3.7.2-GCCcore-13.2.0
+ 37) CMake/3.27.6-GCCcore-13.2.0
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
+
+ 
+
+Cloning into 'schism'...
+Updating files:  18% (638/3504)Updating files:  19% (666/3504)Updating files:  20% (701/3504)Updating files:  21% (736/3504)Updating files:  22% (771/3504)Updating files:  23% (806/3504)Updating files:  24% (841/3504)Updating files:  25% (876/3504)Updating files:  26% (912/3504)Updating files:  27% (947/3504)Updating files:  28% (982/3504)Updating files:  29% (1017/3504)Updating files:  30% (1052/3504)Updating files:  31% (1087/3504)Updating files:  32% (1122/3504)Updating files:  33% (1157/3504)Updating files:  34% (1192/3504)Updating files:  35% (1227/3504)Updating files:  36% (1262/3504)Updating files:  37% (1297/3504)Updating files:  38% (1332/3504)Updating files:  39% (1367/3504)Updating files:  40% (1402/3504)Updating files:  41% (1437/3504)Updating files:  42% (1472/3504)Updating files:  42% (1487/3504)Updating files:  43% (1507/3504)Updating files:  44% (1542/3504)Updating files:  45% (1577/3504)Updating files:  46% (1612/3504)Updating files:  47% (1647/3504)Updating files:  48% (1682/3504)Updating files:  49% (1717/3504)Updating files:  50% (1752/3504)Updating files:  51% (1788/3504)Updating files:  52% (1823/3504)Updating files:  53% (1858/3504)Updating files:  54% (1893/3504)Updating files:  55% (1928/3504)Updating files:  56% (1963/3504)Updating files:  57% (1998/3504)Updating files:  58% (2033/3504)Updating files:  59% (2068/3504)Updating files:  60% (2103/3504)Updating files:  60% (2112/3504)Updating files:  61% (2138/3504)Updating files:  62% (2173/3504)Updating files:  63% (2208/3504)Updating files:  64% (2243/3504)Updating files:  65% (2278/3504)Updating files:  66% (2313/3504)Updating files:  67% (2348/3504)Updating files:  68% (2383/3504)Updating files:  69% (2418/3504)Updating files:  70% (2453/3504)Updating files:  71% (2488/3504)Updating files:  72% (2523/3504)Updating files:  73% (2558/3504)Updating files:  74% (2593/3504)Updating files:  75% (2628/3504)Updating files:  76% (2664/3504)Updating files:  76% (2673/3504)Updating files:  77% (2699/3504)Updating files:  78% (2734/3504)Updating files:  79% (2769/3504)Updating files:  80% (2804/3504)Updating files:  81% (2839/3504)Updating files:  82% (2874/3504)Updating files:  83% (2909/3504)Updating files:  84% (2944/3504)Updating files:  85% (2979/3504)Updating files:  86% (3014/3504)Updating files:  86% (3043/3504)Updating files:  87% (3049/3504)Updating files:  88% (3084/3504)Updating files:  89% (3119/3504)Updating files:  90% (3154/3504)Updating files:  91% (3189/3504)Updating files:  92% (3224/3504)Updating files:  93% (3259/3504)Updating files:  94% (3294/3504)Updating files:  95% (3329/3504)Updating files:  96% (3364/3504)Updating files:  97% (3399/3504)Updating files:  98% (3434/3504)Updating files:  99% (3469/3504)Updating files: 100% (3504/3504)Updating files: 100% (3504/3504), done.
+SCHISM 09f407e855243554c51f8decf3ba053f805add21 Wed Sep 23 18:36:21 2026 -0400
+loading initial cache file ../cmake/SCHISM.local.build
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:15 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:16 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:19 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:22 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:26 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:28 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:30 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:31 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:32 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:36 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:37 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:38 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:39 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:44 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:46 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:47 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:48 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:49 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:52 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:53 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:54 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:55 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:56 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:57 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:58 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:60 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:65 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- 
+################   Begin SCHISM Configuration   ################
+-- In-source builds not allowed
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:67 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) at /home/ulb/cenoli/arivera/schism/cmake/SCHISM.local.build:68 (set):
+  implicitly converting 'BOOLEAN' to 'STRING' type.
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Deprecation Warning at CMakeLists.txt:9 (cmake_policy):
+  The OLD behavior for policy CMP0074 will be removed from a future version
+  of CMake.
+
+  The cmake-policies(7) manual explains that the OLD behaviors of all
+  policies are deprecated and that a policy should be set to OLD only under
+  specific short-term circumstances.  Projects should be ported to the NEW
+  behavior and not rely on setting a policy to OLD.
+
+
+-- The C compiler identification is GNU 13.2.0
+-- The Fortran compiler identification is GNU 13.2.0
+-- The CXX compiler identification is GNU 13.2.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /opt/cecisw/arch/easybuild/2023b/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting Fortran compiler ABI info
+-- Detecting Fortran compiler ABI info - done
+-- Check for working Fortran compiler: /opt/cecisw/arch/easybuild/2023b/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpif90 - skipped
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /opt/cecisw/arch/easybuild/2023b/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicxx - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- 
+### Compiler combination and executables
+-- Compiler ID is GNU-GNU
+-- Fortran compiler is /opt/cecisw/arch/easybuild/2023b/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpif90
+-- C compiler is /opt/cecisw/arch/easybuild/2023b/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc
+-- 
+### Processing algorithmic switches and build options involving functionality for main project
+-- USE_AGE OPTION IS ON
+-- BLD_STANDALONE OPTION IS ON
+-- SH_MEM_COMM OPTION IS ON
+-- Build definition tags set to _AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL
+-- 
+### Configuring MPI Library
+-- Found MPI_C: /opt/cecisw/arch/easybuild/2023b/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicc (found version "3.1") 
+-- Found MPI_CXX: /opt/cecisw/arch/easybuild/2023b/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpicxx (found version "3.1") 
+-- Found MPI_Fortran: /opt/cecisw/arch/easybuild/2023b/software/OpenMPI/4.1.6-GCC-13.2.0/bin/mpif90 (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- MPIVERSION = 2
+-- 
+### Configuring NetCDF 
+-- Found NetCDF: /opt/cecisw/arch/easybuild/2023b/software/netCDF/4.9.2-gompi-2023b/include;/opt/cecisw/arch/easybuild/2023b/software/netCDF-Fortran/4.6.1-gompi-2023b/include (found version "4.9.2") found components: C Fortran 
+-- FindNetCDF defines targets:
+--   - NetCDF_VERSION [4.9.2]
+--   - NetCDF_PARALLEL [TRUE]
+--   - NetCDF_C_CONFIG_EXECUTABLE [/opt/cecisw/arch/easybuild/2023b/software/netCDF/4.9.2-gompi-2023b/bin/nc-config]
+--   - NetCDF::NetCDF_C [SHARED] [Root: /opt/cecisw/arch/easybuild/2023b/software/netCDF/4.9.2-gompi-2023b] Lib: /opt/cecisw/arch/easybuild/2023b/software/netCDF/4.9.2-gompi-2023b/lib64/libnetcdf.so 
+--   - NetCDF_Fortran_CONFIG_EXECUTABLE [/opt/cecisw/arch/easybuild/2023b/software/netCDF-Fortran/4.6.1-gompi-2023b/bin/nf-config]
+--   - NetCDF::NetCDF_Fortran [SHARED] [Root: /opt/cecisw/arch/easybuild/2023b/software/netCDF-Fortran/4.6.1-gompi-2023b] Lib: /opt/cecisw/arch/easybuild/2023b/software/netCDF-Fortran/4.6.1-gompi-2023b/lib64/libnetcdff.so 
+-- 
+### Assigning output directories for binaries (bin), modules (include) and libraries (lib)
+-- 
+### Adding enabled libraries to project
+-- 
+### Configuring ParMETIS 
+-- Using SCHISM's internal ParMETIS library.
+-- Looking for execinfo.h
+-- Looking for execinfo.h - found
+-- Looking for getline
+-- Looking for getline - found
+-- checking for thread-local storage - found
+-- PARMETIS_DIR: /home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3
+-- PARMETIS_VER: ParMetis-4.0.3
+-- hydro_extra_src=
+-- Mod libraries: 
+-- Added Hydro
+--  SCHISM version: develop
+--  GIT commit: 09f407e8
+-- Added Core
+-- All defines: 
+-- 
+### Configuring Driver
+-- START: pschism:pschism
+-- Executable name with this configuration will be pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL
+-- 
+### Configuring Utilities
+-- In /Utility NetCDF_LIBS /opt/cecisw/arch/easybuild/2023b/software/netCDF/4.9.2-gompi-2023b/lib64/libnetcdf.so;/opt/cecisw/arch/easybuild/2023b/software/netCDF-Fortran/4.6.1-gompi-2023b/lib64/libnetcdff.so
+-- In /Utility NetCDF_LIBS /opt/cecisw/arch/easybuild/2023b/software/netCDF/4.9.2-gompi-2023b/lib64/libnetcdf.so;/opt/cecisw/arch/easybuild/2023b/software/netCDF-Fortran/4.6.1-gompi-2023b/lib64/libnetcdff.so
+Using schism module libraries core;hydro
+-- In Utility/Gen_Hotstart
+-- In Utility/Grid_Scripts
+-- Configuring done (8.4s)
+-- Generating done (1.0s)
+CMake Warning:
+  Manually-specified variables were not used by the project:
+
+    NetCDF_C_DIR
+    NetCDF_FORTRAN_DIR
+
+
+-- Build files have been written to: /home/ulb/cenoli/arivera/schism/build
+[  0%] Built target sversion
+[  0%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/b64.c.o
+[  2%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/csr.c.o
+[  2%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/blas.c.o
+[  6%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/error.c.o
+[  6%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/fkvkselect.c.o
+[  6%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/fs.c.o
+[  6%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/evaluate.c.o
+[  6%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/getopt.c.o
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/metis/GKlib/getopt.c: In function 'gk_getopt_internal':
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/metis/GKlib/getopt.c:343:5: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  343 |     if (gk_optind == 0)
+      |     ^~
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/metis/GKlib/getopt.c:345:7: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  345 |       optstring = gk_getopt_initialize (argc, argv, optstring);
+      |       ^~~~~~~~~
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/metis/GKlib/getopt.c:700:9: warning: this 'else' clause does not guard... [-Wmisleading-indentation]
+  700 |         else
+      |         ^~~~
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/metis/GKlib/getopt.c:703:11: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'else'
+  703 |           nextchar = NULL;
+      |           ^~~~~~~~
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/metis/GKlib/csr.c: In function 'gk_csr_Normalize':
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/metis/GKlib/csr.c:1344:14: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1344 |         else if (norm == 1)
+      |              ^~
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/metis/GKlib/csr.c:1346:11: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1346 |           for (j=ptr[i]; j<ptr[i+1]; j++)
+      |           ^~~
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/metis/GKlib/csr.c:1371:14: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+ 1371 |         else if (norm == 1)
+      |              ^~
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/metis/GKlib/csr.c:1373:11: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+ 1373 |           for (j=ptr[i]; j<ptr[i+1]; j++)
+      |           ^~~
+[  6%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/gkregex.c.o
+[  6%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/htable.c.o
+[  8%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/graph.c.o
+[ 10%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/io.c.o
+[ 12%] Building Fortran object Core/CMakeFiles/core.dir/schism_glbl.F90.o
+[ 14%] Building Fortran object Core/CMakeFiles/core.dir/schism_version.F90.o
+[ 14%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/itemsets.c.o
+[ 14%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/mcore.c.o
+[ 16%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/memory.c.o
+[ 16%] Building Fortran object Core/CMakeFiles/core.dir/schism_msgp.F90.o
+[ 16%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/omp.c.o
+[ 18%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/pdb.c.o
+[ 18%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/pqueue.c.o
+[ 20%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/random.c.o
+/home/ulb/cenoli/arivera/schism/src/Core/schism_msgp.F90:4107:19:
+
+ 4107 |     call mpi_irecv(e2di_2t_data,1,e2di_2t_recv_type(i),nbrrank_2t(i),17,comm,e2di_2t_recv_rqst(i),ierr)
+      |                   1
+......
+ 4140 |     call mpi_irecv(e3d_2t_data,1,e3d_2t_tr_recv_type(i),nbrrank_2t(i),18,comm,e3d_2t_tr_recv_rqst(i),ierr)
+      |                   2
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Core/schism_msgp.F90:4113:19:
+
+ 4113 |     call mpi_isend(e2di_2t_data,1,e2di_2t_send_type(i),nbrrank_2t(i),17,comm,e2di_2t_send_rqst(i),ierr)
+      |                   1
+......
+ 4146 |     call mpi_isend(e3d_2t_data,1,e3d_2t_tr_send_type(i),nbrrank_2t(i),18,comm,e3d_2t_tr_send_rqst(i),ierr)
+      |                   2
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(8)).
+[ 20%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/rw.c.o
+[ 20%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/seq.c.o
+[ 22%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/sort.c.o
+[ 22%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/string.c.o
+[ 24%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/timers.c.o
+[ 24%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/tokenizer.c.o
+[ 24%] Building C object libmetis/CMakeFiles/metis.dir/__/GKlib/util.c.o
+[ 26%] Building C object libmetis/CMakeFiles/metis.dir/auxapi.c.o
+[ 26%] Building C object libmetis/CMakeFiles/metis.dir/balance.c.o
+[ 28%] Building C object libmetis/CMakeFiles/metis.dir/bucketsort.c.o
+[ 28%] Building C object libmetis/CMakeFiles/metis.dir/checkgraph.c.o
+[ 28%] Building C object libmetis/CMakeFiles/metis.dir/coarsen.c.o
+[ 30%] Building C object libmetis/CMakeFiles/metis.dir/compress.c.o
+[ 30%] Building C object libmetis/CMakeFiles/metis.dir/contig.c.o
+[ 32%] Building C object libmetis/CMakeFiles/metis.dir/debug.c.o
+[ 32%] Building C object libmetis/CMakeFiles/metis.dir/fm.c.o
+[ 32%] Building C object libmetis/CMakeFiles/metis.dir/fortran.c.o
+[ 34%] Building C object libmetis/CMakeFiles/metis.dir/frename.c.o
+[ 34%] Building C object libmetis/CMakeFiles/metis.dir/gklib.c.o
+[ 36%] Building C object libmetis/CMakeFiles/metis.dir/graph.c.o
+[ 36%] Building C object libmetis/CMakeFiles/metis.dir/initpart.c.o
+[ 36%] Building C object libmetis/CMakeFiles/metis.dir/kmetis.c.o
+[ 38%] Building C object libmetis/CMakeFiles/metis.dir/kwayfm.c.o
+[ 38%] Building C object libmetis/CMakeFiles/metis.dir/kwayrefine.c.o
+[ 40%] Building C object libmetis/CMakeFiles/metis.dir/mcutil.c.o
+[ 40%] Building C object libmetis/CMakeFiles/metis.dir/mesh.c.o
+[ 40%] Building C object libmetis/CMakeFiles/metis.dir/meshpart.c.o
+[ 42%] Building C object libmetis/CMakeFiles/metis.dir/minconn.c.o
+[ 42%] Building C object libmetis/CMakeFiles/metis.dir/mincover.c.o
+[ 44%] Building C object libmetis/CMakeFiles/metis.dir/mmd.c.o
+[ 44%] Building C object libmetis/CMakeFiles/metis.dir/ometis.c.o
+[ 44%] Building C object libmetis/CMakeFiles/metis.dir/options.c.o
+[ 46%] Building C object libmetis/CMakeFiles/metis.dir/parmetis.c.o
+[ 46%] Building C object libmetis/CMakeFiles/metis.dir/pmetis.c.o
+[ 48%] Building C object libmetis/CMakeFiles/metis.dir/refine.c.o
+[ 48%] Building C object libmetis/CMakeFiles/metis.dir/separator.c.o
+[ 48%] Building C object libmetis/CMakeFiles/metis.dir/sfm.c.o
+[ 50%] Building C object libmetis/CMakeFiles/metis.dir/srefine.c.o
+[ 50%] Building C object libmetis/CMakeFiles/metis.dir/stat.c.o
+[ 52%] Building C object libmetis/CMakeFiles/metis.dir/timing.c.o
+[ 52%] Building C object libmetis/CMakeFiles/metis.dir/util.c.o
+[ 52%] Building C object libmetis/CMakeFiles/metis.dir/wspace.c.o
+[ 54%] Linking C static library ../lib/libmetis.a
+[ 54%] Built target metis
+[ 54%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/akwayfm.c.o
+[ 56%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/balancemylink.c.o
+[ 58%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/comm.c.o
+[ 58%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/ametis.c.o
+[ 58%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/csrmatch.c.o
+[ 60%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/ctrl.c.o
+[ 60%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/debug.c.o
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/libparmetis/balancemylink.c: In function 'libparmetis__BalanceMyLink':
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/libparmetis/balancemylink.c:324:5: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  324 |     if (where[i] != home[i])
+      |     ^~
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/libparmetis/balancemylink.c:327:7: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  327 |       for (j=xadj[i]; j<xadj[i+1]; j++) {
+      |       ^~~
+[ 60%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/diffutil.c.o
+[ 60%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/frename.c.o
+[ 62%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/gkmetis.c.o
+[ 62%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/gkmpi.c.o
+[ 64%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/graph.c.o
+[ 64%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/initbalance.c.o
+[ 64%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/initmsection.c.o
+[ 66%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/initpart.c.o
+[ 66%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/kmetis.c.o
+[ 68%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/kwayrefine.c.o
+[ 68%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/match.c.o
+[ 70%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/mdiffusion.c.o
+[ 70%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/mesh.c.o
+[ 70%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/mmetis.c.o
+[ 72%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/move.c.o
+[ 72%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/msetup.c.o
+[ 74%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/node_refine.c.o
+[ 74%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/ometis.c.o
+[ 74%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/pspases.c.o
+[ 76%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/redomylink.c.o
+[ 76%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/remap.c.o
+[ 78%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/renumber.c.o
+[ 78%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/rmetis.c.o
+[ 78%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/selectq.c.o
+[ 80%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/serial.c.o
+[ 80%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/stat.c.o
+[ 82%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/timer.c.o
+[ 82%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/util.c.o
+[ 82%] Building Fortran object Core/CMakeFiles/core.dir/hydraulic_structures.F90.o
+[ 84%] Building Fortran object Core/CMakeFiles/core.dir/misc_modules.F90.o
+[ 84%] Building Fortran object Core/CMakeFiles/core.dir/schism_io.F90.o
+[ 84%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/wave.c.o
+[ 86%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/weird.c.o
+[ 86%] Building Fortran object Core/CMakeFiles/core.dir/scribe_io.F90.o
+[ 88%] Building Fortran object Core/CMakeFiles/core.dir/schism_assert.F90.o
+[ 88%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/wspace.c.o
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/libparmetis/wave.c: In function 'libparmetis__WavefrontDiffusion':
+/home/ulb/cenoli/arivera/schism/src/ParMetis-4.0.3/libparmetis/wave.c:253:1: warning: label 'CleanUpAndExit' defined but not used [-Wunused-label]
+  253 | CleanUpAndExit:
+      | ^~~~~~~~~~~~~~
+[ 90%] Building C object ParMetis-4.0.3/libparmetis/CMakeFiles/parmetis.dir/xyzpart.c.o
+/home/ulb/cenoli/arivera/schism/src/Core/scribe_io.F90:109:20:
+
+  107 |       call mpi_recv(dt,1,rtype,0,100,comm_schism,rrqst,ierr)
+      |                    2
+  108 |       if(ierr/=MPI_SUCCESS) call parallel_abort('scribe_init: recv error')
+  109 |       call mpi_recv(nspool,1,itype,0,101,comm_schism,rrqst,ierr)
+      |                    1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Core/scribe_io.F90:202:25:
+
+  202 |           call mpi_irecv(itmp,1,itype,i-1,199,comm_schism,rrqst,ierr)
+      |                         1
+......
+ 1517 |               call mpi_irecv(alt1_var3delem(:,:,i),ne(i)*nvrt0,MPI_REAL4,i-1,200+itotal,comm_schism,rrqst2(i),ierr)
+      |                             2
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(4)).
+/home/ulb/cenoli/arivera/schism/src/Core/scribe_io.F90:330:21:
+
+  225 |       call mpi_bcast(np,nproc_compute,itype,nscribes-1,comm_scribe,ierr)
+      |                     2
+......
+  330 |       call mpi_bcast(xnd,np_global,rtype,nscribes-1,comm_scribe,ierr)
+      |                     1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (REAL(8)/INTEGER(4)).
+[ 90%] Linking C static library ../../lib/libparmetis.a
+[ 90%] Built target parmetis
+[ 90%] Linking Fortran static library ../lib/libcore.a
+[ 90%] Built target core
+[ 90%] Building Fortran object Hydro/CMakeFiles/hydro.dir/sflux_9c.F90.o
+[ 90%] Building Fortran object Hydro/CMakeFiles/hydro.dir/schism_init.F90.o
+[ 92%] Building Fortran object Hydro/CMakeFiles/hydro.dir/schism_finalize.F90.o
+[ 92%] Building Fortran object Hydro/CMakeFiles/hydro.dir/schism_step.F90.o
+[ 96%] Building Fortran object Hydro/CMakeFiles/hydro.dir/lap.F90.o
+[ 96%] Building Fortran object Hydro/CMakeFiles/hydro.dir/bktrk_subs.F90.o
+[ 96%] Building Fortran object Hydro/CMakeFiles/hydro.dir/grid_subs.F90.o
+[ 96%] Building Fortran object Hydro/CMakeFiles/hydro.dir/misc_subs.F90.o
+/home/ulb/cenoli/arivera/schism/src/Hydro/lap.F90:1690:48:
+
+ 1690 |       IF (INCX.EQ.INCY) IF (INCX-1) 10 , 30 , 70
+      |                                                1
+Warning: Fortran 2018 deleted feature: Arithmetic IF statement at (1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/lap.F90:1748:48:
+
+ 1748 |       IF (INCX.EQ.INCY) IF (INCX-1) 10 , 30 , 70
+      |                                                1
+Warning: Fortran 2018 deleted feature: Arithmetic IF statement at (1)
+[ 96%] Building Fortran object Hydro/CMakeFiles/hydro.dir/solver_subs.F90.o
+/home/ulb/cenoli/arivera/schism/src/Hydro/bktrk_subs.F90:73:23:
+
+   62 |   call mpi_get_address(bttmp%rank,displ(1),ierr)
+      |                       2
+......
+   73 |   call mpi_get_address(bttmp%dtbk,displ(2),ierr)
+      |                       1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (REAL(8)/INTEGER(4)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/bktrk_subs.F90:444:21:
+
+   52 |   call mpi_allreduce(nsa,nmm,1,itype,MPI_MAX,comm,ierr)
+      |                     2
+......
+  444 |   call mpi_allreduce(bt_donel,bt_done,1,MPI_LOGICAL,MPI_LAND,comm,ierr)
+      |                     1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (LOGICAL(4)/INTEGER(4)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/bktrk_subs.F90:444:30:
+
+   52 |   call mpi_allreduce(nsa,nmm,1,itype,MPI_MAX,comm,ierr)
+      |                         2     
+......
+  444 |   call mpi_allreduce(bt_donel,bt_done,1,MPI_LOGICAL,MPI_LAND,comm,ierr)
+      |                              1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (LOGICAL(4)/INTEGER(4)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_init.F90:1776:23:
+
+ 1775 |         call mpi_bcast(buf4,ns_global,rtype,0,comm,istat)
+      |                       2
+ 1776 |         call mpi_bcast(max_flreg,1,itype,0,comm,istat)
+      |                       1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_init.F90:2803:29:
+
+ 2198 |       call mpi_allreduce(iabort,iabort_gb,1,itype,MPI_SUM,comm,ierr)
+      |                         2    
+......
+ 2803 |           call mpi_allreduce(swild99,dir_block,2*nhtblocks,rtype,MPI_SUM,comm,ierr)
+      |                             1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (REAL(8)/INTEGER(4)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_init.F90:2803:37:
+
+ 2198 |       call mpi_allreduce(iabort,iabort_gb,1,itype,MPI_SUM,comm,ierr)
+      |                                2     
+......
+ 2803 |           call mpi_allreduce(swild99,dir_block,2*nhtblocks,rtype,MPI_SUM,comm,ierr)
+      |                                     1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (REAL(8)/INTEGER(4)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_init.F90:2804:29:
+
+ 2198 |       call mpi_allreduce(iabort,iabort_gb,1,itype,MPI_SUM,comm,ierr)
+      |                         2    
+......
+ 2804 |           call mpi_allreduce(ibuf1,ibuf2,nhtblocks,itype,MPI_SUM,comm,ierr)
+      |                             1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-2)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_init.F90:2804:35:
+
+ 2198 |       call mpi_allreduce(iabort,iabort_gb,1,itype,MPI_SUM,comm,ierr)
+      |                                2   
+......
+ 2804 |           call mpi_allreduce(ibuf1,ibuf2,nhtblocks,itype,MPI_SUM,comm,ierr)
+      |                                   1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-2)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_init.F90:4390:24:
+
+ 1997 |       call mpi_reduce(edge_min,tmpmin,1,rtype,MPI_MIN,0,comm,ierr)
+      |                      2  
+......
+ 4390 |         call mpi_reduce(iep_sta,nwild2,nout_sta,itype,MPI_SUM,0,comm,ierr)
+      |                        1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_init.F90:4390:32:
+
+ 1997 |       call mpi_reduce(edge_min,tmpmin,1,rtype,MPI_MIN,0,comm,ierr)
+      |                               2 
+......
+ 4390 |         call mpi_reduce(iep_sta,nwild2,nout_sta,itype,MPI_SUM,0,comm,ierr)
+      |                                1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_init.F90:5720:23:
+
+ 1775 |         call mpi_bcast(buf4,ns_global,rtype,0,comm,istat)
+      |                       2
+......
+ 5720 |         call mpi_bcast(time,1,rtype,0,comm,istat)
+      |                       1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (rank-1 and scalar)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_init.F90:7264:24:
+
+ 7263 |           call mpi_send(dt,1,rtype,nproc_schism-i,100,comm_schism,ierr)
+      |                        2
+ 7264 |           call mpi_send(nspool,1,itype,nproc_schism-i,101,comm_schism,ierr)
+      |                        1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_init.F90:7343:20:
+
+ 7263 |           call mpi_send(dt,1,rtype,nproc_schism-i,100,comm_schism,ierr)
+      |                        2
+......
+ 7343 |       call mpi_send(buf3(1:np),np,rtype,nproc_schism-1,193,comm_schism,ierr)
+      |                    1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_init.F90:7344:20:
+
+ 7263 |           call mpi_send(dt,1,rtype,nproc_schism-i,100,comm_schism,ierr)
+      |                        2
+......
+ 7344 |       call mpi_send(buf4(1:np),np,rtype,nproc_schism-1,192,comm_schism,ierr)
+      |                    1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_init.F90:7345:20:
+
+ 7263 |           call mpi_send(dt,1,rtype,nproc_schism-i,100,comm_schism,ierr)
+      |                        2
+......
+ 7345 |       call mpi_send(dp(1:np),np,rtype,nproc_schism-1,191,comm_schism,ierr)
+      |                    1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/grid_subs.F90:665:17:
+
+  644 |   call mpi_bcast(ne_global,1,itype,0,comm,stat)
+      |                 2
+......
+  665 |   call mpi_bcast(i34gb,ne_global,itype,0,comm,stat)
+      |                 1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/grid_subs.F90:666:17:
+
+  644 |   call mpi_bcast(ne_global,1,itype,0,comm,stat)
+      |                 2
+......
+  666 |   call mpi_bcast(nmgb,ne_global*4,itype,0,comm,stat)
+      |                 1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-2)
+/home/ulb/cenoli/arivera/schism/src/Hydro/grid_subs.F90:667:17:
+
+  644 |   call mpi_bcast(ne_global,1,itype,0,comm,stat)
+      |                 2
+......
+  667 |   call mpi_bcast(lhas_quad,1,MPI_LOGICAL,0,comm,stat)
+      |                 1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (LOGICAL(4)/INTEGER(4)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/grid_subs.F90:857:17:
+
+  644 |   call mpi_bcast(ne_global,1,itype,0,comm,stat)
+      |                 2
+......
+  857 |   call mpi_bcast(nond_global,nope_global,itype,0,comm,stat)
+      |                 1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/grid_subs.F90:858:17:
+
+  644 |   call mpi_bcast(ne_global,1,itype,0,comm,stat)
+      |                 2
+......
+  858 |   call mpi_bcast(iond_global,nope_global*mnond_global,itype,0,comm,stat)
+      |                 1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-2)
+/home/ulb/cenoli/arivera/schism/src/Hydro/grid_subs.F90:859:17:
+
+  644 |   call mpi_bcast(ne_global,1,itype,0,comm,stat)
+      |                 2
+......
+  859 |   call mpi_bcast(isbnd_global,np_global,itype,0,comm,stat)
+      |                 1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/grid_subs.F90:926:17:
+
+  644 |   call mpi_bcast(ne_global,1,itype,0,comm,stat)
+      |                 2
+......
+  926 |   call mpi_bcast(nlnd_global,nland_global,itype,0,comm,stat)
+      |                 1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/grid_subs.F90:927:17:
+
+  644 |   call mpi_bcast(ne_global,1,itype,0,comm,stat)
+      |                 2
+......
+  927 |   call mpi_bcast(ilnd_global,nland_global*mnlnd_global,itype,0,comm,stat)
+      |                 1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-2)
+/home/ulb/cenoli/arivera/schism/src/Hydro/grid_subs.F90:928:17:
+
+  644 |   call mpi_bcast(ne_global,1,itype,0,comm,stat)
+      |                 2
+......
+  928 |   call mpi_bcast(isbnd_global,np_global,itype,0,comm,stat)
+      |                 1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/grid_subs.F90:309:19:
+
+  309 |     call mpi_bcast(nlev,np_global,itype,0,comm,stat)
+      |                   1
+......
+  644 |   call mpi_bcast(ne_global,1,itype,0,comm,stat)
+      |                 2  
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:691:25:
+
+  530 |           call mpi_bcast(wx2,1,rtype,0,comm,istat)
+      |                         2
+......
+  691 |           call mpi_bcast(rwild6,9*np_global,MPI_REAL4,0,comm,istat)
+      |                         1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (REAL(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:1437:27:
+
+ 1436 |         call mpi_allreduce(q_block_lcl,q_block,nhtblocks,rtype,MPI_SUM,comm,ierr)
+      |                           2
+ 1437 |         call mpi_allreduce(iq_block_lcl,iq_block,nhtblocks,itype,MPI_SUM,comm,ierr)
+      |                           1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:1437:40:
+
+ 1436 |         call mpi_allreduce(q_block_lcl,q_block,nhtblocks,rtype,MPI_SUM,comm,ierr)
+      |                                       2 
+ 1437 |         call mpi_allreduce(iq_block_lcl,iq_block,nhtblocks,itype,MPI_SUM,comm,ierr)
+      |                                        1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:1802:23:
+
+  530 |           call mpi_bcast(wx2,1,rtype,0,comm,istat)
+      |                         2
+......
+ 1802 |         call mpi_bcast(eth,mnond_global*nope_global,rtype,0,comm,istat)
+      |                       1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-2)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:1803:23:
+
+  530 |           call mpi_bcast(wx2,1,rtype,0,comm,istat)
+      |                         2
+......
+ 1803 |         call mpi_bcast(qthcon,nope_global,rtype,0,comm,istat)
+      |                       1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:1804:23:
+
+  530 |           call mpi_bcast(wx2,1,rtype,0,comm,istat)
+      |                         2
+......
+ 1804 |         call mpi_bcast(trth,ntracers*nvrt*mnond_global*max(1,nope_global),rtype,0,comm,istat)
+      |                       1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-4)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:1805:23:
+
+  530 |           call mpi_bcast(wx2,1,rtype,0,comm,istat)
+      |                         2
+......
+ 1805 |         call mpi_bcast(uthnd,nvrt*mnond_global*nope_global,rtype,0,comm,istat)
+      |                       1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-3)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:1806:23:
+
+  530 |           call mpi_bcast(wx2,1,rtype,0,comm,istat)
+      |                         2
+......
+ 1806 |         call mpi_bcast(vthnd,nvrt*mnond_global*nope_global,rtype,0,comm,istat)
+      |                       1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-3)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:1911:23:
+
+  530 |           call mpi_bcast(wx2,1,rtype,0,comm,istat)
+      |                         2
+......
+ 1911 |         call mpi_bcast(th_time3,2*nthfiles3,rtype,0,comm,istat)
+      |                       1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-2)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:4803:29:
+
+ 1436 |         call mpi_allreduce(q_block_lcl,q_block,nhtblocks,rtype,MPI_SUM,comm,ierr)
+      |                           2  
+......
+ 4803 |           call mpi_allreduce(tmp1,tmp,1,rtype,MPI_MAX,comm,ierr)
+      |                             1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (rank-1 and scalar)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:4803:34:
+
+ 1436 |         call mpi_allreduce(q_block_lcl,q_block,nhtblocks,rtype,MPI_SUM,comm,ierr)
+      |                                       2
+......
+ 4803 |           call mpi_allreduce(tmp1,tmp,1,rtype,MPI_MAX,comm,ierr)
+      |                                  1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (rank-1 and scalar)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:6440:25:
+
+ 1436 |         call mpi_allreduce(q_block_lcl,q_block,nhtblocks,rtype,MPI_SUM,comm,ierr)
+      |                           2
+......
+ 6440 |       call mpi_allreduce(etatotl,etatot,1,rtype,MPI_SUM,comm,ierr)
+      |                         1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (rank-1 and scalar)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:6440:33:
+
+ 1436 |         call mpi_allreduce(q_block_lcl,q_block,nhtblocks,rtype,MPI_SUM,comm,ierr)
+      |                                       2
+......
+ 6440 |       call mpi_allreduce(etatotl,etatot,1,rtype,MPI_SUM,comm,ierr)
+      |                                 1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (rank-1 and scalar)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:9970:23:
+
+ 1384 |             call mpi_isend(eta2,1,htsend_type(i),i,601,comm,srqst(i),ierr)
+      |                           2
+......
+ 9970 |         call mpi_isend(varout_2dnode(1:ncount_2dnode,1:np),np*ncount_2dnode,MPI_REAL4,iscribe_2d, &
+      |                       1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (REAL(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:10003:97:
+
+10003 |           if(iof_hydro(i)/=0) call savensend3D_scribe(icount,1,2,nvrt,np,uu2(:,1:np),vv2(:,1:np))
+      |                                                                                                 1
+Warning: More actual than formal arguments in procedure call at (1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:10107:97:
+
+10107 |           if(iof_hydro(i)/=0) call savensend3D_scribe(icount,3,2,nvrt,ns,su2(:,1:ns),sv2(:,1:ns))
+      |                                                                                                 1
+Warning: More actual than formal arguments in procedure call at (1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:10332:24:
+
+ 8978 |       call mpi_reduce(swild,buf3,6,rtype,MPI_SUM,0,comm,ierr)
+      |                      2  
+......
+10332 |         call mpi_reduce(idry_sta,nwild2,nout_sta,itype,MPI_SUM,0,comm,ierr)
+      |                        1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/schism_step.F90:10332:33:
+
+ 8978 |       call mpi_reduce(swild,buf3,6,rtype,MPI_SUM,0,comm,ierr)
+      |                            2     
+......
+10332 |         call mpi_reduce(idry_sta,nwild2,nout_sta,itype,MPI_SUM,0,comm,ierr)
+      |                                 1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/sflux_9c.F90:2349:23:
+
+ 2349 |         call mpi_bcast(num_file_times,1,itype,0,comm,istat)
+      |                       1
+......
+ 2546 |         call mpi_bcast(data_tmp,nx*ny,mpi_real,0,comm,iret)
+      |                       2
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (INTEGER(4)/REAL(4)).
+[ 98%] Building Fortran object Hydro/CMakeFiles/hydro.dir/transport_TVD_imp.F90.o
+/home/ulb/cenoli/arivera/schism/src/Hydro/misc_subs.F90:1299:29:
+
+ 1294 |           call mpi_allreduce(nsdf,nsdf_gb,1,itype,MPI_SUM,comm,ierr)
+      |                             2
+......
+ 1299 |           call mpi_allreduce(srwt_xchng,srwt_xchng_gb,1,MPI_LOGICAL,MPI_LAND,comm,ierr)
+      |                             1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (LOGICAL(4)/INTEGER(4)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/misc_subs.F90:1299:40:
+
+ 1294 |           call mpi_allreduce(nsdf,nsdf_gb,1,itype,MPI_SUM,comm,ierr)
+      |                                  2      
+......
+ 1299 |           call mpi_allreduce(srwt_xchng,srwt_xchng_gb,1,MPI_LOGICAL,MPI_LAND,comm,ierr)
+      |                                        1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (LOGICAL(4)/INTEGER(4)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/misc_subs.F90:359:23:
+
+  285 |         call mpi_bcast(wx1,1,rtype,0,comm,istat)
+      |                       2
+......
+  359 |         call mpi_bcast(rwild,9*np_global,MPI_REAL4,0,comm,istat)
+      |                       1
+Warning: Type mismatch between actual argument at (1) and actual argument at (2) (REAL(4)/REAL(8)).
+/home/ulb/cenoli/arivera/schism/src/Hydro/misc_subs.F90:851:23:
+
+  285 |         call mpi_bcast(wx1,1,rtype,0,comm,istat)
+      |                       2
+......
+  851 |         call mpi_bcast(th_dt3,nthfiles3,rtype,0,comm,istat)
+      |                       1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-1)
+/home/ulb/cenoli/arivera/schism/src/Hydro/misc_subs.F90:852:23:
+
+  285 |         call mpi_bcast(wx1,1,rtype,0,comm,istat)
+      |                       2
+......
+  852 |         call mpi_bcast(th_time3,2*nthfiles3,rtype,0,comm,istat)
+      |                       1
+Warning: Rank mismatch between actual argument at (1) and actual argument at (2) (scalar and rank-2)
+[ 98%] Linking Fortran static library ../lib/libhydro.a
+[ 98%] Built target hydro
+[ 98%] Building Fortran object Driver/CMakeFiles/pschism.dir/schism_driver.F90.o
+[100%] Linking Fortran executable ../bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL
+[100%] Built target pschism
+total 4032
+-rwxrwxr-x 1 arivera arivera 3546232 Oct 13 16:55 pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL
+LISTO: bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL

@@ -4,10 +4,14 @@
 ** WARNING: connection is not using a post-quantum key exchange algorithm.
 ** This session may be vulnerable to "store now, decrypt later" attacks.
 ** The server may need to be upgraded. See https://openssh.com/pq.html
+Traceback (most recent call last):
+  File "/usr/local/bin/selftest.py", line 648, in <module>
+    f.write()
+TypeError: write() takes exactly one argument (0 given)
 
 ===== Maquina =====
 lm4-f001.hpc.local
-Tue Oct 13 16:14:00 CEST 2026
+Tue Oct 13 16:55:47 CEST 2026
 NAME="Rocky Linux"
 VERSION="8.10 (Green Obsidian)"
 ID="rocky"
@@ -16,69 +20,200 @@ ID="rocky"
 /usr/bin/sbatch
 /usr/bin/qsub
 /usr/bin/bsub
+slurm 24.11.5
 
 ===== Clusters Slurm =====
+ lemaitre4 
+ uclouvain 
 
 ===== Particiones =====
+PARTITION AVAIL  TIMELIMIT   NODES(A/I/O/T) NODELIST
+batch*       up 2-00:00:00        39/0/1/40 lm4-w[001-040]
+apu          up 2-00:00:00          4/0/1/5 lm4-w[101-105]
 
 ===== Detalle particiones (tiempo maximo, nodos, memoria) =====
+PartitionName=batch
+   MaxNodes=UNLIMITED MaxTime=2-00:00:00 MinNodes=0 LLN=NO MaxCPUsPerNode=UNLIMITED MaxCPUsPerSocket=UNLIMITED
+   State=UP TotalCPUs=10240 TotalNodes=40 SelectTypeParameters=NONE
+   DefMemPerNode=UNLIMITED MaxMemPerNode=UNLIMITED
+PartitionName=apu
+   MaxNodes=UNLIMITED MaxTime=2-00:00:00 MinNodes=0 LLN=NO MaxCPUsPerNode=UNLIMITED MaxCPUsPerSocket=UNLIMITED
+   State=UP TotalCPUs=960 TotalNodes=5 SelectTypeParameters=CR_SOCKET_MEMORY
+   DefMemPerCPU=2500 MaxMemPerCPU=5246
 
 ===== Nodos por tipo (CPUs, memoria, features) =====
+PARTITION CPUS MEMORY AVAIL_FEATURES GRES
+apu 192 503770 AMD,Genoa,MI300a gpu:mi300a:4(S:0-3)
+batch* 256 766000 AMD,Genoa,9534 (null)
 
 ===== QOS y limites por usuario =====
+              normal                                                                   cpu=4096 
+ lemaitre4       ceci                                    normal                                                  
 
 ===== Arrays de trabajos =====
+MaxArraySize            = 10000
+MaxJobCount             = 50000
+SelectType              = select/cons_tres
+SelectTypeParameters    = CR_CORE_MEMORY
 
 ===== Almacenamiento y cuotas =====
 HOME=/home/ulb/cenoli/arivera
+GLOBALSCRATCH=/globalscratch/ulb/cenoli/arivera
+CECIHOME=/CECI/home/ulb/cenoli/arivera
+WORKDIR=/globalscratch/ulb/cenoli/arivera
+GLOBALSCRATCH_APU=/globalscratch_apu/ulb/cenoli/arivera
 Filesystem       Size  Used Avail Use% Mounted on
 10.44.3.1:/home   40T   13T   28T  32% /home
+beegfs_nodev     318T  247T   72T  78% /globalscratch
 
 ===== Modelos oceanicos ya instalados (module) =====
-[SCHISM] inventario.sh: line 27: module: command not found
-[schism] inventario.sh: line 27: module: command not found
-[TELEMAC] inventario.sh: line 27: module: command not found
-[telemac] inventario.sh: line 27: module: command not found
-[openTELEMAC] inventario.sh: line 27: module: command not found
-[Delft3D] inventario.sh: line 27: module: command not found
-[delft3d] inventario.sh: line 27: module: command not found
-[DFlowFM] inventario.sh: line 27: module: command not found
-[D-Flow] inventario.sh: line 27: module: command not found
-[ADCIRC] inventario.sh: line 27: module: command not found
-[ROMS] inventario.sh: line 27: module: command not found
-[FVCOM] inventario.sh: line 27: module: command not found
-[SHYFEM] inventario.sh: line 27: module: command not found
-[COHERENS] inventario.sh: line 27: module: command not found
-[SLIM] inventario.sh: line 27: module: command not found
+[SCHISM] You can try to display hidden module by using 'module --show-hidden spider key1
+[SCHISM] key2' to find
+[SCHISM]  all possible modules matching any of the 'keys'.
+[SCHISM] If you still do not find your module, please contact the helpdesk:
+[SCHISM] egs-cism@listes.uclouvain.be 
+[schism] You can try to display hidden module by using 'module --show-hidden spider key1
+[schism] key2' to find
+[schism]  all possible modules matching any of the 'keys'.
+[schism] If you still do not find your module, please contact the helpdesk:
+[schism] egs-cism@listes.uclouvain.be 
+[TELEMAC] You can try to display hidden module by using 'module --show-hidden spider key1
+[TELEMAC] key2' to find
+[TELEMAC]  all possible modules matching any of the 'keys'.
+[TELEMAC] If you still do not find your module, please contact the helpdesk:
+[TELEMAC] egs-cism@listes.uclouvain.be 
+[telemac] You can try to display hidden module by using 'module --show-hidden spider key1
+[telemac] key2' to find
+[telemac]  all possible modules matching any of the 'keys'.
+[telemac] If you still do not find your module, please contact the helpdesk:
+[telemac] egs-cism@listes.uclouvain.be 
+[openTELEMAC] You can try to display hidden module by using 'module --show-hidden spider key1
+[openTELEMAC] key2' to find
+[openTELEMAC]  all possible modules matching any of the 'keys'.
+[openTELEMAC] If you still do not find your module, please contact the helpdesk:
+[openTELEMAC] egs-cism@listes.uclouvain.be 
+[Delft3D] You can try to display hidden module by using 'module --show-hidden spider key1
+[Delft3D] key2' to find
+[Delft3D]  all possible modules matching any of the 'keys'.
+[Delft3D] If you still do not find your module, please contact the helpdesk:
+[Delft3D] egs-cism@listes.uclouvain.be 
+[delft3d] You can try to display hidden module by using 'module --show-hidden spider key1
+[delft3d] key2' to find
+[delft3d]  all possible modules matching any of the 'keys'.
+[delft3d] If you still do not find your module, please contact the helpdesk:
+[delft3d] egs-cism@listes.uclouvain.be 
+[DFlowFM] You can try to display hidden module by using 'module --show-hidden spider key1
+[DFlowFM] key2' to find
+[DFlowFM]  all possible modules matching any of the 'keys'.
+[DFlowFM] If you still do not find your module, please contact the helpdesk:
+[DFlowFM] egs-cism@listes.uclouvain.be 
+[D-Flow] You can try to display hidden module by using 'module --show-hidden spider key1
+[D-Flow] key2' to find
+[D-Flow]  all possible modules matching any of the 'keys'.
+[D-Flow] If you still do not find your module, please contact the helpdesk:
+[D-Flow] egs-cism@listes.uclouvain.be 
+[ADCIRC] You can try to display hidden module by using 'module --show-hidden spider key1
+[ADCIRC] key2' to find
+[ADCIRC]  all possible modules matching any of the 'keys'.
+[ADCIRC] If you still do not find your module, please contact the helpdesk:
+[ADCIRC] egs-cism@listes.uclouvain.be 
+[ROMS] You can try to display hidden module by using 'module --show-hidden spider key1
+[ROMS] key2' to find
+[ROMS]  all possible modules matching any of the 'keys'.
+[ROMS] If you still do not find your module, please contact the helpdesk:
+[ROMS] egs-cism@listes.uclouvain.be 
+[FVCOM] You can try to display hidden module by using 'module --show-hidden spider key1
+[FVCOM] key2' to find
+[FVCOM]  all possible modules matching any of the 'keys'.
+[FVCOM] If you still do not find your module, please contact the helpdesk:
+[FVCOM] egs-cism@listes.uclouvain.be 
+[SHYFEM] You can try to display hidden module by using 'module --show-hidden spider key1
+[SHYFEM] key2' to find
+[SHYFEM]  all possible modules matching any of the 'keys'.
+[SHYFEM] If you still do not find your module, please contact the helpdesk:
+[SHYFEM] egs-cism@listes.uclouvain.be 
+[COHERENS] You can try to display hidden module by using 'module --show-hidden spider key1
+[COHERENS] key2' to find
+[COHERENS]  all possible modules matching any of the 'keys'.
+[COHERENS] If you still do not find your module, please contact the helpdesk:
+[COHERENS] egs-cism@listes.uclouvain.be 
+[SLIM] ----------------------------------------------------------------------------
+[SLIM]   waveslim: waveslim/1.8.5 (E)
+[SLIM] ----------------------------------------------------------------------------
+[SLIM]     This extension is provided by the following modules. To access the extension you must load one of the following modules. Note that any module names in parentheses show the module location in the software hierarchy.
+[SLIM]        R-bundle-CRAN/2024.11-foss-2024a (releases/2024a)
+[SLIM] Names marked by a trailing (E) are extensions provided by another module.
 
 ===== Contenedores (para Delft3D-FM oficial) =====
 /usr/bin/apptainer
 /usr/bin/singularity
 
 ===== Librerias necesarias para compilar =====
-[GCC] inventario.sh: line 32: module: command not found
-[intel] inventario.sh: line 32: module: command not found
-[iimpi] inventario.sh: line 32: module: command not found
-[foss] inventario.sh: line 32: module: command not found
-[OpenMPI] inventario.sh: line 32: module: command not found
-[impi] inventario.sh: line 32: module: command not found
-[MPICH] inventario.sh: line 32: module: command not found
-[netCDF] inventario.sh: line 32: module: command not found
-[netCDF-Fortran] inventario.sh: line 32: module: command not found
-[HDF5] inventario.sh: line 32: module: command not found
-[ParMETIS] inventario.sh: line 32: module: command not found
-[METIS] inventario.sh: line 32: module: command not found
-[SCOTCH] inventario.sh: line 32: module: command not found
-[MUMPS] inventario.sh: line 32: module: command not found
-[PETSc] inventario.sh: line 32: module: command not found
-[CMake] inventario.sh: line 32: module: command not found
-[Python] inventario.sh: line 32: module: command not found
-[GDAL] inventario.sh: line 32: module: command not found
-[PROJ] inventario.sh: line 32: module: command not found
-[gmsh] inventario.sh: line 32: module: command not found
-[MED] inventario.sh: line 32: module: command not found
+[GCC] GCC/13.2.0
+[GCC] GCC/13.3.0
+[GCC] GCC/14.3.0
+[intel] intel/2023a
+[intel] intel/2023b
+[intel] intel/2024a
+[iimpi] iimpi/2023a
+[iimpi] iimpi/2023b
+[iimpi] iimpi/2024a
+[foss] foss/2023b
+[foss] foss/2024a
+[foss] foss/2025b
+[OpenMPI] OpenMPI/4.1.6-GCC-13.2.0
+[OpenMPI] OpenMPI/5.0.3-GCC-13.3.0
+[OpenMPI] OpenMPI/5.0.8-GCC-14.3.0
+[impi] impi/2021.9.0-intel-compilers-2023.1.0
+[impi] impi/2021.10.0-intel-compilers-2023.2.1
+[impi] impi/2021.13.0-intel-compilers-2024.2.0
+[MPICH]  all possible modules matching any of the 'keys'.
+[MPICH] If you still do not find your module, please contact the helpdesk:
+[MPICH] egs-cism@listes.uclouvain.be 
+[netCDF] netCDF/4.9.2-iimpi-2023a
+[netCDF] netCDF/4.9.2-iimpi-2024a
+[netCDF] netCDF/4.9.3-gompi-2025b
+[netCDF-Fortran] netCDF-Fortran/4.6.1-iimpi-2023a
+[netCDF-Fortran] netCDF-Fortran/4.6.1-iimpi-2024a
+[netCDF-Fortran] netCDF-Fortran/4.6.2-gompi-2025b
+[HDF5] HDF5/1.14.5-gompi-2024a
+[HDF5] HDF5/1.14.5-iimpi-2024a
+[HDF5] HDF5/1.14.6-gompi-2025b
+[ParMETIS] releases/2022b
+[METIS] METIS/5.1.0-GCCcore-11.2.0
+[METIS] METIS/5.1.0-GCCcore-12.2.0
+[SCOTCH] SCOTCH/6.1.2-gompi-2021b
+[SCOTCH] SCOTCH/7.0.3-gompi-2022b
+[MUMPS]  all possible modules matching any of the 'keys'.
+[MUMPS] If you still do not find your module, please contact the helpdesk:
+[MUMPS] egs-cism@listes.uclouvain.be 
+[PETSc]  all possible modules matching any of the 'keys'.
+[PETSc] If you still do not find your module, please contact the helpdesk:
+[PETSc] egs-cism@listes.uclouvain.be 
+[CMake] CMake/3.29.3-GCCcore-13.3.0
+[CMake] CMake/3.31.8-GCCcore-14.3.0
+[CMake] CMake/4.0.3-GCCcore-14.3.0
+[Python] Python/3.11.5-GCCcore-13.2.0
+[Python] Python/3.12.3-GCCcore-13.3.0
+[Python] Python/3.13.5-GCCcore-14.3.0
+[GDAL] GDAL/3.7.1-foss-2023a
+[GDAL] GDAL/3.9.0-foss-2023b
+[GDAL] GDAL/3.10.0-foss-2024a
+[PROJ] PROJ/9.2.0-GCCcore-12.3.0
+[PROJ] PROJ/9.3.1-GCCcore-13.2.0
+[PROJ] PROJ/9.4.1-GCCcore-13.3.0
+[gmsh]  all possible modules matching any of the 'keys'.
+[gmsh] If you still do not find your module, please contact the helpdesk:
+[gmsh] egs-cism@listes.uclouvain.be 
+[MED] PLUMED/2.9.0-foss-2023a
+[MED] PLUMED/2.9.4-foss-2025b
 
 ===== Toolchains cargadas por defecto =====
-inventario.sh: line 34: module: command not found
+
+Currently Loaded Modules:
+  1) tis/2018.01 (S)   2) releases/2024a (S)   3) StdEnv
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
 
 ===== Fin =====

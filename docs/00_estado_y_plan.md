@@ -496,5 +496,6 @@ Descargado (`datos/batimetria/fuentes/descargas.tsv` con URL, fecha y sha256):
 - Acceso SSH funcionando (usuario `arivera`, ULB) a NIC5 y Lemaitre4.
 - **NIC5**: Slurm 22.05; partición `batch` 70 nodos × 64 núcleos AMD EPYC 7542 (Rome), 256 GB; `hmem` 3 nodos × 1 TB; **límite 2 días por trabajo**. Por usuario (QOS normal): **448 núcleos a la vez**, 201 trabajos en ejecución, 402 en cola; arrays de hasta 1001. HOME 100 GB; scratch en `/scratch/ulb/cenoli/arivera` (BeeGFS).
 - Ningún modelo oceánico instalado como módulo → compilar SCHISM nosotros. Hay todo lo necesario: `foss/2023b` (GCC 13.2, OpenMPI 4.1.6), netCDF-Fortran 4.6.1, ParMETIS 4.0.3, CMake 3.27, Python 3.11, GDAL 3.9. Apptainer disponible.
-- **Lemaitre4**: el inventario salió vacío porque se ejecutó sin shell de login (`module` no definido); repetir con `bash -l`.
-- Siguiente: compilar SCHISM en NIC5 (`cluster/compilar_schism_nic5.sh`, mismo commit que en el Mac) y medir el coste por miembro con la malla real.
+- **Lemaitre4** (repetido con `bash -l`): Slurm 24.11; `batch` 40 nodos × **256 núcleos** AMD EPYC 9534 (Genoa), 750 GB; 2 días máx.; **4096 núcleos por usuario**; arrays de hasta 10 000. Scratch en `/globalscratch/ulb/cenoli/arivera`. Tiene foss/2023b–2025b. Es el mejor candidato para el conjunto (9× más núcleos simultáneos que NIC5).
+- **SCHISM compilado en NIC5** (13 oct): commit 09f407e8 (= Mac), foss/2023b, netCDF-Fortran 4.6.1, módulo AGE → `~/schism/build/bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL` (registro `cluster/schism_nic5.log`; solo avisos de tipos MPI, normales con GCC ≥ 10). Script: `cluster/compilar_schism_ceci.sh`.
+- Siguiente: compilar también en Lemaitre4 y medir el coste por miembro con la malla real.

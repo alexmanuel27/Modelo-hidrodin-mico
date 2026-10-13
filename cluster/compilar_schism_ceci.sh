@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Compila SCHISM (mismo commit que en el Mac) con el modulo AGE en NIC5 (CECI).
-# Desde el Mac:  scp cluster/compilar_schism_nic5.sh nic5: && ssh nic5 'bash -l compilar_schism_nic5.sh' > cluster/schism_nic5.log 2>&1
+# Compila SCHISM (mismo commit que en el Mac) con el modulo AGE en un cluster CECI (probado en NIC5).
+# Desde el Mac:  C=nic5; scp cluster/compilar_schism_ceci.sh $C: && ssh $C "bash -l compilar_schism_ceci.sh" > cluster/schism_$C.log 2>&1
 set -euo pipefail
 COMMIT=09f407e855243554c51f8decf3ba053f805add21   # = cluster/schism_version.txt
 module purge >/dev/null 2>&1 || true
