@@ -498,7 +498,8 @@ Descargado (`datos/batimetria/fuentes/descargas.tsv` con URL, fecha y sha256):
 - Ningún modelo oceánico instalado como módulo → compilar SCHISM nosotros. Hay todo lo necesario: `foss/2023b` (GCC 13.2, OpenMPI 4.1.6), netCDF-Fortran 4.6.1, ParMETIS 4.0.3, CMake 3.27, Python 3.11, GDAL 3.9. Apptainer disponible.
 - **Lemaitre4** (repetido con `bash -l`): Slurm 24.11; `batch` 40 nodos × **256 núcleos** AMD EPYC 9534 (Genoa), 750 GB; 2 días máx.; **4096 núcleos por usuario**; arrays de hasta 10 000. Scratch en `/globalscratch/ulb/cenoli/arivera`. Tiene foss/2023b–2025b. Es el mejor candidato para el conjunto (9× más núcleos simultáneos que NIC5).
 - **SCHISM compilado en NIC5** (13 oct): commit 09f407e8 (= Mac), foss/2023b, netCDF-Fortran 4.6.1, módulo AGE → `~/schism/build/bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL` (registro `cluster/schism_nic5.log`; solo avisos de tipos MPI, normales con GCC ≥ 10). Script: `cluster/compilar_schism_ceci.sh`.
-- Siguiente: compilar también en Lemaitre4 y medir el coste por miembro con la malla real.
+- **SCHISM compilado en Lemaitre4** (13 oct): mismo commit, toolchain elegida por el script: releases/2024a, foss/2024a, netCDF-Fortran 4.6.1, CMake 3.29 (registro `cluster/schism_lemaitre4.log`).
+- Siguiente: medir el coste por miembro con la malla real (Lemaitre4 para el conjunto, NIC5 para pruebas).
 
 **Actualización 13 oct (noche) — carta de 1898 (levantamientos hasta 1887).**
 - Registrada sobre la de 1889 sin puntos a mano: SIFT + RANSAC + polinomio de 2.º grado (`scripts/batimetria/05_registro_1898.py`, 2432 pares, residuo mediano 1,9 px = 1,2 m; p90 2,6 m) → `datos/batimetria/sondeos/transformacion_1898_a_1889.json`. Comprobación: el faro del Morro cae a 12 px (8 m) de su posición en la de 1889.
