@@ -13,14 +13,17 @@ def georref(tif):
     assert t[34737].startswith('WGS 84'), 'se esperaba un GeoTIFF en WGS84 geografico'
     return lambda x, y: (lon0 + (x + 0.5) * sx, lat0 - (y + 0.5) * sy)
 
-def sin_duplicados(filas, r=40):
+def sin_duplicados(filas, r=12):
+    """Quita la segunda lectura del mismo sondeo (teselas solapadas): a < r px y mismo valor.
+    Dos valores distintos muy juntos son sondeos reales y se conservan (se avisa si estan a < r px)."""
     fuera, conflictos = [], []
     for f in filas:
         cerca = [g for g in fuera if math.hypot(g['x'] - f['x'], g['y'] - f['y']) < r]
-        if not cerca: fuera.append(f); continue
-        if all(abs(g['brazas'] - f['brazas']) > 0.01 for g in cerca) and \
-           any(math.hypot(g['x'] - f['x'], g['y'] - f['y']) < 20 for g in cerca):
+        if any(abs(g['brazas'] - f['brazas']) < 0.01 for g in cerca):
+            continue
+        if cerca:
             conflictos.append((f, cerca))
+        fuera.append(f)
     return fuera, conflictos
 
 if __name__ == '__main__':
