@@ -37,7 +37,7 @@ DT = 100.0
 INICIO = (2016, 1, 1)
 M2_AMP = 0.15                 # m, PROVISIONAL (FES2022 pendiente)
 H_TOPE = 200.0                # m: profundidad maxima del modelo (el talud llega a 1200 m; solo importa la onda de marea)
-NV = 16                       # niveles verticales (S puros hasta H_TOPE)
+NV = 16                       # niveles verticales (S puros hasta H_TOPE; SCHISM exige un nivel Z por debajo del fondo maximo)
 D_ADV = 800.0                 # m: sin adveccion de momento a menos de esto del borde abierto
 CD = 0.0025
 
@@ -86,9 +86,9 @@ def main():
     escribir_gr3(RUN / "AGE_hvar_2.ic", x, y, np.zeros(n), tri, "AGE 2")
     (RUN / "tvd.prop").write_text("".join(f"{k+1} 1\n" for k in range(ne)))
     (RUN / "vgrid.in").write_text(
-        f"2 !ivcor\n{NV} 1 {H_TOPE:.1f} !nvrt, kz, h_s\nZ levels\n1 -{H_TOPE:.1f}\nS levels\n5. 0. 1.e-4 !h_c, theta_b, theta_f\n"
+        f"2 !ivcor\n{NV} 1 {H_TOPE:.1f} !nvrt, kz, h_s\nZ levels\n1 -{H_TOPE + 10:.1f}\nS levels\n5. 0. 1.e-4 !h_c, theta_b, theta_f\n"
         + "".join(f"{k+1} {-1 + k / (NV - 1):.4f}\n" for k in range(NV)))
-    (RUN / "ts.ic").write_text("2\n1 -200. 28. 36.\n2 0. 28. 36.\n")
+    (RUN / "ts.ic").write_text(f"2\n1 -{H_TOPE + 10:.0f}. 28. 36.\n2 0. 28. 36.\n")
     (RUN / "bctides.in").write_text(
         f"{INICIO} marea M2 PROVISIONAL uniforme\n0 40. !ntip, tip_dp\n1 !nbfr\nM2\n1.405189e-04 1.0 0.0\n"
         f"1 !nope\n{len(abierto)} 3 0 0 0 0 !nodos, elev=armonica, vel, T, S, AGE\nM2\n"
