@@ -1,0 +1,10 @@
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+nic5 ntasks=34 calculo=32 pasos=1728 segundos=110 completo=si
+nic5 ntasks=18 calculo=16 pasos=1728 segundos=116 completo=si
+nic5 ntasks=10 calculo=8 pasos=1728 segundos=172 completo=si
+nic5 ntasks=6 calculo=4 pasos=1728 segundos=279 completo=si

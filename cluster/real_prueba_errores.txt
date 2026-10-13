@@ -1,0 +1,31 @@
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+          11328284     batch bahia_pr  arivera  R       3:00      3 nic5-w[029-030,032]
+nic5 ntasks=34 calculo=32 pasos=1728 segundos=110 completo=si
+nic5 ntasks=18 calculo=16 pasos=1728 segundos=116 completo=si
+nic5 ntasks=10 calculo=8 pasos=1728 segundos=172 completo=si
+== n10_11328285
+ done density and flux calculation...
+TIME STEP=         1728;  TIME=        172800.000000
+
+Run completed successfully at 20261013, 193624.549
+== n18_11328286
+ done density and flux calculation...
+TIME STEP=         1728;  TIME=        172800.000000
+
+Run completed successfully at 20261013, 193528.332
+== n34_11328287
+ done density and flux calculation...
+TIME STEP=         1728;  TIME=        172800.000000
+
+Run completed successfully at 20261013, 193523.019
+== n6_11328284
+ done solving transport equation
+ done recomputing levels...
+ done density and flux calculation...
+TIME STEP=          980;  TIME=         98000.000000
