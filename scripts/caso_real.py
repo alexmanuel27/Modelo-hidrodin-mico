@@ -147,7 +147,12 @@ echo "tiempo: $T s para {pasos} pasos con $((NP-NS)) proceso(s) de calculo" | te
 #SBATCH --output=slurm_%j.out
 set -eo pipefail
 module purge >/dev/null 2>&1 || true
-for R in 2023b 2024a; do module load releases/$R foss/$R 2>/dev/null && module load netCDF-Fortran 2>/dev/null && break; done
+# los mismos modulos con los que se compilo SCHISM en cada cluster (cluster/schism_<cluster>.log)
+case "$SLURM_CLUSTER_NAME" in
+  nic5) module load releases/2023b foss/2023b netCDF-Fortran/4.6.1-gompi-2023b ;;
+  *)    module load releases/2024a foss/2024a netCDF-Fortran/4.6.1-gompi-2024a ;;
+esac
+module list 2>&1 | tail -5
 NS=2
 D=n${{SLURM_NTASKS}}_$SLURM_JOB_ID; mkdir -p $D/outputs
 cp -rL $(ls | grep -v -e '^n[0-9]' -e '^slurm_') $D/ 2>/dev/null || true
