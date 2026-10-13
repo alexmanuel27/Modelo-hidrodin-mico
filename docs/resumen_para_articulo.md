@@ -79,3 +79,9 @@ Enlaces:
 3. Acceso a CÉCI (pendiente del administrador) → coste real por miembro y tamaño del conjunto.
 4. Comprobar Coriolis con la malla real.
 5. Serie del mareógrafo HABANA (PSMSL 2363) para validación.
+
+## Actualización 13 oct 2026 — batimetría histórica
+
+- Las cartas "1889" y "1898" son ediciones de la misma carta H.O. n.º 307 *Harbor of Havana*, pero con levantamientos españoles distintos: **hasta 1879** (ed. 1889) y **hasta 1887** (ed. 1898). Sondeos en **brazas** (con cuartos; tercios en los bajos). El nivel de referencia no figura en la carta (probablemente bajamar; se tratará como desplazamiento incierto 0 a +0,5 m).
+- **1117 sondeos** de la edición de 1889 (levantamientos hasta 1879) digitalizados y georreferenciados (WGS84; georreferencia de Harvard, RMS 18 m): `datos/batimetria/sondeos/sondeos_1889.csv`. Profundidades: canal de entrada 13–17 m; cuenca principal 9–13 m; Marimelena y Guasabacoa mayoritariamente < 4 m; Atarés < 4 m. Figura de control: `docs/figuras/control_sondeos_1889.png`.
+- El canal tenía más fondo en 1879 (13–17 m) que el calado garantizado hoy (12,8 m).
