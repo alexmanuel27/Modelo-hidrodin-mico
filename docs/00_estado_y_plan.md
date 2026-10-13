@@ -475,3 +475,11 @@ Descargado (`datos/batimetria/fuentes/descargas.tsv` con URL, fecha y sha256):
 - Pendiente: carta de 1889 (Harvard, manual) y línea de costa Sentinel-2.
 
 **Actualización 2 oct (tarde).** Descargada la carta "1889" de Harvard (GeoTIFF 640 MB + metadato FGDC). El metadato aclara que es la carta H.O. *Harbor of Havana: from the most recent Spanish surveys to 1879* (1.ª ed. 1882, ed. 1889, ~1:8 000): **los sondeos son de levantamientos españoles hasta 1879**, no de 1889. Georreferenciada a la carta H.O. de 1962 en NAD27 Cuba Norte con RMS 18,3 m (el error de posición entra en el campo aleatorio). La carta 1898 (H.O. 307) puede ser en buena parte la misma fuente: hay que comparar sondeo a sondeo antes de tratarlas como dos batimetrías independientes. Documentación y términos de uso de GEBCO guardados en `fuentes/`.
+
+**Actualización 13 oct — lectura de las dos cartas.**
+- Las dos son la carta H.O. n.º 307 *Harbor of Havana* (misma plancha). La de 1889 dice "from the most recent Spanish surveys **to 1879**"; la de 1898 (corregida a 10-mar-1898, "extensive corrections Dec. 1891") dice "**to 1887**". Comparten el dibujo de tierra, pero **los sondeos del canal son distintos** (otras posiciones y valores), así que hay dos épocas de levantamiento: 1879 y 1887. Se tratan como dos realizaciones de carta, sin suponer que sean independientes del todo.
+- **Unidades: brazas** ("Soundings in fathoms"), con cuartos (1 braza = 1,8288 m; resolución 0,46 m).
+- **Nivel de referencia: no está escrito.** Lo habitual en las cartas H.O. de levantamientos españoles es bajamar. Cartela: "H.W.F.&C. VIII h 14 m. Rise of tide about 3 ft". Se tratará como bajamar con un desplazamiento incierto (0 a +0,5 m) que entra en el conjunto.
+- Canal de entrada: 7–9¼ brazas (13–17 m) en 1879 y 8–10 brazas (15–18 m) en 1887, más profundo que los 12,8 m que garantizan hoy los prácticos (calado de proyecto, no fondo natural).
+- El GeoTIFF de Harvard **viene en WGS84 geográfico** (EPSG:4326, píxel 6,37e-6° ≈ 0,65 m), no en NAD27 como dice el metadato: píxel → lon/lat es directo. La de 1898 (JPEG IIIF) no está georreferenciada: se ajustará con puntos de control comunes con la de 1889 (misma plancha).
+- Siguiente: digitalizar los sondeos (1889 primero porque ya está georreferenciada), georreferenciar la de 1898 y digitalizarla, y comparar las dos.
