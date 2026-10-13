@@ -12,7 +12,7 @@ script registran fecha y sha256 en `datos/*/fuentes/descargas.tsv`.
 | Canal (1530 m, 220–330 m, 12,8 m) y calados de muelles | Prácticos del puerto de La Habana, publicado por Cubadebate (2018) | http://media.cubadebate.cu/wp-content/uploads/2018/09/puerto_de_la_habana-PRACTICOS.pdf | pendiente | Documento público | Por descargar (script) |
 | Batimetría exterior (+ TID) | GEBCO 2026 Global Grid | https://download.gebco.net/ | 2 oct 2026 | Dominio público (GEBCO) | Por descargar (manual) |
 | Línea de costa actual, muelles y espigones | OpenStreetMap (ways `natural=coastline`, `man_made=pier/breakwater/groyne/quay`), instantánea vía Overpass API | https://overpass-api.de/api/interpreter (consulta en `scripts/batimetria/01_descargar.sh`) | ver `datos/batimetria/fuentes/descargas.tsv` | ODbL (© colaboradores de OpenStreetMap) | Se contrastará con la máscara de agua Sentinel-2 (protocolo del repo de Sentinel-2) |
-| Marea de contorno | FES2022 (AVISO+) | https://www.aviso.altimetry.fr/ | — | Registro gratuito | Cuenta en trámite |
+| Marea de contorno | FES2022b, `ocean_tide_extrapolated`, 11 constituyentes (AVISO+) | https://tds.aviso.altimetry.fr/thredds/catalog/dataset-auxiliary-fes-tide-model/fes2022b/ocean_tide_extrapolated/catalog.html | ver `datos/marea/descargas.tsv` | Registro gratuito | `scripts/marea_fes2022.py` → `datos/marea/fes2022_habana.json` |
 | Marea de contorno (alternativa y dimensión del conjunto) | TPXO10-atlas (OSU) | https://www.tpxo.net/ | — | Gratuito uso académico | Por pedir |
 | Modelo | SCHISM `develop`, commit 09f407e8 | https://github.com/schism-dev/schism | 27 sep 2026 | Apache 2.0 | Compilado |
 
