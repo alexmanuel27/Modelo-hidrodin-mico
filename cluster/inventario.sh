@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Inventario del cluster para el proyecto del modelo hidrodinamico.
-# Ejecutar EN EL NODO DE LOGIN:   bash inventario.sh > inventario_$(hostname -s).txt 2>&1
+# Ejecutar EN EL NODO DE LOGIN:   bash -l inventario.sh  (-l: sin el, "module" y Slurm no existen en algunos clusters) > inventario_$(hostname -s).txt 2>&1
 # y devolver el .txt. No lanza trabajos ni cambia nada.
 set -u
 sec(){ printf '\n===== %s =====\n' "$*"; }

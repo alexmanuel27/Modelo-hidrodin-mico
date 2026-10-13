@@ -1,0 +1,84 @@
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+
+===== Maquina =====
+lm4-f001.hpc.local
+Tue Oct 13 16:14:00 CEST 2026
+NAME="Rocky Linux"
+VERSION="8.10 (Green Obsidian)"
+ID="rocky"
+
+===== Gestor de colas =====
+/usr/bin/sbatch
+/usr/bin/qsub
+/usr/bin/bsub
+
+===== Clusters Slurm =====
+
+===== Particiones =====
+
+===== Detalle particiones (tiempo maximo, nodos, memoria) =====
+
+===== Nodos por tipo (CPUs, memoria, features) =====
+
+===== QOS y limites por usuario =====
+
+===== Arrays de trabajos =====
+
+===== Almacenamiento y cuotas =====
+HOME=/home/ulb/cenoli/arivera
+Filesystem       Size  Used Avail Use% Mounted on
+10.44.3.1:/home   40T   13T   28T  32% /home
+
+===== Modelos oceanicos ya instalados (module) =====
+[SCHISM] inventario.sh: line 27: module: command not found
+[schism] inventario.sh: line 27: module: command not found
+[TELEMAC] inventario.sh: line 27: module: command not found
+[telemac] inventario.sh: line 27: module: command not found
+[openTELEMAC] inventario.sh: line 27: module: command not found
+[Delft3D] inventario.sh: line 27: module: command not found
+[delft3d] inventario.sh: line 27: module: command not found
+[DFlowFM] inventario.sh: line 27: module: command not found
+[D-Flow] inventario.sh: line 27: module: command not found
+[ADCIRC] inventario.sh: line 27: module: command not found
+[ROMS] inventario.sh: line 27: module: command not found
+[FVCOM] inventario.sh: line 27: module: command not found
+[SHYFEM] inventario.sh: line 27: module: command not found
+[COHERENS] inventario.sh: line 27: module: command not found
+[SLIM] inventario.sh: line 27: module: command not found
+
+===== Contenedores (para Delft3D-FM oficial) =====
+/usr/bin/apptainer
+/usr/bin/singularity
+
+===== Librerias necesarias para compilar =====
+[GCC] inventario.sh: line 32: module: command not found
+[intel] inventario.sh: line 32: module: command not found
+[iimpi] inventario.sh: line 32: module: command not found
+[foss] inventario.sh: line 32: module: command not found
+[OpenMPI] inventario.sh: line 32: module: command not found
+[impi] inventario.sh: line 32: module: command not found
+[MPICH] inventario.sh: line 32: module: command not found
+[netCDF] inventario.sh: line 32: module: command not found
+[netCDF-Fortran] inventario.sh: line 32: module: command not found
+[HDF5] inventario.sh: line 32: module: command not found
+[ParMETIS] inventario.sh: line 32: module: command not found
+[METIS] inventario.sh: line 32: module: command not found
+[SCOTCH] inventario.sh: line 32: module: command not found
+[MUMPS] inventario.sh: line 32: module: command not found
+[PETSc] inventario.sh: line 32: module: command not found
+[CMake] inventario.sh: line 32: module: command not found
+[Python] inventario.sh: line 32: module: command not found
+[GDAL] inventario.sh: line 32: module: command not found
+[PROJ] inventario.sh: line 32: module: command not found
+[gmsh] inventario.sh: line 32: module: command not found
+[MED] inventario.sh: line 32: module: command not found
+
+===== Toolchains cargadas por defecto =====
+inventario.sh: line 34: module: command not found
+
+===== Fin =====

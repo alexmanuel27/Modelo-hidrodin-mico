@@ -1,0 +1,143 @@
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+** WARNING: connection is not using a post-quantum key exchange algorithm.
+** This session may be vulnerable to "store now, decrypt later" attacks.
+** The server may need to be upgraded. See https://openssh.com/pq.html
+
+===== Maquina =====
+nic5-login1
+Tue Oct 13 16:13:12 CEST 2026
+NAME="Rocky Linux"
+VERSION="8.7 (Green Obsidian)"
+ID="rocky"
+
+===== Gestor de colas =====
+/usr/bin/sbatch
+slurm 22.05.5
+
+===== Clusters Slurm =====
+      nic5 
+
+===== Particiones =====
+PARTITION AVAIL  TIMELIMIT   NODES(A/I/O/T) NODELIST
+batch*       up 2-00:00:00        69/0/1/70 nic5-w[001-070]
+hmem         up 2-00:00:00          3/0/0/3 nic5-w[071-073]
+
+===== Detalle particiones (tiempo maximo, nodos, memoria) =====
+PartitionName=batch
+   MaxNodes=UNLIMITED MaxTime=2-00:00:00 MinNodes=1 LLN=NO MaxCPUsPerNode=UNLIMITED
+   State=UP TotalCPUs=4480 TotalNodes=70 SelectTypeParameters=NONE
+   DefMemPerNode=UNLIMITED MaxMemPerNode=UNLIMITED
+PartitionName=hmem
+   MaxNodes=UNLIMITED MaxTime=2-00:00:00 MinNodes=1 LLN=NO MaxCPUsPerNode=UNLIMITED
+   State=UP TotalCPUs=192 TotalNodes=3 SelectTypeParameters=NONE
+   DefMemPerNode=UNLIMITED MaxMemPerNode=UNLIMITED
+
+===== Nodos por tipo (CPUs, memoria, features) =====
+PARTITION CPUS MEMORY AVAIL_FEATURES GRES
+batch* 64 257700 amd,rome,7542,zenver2 (null)
+hmem 64 1031900 amd,rome,7542,zenver2 (null)
+
+===== QOS y limites por usuario =====
+              normal                     402       201                                  cpu=448 
+          copernicus    08:00:00                     1                                          
+      nic5       ceci                                    normal                                                  
+
+===== Arrays de trabajos =====
+MaxArraySize            = 1001
+MaxJobCount             = 10000
+SelectType              = select/cons_tres
+SelectTypeParameters    = CR_CORE_MEMORY
+
+===== Almacenamiento y cuotas =====
+HOME=/home/ulb/cenoli/arivera
+CECIHOMEOLD=/CECI/home_old/ulb/cenoli/arivera
+GLOBALSCRATCH=/scratch/ulb/cenoli/arivera
+SCRATCH=/scratch/ulb/cenoli/arivera
+CECIHOME=/CECI//home/ulb/cenoli/arivera
+Disk quotas for user arivera (uid 3006760): 
+     Filesystem   space   quota   limit   grace   files   quota   limit   grace
+10.252.5.213:/nfs/home
+                    24K    100G    110G               8    200k    210k        
+Filesystem              Size  Used Avail Use% Mounted on
+10.252.5.213:/nfs/home   49T   28T   22T  57% /home
+beegfs_nodev            567T  431T  137T  76% /scratch
+
+===== Modelos oceanicos ya instalados (module) =====
+
+===== Contenedores (para Delft3D-FM oficial) =====
+/usr/bin/apptainer
+/usr/bin/singularity
+
+===== Librerias necesarias para compilar =====
+[GCC] GCC/11.3.0
+[GCC] GCC/12.2.0
+[GCC] GCC/13.2.0
+[intel] intel/2022a
+[intel] intel/2022b
+[intel] intel/2023b
+[iimpi] iimpi/2022a
+[iimpi] iimpi/2022b
+[iimpi] iimpi/2023b
+[foss] foss/2022a
+[foss] foss/2022b
+[foss] foss/2023b
+[OpenMPI] OpenMPI/4.1.4-GCC-11.3.0
+[OpenMPI] OpenMPI/4.1.4-GCC-12.2.0
+[OpenMPI] OpenMPI/4.1.6-GCC-13.2.0
+[impi] impi/2021.6.0-intel-compilers-2022.1.0
+[impi] impi/2021.7.1-intel-compilers-2022.2.1
+[impi] impi/2021.10.0-intel-compilers-2023.2.1
+[MPICH]       ================
+[MPICH]        - Homepage: https://www.mpich.org/
+[MPICH]       
+[netCDF] netCDF/4.9.0-gompi-2022a
+[netCDF] netCDF/4.9.0-gompi-2022b
+[netCDF] netCDF/4.9.2-gompi-2023b
+[netCDF-Fortran] netCDF-Fortran/4.5.3-iimpi-2021b
+[netCDF-Fortran] netCDF-Fortran/4.6.0-gompi-2022a
+[netCDF-Fortran] netCDF-Fortran/4.6.1-gompi-2023b
+[HDF5] HDF5/1.13.1-iimpi-2022a
+[HDF5] HDF5/1.14.0-gompi-2022b
+[HDF5] HDF5/1.14.3-gompi-2023b
+[ParMETIS] ParMETIS/4.0.3-gompi-2021b
+[ParMETIS] ParMETIS/4.0.3-gompi-2022b
+[ParMETIS] ParMETIS/4.0.3-gompi-2023b
+[METIS] METIS/5.1.0-GCCcore-11.3.0
+[METIS] METIS/5.1.0-GCCcore-12.2.0
+[METIS] METIS/5.1.0-GCCcore-13.2.0
+[SCOTCH] SCOTCH/6.0.9-gompi-2020a
+[SCOTCH] SCOTCH/6.1.0-gompi-2020b
+[SCOTCH] SCOTCH/7.0.4-gompi-2023b
+[MUMPS] MUMPS/5.3.5-foss-2020b-metis-seq
+[MUMPS] MUMPS/5.3.5-foss-2020b-metis
+[CMake] CMake/3.23.1-GCCcore-11.3.0
+[CMake] CMake/3.24.3-GCCcore-12.2.0
+[CMake] CMake/3.27.6-GCCcore-13.2.0
+[Python] Python/3.10.8-GCCcore-12.2.0-bare
+[Python] Python/3.10.8-GCCcore-12.2.0
+[Python] Python/3.11.5-GCCcore-13.2.0
+[GDAL] GDAL/3.3.2-foss-2021b
+[GDAL] GDAL/3.6.2-foss-2022b
+[GDAL] GDAL/3.9.0-foss-2023b
+[PROJ] PROJ/8.1.0-GCCcore-11.2.0
+[PROJ] PROJ/9.1.1-GCCcore-12.2.0
+[PROJ] PROJ/9.3.1-GCCcore-13.2.0
+[MED] PLUMED/2.6.2-foss-2020b
+[MED] PLUMED/2.7.3-foss-2021b
+[MED] PLUMED/2.8.1-foss-2022a
+
+===== Toolchains cargadas por defecto =====
+
+Currently Loaded Modules:
+  1) tis/2018.01 (S)   2) releases/2021b (S)   3) StdEnv (H)
+
+  Where:
+   H:  Hidden Module
+   S:  Module is Sticky, requires --force to unload or purge
+
+ 
+
+
+===== Fin =====
