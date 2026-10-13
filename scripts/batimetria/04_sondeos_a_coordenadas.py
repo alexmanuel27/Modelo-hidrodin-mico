@@ -1,5 +1,6 @@
 """Sondeos leidos en pixeles -> lon/lat (WGS84) y metros; quita duplicados de las teselas solapadas.
-Uso: python3 04_sondeos_a_coordenadas.py <carta_georref.tif> <entrada_pix.csv> <salida.csv>
+Uso: python3 04_sondeos_a_coordenadas.py <carta_georref.tif> <entrada_pix.csv> <salida.csv> [transformacion.json]
+(con transformacion.json, los pixeles de entrada son de otra carta registrada sobre la georreferenciada: ver 05)
 dudoso: 0 lectura clara, 1 lectura dudosa, 2 'sin fondo a' (cota minima, no profundidad)."""
 import sys, csv, math
 from PIL import Image
@@ -25,7 +26,14 @@ def sin_duplicados(filas, r=40):
 if __name__ == '__main__':
     tif, ent, sal = sys.argv[1:4]
     a_lonlat = georref(tif)
-    lon, lat = a_lonlat(5750, 1062)  # faro del Morro en la carta de 1889
+    if len(sys.argv) > 4:  # px de la otra carta -> px de la georreferenciada (polinomio de 05_registro_1898.py)
+        import json
+        C = json.load(open(sys.argv[4]))['coef']
+        g0 = a_lonlat
+        def a_lonlat(x, y):
+            u, v = x / 1e3, y / 1e3; t = (1, u, v, u * u, u * v, v * v)
+            return g0(sum(a * b[0] for a, b in zip(t, C)), sum(a * b[1] for a, b in zip(t, C)))
+    lon, lat = georref(tif)(5750, 1062)  # faro del Morro en la carta de 1889
     assert abs(lat - 23.1503) < 0.001 and abs(lon + 82.3572) < 0.001, (lon, lat)
     filas = [dict(r, x=int(r['x']), y=int(r['y']), brazas=float(r['brazas'])) for r in csv.DictReader(open(ent))]
     filas, conf = sin_duplicados(filas)
