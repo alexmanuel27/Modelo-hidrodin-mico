@@ -76,8 +76,8 @@ Enlaces:
 
 1. Batimetría (provisional ya posible; definitiva BA 414 / CUJAE).
 2. Marea de contorno FES2022 (cuenta AVISO en trámite).
-3. Acceso a CÉCI (pendiente del administrador) → coste real por miembro y tamaño del conjunto.
-4. Comprobar Coriolis con la malla real.
+3. ~~Acceso a CÉCI~~ hecho (13 oct): coste medido, ver abajo.
+4. ~~Comprobar Coriolis con la malla real~~ hecho (13 oct): estable.
 5. Serie del mareógrafo HABANA (PSMSL 2363) para validación.
 
 ## Actualización 13 oct 2026 — batimetría histórica
@@ -91,3 +91,11 @@ Enlaces:
 - **Parámetros del campo aleatorio estimados de los datos** (variograma de la diferencia 1887−1879): σ_carta = 0,9 m, longitud de correlación 150 m (exponencial).
 - **Estado de dragado como dimensión del conjunto** (α 0–1: de la carta tal cual a canal ≥ 12,8 m y zona navegable a 11 m, calados de prácticos): volumen 26–36 hm³. Ni el extremo dragado llega a los 47 hm³ divulgativos → esa cifra no es coherente con cartas ni prácticos.
 - **Control analítico recalculado** (`prisma_marea.py`, A = 4,91 km², h = 5,2–7,3 m): tiempo de renovación con retorno y ríos **23 d (p5–p95 13–35 d)**, antes 34 d (18–51 d); renovación ideal 10,7 d (7–14). Excursión mareal ~610 m (0,4 de la longitud del canal), sin cambio. **Hay que actualizar la cifra en el artículo.**
+
+## Actualización 13 oct 2026 — malla real, primeras simulaciones y coste
+
+- **Malla** (`scripts/batimetria/09_malla.py`, DistMesh, Persson y Strang 2004): círculo de 5 km centrado en la boca; 4832 nodos, 8941 triángulos (4001 nodos en la bahía); 25 m en el canal (~11 elementos a lo ancho), 40 m en la bahía, hasta 400 m mar adentro; ángulo mínimo 12,4°. Borde abierto en arco (33 nodos, 46–1220 m de fondo; el modelo topa la profundidad a 200 m). Figura: `docs/figuras/malla.png`.
+- **Configuración SCHISM** (`scripts/caso_real.py`): 16 niveles S, dt 100 s, Coriolis, ERA5 (viento, presión, flujos), módulo AGE con "agua nueva" = la de fuera de la bahía; esponja de fricción (0,0025 → 0,05) a < 1 km de las esquinas del borde abierto y sin viento a < 1 km del borde (rampa hasta 2 km). Marea aún M2 uniforme de 0,15 m (provisional hasta FES2022).
+- **Prueba de 2 días en NIC5 (CÉCI):** estable (sin NaN, velocidades saturadas); la bahía sube y baja en bloque con la marea exterior (14,9 de 15 cm, desfase 0 h); corriente mareal en el canal 2,5 cm/s de media y 7,7 cm/s de máximo (control analítico ~4 cm/s), 1,2 cm/s en la bahía → la marea mueve muy poco el agua, como predice el control analítico.
+- **Defecto de borde documentado:** corriente espuria de hasta 1 m/s en la esquina E donde el borde abierto toca la costa (4 nodos, a ~5 km de la boca). Con y sin esponja (chorro ×2) las cifras de la bahía son idénticas → no afecta a las conclusiones; va a material suplementario.
+- **Coste por miembro (NIC5, EPYC 7542):** 2 días = 279 s con 4 núcleos, 172 s con 8, 116 s con 16, 110 s con 32 (no escala más allá de 16). Lo eficiente: 4–8 núcleos por miembro → **un miembro de 90 días ≈ 2,2–3,5 h**. Con los límites de CÉCI (448 núcleos/usuario en NIC5, 4096 en Lemaitre4) caben de decenas a cientos de miembros a la vez: el conjunto de cientos de miembros es viable en días.
