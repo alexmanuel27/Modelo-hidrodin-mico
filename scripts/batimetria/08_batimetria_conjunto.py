@@ -25,7 +25,7 @@ def lee(f, v):
     return d.variables['x'][:].copy(), d.variables['y'][:].copy(), z
 
 def bahia(X, Y, h):
-    return np.isfinite(h) & (X > 361000) & (Y < 2560950)
+    return np.isfinite(h) & (((X > 361000) & (Y < 2560950)) | ((X > 360500) & (Y < 2559000)))
 
 def poligono_canal(X, Y):
     t = np.radians(RUMBO_CANAL); u = np.array([np.sin(t), np.cos(t)]); n = np.array([u[1], -u[0]])

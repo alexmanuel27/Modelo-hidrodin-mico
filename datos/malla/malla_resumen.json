@@ -1,0 +1,18 @@
+{
+ "nodos": 4832,
+ "elementos": 8941,
+ "nodos_bahia": 4001,
+ "angulo_min_grados": 12.4,
+ "angulo_min_p1": 38.6,
+ "elementos_angulo_menor_20": 7,
+ "lado_canal_m": 26.5,
+ "lado_bahia_m": 42.5,
+ "lado_max_m": 456.7,
+ "nodos_borde_abierto": 33,
+ "prof_borde_abierto_m": [
+  45.6,
+  1219.4
+ ],
+ "islas": 0,
+ "elementos_a_traves_del_canal": 11.3
+}

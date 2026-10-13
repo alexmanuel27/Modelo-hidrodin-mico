@@ -10,47 +10,47 @@
  },
  "volumenes": {
   "1879_alfa0.0": {
-   "vol_sin_ruido_hm3": 27.5,
-   "vol_media_hm3": 27.6,
-   "vol_p5": 26.6,
-   "vol_p95": 28.4,
-   "prof_media_m": 5.6
+   "vol_sin_ruido_hm3": 27.6,
+   "vol_media_hm3": 27.7,
+   "vol_p5": 26.7,
+   "vol_p95": 28.5,
+   "prof_media_m": 5.57
   },
   "1879_alfa0.5": {
    "vol_sin_ruido_hm3": 31.7,
-   "vol_media_hm3": 31.7,
+   "vol_media_hm3": 31.8,
    "vol_p5": 30.9,
    "vol_p95": 32.6,
-   "prof_media_m": 6.44
+   "prof_media_m": 6.41
   },
   "1879_alfa1.0": {
-   "vol_sin_ruido_hm3": 35.8,
+   "vol_sin_ruido_hm3": 35.9,
    "vol_media_hm3": 35.9,
-   "vol_p5": 35.0,
-   "vol_p95": 36.7,
-   "prof_media_m": 7.29
+   "vol_p5": 35.1,
+   "vol_p95": 36.8,
+   "prof_media_m": 7.25
   },
   "1887_alfa0.0": {
    "vol_sin_ruido_hm3": 25.7,
    "vol_media_hm3": 25.8,
-   "vol_p5": 24.7,
-   "vol_p95": 26.5,
-   "prof_media_m": 5.22
+   "vol_p5": 24.8,
+   "vol_p95": 26.6,
+   "prof_media_m": 5.19
   },
   "1887_alfa0.5": {
    "vol_sin_ruido_hm3": 29.6,
    "vol_media_hm3": 29.7,
    "vol_p5": 28.8,
-   "vol_p95": 30.5,
-   "prof_media_m": 6.02
+   "vol_p95": 30.6,
+   "prof_media_m": 5.98
   },
   "1887_alfa1.0": {
-   "vol_sin_ruido_hm3": 33.5,
+   "vol_sin_ruido_hm3": 33.6,
    "vol_media_hm3": 33.6,
-   "vol_p5": 32.7,
-   "vol_p95": 34.4,
-   "prof_media_m": 6.82
+   "vol_p5": 32.8,
+   "vol_p95": 34.5,
+   "prof_media_m": 6.78
   }
  },
- "area_bahia_km2": 4.91
+ "area_bahia_km2": 4.95
 }
