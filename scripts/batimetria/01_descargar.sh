@@ -19,6 +19,19 @@ baja carta_1898_leventhal.jpg "https://iiif.digitalcommonwealth.org/iiif/2/commo
 baja carta_1898_leventhal_manifest.json "https://collections.leventhalmap.org/search/commonwealth:g445ht01p/manifest"
 # Practicos del puerto de La Habana (canal y calados de muelles), Cubadebate 2018
 baja practicos_puerto_habana_2018.pdf "http://media.cubadebate.cu/wp-content/uploads/2018/09/puerto_de_la_habana-PRACTICOS.pdf"
+# Linea de costa actual, muelles y espigones: OpenStreetMap via Overpass (ODbL). Instantanea fechada.
+# Consulta minima (solo costa) para no agotar el tiempo del servidor; muelles: aparte, si hacen falta.
+Q='[out:json][timeout:90][bbox:23.08,-82.42,23.18,-82.28];way["natural"="coastline"];out geom;'
+if [ ! -s "$D/osm_costa_habana.json" ]; then
+  echo "descargando osm_costa_habana.json (Overpass, puede tardar 1-2 min)"
+  # Overpass rechaza (406) peticiones sin agente identificable: POST con User-Agent propio; espejo si falla.
+  UA="Modelo-hidrodin-mico/1.0 (+https://github.com/alexmanuel27/Modelo-hidrodin-mico)"
+  for S in https://overpass-api.de/api/interpreter https://overpass.private.coffee/api/interpreter https://maps.mail.ru/osm/tools/overpass/api/interpreter https://overpass.kumi.systems/api/interpreter; do
+    curl -fsS --retry 1 --max-time 150 -A "$UA" -H "Accept: application/json" --data-urlencode "data=$Q" -o "$D/osm_costa_habana.json" "$S" && { echo "$S" > "$D/osm_costa_habana.servidor"; break; }
+    echo "fallo $S, pruebo otro servidor"; rm -f "$D/osm_costa_habana.json"
+  done
+fi
+baja osm_costa_habana.json "Overpass API ($(cat "$D/osm_costa_habana.servidor" 2>/dev/null || echo 'espejo de la lista')) data=$Q"
 # A mano (navegador) -> registrar
 for f in carta_1889_harvard.tif gebco_habana.nc gebco_habana_tid.nc; do
   if [ -s "$D/$f" ]; then

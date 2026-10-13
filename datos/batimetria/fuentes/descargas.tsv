@@ -5,3 +5,4 @@ carta_1898_leventhal.jpg	https://iiif.digitalcommonwealth.org/iiif/2/commonwealt
 carta_1889_harvard.tif	https://hgl.harvard.edu/catalog/harvard-g4924-h3-1889-u5	2026-10-02T15:03Z	640691244	73273d7cf93f55857f5e01b32beb2c4d78ee63df48a52370f431193719d0a3a2
 gebco_habana.nc	https://download.gebco.net/ (GEBCO 2026 Global, bathymetry, 22.9-23.4N 82.6-82.1W)	2026-10-02T15:04Z	35944	09194afcf7c32104d69805505b5e8d2d340022eb831bd1c4233df290687f2839
 gebco_habana_tid.nc	https://download.gebco.net/ (GEBCO 2026 Global, TID, 22.9-23.4N 82.6-82.1W)	2026-10-02T15:04Z	23624	990ea2c7943e3d451c13fac7128814cfa13425b64cdceaaf6f34dffaa176d75e
+osm_costa_habana.json	Overpass API (uno de los espejos de 01_descargar.sh; el primero dio 504) data=[out:json][timeout:90][bbox:23.08,-82.42,23.18,-82.28];way["natural"="coastline"];out geom;	2026-10-13T15:43Z	125059	ba6ccc1bebc7985067bfc0c514e72a7aa6d8e94e105c68ea2c5f2285a93b111d
