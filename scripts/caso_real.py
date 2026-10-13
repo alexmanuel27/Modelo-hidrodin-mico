@@ -40,6 +40,11 @@ H_TOPE = 200.0                # m: profundidad maxima del modelo (el talud llega
 NV = 16                       # niveles verticales: S puros; con h_s > fondo maximo SCHISM no pide niveles Z (h_s = H_TOPE+10)
 D_ADV = 800.0                 # m: sin adveccion de momento a menos de esto del borde abierto
 CD = 0.0025
+# Correccion del borde abierto (prueba del 13-oct: chorro espurio de hasta 2 m/s donde el arco abierto
+# corta la costa en el extremo E, alimentado por el viento con el nivel impuesto en el borde):
+ESPONJA = int(os.environ.get("ESPONJA", 1))   # friccion 0,0025 -> 0,05 a menos de R_ESQ de los extremos del borde abierto
+R_ESQ = 1000.0
+VIENTO_BORDE = (1000.0, 2000.0)               # m: sin viento a < 1 km del borde abierto, completo a > 2 km (windfactor.gr3)
 
 
 def lee_hgrid(ruta):
@@ -72,7 +77,11 @@ def main():
     escribir_gr3(RUN / "hgrid.gr3", x, y, prof, tri, f"Bahia de La Habana UTM17N carta={CARTA} alfa={ALFA} semilla={SEMILLA}", resto)
     escribir_gr3(RUN / "hgrid.ll", lon, lat, prof, tri, "hgrid.ll", resto)
     d_borde = np.min(np.hypot(x[:, None] - x[abierto][None], y[:, None] - y[abierto][None]), axis=1)
-    escribir_gr3(RUN / "drag.gr3", x, y, np.full(n, CD), tri, "drag.gr3")
+    d_esq = np.min(np.hypot(x[:, None] - x[[abierto[0], abierto[-1]]][None], y[:, None] - y[[abierto[0], abierto[-1]]][None]), axis=1)
+    cd = CD + (0.05 - CD) * np.clip(1 - d_esq / R_ESQ, 0, 1) ** 2 if ESPONJA else np.full(n, CD)
+    escribir_gr3(RUN / "drag.gr3", x, y, cd, tri, "drag.gr3 (esponja en los extremos del borde abierto)")
+    fv = np.clip((d_borde - VIENTO_BORDE[0]) / (VIENTO_BORDE[1] - VIENTO_BORDE[0]), 0, 1) if ESPONJA else np.ones(n)
+    escribir_gr3(RUN / "windfactor.gr3", x, y, fv, tri, "windfactor: 0 junto al borde abierto")
     for nombre, v in (("diffmin.gr3", 1e-6), ("diffmax.gr3", 1e-2)):
         escribir_gr3(RUN / nombre, x, y, np.full(n, v), tri, nombre)
     # convergencia de meridianos UTM (grados) para girar el viento de geografico a la malla
@@ -110,7 +119,7 @@ def main():
                "OPT": dict(start_year=INICIO[0], start_month=INICIO[1], start_day=INICIO[2],
                            start_hour=0, utc_start=0, ics=1, ihot=0, ncor=NCOR, coricoef=0,
                            slam0=round(float(lon.mean()), 4), sfea0=round(float(lat.mean()), 4),
-                           nchi=0, ic_elev=0, nadv=0, nws=NWS, wtiminc=DT, ishapiro=1, drampwind=1, iwindoff=0,
+                           nchi=0, ic_elev=0, nadv=0, nws=NWS, wtiminc=DT, ishapiro=1, drampwind=1, iwindoff=ESPONJA,
                            ihconsv=0, itur=3, itr_met=3, level_age=-999, **{"flag_ic(1)": 2, "flag_ic(2)": 2}),
                "SCHOUT": {"nhot": 0, "iout_sta": 0, "iof_hydro(1)": 1, "iof_hydro(14)": 1,
                           "iof_hydro(16)": 1, "iof_hydro(25)": 0, "iof_hydro(26)": 0, "iof_age(1)": 1}}
