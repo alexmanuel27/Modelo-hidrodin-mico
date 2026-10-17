@@ -72,15 +72,8 @@ def lee(dirm):
     from netCDF4 import Dataset
     out = Path(dirm) / "outputs"
     num = lambda p: int(p.stem.split("_")[-1])
-    def legible(f):
-        try: Dataset(f).close(); return True
-        except OSError: return False
-    ndias = sum(1 for _ in out.glob("out2d_*.nc"))
-    while ndias and not (legible(out / f"out2d_{ndias}.nc") and (not (out / "AGE_1_1.nc").exists() or legible(out / f"AGE_1_{ndias}.nc"))):
-        ndias -= 1                                                            # corrida en curso: solo los dias completos
     def cat(pref, var):
         fs = sorted(out.glob(f"{pref}_*.nc"), key=num)
-        if fs and num(fs[-1]) > ndias: fs = fs[:ndias]                        # el ultimo dia puede estar a medio escribir
         return np.concatenate([np.asarray(Dataset(f)[var][:], dtype=np.float32) for f in fs]) if fs else None
     f0 = sorted(out.glob("out2d_*.nc"), key=num)[0]
     with Dataset(f0) as d: prof = np.asarray(d["depth"][:])
