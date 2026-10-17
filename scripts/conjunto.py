@@ -16,7 +16,8 @@ from scipy.stats import qmc
 RAIZ = Path(__file__).resolve().parent.parent
 DISENO = RAIZ / "datos" / "conjunto" / "diseno.csv"
 RUNS = RAIZ / "runs" / "conjunto"
-DIAS, SALIDA_H, NUCLEOS = 90, 6, 4          # 90 d (>3x renovacion de 23 d); salidas cada 6 h; 4 nucleos de calculo + 2 scribes
+DIAS, SALIDA_H, NUCLEOS = 90, 4, 4          # 90 d (>3x renovacion de 23 d); salidas cada 4 h (incluye las 16 UTC de Sentinel-2); 4 nucleos + 2 scribes
+GUARDAR = (0, 1)                             # miembros que conservan los campos completos (figuras); el resto solo resumen.*
 SEMILLA_DISENO = 20261016
 
 # nombre, transformacion u in [0,1) -> valor
@@ -86,7 +87,7 @@ def generar(J):
     n = len(filas)
     (RUNS / "correr_array.sh").write_text(f"""#!/bin/bash -l
 # Lemaitre4. Desde la raiz del repo en el Mac (copia casos + sflux con la misma estructura, enlaces relativos):
-#   rsync -aR ./runs/conjunto ./datos/forzamiento/sflux lemaitre4:bahia/
+#   rsync -aR ./runs/conjunto ./datos/forzamiento/sflux ./scripts/posproceso.py ./datos/conjunto/posproceso_malla.npz lemaitre4:bahia/
 #   ssh lemaitre4 'bash -lc "cd bahia/runs/conjunto && sbatch --array=0-{n - 1}%{4096 // (NUCLEOS + 2)} correr_array.sh"'
 # Prueba previa: --array=0-1
 #SBATCH --job-name=bahia_conj
@@ -105,7 +106,15 @@ grep -qs "Run completed successfully" outputs/mirror.out && {{ echo "ya hecho"; 
 START=$(date +%s)
 srun $HOME/schism/build/bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL 2 > outputs/pantalla.log 2>&1 || true
 grep -q "Run completed successfully" outputs/mirror.out && OK=si || OK=no
-echo "$SLURM_ARRAY_TASK_ID $SLURM_CLUSTER_NAME segundos=$(( $(date +%s) - START )) completo=$OK" >> ../coste.txt
+T=$(( $(date +%s) - START ))
+# posproceso (numpy + netCDF4) y, si salio bien, borrar los campos completos
+P=no
+if [ $OK = si ]; then
+  module load netcdf4-python/1.7.1.post2-foss-2024a >/dev/null 2>&1 || true
+  python ../../../scripts/posproceso.py . ../../../datos/conjunto/posproceso_malla.npz > posproceso.log 2>&1 && P=si
+  case " {' '.join(map(str, GUARDAR))} " in *" $SLURM_ARRAY_TASK_ID "*) ;; *) [ $P = si ] && rm -f outputs/*.nc ;; esac
+fi
+echo "$SLURM_ARRAY_TASK_ID $SLURM_CLUSTER_NAME segundos=$T completo=$OK posproceso=$P" >> ../coste.txt
 """)
     print(f"listo: {n} casos en {RUNS}; lanzador {RUNS / 'correr_array.sh'}")
 

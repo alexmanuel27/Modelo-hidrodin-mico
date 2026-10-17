@@ -544,3 +544,11 @@ Descargado (`datos/batimetria/fuentes/descargas.tsv` con URL, fecha y sha256):
 - Ventana fija: 90 días desde el 1-ene-2016 (época seca, frentes fríos). La estación no es dimensión del conjunto; si hace falta, se compara una ventana de lluvias en los experimentos de mecanismo.
 - Almacenamiento estimado: ~3 MB de entrada y ~0,4 GB de salida por miembro → ~250 GB para 640 en /globalscratch (72 TB libres). El posproceso por miembro (salidas a–f) se hará dentro del array para borrar luego los campos completos.
 - Siguiente: prueba de 2 miembros de 90 días en Lemaitre4 (primer cálculo allí: coste real) con la M2 provisional; regenerar todo con FES2022 cuando llegue; posproceso.
+
+**17 oct — primera corrida en Lemaitre4 y posproceso.**
+- Prueba de 2 miembros (array 7965067, m0000–m0001, M2 provisional): arranca y avanza ~0,75 días de modelo por minuto con 4+2 núcleos (~2 h por miembro de 90 d, más rápido que NIC5). 25 días = 77 MB de salida.
+- **Fallo de configuración encontrado:** solo se escribía AGE_1 (C = fracción de agua llegada del mar); sin AGE_2 (= C·edad) no hay edad. `caso_real.py` añade `iof_age(2)=1`. AGE_1 sirve por sí solo para la renovación (e-folding de 1−C por zona).
+- `scripts/zonas.py` + `docs/figuras/zonas.png`: canal (995 nodos), cuenca principal (1018), Marimelena (430), Guasabacoa (936), Atarés (622). Límites trazados a mano; pendiente de que Alex los confirme.
+- `scripts/posproceso_malla.py` → `datos/conjunto/posproceso_malla.npz`: zona y área por nodo, pesos baricéntricos a la rejilla Sentinel-2 (252 × 238 celdas de 20 m) y a una sección del canal (33 puntos, 330 m). Autoprueba: reproduce un campo lineal y el área total.
+- `scripts/posproceso.py` (solo numpy + netCDF4, corre en el cluster dentro del array): por zona y bahía, C media de los últimos 30 d y **tiempo de renovación (1−C ≤ 1/e)**; edad media, p10/p50/p90 y fracción de volumen con edad > 30 d; mapas de superficie y fondo; caudal neto y bruto por el canal; superficie a las 16:00 UTC en la rejilla S2 (30 imágenes). Autoprueba con campos sintéticos (renovación 20 d, edad 5 d, caudal conocido): ok. Si sale bien, el array borra los `.nc` (salvo m0000–m0001). Salidas cada 4 h para tener las 16 UTC.
+- Pendiente: (e) partículas por foco; confirmar unidades de la edad de SCHISM con la primera corrida que escriba AGE_2.
