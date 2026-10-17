@@ -8,7 +8,8 @@ Uso:  python scripts/caso_real.py [dias]            (por defecto 2)
       variables: CASO (nombre), NCOR (1), NWS (2), CARTA (1887), ALFA (0), SEMILLA (-1 = sin campo aleatorio),
                  MAREA (fes si existe datos/marea/fes2022_habana.json; si no m2),
                  parametros del conjunto: DATUM (m, 0), CD (0.0025), VFAC (x viento, 1), VROT (grados, 0),
-                 MFAC (x amplitud de marea, 1), SALIDA_H (horas entre salidas, 1), RUNDIR (carpeta del caso)
+                 MFAC (x amplitud de marea, 1), SALIDA_H (horas entre salidas, 1), RUNDIR (carpeta del caso),
+                 RIOS (1 = rios + modelo baroclinico por salinidad; 0), QFAC (x caudal de los rios, 1)
       Mac:   bash runs/real_<CASO>/correr.sh
       CECI:  ver runs/real_<CASO>/correr_slurm.sh
 Requiere numpy, scipy y, con MAREA=fes, pyTMD (correcciones nodales; pip install pyTMD), y datos/batimetria/superficies/*.nc (07) + datos/malla/hgrid.{gr3,ll} (09).
@@ -19,7 +20,7 @@ import numpy as np
 
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ / "scripts" / "batimetria"))
-from utm import utm_inv                                   # noqa: E402
+from utm import utm, utm_inv                              # noqa: E402
 import importlib
 conj = importlib.import_module("08_batimetria_conjunto")
 from scipy.interpolate import RegularGridInterpolator     # noqa: E402
@@ -43,6 +44,11 @@ INICIO = (2016, 1, 1)
 M2_AMP = 0.15                 # m, solo con MAREA=m2 (prueba)
 FES = RAIZ / "datos" / "marea" / "fes2022_habana.json"
 MAREA = os.environ.get("MAREA", "fes" if FES.exists() else "m2")
+RIOS, QFAC = int(os.environ.get("RIOS", 0)), float(os.environ.get("QFAC", 1))
+# Caudales medios (m3/s) de JICA 2004, Informe final vol. IV, tabla 1.1 (datos CIMAB, ago-2002; no hay aforos permanentes):
+# Luyano 114 860, Martin Perez 62 105, Tadeo 8 004 m3/d. https://openjicareport.jica.go.jp/pdf/11767225.pdf
+Q_RIOS = {"luyano": 114860 / 86400, "martin perez": 62105 / 86400, "tadeo": 8004 / 86400}
+OSM_RIOS = RAIZ / "datos" / "batimetria" / "fuentes" / "osm_rios_habana.json"
 FREC = dict(m2=1.405189e-4, s2=1.454441e-4, n2=1.378797e-4, k2=1.458423e-4, k1=7.292117e-5, o1=6.759774e-5,
             p1=7.251056e-5, q1=6.495854e-5, m4=2.810378e-4, ms4=2.859630e-4, mn4=2.783986e-4)   # rad/s
 H_TOPE = 200.0                # m: profundidad maxima del modelo (el talud llega a 1200 m; solo importa la onda de marea)
@@ -102,6 +108,22 @@ def nodales(constituyentes, dias):
     return pf[0], (G[0] + np.degrees(pu[0])) % 360
 
 
+def desembocaduras(xy, tri, bahia_nodo):
+    """Elemento de la malla en la desembocadura de cada rio de Q_RIOS (OSM): el vertice del rio mas cercano a un
+    elemento de la bahia, y ese elemento. Devuelve [(nombre, elemento 0-based, distancia m)]."""
+    import json, unicodedata
+    plano = lambda t: unicodedata.normalize("NFKD", t).encode("ascii", "ignore").decode().lower()
+    vias = json.loads(OSM_RIOS.read_text())["elements"]
+    eb = np.where(bahia_nodo[tri].all(1))[0]; c = xy[tri[eb]].mean(1)
+    out = []
+    for nom in Q_RIOS:
+        pts = [(g["lon"], g["lat"]) for v in vias if nom in plano(v.get("tags", {}).get("name", "")) for g in v.get("geometry", [])]
+        if not pts: sys.exit(f"no encuentro el rio '{nom}' en {OSM_RIOS}")
+        E, N = utm(*np.array(pts).T); d = np.hypot(E[:, None] - c[None, :, 0], N[:, None] - c[None, :, 1])
+        i, j = np.unravel_index(np.argmin(d), d.shape); out.append((nom, int(eb[j]), float(d[i, j])))
+    return out
+
+
 def main():
     RUN.mkdir(parents=True, exist_ok=True); (RUN / "outputs").mkdir(exist_ok=True)
     xy, tri, resto = lee_hgrid(MALLA / "hgrid.gr3")
@@ -135,21 +157,31 @@ def main():
         f"2 !ivcor\n{NV} 1 {H_TOPE + 10:.1f} !nvrt, kz, h_s\nZ levels\n1 -{H_TOPE + 10:.1f}\nS levels\n5. 0. 1.e-4 !h_c, theta_b, theta_f\n"
         + "".join(f"{k+1} {-1 + k / (NV - 1):.4f}\n" for k in range(NV)))
     (RUN / "ts.ic").write_text(f"2\n1 -{H_TOPE + 10:.0f}. 28. 36.\n2 0. 28. 36.\n")
+    TS, TS_BORDE = ("2 2", "28.\n1.\n36.\n1.\n") if RIOS else ("0 0", "")   # T, S constantes (28 C, 36) en el borde
+    if RIOS:
+        rio = desembocaduras(xy, tri, malla.en_bahia(xy))
+        for nom, e, d in rio: print(f"rio {nom}: elemento {e + 1}, {Q_RIOS[nom] * QFAC:.2f} m3/s, a {d:.0f} m del cauce OSM")
+        (RUN / "source_sink.in").write_text(f"{len(rio)} !fuentes\n" + "".join(f"{e + 1}\n" for _, e, _ in rio) + "\n0 !sumideros\n")
+        q = " ".join(f"{Q_RIOS[nom] * QFAC:.4f}" for nom, _, _ in rio)
+        (RUN / "vsource.th").write_text(f"0. {q}\n{RNDAY * 86400 + 86400:.0f}. {q}\n")
+        # T ambiente, S = 0, AGE: agua de rio = agua nueva (C = 1, alfa = 0 -> edad 0 al entrar)
+        m = " ".join(["-9999."] * len(rio) + ["0."] * len(rio) + ["1."] * len(rio) + ["0."] * len(rio))
+        (RUN / "msource.th").write_text(f"0. {m}\n{RNDAY * 86400 + 86400:.0f}. {m}\n")
     if MAREA == "fes":
         arm = armonicos_fes(lon[abierto], lat[abierto]); cs = list(arm)
         ff, eq = nodales(cs, RNDAY)
         b = [f"{INICIO} marea FES2022b ({len(cs)} constituyentes)", "0 40. !ntip, tip_dp", f"{len(cs)} !nbfr"]
         b += [f"{c.upper()}\n{FREC[c]:.6e} {ff[k]:.5f} {eq[k]:.3f}" for k, c in enumerate(cs)]
-        b += ["1 !nope", f"{len(abierto)} 3 0 0 0 0 !nodos, elev=armonica, vel, T, S, AGE"]
+        b += ["1 !nope", f"{len(abierto)} 3 0 {TS} 0 !nodos, elev=armonica, vel, T, S, AGE"]
         for c in cs:
             b += [c.upper()] + [f"{a * MFAC:.5f} {g:.2f}" for a, g in zip(*arm[c])]
-        (RUN / "bctides.in").write_text("\n".join(b) + "\n")
+        (RUN / "bctides.in").write_text("\n".join(b) + "\n" + TS_BORDE)
         print("marea FES2022 en el borde: " + ", ".join(f"{c.upper()} {arm[c][0].mean() * 100:.1f} cm" for c in cs))
     else:
         (RUN / "bctides.in").write_text(
             f"{INICIO} marea M2 de prueba uniforme\n0 40. !ntip, tip_dp\n1 !nbfr\nM2\n1.405189e-04 1.0 0.0\n"
-            f"1 !nope\n{len(abierto)} 3 0 0 0 0 !nodos, elev=armonica, vel, T, S, AGE\nM2\n"
-            + "".join(f"{M2_AMP * MFAC} 0.\n" for _ in abierto))
+            f"1 !nope\n{len(abierto)} 3 0 {TS} 0 !nodos, elev=armonica, vel, T, S, AGE\nM2\n"
+            + "".join(f"{M2_AMP * MFAC} 0.\n" for _ in abierto) + TS_BORDE)
     s = RUN / "sflux"; s.mkdir(exist_ok=True)
     for q in s.glob("*.nc"): q.unlink()
     y0, m0, _ = INICIO; nmes = int(np.ceil(RNDAY / 28)) + 1
@@ -162,10 +194,10 @@ def main():
     (s / "sflux_inputs.txt").write_text(
         "&sflux_inputs\nair_1_max_window_hours=745.,\nrad_1_max_window_hours=745.,\nprc_1_max_window_hours=745.,\n/\n")
     p = (SCHISM / "sample_inputs" / "param.nml").read_text()
-    cambios = {"CORE": dict(ipre=0, ibc=1, ibtp=1, rnday=RNDAY, dt=DT, ntracer_age=2,
+    cambios = {"CORE": dict(ipre=0, ibc=0 if RIOS else 1, ibtp=1, rnday=RNDAY, dt=DT, ntracer_age=2,
                             nspool=int(SALIDA_H * 3600 / DT), ihfskip=int(86400 / DT)),
                "OPT": dict(start_year=INICIO[0], start_month=INICIO[1], start_day=INICIO[2],
-                           start_hour=0, utc_start=0, ics=1, ihot=0, ncor=NCOR, coricoef=0,
+                           start_hour=0, utc_start=0, if_source=RIOS, dramp_ss=2, ics=1, ihot=0, ncor=NCOR, coricoef=0,
                            slam0=round(float(lon.mean()), 4), sfea0=round(float(lat.mean()), 4),
                            nchi=0, ic_elev=0, nadv=0, nws=NWS, wtiminc=DT, ishapiro=1, drampwind=1, iwindoff=ESPONJA,
                            ihconsv=0, itur=3, itr_met=3, level_age=-999, **{"flag_ic(1)": 2, "flag_ic(2)": 2}),
