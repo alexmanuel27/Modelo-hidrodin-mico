@@ -84,10 +84,10 @@ def generar(J):
         for k, (m, est) in enumerate(ex.map(uno, filas)):
             if est == "ERROR" or k % 50 == 0: print(f"m{m:04d}: {est}  ({k + 1}/{len(filas)})", flush=True)
     n = len(filas)
-    (RUNS / "correr_array.sh").write_text(f"""#!/bin/bash
+    (RUNS / "correr_array.sh").write_text(f"""#!/bin/bash -l
 # Lemaitre4. Desde la raiz del repo en el Mac (copia casos + sflux con la misma estructura, enlaces relativos):
 #   rsync -aR ./runs/conjunto ./datos/forzamiento/sflux lemaitre4:bahia/
-#   ssh lemaitre4 'cd bahia/runs/conjunto && sbatch --array=0-{n - 1}%{4096 // (NUCLEOS + 2)} correr_array.sh'
+#   ssh lemaitre4 'bash -lc "cd bahia/runs/conjunto && sbatch --array=0-{n - 1}%{4096 // (NUCLEOS + 2)} correr_array.sh"'
 # Prueba previa: --array=0-1
 #SBATCH --job-name=bahia_conj
 #SBATCH --ntasks={NUCLEOS + 2}
