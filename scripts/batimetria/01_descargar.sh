@@ -34,7 +34,7 @@ overpass() {   # overpass <archivo> <consulta>: POST con User-Agent propio (sin 
     done
   fi
   # baja() descarga si falta: solo registrar cuando ya esta (si no, intentaria bajar la consulta como URL)
-  if [ -s "$D/$F" ]; then baja "$F" "Overpass API ($(cat "$D/${F%.json}.servidor")) data=$Q"
+  if [ -s "$D/$F" ]; then baja "$F" "Overpass API ($(cat "$D/${F%.json}.servidor" 2>/dev/null || echo espejo de la lista)) data=$Q"
   else echo "!! $F: todos los servidores Overpass fallaron; vuelve a intentarlo en un rato"; fi
 }
 overpass osm_costa_habana.json '[out:json][timeout:90][bbox:23.08,-82.42,23.18,-82.28];way["natural"="coastline"];out geom;'

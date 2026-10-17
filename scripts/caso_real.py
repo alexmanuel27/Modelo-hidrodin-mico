@@ -215,7 +215,7 @@ def main():
     (RUN / "param.nml").write_text(p)
     pasos = int(round(RNDAY * 86400 / DT))
     (RUN / "correr.sh").write_text(f"""#!/usr/bin/env bash
-# Mac: 1 proceso de calculo + 2 scribes. Uso: bash {RUN.relative_to(RAIZ)}/correr.sh
+# Mac: 1 proceso de calculo + 2 scribes. Uso: bash {os.path.relpath(RUN, RAIZ)}/correr.sh
 set -eo pipefail
 cd "$(dirname "$0")"
 source "$HOME/miniforge3/etc/profile.d/conda.sh"; conda activate bahia
@@ -228,7 +228,7 @@ echo "tiempo: $T s para {pasos} pasos con $((NP-NS)) proceso(s) de calculo" | te
 """)
     (RUN / "correr_slurm.sh").write_text(f"""#!/bin/bash
 # CECI (NIC5 o Lemaitre4). Desde el Mac:
-#   rsync -aL {RUN.relative_to(RAIZ)}/ nic5:real_{CASO}/      (-L copia los sflux enlazados)
+#   rsync -aL {os.path.relpath(RUN, RAIZ)}/ nic5:real_{CASO}/      (-L copia los sflux enlazados)
 #   ssh nic5 'cd real_{CASO} && for n in 4 8 16 32; do sbatch --ntasks=$((n+2)) correr_slurm.sh; done'
 #SBATCH --job-name=bahia_{CASO}
 #SBATCH --time=02:00:00
