@@ -3,7 +3,8 @@
 
   python scripts/conjunto.py diseno  [N=64]      -> datos/conjunto/diseno.csv (versionado)
   python scripts/conjunto.py prueba               -> autoprueba: Jansen sobre Ishigami con la misma construccion
-  python scripts/conjunto.py generar [J=6]       -> runs/conjunto/mNNNN/ (caso_real.py por miembro, J a la vez)
+  python scripts/conjunto.py generar [J=6] [m,m,...]  -> runs/conjunto/mNNNN/ (caso_real.py por miembro, J a la vez;
+                                                    solo los miembros indicados si se da la lista)
                                                     + runs/conjunto/correr_array.sh
 Diseno: Saltelli (2002) con Sobol aleatorizado (scipy.stats.qmc): matrices A, B y AB_i -> N*(d+2) miembros;
 los indices de Sobol (Jansen) salen de las mismas corridas. Parametros (rangos acordados el 16-oct-2026):"""
@@ -15,8 +16,8 @@ from scipy.stats import qmc
 
 RAIZ = Path(__file__).resolve().parent.parent
 DISENO = RAIZ / "datos" / "conjunto" / "diseno.csv"
-RUNS = RAIZ / "runs" / "conjunto"
-DIAS, SALIDA_H, NUCLEOS = 90, 4, 4          # 90 d (>3x renovacion de 23 d); salidas cada 4 h (incluye las 16 UTC de Sentinel-2); 4 nucleos + 2 scribes
+RUNS = RAIZ / os.environ.get("CONJ_DIR", "runs/conjunto")     # p. ej. CONJ_DIR=runs/largo CONJ_DIAS=365
+DIAS, SALIDA_H, NUCLEOS = int(os.environ.get("CONJ_DIAS", 90)), 4, 4          # 90 d (>3x renovacion de 23 d); salidas cada 4 h (incluye las 16 UTC de Sentinel-2); 4 nucleos + 2 scribes
 GUARDAR = (0, 1)                             # miembros que conservan los campos completos (figuras); el resto solo resumen.*
 SEMILLA_DISENO = 20261016
 
@@ -79,20 +80,20 @@ def uno(fila):
     return m, "ok"
 
 
-def generar(J):
-    filas = lee(); RUNS.mkdir(parents=True, exist_ok=True)
+def generar(J, solo=None):
+    filas = [f for f in lee() if solo is None or int(f["miembro"]) in solo]; RUNS.mkdir(parents=True, exist_ok=True)
     with ThreadPoolExecutor(J) as ex:
         for k, (m, est) in enumerate(ex.map(uno, filas)):
             if est == "ERROR" or k % 50 == 0: print(f"m{m:04d}: {est}  ({k + 1}/{len(filas)})", flush=True)
     n = len(filas)
     (RUNS / "correr_array.sh").write_text(f"""#!/bin/bash -l
 # Lemaitre4. Desde la raiz del repo en el Mac (copia casos + sflux con la misma estructura, enlaces relativos):
-#   rsync -aR ./runs/conjunto ./datos/forzamiento/sflux ./scripts/posproceso.py ./datos/conjunto/posproceso_malla.npz lemaitre4:bahia/
-#   ssh lemaitre4 'bash -lc "cd bahia/runs/conjunto && sbatch --array=0-{n - 1}%{4096 // (NUCLEOS + 2)} correr_array.sh"'
+#   rsync -aR ./{RUNS.relative_to(RAIZ)} ./datos/forzamiento/sflux ./scripts/posproceso.py ./datos/conjunto/posproceso_malla.npz lemaitre4:bahia/
+#   ssh lemaitre4 'bash -lc "cd bahia/{RUNS.relative_to(RAIZ)} && sbatch --array=0-{n - 1}%{4096 // (NUCLEOS + 2)} correr_array.sh"'
 # Prueba previa: --array=0-1
 #SBATCH --job-name=bahia_conj
 #SBATCH --ntasks={NUCLEOS + 2}
-#SBATCH --time=08:00:00
+#SBATCH --time={int(np.ceil(DIAS / 90 * 4.5)) + 1:02d}:00:00
 #SBATCH --mem-per-cpu=2000
 #SBATCH --output=slurm_%A_%a.out
 set -eo pipefail
@@ -126,6 +127,7 @@ if __name__ == "__main__":
     elif accion == "prueba":
         prueba()
     elif accion == "generar":
-        generar(int(sys.argv[2]) if len(sys.argv) > 2 else 6)
+        generar(int(sys.argv[2]) if len(sys.argv) > 2 else 6,
+                [int(m) for m in sys.argv[3].split(",")] if len(sys.argv) > 3 else None)
     else:
         sys.exit(__doc__)
