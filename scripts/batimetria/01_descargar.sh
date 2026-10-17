@@ -33,11 +33,13 @@ overpass() {   # overpass <archivo> <consulta>: POST con User-Agent propio (sin 
       echo "fallo $S, pruebo otro servidor"; rm -f "$D/$F"
     done
   fi
-  baja "$F" "Overpass API ($(cat "$D/${F%.json}.servidor" 2>/dev/null || echo 'espejo de la lista')) data=$Q"
+  # baja() descarga si falta: solo registrar cuando ya esta (si no, intentaria bajar la consulta como URL)
+  if [ -s "$D/$F" ]; then baja "$F" "Overpass API ($(cat "$D/${F%.json}.servidor")) data=$Q"
+  else echo "!! $F: todos los servidores Overpass fallaron; vuelve a intentarlo en un rato"; fi
 }
 overpass osm_costa_habana.json '[out:json][timeout:90][bbox:23.08,-82.42,23.18,-82.28];way["natural"="coastline"];out geom;'
 # Rios y arroyos que llegan a la bahia (Luyano, Martin Perez, Tadeo...): desembocaduras para source_sink.in
-overpass osm_rios_habana.json '[out:json][timeout:90][bbox:23.03,-82.42,23.16,-82.27];way["waterway"~"^(river|stream|canal|drain)$"];out geom tags;'
+overpass osm_rios_habana.json '[out:json][timeout:90][bbox:23.03,-82.42,23.16,-82.27];way["waterway"~"^(river|stream|canal|drain)$"];out geom;'
 # A mano (navegador) -> registrar
 for f in carta_1889_harvard.tif gebco_habana.nc gebco_habana_tid.nc; do
   if [ -s "$D/$f" ]; then
