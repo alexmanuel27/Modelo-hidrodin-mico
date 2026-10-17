@@ -11,8 +11,8 @@ def zonas(x, y, en_bahia):
     s, n = dx * np.sin(t) + dy * np.cos(t), dx * np.cos(t) - dy * np.sin(t)
     z = np.where(en_bahia, 2, 0)
     sur = (y < 2558800) & (x < 363300)
-    z[en_bahia & sur & (x < 362350 - 0.14 * (2558800 - y))] = 5
-    z[en_bahia & sur & (x >= 362350 - 0.14 * (2558800 - y))] = 4
-    z[en_bahia & (x > 363600) & (y > 2558800)] = 3
-    z[en_bahia & (np.abs(s) <= MEDIO_LARGO) & (np.abs(n) <= MEDIO_ANCHO)] = 1
+    z[en_bahia & sur & (x < 362350 - 0.25 * (2558800 - y))] = 5
+    z[en_bahia & sur & (x >= 362350 - 0.25 * (2558800 - y))] = 4
+    z[en_bahia & (x > 363600)] = 3            # todo el lobulo E, tambien su orilla sur (corregido con Alex, 17-oct)
+    z[en_bahia & (((np.abs(s) <= MEDIO_LARGO) & (np.abs(n) <= MEDIO_ANCHO)) | (y > 2560400))] = 1   # y la punta de la boca
     return z
