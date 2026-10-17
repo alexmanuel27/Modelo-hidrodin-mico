@@ -51,7 +51,7 @@ D_ADV = 800.0                 # m: sin adveccion de momento a menos de esto del 
 CD = float(os.environ.get("CD", 0.0025))
 # Correccion del borde abierto (prueba del 13-oct: chorro espurio de hasta 2 m/s donde el arco abierto
 # corta la costa en el extremo E, alimentado por el viento con el nivel impuesto en el borde):
-ESPONJA = int(os.environ.get("ESPONJA", 1))   # friccion 0,0025 -> 0,05 a menos de R_ESQ de los extremos del borde abierto
+ESPONJA = int(os.environ.get("ESPONJA", 1))   # friccion 0,0025 -> 0,05 a menos de R_ESQ del borde abierto
 R_ESQ = 1000.0
 VIENTO_BORDE = (1000.0, 2000.0)               # m: sin viento a < 1 km del borde abierto, completo a > 2 km (windfactor.gr3)
 
@@ -115,9 +115,8 @@ def main():
     escribir_gr3(RUN / "hgrid.gr3", x, y, prof, tri, f"Bahia de La Habana UTM17N carta={CARTA} alfa={ALFA} semilla={SEMILLA} datum={DATUM}", resto)
     escribir_gr3(RUN / "hgrid.ll", lon, lat, prof, tri, "hgrid.ll", resto)
     d_borde = np.min(np.hypot(x[:, None] - x[abierto][None], y[:, None] - y[abierto][None]), axis=1)
-    d_esq = np.min(np.hypot(x[:, None] - x[[abierto[0], abierto[-1]]][None], y[:, None] - y[[abierto[0], abierto[-1]]][None]), axis=1)
-    cd = CD + (0.05 - CD) * np.clip(1 - d_esq / R_ESQ, 0, 1) ** 2 if ESPONJA else np.full(n, CD)
-    escribir_gr3(RUN / "drag.gr3", x, y, cd, tri, "drag.gr3 (esponja en los extremos del borde abierto)")
+    cd = CD + (0.05 - CD) * np.clip(1 - d_borde / R_ESQ, 0, 1) ** 2 if ESPONJA else np.full(n, CD)   # todo el borde: 4,45 m/s en el arco (17-oct)
+    escribir_gr3(RUN / "drag.gr3", x, y, cd, tri, "drag.gr3 (esponja junto al borde abierto)")
     fv = VFAC * (np.clip((d_borde - VIENTO_BORDE[0]) / (VIENTO_BORDE[1] - VIENTO_BORDE[0]), 0, 1) if ESPONJA else np.ones(n))
     escribir_gr3(RUN / "windfactor.gr3", x, y, fv, tri, "windfactor: 0 junto al borde abierto")
     for nombre, v in (("diffmin.gr3", 1e-6), ("diffmax.gr3", 1e-2)):

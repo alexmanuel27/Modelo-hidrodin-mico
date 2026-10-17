@@ -24,7 +24,8 @@ def resumen(t, E, eta, u, v, prof, M):
     z = M["zona"]; bahia = z > 0; spd = np.hypot(u, v)
     r = dict(dias=float(dias[-1]), nan=int(np.isnan(eta).sum() + np.isnan(E).sum()),
              vmax=float(np.nanmax(spd)), vmax_nodo=int(np.nanargmax(np.nanmax(spd, 0))) + 1,   # numero de nodo en hgrid.gr3
-             vmax_bahia=float(np.nanmax(spd[:, bahia])))
+             vmax_bahia=float(np.nanmax(spd[:, bahia])),
+             vmax_bahia_nodo=int(np.where(bahia)[0][np.nanargmax(np.nanmax(spd[:, bahia], 0))]) + 1)
     r["marea_bahia_cm"] = float(np.ptp(eta[dias > dias[-1] - 25 / 24][:, bahia].mean(1)) / 2 * 100)
     serie, e30, w = {}, Em[ult].mean(0), vol[ult].mean(0)
     for k, nom in list(ZONAS.items()) + [(None, "bahia")]:
@@ -37,6 +38,14 @@ def resumen(t, E, eta, u, v, prof, M):
     # equilibrio: cuanto crece aun la edad media de la bahia en los ultimos 10 dias (d por dia; ~0 = estacionario)
     d10 = dias > dias[-1] - 10
     r["deriva_edad_bahia_d_por_d"] = float(np.polyfit(dias[d10], serie["bahia"][d10], 1)[0])
+    # extrapolacion a equilibrio con A(t) -> A_inf (1 - exp(-t/tau)): dA/dt = (A_inf - A)/tau, regresion lineal
+    # sobre medias diarias de los ultimos 45 d. shortcut: supone una sola escala de tiempo; validar con corridas largas.
+    nd = int(dias[-1]); dd = np.floor(dias - 1e-9).astype(int)
+    for nom, se in serie.items():
+        md = np.array([se[dd == k].mean() for k in range(nd)])[-46:]
+        m, c = np.polyfit(0.5 * (md[1:] + md[:-1]), np.diff(md), 1)
+        r[f"edad_equilibrio_d_{nom}"] = float(-c / m) if m < 0 else float("nan")
+        r[f"tau_d_{nom}"] = float(-1 / m) if m < 0 else float("nan")
     mapas = dict(edad_sup=E[ult, :, -1].mean(0), edad_fondo=E[ult, :, 0].mean(0))
     # (d) seccion del canal: Q > 0 hacia dentro de la bahia
     i, wt = M["sec_i"], M["sec_w"]; un = u * M["sec_dir"][0] + v * M["sec_dir"][1]
@@ -63,6 +72,7 @@ def prueba(M):
     assert abs(r["edad_media_d_bahia"] - esperado) < 1e-3 and r["frac_vol_edad_mayor_30d_bahia"] == 0, r
     assert abs(r["Q_neto_m3s"] - 0.1 * 8 * len(M["sec_i"]) * 10) < 1e-6 and r["s2_imagenes"] == 30 and npz["s2_edad"].shape[0] == 30
     assert 0 < r["deriva_edad_bahia_d_por_d"] < 0.1
+    assert abs(r["edad_equilibrio_d_bahia"] - 20) < 1.0 and abs(r["tau_d_bahia"] - 20) < 1.0, (r["edad_equilibrio_d_bahia"], r["tau_d_bahia"])
     print("autoprueba posproceso: ok")
 
 
