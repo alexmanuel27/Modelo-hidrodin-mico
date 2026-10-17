@@ -15,8 +15,8 @@ script registran fecha y sha256 en `datos/*/fuentes/descargas.tsv`.
 | Marea de contorno | FES2022b, `ocean_tide_extrapolated`, 11 constituyentes (AVISO+) | https://tds.aviso.altimetry.fr/thredds/catalog/dataset-auxiliary-fes-tide-model/fes2022b/ocean_tide_extrapolated/catalog.html | ver `datos/marea/descargas.tsv` | Registro gratuito | `scripts/marea_fes2022.py` → `datos/marea/fes2022_habana.json` |
 | Marea de contorno (alternativa y dimensión del conjunto) | TPXO10-atlas (OSU) | https://www.tpxo.net/ | — | Gratuito uso académico | Por pedir |
 | Modelo | SCHISM `develop`, commit 09f407e8 | https://github.com/schism-dev/schism | 27 sep 2026 | Apache 2.0 | Compilado |
+| Caudales de ríos (Luyanó 1,33; Martín Pérez 0,72; Tadeo 0,09 m³/s) | JICA / Nihon Suido Consultants (2004), *Estudio del Desarrollo del Alcantarillado y el Drenaje Pluvial en la Cuenca Tributaria de la Bahía de La Habana*, Informe final vol. IV, tabla 1.1 (datos CIMAB ago-2002) | https://openjicareport.jica.go.jp/pdf/11767225.pdf | ver `datos/batimetria/fuentes/descargas.tsv` | Público | Una sola campaña; no hay aforos permanentes → QFAC en el conjunto |
+| Desembocaduras de los ríos | OpenStreetMap (`waterway`), vía Overpass | https://overpass-api.de/ | ver `descargas.tsv` | ODbL | `osm_rios_habana.json` |
 
 Opcionales, solo para comparación (nunca insumo): mareógrafo HABANA (PSMSL 2363),
 batimetría CUJAE (ADCIRC 2016), levantamientos GEOCUBA.
-| Caudales de ríos (Luyanó 1,33; Martín Pérez 0,72; Tadeo 0,09 m³/s) | JICA / Nihon Suido Consultants (2004), *Estudio del Desarrollo del Alcantarillado y el Drenaje Pluvial en la Cuenca Tributaria de la Bahía de La Habana*, Informe final vol. IV, tabla 1.1 (datos CIMAB ago-2002) | https://openjicareport.jica.go.jp/pdf/11767225.pdf | ver `datos/batimetria/fuentes/descargas.tsv` | Público | Una sola campaña; no hay aforos permanentes → QFAC en el conjunto |
-| Desembocaduras de los ríos | OpenStreetMap (`waterway`), vía Overpass | https://overpass-api.de/ | ver `descargas.tsv` | ODbL | `osm_rios_habana.json` |
