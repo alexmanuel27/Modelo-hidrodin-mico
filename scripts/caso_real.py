@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
 """Caso SCHISM con la malla real (09_malla.py) y la batimetria de un miembro del conjunto (08).
 
-Marea FES2022b en el borde abierto (scripts/marea_fes2022.py; MAREA=m2 -> M2 uniforme de 0,15 m de prueba), viento ERA5,
+Marea FES2022b o EOT20 en el borde abierto (scripts/marea_fes2022.py, marea_eot20.py; MAREA=m2 -> M2 uniforme de prueba), viento ERA5,
 3D barotropico, Coriolis activado por defecto, modulo AGE (edad del agua desde que sale del mar).
 
 Uso:  python scripts/caso_real.py [dias]            (por defecto 2)
       variables: CASO (nombre), NCOR (1), NWS (2), CARTA (1887), ALFA (0), SEMILLA (-1 = sin campo aleatorio),
-                 MAREA (fes si existe datos/marea/fes2022_habana.json; si no m2),
+                 MAREA (fes | eot20 | m2; por defecto el primero cuyo datos/marea/<modelo>_habana.json exista),
                  parametros del conjunto: DATUM (m, 0), CD (0.0025), VFAC (x viento, 1), VROT (grados, 0),
                  MFAC (x amplitud de marea, 1), SALIDA_H (horas entre salidas, 1), RUNDIR (carpeta del caso),
                  RIOS (1 = rios + modelo baroclinico por salinidad; 0), QFAC (x caudal de los rios, 1)
       Mac:   bash runs/real_<CASO>/correr.sh
       CECI:  ver runs/real_<CASO>/correr_slurm.sh
-Requiere numpy, scipy y, con MAREA=fes, pyTMD (correcciones nodales; pip install pyTMD), y datos/batimetria/superficies/*.nc (07) + datos/malla/hgrid.{gr3,ll} (09).
+Requiere numpy, scipy y, con MAREA=fes/eot20, pyTMD (correcciones nodales; pip install pyTMD), y datos/batimetria/superficies/*.nc (07) + datos/malla/hgrid.{gr3,ll} (09).
 """
 import os, re, sys
 from pathlib import Path
@@ -42,8 +42,9 @@ RNDAY = float(sys.argv[1]) if len(sys.argv) > 1 else 2.0
 DT = 100.0
 INICIO = (2016, 1, 1)
 M2_AMP = 0.15                 # m, solo con MAREA=m2 (prueba)
-FES = RAIZ / "datos" / "marea" / "fes2022_habana.json"
-MAREA = os.environ.get("MAREA", "fes" if FES.exists() else "m2")
+MODELOS_MAREA = {"fes": RAIZ / "datos" / "marea" / "fes2022_habana.json", "eot20": RAIZ / "datos" / "marea" / "eot20_habana.json"}
+MAREA = os.environ.get("MAREA", next((m for m, f in MODELOS_MAREA.items() if f.exists()), "m2"))
+FES = MODELOS_MAREA.get(MAREA)                   # archivo de armonicos del modelo elegido (mismo formato para los dos)
 RIOS, QFAC = int(os.environ.get("RIOS", 0)), float(os.environ.get("QFAC", 1))
 # Caudales medios (m3/s) de JICA 2004, Informe final vol. IV, tabla 1.1 (datos CIMAB, ago-2002; no hay aforos permanentes):
 # Luyano 114 860, Martin Perez 62 105, Tadeo 8 004 m3/d. https://openjicareport.jica.go.jp/pdf/11767225.pdf
@@ -101,7 +102,7 @@ def nodales(constituyentes, dias):
     try:
         from pyTMD.arguments import arguments
     except ImportError:
-        sys.exit("MAREA=fes necesita pyTMD:  pip install pyTMD")
+        sys.exit("MAREA=fes/eot20 necesita pyTMD:  pip install pyTMD")
     mjd0 = (np.datetime64(f"{INICIO[0]:04d}-{INICIO[1]:02d}-{INICIO[2]:02d}") - np.datetime64("1858-11-17")).astype(int)
     _, _, G = arguments(np.array([float(mjd0)]), constituyentes, corrections="FES")
     pu, pf, _ = arguments(np.array([mjd0 + dias / 2]), constituyentes, corrections="FES")
@@ -167,16 +168,16 @@ def main():
         # T ambiente, S = 0, AGE: agua de rio = agua nueva (C = 1, alfa = 0 -> edad 0 al entrar)
         m = " ".join(["-9999."] * len(rio) + ["0."] * len(rio) + ["1."] * len(rio) + ["0."] * len(rio))
         (RUN / "msource.th").write_text(f"0. {m}\n{RNDAY * 86400 + 86400:.0f}. {m}\n")
-    if MAREA == "fes":
+    if MAREA in MODELOS_MAREA:
         arm = armonicos_fes(lon[abierto], lat[abierto]); cs = list(arm)
         ff, eq = nodales(cs, RNDAY)
-        b = [f"{INICIO} marea FES2022b ({len(cs)} constituyentes)", "0 40. !ntip, tip_dp", f"{len(cs)} !nbfr"]
+        b = [f"{INICIO} marea {MAREA} ({len(cs)} constituyentes)", "0 40. !ntip, tip_dp", f"{len(cs)} !nbfr"]
         b += [f"{c.upper()}\n{FREC[c]:.6e} {ff[k]:.5f} {eq[k]:.3f}" for k, c in enumerate(cs)]
         b += ["1 !nope", f"{len(abierto)} 3 0 {TS} 0 !nodos, elev=armonica, vel, T, S, AGE"]
         for c in cs:
             b += [c.upper()] + [f"{a * MFAC:.5f} {g:.2f}" for a, g in zip(*arm[c])]
         (RUN / "bctides.in").write_text("\n".join(b) + "\n" + TS_BORDE)
-        print("marea FES2022 en el borde: " + ", ".join(f"{c.upper()} {arm[c][0].mean() * 100:.1f} cm" for c in cs))
+        print(f"marea {MAREA} en el borde: " + ", ".join(f"{c.upper()} {arm[c][0].mean() * 100:.1f} cm" for c in cs))
     else:
         (RUN / "bctides.in").write_text(
             f"{INICIO} marea M2 de prueba uniforme\n0 40. !ntip, tip_dp\n1 !nbfr\nM2\n1.405189e-04 1.0 0.0\n"

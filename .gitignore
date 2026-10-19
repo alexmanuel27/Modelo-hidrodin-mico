@@ -4,6 +4,7 @@ __pycache__/
 # datos pesados: no se versionan
 datos/forzamiento/era5/
 datos/forzamiento/fes2022/
+datos/forzamiento/eot20/
 *.nc
 # salidas de simulación
 runs/*/outputs/

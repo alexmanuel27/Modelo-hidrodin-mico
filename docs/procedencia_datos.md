@@ -17,6 +17,7 @@ script registran fecha y sha256 en `datos/*/fuentes/descargas.tsv`.
 | Modelo | SCHISM `develop`, commit 09f407e8 | https://github.com/schism-dev/schism | 27 sep 2026 | Apache 2.0 | Compilado |
 | Caudales de ríos (Luyanó 1,33; Martín Pérez 0,72; Tadeo 0,09 m³/s) | JICA / Nihon Suido Consultants (2004), *Estudio del Desarrollo del Alcantarillado y el Drenaje Pluvial en la Cuenca Tributaria de la Bahía de La Habana*, Informe final vol. IV, tabla 1.1 (datos CIMAB ago-2002) | https://openjicareport.jica.go.jp/pdf/11767225.pdf | ver `datos/batimetria/fuentes/descargas.tsv` | Público | Una sola campaña; no hay aforos permanentes → QFAC en el conjunto |
 | Desembocaduras de los ríos | OpenStreetMap (`waterway`), vía Overpass | https://overpass-api.de/ | ver `descargas.tsv` | ODbL | `osm_rios_habana.json` |
+| Marea de contorno (sin registro; alternativa a FES y dimensión del conjunto) | EOT20, DGFI-TUM (Hart-Davis et al. 2021, ESSD 13:3869), 9 constituyentes | https://www.seanoe.org/data/00683/79489/ (doi:10.17882/79489) | ver `datos/marea/descargas.tsv` | CC BY 4.0, descarga directa | `scripts/marea_eot20.py` → `datos/marea/eot20_habana.json` |
 
 Opcionales, solo para comparación (nunca insumo): mareógrafo HABANA (PSMSL 2363),
 batimetría CUJAE (ADCIRC 2016), levantamientos GEOCUBA.
