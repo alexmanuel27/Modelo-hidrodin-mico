@@ -203,7 +203,7 @@ def main():
                            nchi=0, ic_elev=0, nadv=0, nws=NWS, wtiminc=DT, ishapiro=1, drampwind=1, iwindoff=ESPONJA,
                            ihconsv=0, itur=3, itr_met=3, level_age=-999, **{"flag_ic(1)": 2, "flag_ic(2)": 2}),
                "SCHOUT": {"nhot": 0, "iout_sta": 0, "iof_hydro(1)": 1, "iof_hydro(14)": 1,
-                          "iof_hydro(16)": 1, "iof_hydro(25)": 0, "iof_hydro(26)": 0, "iof_age(1)": 1}}   # AGE_1 = edad en dias (alfa/C/86400)
+                          "iof_hydro(16)": 1, "iof_hydro(19)": RIOS, "iof_hydro(25)": 0, "iof_hydro(26)": 0, "iof_age(1)": 1}}   # AGE_1 = edad en dias (alfa/C/86400)
     for sec, kv in cambios.items():
         a = p.index(f"&{sec}"); b = p.index("\n/", a); bloque = p[a:b]
         for k, v in kv.items():
