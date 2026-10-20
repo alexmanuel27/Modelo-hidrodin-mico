@@ -85,7 +85,8 @@ def armonicos_fes(lon, lat):
     complejo (sin saltos de fase); si un vecino es tierra/NaN, el punto valido mas cercano."""
     out = {}
     for c, d in __import__("json").loads(FES.read_text()).items():
-        z = np.array(d["amp_m"]) * np.exp(-1j * np.radians(np.array(d["fase_grados"])))
+        A = np.array(d["amp_m"]); A[A <= 0] = np.nan                      # FES marca tierra con amplitud 0
+        z = A * np.exp(-1j * np.radians(np.array(d["fase_grados"])))
         glo, gla = np.array(d["lon"]), np.array(d["lat"])
         orden = np.argsort(gla); gla, z = gla[orden], z[orden]
         f = RegularGridInterpolator((gla, glo), z, bounds_error=False, fill_value=np.nan)
