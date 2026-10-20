@@ -4,7 +4,7 @@ Por cada constituyente: descarga el .nc.xz global (~165 MB) del servidor THREDDS
 recorta una caja de 0,5 grados alrededor del dominio, guarda amplitud y fase y borra el global.
 Uso (Mac, entorno bahia):  AVISO_USER=<usuario> python scripts/marea_fes2022.py      (pide la contrasena)
 Salidas: datos/marea/fes2022_habana.json (versionado) y datos/marea/descargas.tsv (URL, fecha, bytes, sha256)."""
-import getpass, hashlib, json, lzma, os, shutil, urllib.request
+import ftplib, getpass, hashlib, json, lzma, os, shutil, urllib.error, urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 import numpy as np
@@ -13,6 +13,7 @@ from netCDF4 import Dataset
 R = Path(__file__).resolve().parent.parent
 D = R / "datos/marea"; TMP = R / "datos/forzamiento/fes2022"   # TMP fuera de git
 URL = "https://tds.aviso.altimetry.fr/thredds/fileServer/dataset-auxiliary-fes-tide-model/fes2022b/ocean_tide_extrapolated/{c}_fes2022.nc.xz"
+FTP = ("ftp-access.aviso.altimetry.fr", "/auxiliary/tide_model/fes2022b/ocean_tide_extrapolated/{c}_fes2022.nc.xz")   # si THREDDS falla
 CONST = ["m2", "s2", "n2", "k2", "k1", "o1", "p1", "q1", "m4", "ms4", "mn4"]
 CAJA = (-82.65, -82.05, 22.95, 23.45)   # lon0, lon1, lat0, lat1 (dominio: -82.41..-82.31, 23.11..23.20)
 
@@ -30,7 +31,12 @@ for c in CONST:
     xz, nc = TMP / f"{c}_fes2022.nc.xz", TMP / f"{c}_fes2022.nc"
     if not xz.exists():
         print(f"{c}: descargando..."); u = URL.format(c=c)
-        with abre(u, timeout=600) as r, open(xz, "wb") as f: shutil.copyfileobj(r, f, 1 << 20)
+        try:
+            with abre(u, timeout=600) as r, open(xz, "wb") as f: shutil.copyfileobj(r, f, 1 << 20)
+        except urllib.error.URLError as e:                        # THREDDS no responde: mismo archivo por FTP
+            print(f"   THREDDS fallo ({e}); pruebo FTP"); u = f"ftp://{FTP[0]}{FTP[1].format(c=c)}"
+            with ftplib.FTP(FTP[0], timeout=600) as ftp, open(xz, "wb") as f:
+                ftp.login(usr, pwd); ftp.retrbinary("RETR " + FTP[1].format(c=c), f.write, 1 << 20)
         h = hashlib.sha256(xz.read_bytes()).hexdigest()
         with open(reg, "a") as f: f.write(f"{xz.name}\t{u}\t{datetime.now(timezone.utc):%Y-%m-%dT%H:%MZ}\t{xz.stat().st_size}\t{h}\n")
     with lzma.open(xz) as a, open(nc, "wb") as b: shutil.copyfileobj(a, b, 1 << 20)
