@@ -13,7 +13,7 @@ Estado: ✅ final y ya en el manuscrito · 🔁 en el manuscrito pero desactuali
 | Profundidad media | ~9 m | **5.2 (1887) – 5.6 (1879) m** tal cual las cartas; 6.4–7.3 m con dragado | `datos/batimetria/superficies/volumenes_conjunto.json` | 🔁 |
 | Volumen | 47 hm³ (tabla 2) | **26–36 hm³** según carta y dragado (central 30) | ídem | 🔁 |
 | Canal de entrada | 1530 m, 220–330 m, 12.8 m | igual | Prácticos 2018 | ✅ |
-| Carrera de marea | "a few decimetres" | 0.29 m media (JICA 2004); M2 de la prueba 0.15 m de amplitud; FES2022 pendiente | `scripts/marea_fes2022.py` | ⏳ |
+| Marea | "small and mixed, mainly semidiurnal" | EOT20: M2 11–14, K1 8, O1 8.5, S2 3.8 cm → form factor ≈ 1.0 (**mixed**, diurnal ≈ semidiurnal: matizar "mainly semidiurnal"); carrera media 0.29 m (JICA 2004) | `scripts/marea_eot20.py` | ⏳ |
 | Ríos | — | Luyanó 1.33, Martín Pérez 0.72, Tadeo 0.09 m³ s⁻¹ (total 2.14; CIMAB 2002 en JICA 2004) | `scripts/caso_real.py` (Q_RIOS) | ➕ |
 | Renovación del agua dulce (literatura) | — | ≈ 4 meses (JICA 2004) | JICA 2004, p. R-7 | ➕ (discusión) |
 
