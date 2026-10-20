@@ -26,11 +26,12 @@ with open(zp, "rb") as f:
     for b in iter(lambda: f.read(1 << 24), b""): h.update(b)
 reg = D / "descargas.tsv"
 if not reg.exists(): reg.write_text("archivo\turl\tfecha_acceso_utc\tbytes\tsha256\n")
-with open(reg, "a") as f: f.write(f"eot20.zip\t{URL}\t{datetime.now(timezone.utc):%Y-%m-%dT%H:%MZ}\t{zp.stat().st_size}\t{h.hexdigest()}\n")
+if h.hexdigest() not in reg.read_text():
+  with open(reg, "a") as f: f.write(f"eot20.zip\t{URL}\t{datetime.now(timezone.utc):%Y-%m-%dT%H:%MZ}\t{zp.stat().st_size}\t{h.hexdigest()}\n")
 
 out = {}
-with zipfile.ZipFile(zp) as z:
-    nc = [n for n in z.namelist() if n.endswith(".nc") and "load" not in n.lower()]
+with zipfile.ZipFile(zp) as z0, zipfile.ZipFile(z0.open("ocean_tides.zip")) as z:   # zip dentro de zip
+    nc = [n for n in z.namelist() if n.endswith(".nc") and not n.startswith("__MACOSX")]
     for c in CONST:
         m = [n for n in nc if re.match(rf"{c}_", Path(n).name, re.I)]
         if len(m) != 1: raise SystemExit(f"{c}: no encuentro un archivo unico de marea oceanica: {m or nc[:20]}")
