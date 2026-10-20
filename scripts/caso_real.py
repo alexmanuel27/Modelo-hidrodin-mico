@@ -100,7 +100,8 @@ def armonicos_fes(lon, lat):
 def nodales(constituyentes, dias):
     """(f, V0+u en grados) para bctides.in: V0 al inicio, f y u a mitad de la simulacion (pyTMD, convencion FES)."""
     try:
-        from pyTMD.arguments import arguments
+        try: from pyTMD.constituents import arguments          # pyTMD >= 3 (el modulo arguments se renombro)
+        except ImportError: from pyTMD.arguments import arguments
     except ImportError:
         sys.exit("MAREA=fes/eot20 necesita pyTMD:  pip install pyTMD")
     mjd0 = (np.datetime64(f"{INICIO[0]:04d}-{INICIO[1]:02d}-{INICIO[2]:02d}") - np.datetime64("1858-11-17")).astype(int)
