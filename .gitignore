@@ -17,3 +17,5 @@ datos/batimetria/vistas/
 datos/batimetria/teselas/
 datos/batimetria/superficies/*.nc
 runs/
+# entrega Sentinel-2 (4 MB): se versiona
+!datos/sentinel2/anomalias.nc
