@@ -101,7 +101,7 @@ def generar(J, solo=None, filas=None):
 #SBATCH --job-name=bahia_conj
 #SBATCH --ntasks={NUCLEOS + 2}
 #SBATCH --time={min(48, int(np.ceil(DIAS / 90 * 6.5)) + 2):02d}:00:00
-#SBATCH --mem-per-cpu=2000
+#SBATCH --mem-per-cpu=4000
 #SBATCH --output=slurm_%A_%a.out
 set -eo pipefail
 module purge >/dev/null 2>&1 || true
