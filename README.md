@@ -9,7 +9,8 @@ El manuscrito vive en otro repo (`publication plan/modelo-hidrodin-mico`); el pu
 
 | Carpeta | Qué hay |
 |---|---|
-| `docs/articulo/` | **Para escribir el paper:** `cifras.md` (cada número, su fuente y si está al día), `figuras.md` (figuras previstas y estado) |
+| `resumen.md` / `resumen.pdf` | Resumen en español de todo lo hecho, con figuras y lo que se espera (para el tutor) |
+| `docs/articulo/` | **Para escribir el paper:** `secciones/` (hechos y cifras por sección de `main.tex`), `cifras.md` (cada número, su fuente y si está al día), `figuras.md` (figuras previstas y estado) |
 | `docs/00_estado_y_plan.md` | Bitácora técnica completa (decisiones, resultados, errores) |
 | `docs/procedencia_datos.md` | Tabla de datos públicos (→ tabla 1 del artículo) |
 | `docs/figuras/` | Figuras de trabajo (en español) |

@@ -14,6 +14,8 @@ Las de `docs/figuras/` son de trabajo (en español) y no van al artículo tal cu
 | 7 | Mecanismo: caudal por el canal y edad media por experimento (marea / + viento / + densidad) | experimentos de mecanismo | espera |
 | 8 | Destino de las descargas: fracción retenida a 30/60/90 d por foco | partículas | por programar |
 | 9 | Evaluación: exposición en superficie del modelo vs persistencia de turbidez Sentinel-2 (rejilla de 20 m, ~16:00 UTC) | `posproceso.py` (s2_edad) + estudio Sentinel-2 | espera |
+| 10 | Marea en el borde: FES2022 frente a EOT20 (evaluación) | `docs/figuras/marea_fes_eot20.png` | versión de trabajo hecha |
+| S0 | Edad media por zona en las dos primeras corridas (provisional) | `docs/figuras/edad_primeras_corridas.png` | hecha (provisional) |
 | S1 | Suplementario: corriente espuria del borde y su insensibilidad en la bahía | `revisar_real.py` | datos hechos |
 | S2 | Suplementario: curva de la edad (equilibrio) en la corrida de 1 año | `resumen.npz` de `runs/largo` | corriendo |
 
