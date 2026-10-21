@@ -19,7 +19,8 @@ from scipy.stats import qmc
 RAIZ = Path(__file__).resolve().parent.parent
 DISENO = RAIZ / "datos" / "conjunto" / "diseno.csv"
 RUNS = RAIZ / os.environ.get("CONJ_DIR", "runs/conjunto")     # p. ej. CONJ_DIR=runs/largo CONJ_DIAS=365
-DIAS, SALIDA_H, NUCLEOS = int(os.environ.get("CONJ_DIAS", 90)), 4, 4          # 90 d (>3x renovacion de 23 d); salidas cada 4 h (incluye las 16 UTC de Sentinel-2); 4 nucleos + 2 scribes
+DIAS, SALIDA_H, NUCLEOS = int(os.environ.get("CONJ_DIAS", 90)), 4, 4
+SEG = min(DIAS, int(os.environ.get("CONJ_SEG", 73)))   # dias por tramo de Slurm (hotstart entre tramos): trabajos cortos entran antes en la cola          # 90 d (>3x renovacion de 23 d); salidas cada 4 h (incluye las 16 UTC de Sentinel-2); 4 nucleos + 2 scribes
 GUARDAR = (0, 1, 2)                           # miembros que conservan los campos completos (figuras); el resto solo resumen.*
 SEMILLA_DISENO = 20261016
 
@@ -89,20 +90,26 @@ MECANISMO = [("solo marea", {"NWS": "0", "RIOS": "0"}), ("marea + viento", {"NWS
              ("marea + viento + rios y densidad", {"NWS": "2", "RIOS": "1"})]
 
 
+def caso_dt():
+    import re
+    return re.search(r"^DT = ([0-9.]+)", (RAIZ / "scripts" / "caso_real.py").read_text(), re.M).group(1)
+
+
 def generar(J, solo=None, filas=None):
     filas = filas or [f for f in lee() if solo is None or int(f["miembro"]) in solo]; RUNS.mkdir(parents=True, exist_ok=True)
     with ThreadPoolExecutor(J) as ex:
         for k, (m, est) in enumerate(ex.map(uno, filas)):
             if est == "ERROR" or k % 50 == 0: print(f"m{m:04d}: {est}  ({k + 1}/{len(filas)})", flush=True)
     n = len(filas)
+    K = int(np.ceil(DIAS / SEG)); conc = 4096 // (NUCLEOS + 2)
     (RUNS / "correr_array.sh").write_text(f"""#!/bin/bash -l
-# Lemaitre4. Desde la raiz del repo en el Mac (copia casos + sflux con la misma estructura, enlaces relativos):
+# Lemaitre4. Un tramo de {SEG} d por trabajo; lanzar.sh encadena los {K} tramos (cada miembro sigue a su propio tramo
+# anterior con --dependency=aftercorr). Desde la raiz del repo en el Mac:
 #   rsync -aR ./{RUNS.relative_to(RAIZ)} ./datos/forzamiento/sflux ./scripts/posproceso.py ./datos/conjunto/posproceso_malla.npz lemaitre4:bahia/
-#   ssh lemaitre4 'bash -lc "cd bahia/{RUNS.relative_to(RAIZ)} && sbatch --array=0-{n - 1}%{4096 // (NUCLEOS + 2)} correr_array.sh"'
-# Prueba previa: --array=0-1
+#   ssh lemaitre4 'bash -lc "cd bahia/{RUNS.relative_to(RAIZ)} && bash lanzar.sh"'        (prueba: bash lanzar.sh 0-1)
 #SBATCH --job-name=bahia_conj
 #SBATCH --ntasks={NUCLEOS + 2}
-#SBATCH --time={min(48, int(np.ceil(DIAS / 90 * 6.5)) + 2):02d}:00:00
+#SBATCH --time={int(np.ceil(SEG / 90 * 6.5)) + 2:02d}:00:00
 #SBATCH --mem-per-cpu=4000
 #SBATCH --output=slurm_%A_%a.out
 set -eo pipefail
@@ -112,19 +119,41 @@ case "$SLURM_CLUSTER_NAME" in
   *)    module load releases/2024a foss/2024a netCDF-Fortran/4.6.1-gompi-2024a ;;
 esac
 cd $(printf "m%04d" $SLURM_ARRAY_TASK_ID)
-grep -qs "Run completed successfully" outputs/mirror.out && {{ echo "ya hecho"; exit 0; }}
+[ -f HECHO ] && {{ echo "ya hecho"; exit 0; }}
+DT={caso_dt()}; TOTAL={DIAS}; SEG={SEG}; PASOS_SEG=$(( SEG * 86400 / ${{DT%.*}} ))
+# reanudar: combinar el hotstart por rango que dejo el tramo anterior (outputs/hotstart_000000_<paso>.nc)
+IT=$(ls outputs/hotstart_000000_*.nc 2>/dev/null | sed 's/.*_\\([0-9]*\\)\\.nc/\\1/' | sort -n | tail -1 || true)
+if [ -n "$IT" ]; then
+  (cd outputs && $HOME/schism/build/bin/combine_hotstart7 -i $IT > combine.log 2>&1) && mv "outputs/hotstart_it=$IT.nc" hotstart.nc
+  rm -f outputs/hotstart_0*_*.nc; IHOT=2; HECHOS=$(( IT * ${{DT%.*}} / 86400 ))
+else
+  IHOT=0; HECHOS=0
+fi
+FIN=$(( HECHOS + SEG < TOTAL ? HECHOS + SEG : TOTAL ))
+sed -i -E "s/^( *rnday *=).*/\\1 $FIN/; s/^( *ihot *=).*/\\1 $IHOT/; s/^( *nhot *=).*/\\1 1/; s/^( *nhot_write *=).*/\\1 $PASOS_SEG/" param.nml
+echo "tramo: dias $HECHOS -> $FIN de $TOTAL (ihot=$IHOT)"
+mv outputs/mirror.out outputs/mirror_hasta_$HECHOS.out 2>/dev/null || true   # el "Run completed" debe ser de este tramo
 START=$(date +%s)
-srun $HOME/schism/build/bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL 2 > outputs/pantalla.log 2>&1 || true
+srun $HOME/schism/build/bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL 2 > outputs/pantalla_$FIN.log 2>&1 || true
 grep -q "Run completed successfully" outputs/mirror.out && OK=si || OK=no
 T=$(( $(date +%s) - START ))
-# posproceso (numpy + netCDF4) y, si salio bien, borrar los campos completos
+echo "$SLURM_ARRAY_TASK_ID $SLURM_CLUSTER_NAME tramo=$HECHOS-$FIN segundos=$T completo=$OK" >> ../coste.txt
+[ $OK = si ] || exit 1                                   # corta la cadena de este miembro
+[ $FIN -lt $TOTAL ] && exit 0                            # quedan tramos
+# ultimo tramo: posproceso (numpy + netCDF4) y, si salio bien, borrar los campos completos
 P=no
-if [ $OK = si ]; then
-  module load netcdf4-python/1.7.1.post2-foss-2024a >/dev/null 2>&1 || true
-  python ../../../scripts/posproceso.py . ../../../datos/conjunto/posproceso_malla.npz > posproceso.log 2>&1 && P=si
-  case " {' '.join(map(str, GUARDAR))} " in *" $SLURM_ARRAY_TASK_ID "*) ;; *) [ $P = si ] && rm -f outputs/*.nc ;; esac
-fi
-echo "$SLURM_ARRAY_TASK_ID $SLURM_CLUSTER_NAME segundos=$T completo=$OK posproceso=$P" >> ../coste.txt
+module load netcdf4-python/1.7.1.post2-foss-2024a >/dev/null 2>&1 || true
+python ../../../scripts/posproceso.py . ../../../datos/conjunto/posproceso_malla.npz > posproceso.log 2>&1 && P=si
+case " {' '.join(map(str, GUARDAR))} " in *" $SLURM_ARRAY_TASK_ID "*) ;; *) [ $P = si ] && rm -f outputs/*.nc ;; esac
+echo "$SLURM_ARRAY_TASK_ID posproceso=$P" >> ../coste.txt; touch HECHO
+""")
+    (RUNS / "lanzar.sh").write_text(f"""#!/bin/bash -l
+# Encadena los {K} tramos de {SEG} d. Uso: bash lanzar.sh [rango del array, por defecto 0-{n - 1}]
+R=${{1:-0-{n - 1}}}
+J=$(sbatch --parsable --array=$R%{conc} correr_array.sh); echo "tramo 1: $J"
+for k in $(seq 2 {K}); do
+  J=$(sbatch --parsable --array=$R%{conc} --dependency=aftercorr:$J --kill-on-invalid-dep=yes correr_array.sh); echo "tramo $k: $J"
+done
 """)
     print(f"listo: {n} casos en {RUNS}; lanzador {RUNS / 'correr_array.sh'}")
 
