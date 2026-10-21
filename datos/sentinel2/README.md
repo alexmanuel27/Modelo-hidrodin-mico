@@ -43,6 +43,8 @@ salen de `scripts/11_entrega_modelo.py` de ese repositorio, sin pasos a mano. El
 `PROTOCOLO_CONGELADO.md`: preregistro del 15/09/2026 (commit `0eeeecd`) y registro de cambios fechado en su
 sección 14.
 
+**Corrección del 2026-10-21.** Se alinea la nomenclatura de las ensenadas con la del modelo: Atarés es el brazo suroeste, Guasabacoa el brazo sur y Marimelena el brazo este (registro de la sección 14 del protocolo). Solo cambian los nombres de los 3 focos exploratorios de `focos.csv`; el resto de ficheros es idéntico byte a byte. Los ficheros actuales salen de `scripts/11_entrega_modelo.py` en el commit `96d2944` de Vertidos-recurrentes.
+
 ### Rejilla: no coincide exactamente con la del modelo
 
 Es la rejilla nativa del proyecto, sin remuestrear: UTM 17N (**EPSG:32617**), píxel de **20 m**,
