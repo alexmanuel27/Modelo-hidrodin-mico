@@ -7,17 +7,19 @@ AGE_1 de SCHISM ya es la EDAD en dias (schism_step.F90: alfa/C/86400): tiempo de
 (fuera de la bahia la edad se mantiene en 0; dentro empieza en 0 el dia 0).
 Salidas (plan, sec. 18): (a) edad por zona + mapas de superficie y fondo; (b) fraccion de volumen con
 edad > 30 d; (d) caudal neto y bruto por la seccion del canal; (f) edad en superficie a las 16:00 UTC en la
-rejilla S2. (c) Sobol y (e) particulas se hacen fuera. Ventana de resumen: los ultimos 30 dias."""
+rejilla S2; con rios (salinity_*.nc), tambien la fraccion de agua dulce 1 - S/36 en superficie
+(trazador de las descargas para comparar con la frecuencia de anomalias de turbidez de Sentinel-2). (c) Sobol y (e) particulas se hacen fuera. Ventana de resumen: los ultimos 30 dias."""
 import json, sys
 from pathlib import Path
 import numpy as np
 
 ZONAS = {1: "canal", 2: "cuenca", 3: "Marimelena", 4: "Guasabacoa", 5: "Atares"}
-VENTANA, UMBRAL_EDAD, HORA_S2 = 30.0, 30.0, 16
+VENTANA, UMBRAL_EDAD, HORA_S2, S_MAR = 30.0, 30.0, 16, 36.0   # S_MAR: salinidad del borde (caso_real.py)
 
 
-def resumen(t, E, eta, u, v, prof, M):
-    """t (s), E = edad en dias (tiempo, nodo, nivel), eta/u/v (tiempo, nodo), prof (nodo), M = npz de la malla."""
+def resumen(t, E, eta, u, v, prof, M, S=None):
+    """t (s), E = edad en dias (tiempo, nodo, nivel), eta/u/v (tiempo, nodo), prof (nodo), M = npz de la malla,
+    S = salinidad (tiempo, nodo, nivel) o None si la corrida no tiene rios."""
     dias = t / 86400.0; ult = dias > dias[-1] - VENTANA
     H = np.maximum(prof[None] + eta, 0.0); vol = H * M["area"][None]          # volumen por nodo y tiempo
     Em = E.mean(2)                                                            # niveles S casi uniformes: media = media vertical
@@ -57,6 +59,10 @@ def resumen(t, E, eta, u, v, prof, M):
     rej = lambda campo: np.where(fuera, np.nan, (campo[si] * sw).sum(1)).reshape(M["s2_forma"]).astype(np.float32)
     s2 = dict(s2_edad=np.array([rej(E[k, :, -1]) for k in sel]), s2_dias=dias[sel].astype(np.float32))
     r["s2_imagenes"] = len(sel)
+    if S is not None:
+        D = np.clip(1 - S[:, :, -1] / S_MAR, 0, 1)                              # fraccion de agua dulce en superficie
+        s2["s2_dulce"] = np.array([rej(D[k]) for k in sel]); mapas["dulce_sup"] = D[ult].mean(0)
+        r["frac_dulce_sup_bahia"] = float((D[ult].mean(0)[bahia] * M["area"][bahia]).sum() / M["area"][bahia].sum())
     npz = dict(dias=dias.astype(np.float32), Q=Q.astype(np.float32), **{f"serie_{k}": s for k, s in serie.items()},
                **{k: m.astype(np.float32) for k, m in mapas.items()}, **s2)
     return r, npz
@@ -67,7 +73,9 @@ def prueba(M):
     n, nv = len(M["zona"]), 16; t = np.arange(1, 91 * 6) * 4 * 3600.0; dias = t / 86400
     E = np.where(M["zona"][None, :, None] > 0, (20 * (1 - np.exp(-dias / 20)))[:, None, None], 0.0) * np.ones((1, n, nv), np.float32)
     u, v = (np.full((len(t), n), 0.1 * M["sec_dir"][k]) for k in (0, 1))
-    r, npz = resumen(t, E, np.zeros((len(t), n)), u, v, np.full(n, 8.0), M)
+    S = np.where(M["zona"][None, :, None] > 0, 27.0, 36.0) * np.ones((len(t), 1, nv), np.float32)   # 25 % dulce en la bahia
+    r, npz = resumen(t, E, np.zeros((len(t), n)), u, v, np.full(n, 8.0), M, S)
+    assert abs(r["frac_dulce_sup_bahia"] - 0.25) < 1e-6 and np.nanmax(npz["s2_dulce"]) <= 0.25 + 1e-6, r["frac_dulce_sup_bahia"]
     esperado = np.mean(20 * (1 - np.exp(-dias[dias > dias[-1] - 30] / 20)))
     assert abs(r["edad_media_d_bahia"] - esperado) < 1e-3 and r["frac_vol_edad_mayor_30d_bahia"] == 0, r
     assert abs(r["Q_neto_m3s"] - 0.1 * 8 * len(M["sec_i"]) * 10) < 1e-6 and r["s2_imagenes"] == 30 and npz["s2_edad"].shape[0] == 30
@@ -93,7 +101,8 @@ def lee(dirm):
     f0 = sorted(out.glob("out2d_*.nc"), key=num)[0]
     with Dataset(f0) as d: prof = np.asarray(d["depth"][:])
     return dict(t=cat("out2d", "time").astype(float), E=cat("AGE_1", "AGE_1"),
-                eta=cat("out2d", "elevation"), u=cat("out2d", "depthAverageVelX"), v=cat("out2d", "depthAverageVelY"), prof=prof)
+                eta=cat("out2d", "elevation"), u=cat("out2d", "depthAverageVelX"), v=cat("out2d", "depthAverageVelY"), prof=prof,
+                S=cat("salinity", "salinity"))
 
 
 if __name__ == "__main__":
@@ -101,7 +110,7 @@ if __name__ == "__main__":
     M = dict(np.load(sys.argv[2] if len(sys.argv) > 2 else R / "datos" / "conjunto" / "posproceso_malla.npz"))
     if sys.argv[1] == "--prueba": prueba(M); sys.exit()
     dirm = Path(sys.argv[1])
-    d = lee(dirm); r, npz = resumen(d["t"], d["E"], d["eta"], d["u"], d["v"], d["prof"], M)
+    d = lee(dirm); r, npz = resumen(d["t"], d["E"], d["eta"], d["u"], d["v"], d["prof"], M, d["S"])
     np.savez_compressed(dirm / "resumen.npz", **npz)
     (dirm / "resumen.json").write_text(json.dumps(r, indent=1))
     print(json.dumps({k: (round(v, 3) if isinstance(v, float) else v) for k, v in r.items() if not k.startswith("edad_p")}))
