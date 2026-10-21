@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use these data or code, please cite them as below."
+title: "Havana Bay ensemble model: public data, configuration and results"
+authors:
+  - family-names: Rivera
+    given-names: Alex Manuel
+    affiliation: "Université libre de Bruxelles"
+license: MIT
+version: "0.1.0"
+date-released: "2026-10-21"
+keywords: [Havana Bay, SCHISM, water age, ensemble, Sobol, historical nautical charts, public data]

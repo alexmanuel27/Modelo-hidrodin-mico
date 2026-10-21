@@ -19,6 +19,7 @@ El manuscrito vive en otro repo (`publication plan/modelo-hidrodin-mico`); el pu
 | `cluster/` | Inventarios, compilación de SCHISM y costes en CÉCI (NIC5, Lemaitre4) |
 | `resultados/` | Resultados pequeños versionados (control analítico) |
 | `runs/` | Casos generados y salidas (fuera de git; se regeneran) |
+| `publicacion/` | Plantillas del repo público (README en inglés, fuentes y licencias, CITATION, Zenodo); se arma con `scripts/preparar_publicacion.sh` |
 
 ## Cadena de procesado (en orden)
 

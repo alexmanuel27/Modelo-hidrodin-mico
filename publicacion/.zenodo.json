@@ -1,0 +1,9 @@
+{
+  "title": "Havana Bay ensemble model: public data, configuration and results",
+  "upload_type": "dataset",
+  "creators": [{"name": "Rivera, Alex Manuel", "affiliation": "Université libre de Bruxelles"}],
+  "description": "Digitised 19th-century soundings (2640), bathymetric products, SCHISM mesh and configuration, ERA5 and EOT20 forcing, Saltelli ensemble design and results for Havana Bay (Cuba), built exclusively from public data. Code under MIT; data under CC BY 4.0 (third-party data keep their licences, see DATA_SOURCES.md).",
+  "license": "cc-by-4.0",
+  "keywords": ["Havana Bay", "SCHISM", "water age", "ensemble modelling", "Sobol sensitivity", "historical nautical charts", "public data"],
+  "access_right": "open"
+}
