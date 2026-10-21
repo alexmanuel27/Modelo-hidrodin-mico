@@ -32,15 +32,17 @@ Estado: ✅ final y ya en el manuscrito · 🔁 en el manuscrito pero desactuali
 | Magnitud | En main.tex | Actual (central, P5–P95) | Estado |
 |---|---|---|---|
 | Volumen | 47 (39–55) hm³ | **30.4 (27.2–34.5)** hm³ | 🔁 |
-| Prisma de marea | 1.6 (1.2–2.3) hm³ | **1.47 (1.18–2.20)** hm³ | 🔁 |
-| Fracción renovada por ciclo | 3.3 (2.6–5.1) % | **4.8 (3.8–7.3)** % | 🔁 |
-| Renovación sin retorno | 16 (10–20) d | **10.7 (7.1–13.7)** d | 🔁 |
-| Renovación con retorno + ríos | 34 (18–51) d | **23 (13–35)** d | 🔁 |
-| Velocidad máx. de marea en el canal | 4.5 (3.2–6.5) cm s⁻¹ | **4.3 (3.1–6.1)** cm s⁻¹ | 🔁 |
-| Excursión mareal | 650 (460–920) m | **610 (440–870)** m; 0.40 del canal | 🔁 |
+| Marea | rango supuesto 0.30 (0.20–0.50) m | **días reales de un año EOT20**: mayor llenante 0.33 (0.18–0.50) m, 1.93 llenantes/d | 🔁 |
+| Prisma de marea | 1.6 (1.2–2.3) hm³ | **1.6 (0.9–2.5)** hm³ (mayor llenante del día) | 🔁 |
+| Fracción renovada | 3.3 (2.6–5.1) % por ciclo | **8.7 (4.1–12.7)** % por día | 🔁 |
+| Renovación sin retorno | 16 (10–20) d | **11.5 (7.9–24.5)** d | 🔁 |
+| Renovación con retorno + ríos | 34 (18–51) d | **24 (14–47)** d | 🔁 |
+| Solo ríos V/Q | — | **136 (83–243)** d (Q 2.14, JICA) | 🔁 |
+| Velocidad máx. de marea en el canal | 4.5 (3.2–6.5) cm s⁻¹ | **4.7 (2.7–7.3)** cm s⁻¹ | 🔁 |
+| Excursión mareal | 650 (460–920) m | **630 (340–960)** m; 0.41 (0.22–0.63) del canal | 🔁 |
 | Figura `fig_prisma_marea.png` | versión vieja | regenerar en inglés con los valores nuevos | 🔁 |
 
-Ojo: el mensaje "la excursión es menor que la mitad del canal en todas las muestras" sigue en pie (P95 0.57 → **no** en todas: corregir a "in 95 % of samples ≤ 0.57 of the channel length").
+Ojo: el mensaje de main.tex "la excursión es menor que la mitad del canal en todas las muestras" debe pasar a "shorter than the channel in all samples; ≤ 0.63 of its length in 95 %". Valores = mediana (P5–P95) del Monte Carlo, 21-oct-2026.
 
 ## Métodos (sec. 5) — datos ya disponibles para quitar los `\todo`
 
@@ -53,6 +55,7 @@ Ojo: el mensaje "la excursión es menor que la mitad del canal en todas las mues
 | Borde abierto | elevación armónica; esponja de fricción (Cd → 0.05) y sin viento a < 1 km del borde; sin advección de momento a < 800 m — **no Flather**: corregir | ídem |
 | Edad del agua | módulo AGE de SCHISM; agua nueva = mar abierto (y ríos en los experimentos con densidad) | ídem |
 | Conjunto | Saltelli, N = 64, d = 8 → 640 miembros; parámetros y rangos | `scripts/conjunto.py`, `datos/conjunto/diseno.csv` |
+| Análisis | Jansen S1 y ST, IC bootstrap 95 % (1000 remuestreos); distribuciones con bloques A y B (2N = 128); con N = 64 los S1 llevan IC ±0.2 → reportar ST | `scripts/analisis_conjunto.py` |
 | Cómputo | Lemaitre4 (CÉCI), 4 + 2 núcleos por miembro, 2.7–3.9 h por 90 días simulados | `cluster/`, `coste.txt` |
 
 ## Resultados (sec. 6) — provisionales (2 miembros, M2 de prueba, sin ríos)

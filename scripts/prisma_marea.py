@@ -6,8 +6,10 @@ Nivel 1 del proyecto. Aritmetica, no modelo. Sirve para una sola cosa: fijar el 
 DE MAGNITUD que el modelo numerico tiene que reproducir. Si el 2D/3D cae fuera de la
 banda que sale aqui, hay que buscar el error antes de seguir.
 
-Todas las entradas son provisionales (fuentes secundarias) hasta tener batimetria de
-carta y armonicos de FES/TPXO. Por eso se propagan como distribuciones, no como numeros.
+La marea ya no es un rango supuesto: se sintetiza un ano de nivel con los armonicos de EOT20
+frente a la boca (datos/marea/eot20_habana.json) y se muestrean DIAS reales de esa serie
+(marea mixta: dias con una o dos llenantes de tamano distinto). El resto de entradas se propaga
+como distribuciones triangulares.
 
 Uso:  python3 scripts/prisma_marea.py     -> tabla en pantalla + resultados/prisma_*.{csv,png}
 """
@@ -16,7 +18,9 @@ from pathlib import Path
 
 RNG = np.random.default_rng(20260916)
 N = 200_000
-T_M2 = 12.42 * 3600.0          # s, periodo semidiurno lunar
+MAREA = Path(__file__).resolve().parent.parent / "datos" / "marea" / "eot20_habana.json"
+FREC = dict(m2=1.405189e-4, s2=1.454441e-4, n2=1.378797e-4, k2=1.458423e-4, k1=7.292117e-5, o1=6.759774e-5,
+            p1=7.251056e-5, q1=6.495854e-5, m4=2.810378e-4)   # rad/s
 L_CANAL = 1530.0               # m, longitud del canal de entrada (practicos, Puerto de La Habana)
 
 # ---------------------------------------------------------------------------
@@ -30,9 +34,6 @@ ENTRADAS = {
     # moda 6.2 m = estado de dragado intermedio (08_batimetria_conjunto.py, volumenes_conjunto.json).
     # Antes: 9 m (7-11) de fuentes divulgativas (47 hm3), que las cartas no sostienen (ver docs, sec. 19).
     "h_m":     (6.2, 5.2, 7.3),
-    # rango mareal. Practicos: pleamar superior media 0.4 m, bajamar inferior media 0.1 m
-    # -> rango diurno mayor ~0.3 m. Predicciones publicas: 0.3-0.45 m en sicigias.
-    "R_m":     (0.30, 0.20, 0.50),
     # canal: ancho minimo 220 m (maximo 330 m); calado del canal 12.8 m, pero las margenes
     # son mas someras -> profundidad efectiva de la seccion 9-12.8 m
     "b_canal_m": (220.0, 220.0, 280.0),
@@ -41,9 +42,33 @@ ENTRADAS = {
     # Valores de la literatura 0.2-0.8; aqui alta porque la excursion mareal es menor
     # que el canal (ver resultado). SUPUESTO, no dato.
     "beta":    (0.6, 0.3, 0.85),
-    # aporte fluvial total (Luyano, Martin Perez y arroyos) - estimacion gruesa, sin aforo
-    "Q_m3s":   (2.0, 0.5, 5.0),
+    # aporte fluvial total: Luyano + Martin Perez + Tadeo = 2.14 m3/s (JICA 2004, tabla 1.1, CIMAB ago-2002;
+    # una sola campana, sin aforos permanentes) -> rango amplio, hasta ~5 con aguas residuales
+    "Q_m3s":   (2.14, 1.0, 5.0),
 }
+
+
+def marea_diaria(lon=-82.36, lat=23.20, dias=365, dt=600.0):
+    """Serie de un ano con los armonicos EOT20 en la celda valida mas cercana a (lon, lat); por dia:
+    suma de las subidas (llenantes que culminan ese dia, m), mayor subida (m) y max |deta/dt| (m/s).
+    shortcut: sin factores nodales ni argumento astronomico (cambian el calendario y +-4 % las amplitudes,
+    no la estadistica anual de rangos); usar pyTMD si se quiere una prediccion fechada."""
+    import json
+    t = np.arange(0, dias * 86400, dt); eta = np.zeros_like(t)
+    for c, d in json.loads(MAREA.read_text()).items():
+        A = np.array(d["amp_m"]); G = np.radians(np.array(d["fase_grados"]))
+        LA, LO = np.meshgrid(d["lat"], d["lon"], indexing="ij"); ok = np.isfinite(A) & (A > 0)
+        j, i = np.unravel_index(np.where(ok, np.hypot(LA - lat, LO - lon), 9).argmin(), A.shape)
+        eta += A[j, i] * np.cos(FREC[c] * t - G[j, i])
+    de = np.diff(eta); ext = np.where(np.sign(de[1:]) != np.sign(de[:-1]))[0] + 1   # extremos
+    alto = de[ext - 1] > 0                                                           # pleamares
+    sub, dia = [], []
+    for k in range(1, len(ext)):
+        if alto[k] and not alto[k - 1]: sub.append(eta[ext[k]] - eta[ext[k - 1]]); dia.append(int(t[ext[k]] // 86400))
+    sub, dia = np.array(sub), np.array(dia)
+    S = np.bincount(dia, sub, minlength=dias); Rmax = np.array([sub[dia == k].max() if (dia == k).any() else 0 for k in range(dias)])
+    W = np.abs(np.append(de, de[-1]) / dt).reshape(dias, -1).max(1)
+    return S, Rmax, W, len(sub) / dias
 
 
 def muestrea(c, lo, hi):
@@ -53,18 +78,18 @@ def muestrea(c, lo, hi):
     return RNG.triangular(lo, c, hi, N)
 
 
-def calcula(A_km2, h_m, R_m, b_canal_m, h_canal_m, beta, Q_m3s):
+def calcula(A_km2, h_m, S_m, Rmax_m, W_ms, b_canal_m, h_canal_m, beta, Q_m3s):
+    """S_m: suma de las subidas del dia (m); Rmax_m: mayor subida del dia; W_ms: max |deta/dt| del dia."""
     A = A_km2 * 1e6
     V = A * h_m
-    P = A * R_m                                  # prisma de marea (m3)
+    Pd = A * S_m                                 # prisma diario: agua que entra en llenante en un dia (m3/d)
     Ac = b_canal_m * h_canal_m                   # seccion del canal (m2)
-    frac = P / V                                 # fraccion renovada por ciclo (sin retorno)
-    Tf_dias = V / P * T_M2 / 86400               # renovacion ideal, mezcla completa, beta=0
-    Tr_dias = V / ((1 - beta) * P / T_M2 + Q_m3s) / 86400   # con retorno + rio
+    Tf_dias = V / Pd                             # renovacion ideal, mezcla completa, beta=0
+    Tr_dias = V / ((1 - beta) * Pd / 86400 + Q_m3s) / 86400   # con retorno + rio
     Tq_dias = V / Q_m3s / 86400                  # solo rio
-    Umax = np.pi * P / (Ac * T_M2)               # velocidad maxima media en el canal (seno)
-    excursion = P / Ac                           # excursion mareal, onda senoidal: Umax*T/pi = P/Ac (m)
-    return dict(V_hm3=V / 1e6, P_hm3=P / 1e6, frac_pct=100 * frac,
+    Umax = A * W_ms / Ac                         # velocidad maxima media en la seccion (continuidad)
+    excursion = A * Rmax_m / Ac                  # desplazamiento en la mayor llenante = volumen / seccion (m)
+    return dict(V_hm3=V / 1e6, P_hm3=A * Rmax_m / 1e6, frac_pct=100 * Pd / V,
                 Tf_dias=Tf_dias, Tr_dias=Tr_dias, Tq_dias=Tq_dias,
                 Umax_cms=100 * Umax, excursion_m=excursion,
                 excursion_sobre_canal=excursion / L_CANAL)
@@ -74,10 +99,15 @@ def main():
     out = Path(__file__).resolve().parent.parent / "resultados"
     out.mkdir(exist_ok=True)
 
-    central = calcula(**{k: v[0] for k, v in ENTRADAS.items()})
-    mc = calcula(**{k: muestrea(*v) for k, v in ENTRADAS.items()})
+    S, Rmax, W, llen = marea_diaria()
+    print(f"marea EOT20: {llen:.2f} llenantes por dia; subida diaria total p5/p50/p95 = "
+          f"{np.percentile(S, 5):.2f}/{np.median(S):.2f}/{np.percentile(S, 95):.2f} m; mayor llenante del dia "
+          f"{np.percentile(Rmax, 5):.2f}/{np.median(Rmax):.2f}/{np.percentile(Rmax, 95):.2f} m")
+    k = RNG.integers(0, len(S), N)                                   # dias reales al azar
+    central = calcula(S_m=np.median(S), Rmax_m=np.median(Rmax), W_ms=np.median(W), **{q: v[0] for q, v in ENTRADAS.items()})
+    mc = calcula(S_m=S[k], Rmax_m=Rmax[k], W_ms=W[k], **{q: muestrea(*v) for q, v in ENTRADAS.items()})
 
-    unidades = dict(V_hm3="hm3", P_hm3="hm3", frac_pct="%", Tf_dias="d", Tr_dias="d",
+    unidades = dict(V_hm3="hm3", P_hm3="hm3 (mayor llenante)", frac_pct="% por dia", Tf_dias="d", Tr_dias="d",
                     Tq_dias="d", Umax_cms="cm/s", excursion_m="m", excursion_sobre_canal="-")
     print(f"{'magnitud':24s}{'central':>10s}{'p5':>10s}{'p50':>10s}{'p95':>10s}  ud")
     lineas = ["magnitud,central,p5,p50,p95,unidad"]
