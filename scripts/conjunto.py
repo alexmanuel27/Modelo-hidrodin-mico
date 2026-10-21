@@ -93,7 +93,7 @@ def generar(J, solo=None):
 # Prueba previa: --array=0-1
 #SBATCH --job-name=bahia_conj
 #SBATCH --ntasks={NUCLEOS + 2}
-#SBATCH --time={int(np.ceil(DIAS / 90 * 4.5)) + 1:02d}:00:00
+#SBATCH --time={min(48, int(np.ceil(DIAS / 90 * 6.5)) + 2):02d}:00:00
 #SBATCH --mem-per-cpu=2000
 #SBATCH --output=slurm_%A_%a.out
 set -eo pipefail
