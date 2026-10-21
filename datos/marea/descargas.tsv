@@ -1,3 +1,9 @@
 archivo	url	fecha_acceso_utc	bytes	sha256
 eot20.zip	https://www.seanoe.org/data/00683/79489/data/85762.zip	2026-10-19T14:38Z	492453304	047c6f23fff6e9d6be4c711957583a6885dfcb6e14ee22ae56484c1f39e0b997
 eot20.zip	https://www.seanoe.org/data/00683/79489/data/85762.zip	2026-10-19T15:17Z	2330678793	bced7af7eb7c34896d4fd04680a751cc9f5a4c7a3c03852997d9263d61e07018
+m2_fes2022.nc.xz	ftp://ftp-access.aviso.altimetry.fr/auxiliary/tide_model/fes2022b/ocean_tide_extrapolated/m2_fes2022.nc.xz	2026-10-20T21:37Z	163489712	616562ceab5dba29a5fd52aed2b98ebc706ebf177c1e0f393907b199d394232b
+s2_fes2022.nc.xz	ftp://ftp-access.aviso.altimetry.fr/auxiliary/tide_model/fes2022b/ocean_tide_extrapolated/s2_fes2022.nc.xz	2026-10-20T22:03Z	164404788	5a2fd7c79c1883377efc67167c2c542e7ff9495f7fbba7ea3f9521efafaf5cbe
+n2_fes2022.nc.xz	ftp://ftp-access.aviso.altimetry.fr/auxiliary/tide_model/fes2022b/ocean_tide_extrapolated/n2_fes2022.nc.xz	2026-10-20T22:31Z	163540508	d0cb7bcdec2bd68190a09a24782c90ec61113ef947d2f9959a8cacb8a0831541
+k2_fes2022.nc.xz	ftp://ftp-access.aviso.altimetry.fr/auxiliary/tide_model/fes2022b/ocean_tide_extrapolated/k2_fes2022.nc.xz	2026-10-20T22:58Z	164005756	d62ac497ac463aac2ab19b2267937357e05366868724956231bfde87c83d273f
+k1_fes2022.nc.xz	ftp://ftp-access.aviso.altimetry.fr/auxiliary/tide_model/fes2022b/ocean_tide_extrapolated/k1_fes2022.nc.xz	2026-10-20T23:23Z	158865904	5b31a997edd2fdf21b24ff21eb8a6f78d99d6f097a5afbc9c7f09fa968efd7b6
+o1_fes2022.nc.xz	ftp://ftp-access.aviso.altimetry.fr/auxiliary/tide_model/fes2022b/ocean_tide_extrapolated/o1_fes2022.nc.xz	2026-10-20T23:48Z	158175680	a2fc85ab5cf3dc5f761283d17dd8b3f96f9edcb9d7f1c3aadfadf51ce9415ace
