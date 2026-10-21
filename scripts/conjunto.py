@@ -8,7 +8,8 @@
                                                     solo los miembros indicados si se da la lista)
                                                     + runs/conjunto/correr_array.sh
 Diseno: Saltelli (2002) con Sobol aleatorizado (scipy.stats.qmc): matrices A, B y AB_i -> N*(d+2) miembros;
-los indices de Sobol (Jansen) salen de las mismas corridas. Parametros (rangos acordados el 16-oct-2026):"""
+los indices de Sobol (Jansen) salen de las mismas corridas. Todos los miembros: marea EOT20 y rios de JICA 2004
+(2,14 m3/s) con densidad; los rios no son dimension del Sobol. Parametros (rangos acordados el 16-oct-2026):"""
 import csv, os, subprocess, sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -74,7 +75,8 @@ def uno(fila):
     if (run / "param.nml").exists(): return m, "ya"
     env = {**os.environ, "RUNDIR": str(run), "CASO": f"c{m:04d}", "CARTA": fila["carta"], "ALFA": fila["alfa"],
            "SEMILLA": fila["semilla"], "DATUM": fila["datum"], "CD": fila["cd"], "VFAC": fila["vfac"],
-           "VROT": fila["vrot"], "MFAC": fila["mfac"], "SALIDA_H": str(SALIDA_H), **fila.get("extra", {})}
+           "VROT": fila["vrot"], "MFAC": fila["mfac"], "SALIDA_H": str(SALIDA_H),
+           "MAREA": "eot20", "RIOS": "1", **fila.get("extra", {})}   # conjunto: EOT20 (CC BY) + rios JICA y densidad (21-oct, Alex)
     r = subprocess.run([sys.executable, str(RAIZ / "scripts" / "caso_real.py"), str(DIAS)], env=env, capture_output=True, text=True)
     if r.returncode: (run.parent / f"error_m{m:04d}.txt").write_text(r.stdout + r.stderr); return m, "ERROR"
     for q in ("correr.sh", "correr_slurm.sh"): (run / q).unlink(missing_ok=True)

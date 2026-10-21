@@ -1,7 +1,9 @@
-# Comparación modelo ↔ Sentinel-2: protocolo (BORRADOR, 21-oct-2026)
+# Comparación modelo ↔ Sentinel-2: protocolo CONGELADO
 
-> **Estado: borrador para que Alex lo apruebe.** Al aprobarlo se congela con el hash del commit y la fecha, **antes** de
-> lanzar el conjunto de 640 miembros. Cambios posteriores, solo en un registro fechado al final.
+> **Congelado el 21-oct-2026, aprobado por Alex**, antes de lanzar el conjunto. El texto es el del commit 773b9fb;
+> solo cambia esta cabecera. Cambios posteriores, únicamente en el registro fechado del final.
+> Decisión asociada (21-oct): todos los miembros del conjunto llevan ríos (caudales JICA 2004) y densidad, así que la
+> prueba principal se aplica a todo el conjunto.
 
 ## Qué se ha visto ya (para que conste)
 
