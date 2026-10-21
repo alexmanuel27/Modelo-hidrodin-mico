@@ -123,15 +123,18 @@ def main():
     matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     fig, ax = plt.subplots(1, 2, figsize=(9, 3.4))
-    bins = np.linspace(0, 120, 61)
-    ax[0].hist(mc["Tf_dias"], bins=bins, alpha=.6, label=r"no return flow ($\beta=0$)")
-    ax[0].hist(mc["Tr_dias"], bins=bins, alpha=.6, label=r"return flow $\beta$ + rivers")
-    ax[0].set_xlabel("flushing time (days)"); ax[0].set_ylabel("samples")
-    ax[0].legend(frameon=False)
-    ax[1].hist(mc["excursion_m"], bins=60, color="0.5")
-    ax[1].axvline(L_CANAL, color="k", ls="--"); ax[1].text(L_CANAL, ax[1].get_ylim()[1]*.9,
-                                                            " channel 1530 m", va="top")
+    bins = np.linspace(0, 80, 81)
+    for k, lab, c in [("Tf_dias", r"no return flow ($\beta=0$)", "C0"), ("Tr_dias", r"return flow $\beta$ + rivers", "C1")]:
+        ax[0].hist(np.clip(mc[k], 0, 80), bins=bins, histtype="step", lw=1.5, color=c, label=lab)
+        ax[0].axvline(np.median(mc[k]), color=c, ls=":", lw=1)
+    ax[0].text(79, 0.55, "JICA (2004):\n~4 months \u2192", transform=ax[0].get_xaxis_transform(), ha="right", va="center", fontsize=8)
+    ax[0].set_xlim(0, 80); ax[0].set_xlabel("flushing time (days; last bin includes > 80)"); ax[0].set_ylabel("samples")
+    ax[0].legend(frameon=False, fontsize=8)
+    ax[1].hist(mc["excursion_m"], bins=60, color="0.6")
+    ax[1].axvline(L_CANAL, color="k", ls="--")
+    ax[1].text(L_CANAL - 30, ax[1].get_ylim()[1] * .95, f"channel length\n{L_CANAL:.0f} m", va="top", ha="right", fontsize=8)
     ax[1].set_xlabel("tidal excursion in channel (m)")
+    for a_, l_ in zip(ax, "ab"): a_.text(0.01, 0.98, f"({l_})", transform=a_.transAxes, va="top", fontweight="bold")
     fig.tight_layout(); fig.savefig(out / "prisma_marea.png", dpi=200)
     print(f"guardado: {out/'prisma_marea.csv'}, {out/'prisma_marea.png'}")
 
