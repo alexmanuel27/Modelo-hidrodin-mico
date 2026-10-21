@@ -2,6 +2,7 @@
 """Conjunto de Saltelli: diseno, generacion de los casos SCHISM y lanzador para Lemaitre4.
 
   python scripts/conjunto.py diseno  [N=64]      -> datos/conjunto/diseno.csv (versionado)
+  CONJ_DIR=runs/mecanismo CONJ_DIAS=365 python scripts/conjunto.py mecanismo   -> 3 experimentos de mecanismo
   python scripts/conjunto.py prueba               -> autoprueba: Jansen sobre Ishigami con la misma construccion
   python scripts/conjunto.py generar [J=6] [m,m,...]  -> runs/conjunto/mNNNN/ (caso_real.py por miembro, J a la vez;
                                                     solo los miembros indicados si se da la lista)
@@ -18,7 +19,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 DISENO = RAIZ / "datos" / "conjunto" / "diseno.csv"
 RUNS = RAIZ / os.environ.get("CONJ_DIR", "runs/conjunto")     # p. ej. CONJ_DIR=runs/largo CONJ_DIAS=365
 DIAS, SALIDA_H, NUCLEOS = int(os.environ.get("CONJ_DIAS", 90)), 4, 4          # 90 d (>3x renovacion de 23 d); salidas cada 4 h (incluye las 16 UTC de Sentinel-2); 4 nucleos + 2 scribes
-GUARDAR = (0, 1)                             # miembros que conservan los campos completos (figuras); el resto solo resumen.*
+GUARDAR = (0, 1, 2)                           # miembros que conservan los campos completos (figuras); el resto solo resumen.*
 SEMILLA_DISENO = 20261016
 
 # nombre, transformacion u in [0,1) -> valor
@@ -73,15 +74,21 @@ def uno(fila):
     if (run / "param.nml").exists(): return m, "ya"
     env = {**os.environ, "RUNDIR": str(run), "CASO": f"c{m:04d}", "CARTA": fila["carta"], "ALFA": fila["alfa"],
            "SEMILLA": fila["semilla"], "DATUM": fila["datum"], "CD": fila["cd"], "VFAC": fila["vfac"],
-           "VROT": fila["vrot"], "MFAC": fila["mfac"], "SALIDA_H": str(SALIDA_H)}
+           "VROT": fila["vrot"], "MFAC": fila["mfac"], "SALIDA_H": str(SALIDA_H), **fila.get("extra", {})}
     r = subprocess.run([sys.executable, str(RAIZ / "scripts" / "caso_real.py"), str(DIAS)], env=env, capture_output=True, text=True)
     if r.returncode: (run.parent / f"error_m{m:04d}.txt").write_text(r.stdout + r.stderr); return m, "ERROR"
     for q in ("correr.sh", "correr_slurm.sh"): (run / q).unlink(missing_ok=True)
     return m, "ok"
 
 
-def generar(J, solo=None):
-    filas = [f for f in lee() if solo is None or int(f["miembro"]) in solo]; RUNS.mkdir(parents=True, exist_ok=True)
+# Experimentos de mecanismo: un miembro central, marea EOT20; se anade un proceso cada vez
+BASE = dict(carta="1887", alfa="0.5", semilla="-1", datum="0.25", cd="0.0025", vfac="1", vrot="0", mfac="1")
+MECANISMO = [("solo marea", {"NWS": "0", "RIOS": "0"}), ("marea + viento", {"NWS": "2", "RIOS": "0"}),
+             ("marea + viento + rios y densidad", {"NWS": "2", "RIOS": "1"})]
+
+
+def generar(J, solo=None, filas=None):
+    filas = filas or [f for f in lee() if solo is None or int(f["miembro"]) in solo]; RUNS.mkdir(parents=True, exist_ok=True)
     with ThreadPoolExecutor(J) as ex:
         for k, (m, est) in enumerate(ex.map(uno, filas)):
             if est == "ERROR" or k % 50 == 0: print(f"m{m:04d}: {est}  ({k + 1}/{len(filas)})", flush=True)
@@ -126,6 +133,10 @@ if __name__ == "__main__":
         filas = diseno(int(sys.argv[2]) if len(sys.argv) > 2 else 64)
     elif accion == "prueba":
         prueba()
+    elif accion == "mecanismo":     # CONJ_DIR=runs/mecanismo CONJ_DIAS=365 python scripts/conjunto.py mecanismo
+        filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", **e}) for k, (_, e) in enumerate(MECANISMO)]
+        for k, (nom, _) in enumerate(MECANISMO): print(f"m{k:04d}: {nom}")
+        generar(3, filas=filas)
     elif accion == "generar":
         generar(int(sys.argv[2]) if len(sys.argv) > 2 else 6,
                 [int(m) for m in sys.argv[3].split(",")] if len(sys.argv) > 3 else None)
