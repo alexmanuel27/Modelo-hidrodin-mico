@@ -20,7 +20,8 @@ RAIZ = Path(__file__).resolve().parent.parent
 DISENO = RAIZ / "datos" / "conjunto" / "diseno.csv"
 RUNS = RAIZ / os.environ.get("CONJ_DIR", "runs/conjunto")     # p. ej. CONJ_DIR=runs/largo CONJ_DIAS=365
 DIAS, SALIDA_H, NUCLEOS = int(os.environ.get("CONJ_DIAS", 90)), 4, 4
-SEG = min(DIAS, int(os.environ.get("CONJ_SEG", 73)))   # dias por tramo de Slurm (hotstart entre tramos): trabajos cortos entran antes en la cola          # 90 d (>3x renovacion de 23 d); salidas cada 4 h (incluye las 16 UTC de Sentinel-2); 4 nucleos + 2 scribes
+SEG = min(DIAS, int(os.environ.get("CONJ_SEG", 73)))   # dias por tramo de Slurm (hotstart entre tramos): trabajos cortos entran antes en la cola          # 90 d (>3x renovacion de 23 d); salidas cada 4 h (incluye las 16 UTC de Sentinel-2); 4 nucleos + 3 scribes
+ESCRIBAS = 3                                 # SCHISM exige >= 1 scribe por variable 3D de salida (AGE_1 + salinidad + ...)
 GUARDAR = (0, 1, 2)                           # miembros que conservan los campos completos (figuras); el resto solo resumen.*
 SEMILLA_DISENO = 20261016
 
@@ -101,14 +102,14 @@ def generar(J, solo=None, filas=None):
         for k, (m, est) in enumerate(ex.map(uno, filas)):
             if est == "ERROR" or k % 50 == 0: print(f"m{m:04d}: {est}  ({k + 1}/{len(filas)})", flush=True)
     n = len(filas)
-    K = int(np.ceil(DIAS / SEG)); conc = 4096 // (NUCLEOS + 2)
+    K = int(np.ceil(DIAS / SEG)); conc = 4096 // (NUCLEOS + ESCRIBAS)
     (RUNS / "correr_array.sh").write_text(f"""#!/bin/bash -l
 # Lemaitre4. Un tramo de {SEG} d por trabajo; lanzar.sh encadena los {K} tramos (cada miembro sigue a su propio tramo
 # anterior con --dependency=aftercorr). Desde la raiz del repo en el Mac:
 #   rsync -aR ./{RUNS.relative_to(RAIZ)} ./datos/forzamiento/sflux ./scripts/posproceso.py ./datos/conjunto/posproceso_malla.npz lemaitre4:bahia/
 #   ssh lemaitre4 'bash -lc "cd bahia/{RUNS.relative_to(RAIZ)} && bash lanzar.sh"'        (prueba: bash lanzar.sh 0-1)
 #SBATCH --job-name=bahia_conj
-#SBATCH --ntasks={NUCLEOS + 2}
+#SBATCH --ntasks={NUCLEOS + ESCRIBAS}
 #SBATCH --time={int(np.ceil(SEG / 90 * 6.5)) + 2:02d}:00:00
 #SBATCH --mem-per-cpu=4000
 #SBATCH --output=slurm_%A_%a.out
@@ -134,7 +135,7 @@ sed -i -E "s/^( *rnday *=).*/\\1 $FIN/; s/^( *ihot *=).*/\\1 $IHOT/; s/^( *nhot 
 echo "tramo: dias $HECHOS -> $FIN de $TOTAL (ihot=$IHOT)"
 mv outputs/mirror.out outputs/mirror_hasta_$HECHOS.out 2>/dev/null || true   # el "Run completed" debe ser de este tramo
 START=$(date +%s)
-srun $HOME/schism/build/bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL 2 > outputs/pantalla_$FIN.log 2>&1 || true
+srun $HOME/schism/build/bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL {ESCRIBAS} > outputs/pantalla_$FIN.log 2>&1 || true
 grep -q "Run completed successfully" outputs/mirror.out && OK=si || OK=no
 T=$(( $(date +%s) - START ))
 echo "$SLURM_ARRAY_TASK_ID $SLURM_CLUSTER_NAME tramo=$HECHOS-$FIN segundos=$T completo=$OK" >> ../coste.txt
