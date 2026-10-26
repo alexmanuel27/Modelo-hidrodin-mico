@@ -44,4 +44,11 @@ La misma prueba con la **edad del agua en superficie** (`s2_edad`) de los miembr
 
 ## Registro de cambios
 
-*(vacío)*
+- **26-oct-2026 (aprobado por Alex; antes de ver ningún resultado del modelo en la rejilla S2).** Se añade un
+  **control**; el criterio principal no cambia. Motivo: al calibrar `scripts/comparacion_s2.py` con campos independientes
+  del satélite, el IC por bloques de 200 m da falsos positivos del 7 % (nominal 2,5 %) cuando los campos son muy suaves,
+  como los del modelo. Control: **nulo por desplazamientos cíclicos** del mapa S2 y de su máscara de píxeles (≥ 500 m,
+  999 desplazamientos con ≥ 1000 píxeles en común), que conserva la autocorrelación de los dos mapas y rompe su
+  alineación; p = fracción de desplazamientos con ρ ≥ ρ observado. Calibración: 4 % de falsos positivos a p < 0,05 con
+  campos independientes muy suaves (25 casos); un campo relacionado da p = 0,01. **Se informa siempre junto al criterio
+  principal; si el criterio se cumple pero p ≥ 0,05, el resultado se describe como no distinguible del azar espacial.**

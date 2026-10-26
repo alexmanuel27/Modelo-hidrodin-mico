@@ -9,7 +9,8 @@
 Protocolo: pixeles de agua en las dos mascaras, a >= 40 m (2 pixeles) de la costa S2, n_validas >= 50; filas 0-251 de la
 entrega (la 252 sobra); campo del modelo = media de las instantaneas de las 16 UTC; Spearman; IC 95 % por bootstrap de
 bloques de 10 x 10 pixeles (200 m), 1000 remuestreos. Se cumple si el limite inferior del IC es > 0; robusta si ademas
-rho > 0 en >= 90 % de los miembros. Salida: resultados/comparacion_s2/<nombre>.json"""
+rho > 0 en >= 90 % de los miembros. Control (cambio registrado el 26-oct, antes de ver resultados): nulo por
+desplazamientos ciclicos del mapa S2 (>= 500 m, 999 desplazamientos); se informa p_desplazamientos junto al criterio. Salida: resultados/comparacion_s2/<nombre>.json"""
 import csv, json, sys
 from pathlib import Path
 import numpy as np
@@ -17,6 +18,7 @@ import numpy as np
 RAIZ = Path(__file__).resolve().parent.parent
 S2 = RAIZ / "datos" / "sentinel2" / "rejilla.npz"
 NMIN, MARGEN_PX, BLOQUE, NBOOT = 50, 2, 10, 1000
+NDESPL, DESPL_MIN_PX, SOLAPE_MIN = 999, 25, 1000
 
 
 def rangos(x):
@@ -51,6 +53,20 @@ def prueba_rho(sat, mod, ok, rng, nboot=NBOOT):
     return dict(rho=rho, ic95=[float(lo), float(hi)], n_pixeles=int(ok.sum()), n_bloques=len(grupos), cumple=bool(lo > 0))
 
 
+def nulo_desplazado(sat, mod, base, rng, n=NDESPL):
+    """Control: el mapa S2 (con su mascara de pixeles del protocolo, base) se desplaza en ciclo >= 500 m; la autocorrelacion
+    espacial de los dos mapas se conserva y se rompe su alineacion. p = fraccion de desplazamientos con rho >= observado."""
+    ok0 = base & np.isfinite(mod); rho0 = spearman(sat[ok0], mod[ok0]); nul = []
+    while len(nul) < n:
+        dy, dx = rng.integers(-sat.shape[0], sat.shape[0]), rng.integers(-sat.shape[1], sat.shape[1])
+        if np.hypot(dy, dx) < DESPL_MIN_PX: continue
+        ss, bs_ = np.roll(sat, (dy, dx), (0, 1)), np.roll(base, (dy, dx), (0, 1)); ok = bs_ & np.isfinite(mod)
+        if ok.sum() < SOLAPE_MIN: continue
+        nul.append(spearman(ss[ok], mod[ok]))
+    nul = np.array(nul)
+    return dict(p_desplazamientos=float((1 + np.sum(nul >= rho0)) / (1 + n)), rho_nulo_p95=float(np.percentile(nul, 95)))
+
+
 def campo_medio(dirm, nombre):
     d = np.load(Path(dirm) / "resumen.npz")
     if nombre not in d: return None
@@ -64,7 +80,8 @@ def main(args):
     if "--conjunto" not in args:
         mod = campo_medio(destino, nombre)
         if mod is None: sys.exit(f"{destino}/resumen.npz no tiene {nombre} (¿corrida sin rios? ¿posproceso viejo?)")
-        r = dict(miembro=str(destino), campo=nombre, **prueba_rho(sat, mod, pixeles(s2, mod), rng))
+        r = dict(miembro=str(destino), campo=nombre, **prueba_rho(sat, mod, pixeles(s2, mod), rng),
+                 **nulo_desplazado(sat, mod, pixeles(s2, np.ones_like(sat)), rng))
         print(json.dumps(r, indent=1)); (salida / f"{destino.name}_{nombre}.json").write_text(json.dumps(r, indent=1)); return r
     with open(RAIZ / "datos" / "conjunto" / "diseno.csv") as f: filas = [x for x in csv.DictReader(f) if x["bloque"] in ("A", "B")]
     rhos = {}
