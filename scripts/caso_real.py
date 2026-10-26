@@ -9,7 +9,9 @@ Uso:  python scripts/caso_real.py [dias]            (por defecto 2)
                  MAREA (fes | eot20 | m2; por defecto el primero cuyo datos/marea/<modelo>_habana.json exista),
                  parametros del conjunto: DATUM (m, 0), CD (0.0025), VFAC (x viento, 1), VROT (grados, 0),
                  MFAC (x amplitud de marea, 1), SALIDA_H (horas entre salidas, 1), RUNDIR (carpeta del caso),
-                 RIOS (1 = rios + modelo baroclinico por salinidad; 0), QFAC (x caudal de los rios, 1)
+                 RIOS (1 = rios + modelo baroclinico por salinidad; 0), QFAC (x caudal de los rios, 1),
+                 pruebas de robustez: CALOR (1 = flujo de calor aire-mar ERA5, ihconsv=1; 0), TURB (cierre GLS: KL | KE),
+                 NIVELES (niveles S, 16), DIFFMIN (difusividad vertical minima m2/s, 1e-6)
       Mac:   bash runs/real_<CASO>/correr.sh
       CECI:  ver runs/real_<CASO>/correr_slurm.sh
 Requiere numpy, scipy y, con MAREA=fes/eot20, pyTMD (correcciones nodales; pip install pyTMD), y datos/batimetria/superficies/*.nc (07) + datos/malla/hgrid.{gr3,ll} (09).
@@ -46,6 +48,8 @@ MODELOS_MAREA = {"fes": RAIZ / "datos" / "marea" / "fes2022_habana.json", "eot20
 MAREA = os.environ.get("MAREA", next((m for m, f in MODELOS_MAREA.items() if f.exists()), "m2"))
 FES = MODELOS_MAREA.get(MAREA)                   # archivo de armonicos del modelo elegido (mismo formato para los dos)
 RIOS, QFAC = int(os.environ.get("RIOS", 0)), float(os.environ.get("QFAC", 1))
+CALOR, TURB = int(os.environ.get("CALOR", 0)), os.environ.get("TURB", "KL")
+DIFFMIN = float(os.environ.get("DIFFMIN", 1e-6))
 # Caudales medios (m3/s) de JICA 2004, Informe final vol. IV, tabla 1.1 (datos CIMAB, ago-2002; no hay aforos permanentes):
 # Luyano 114 860, Martin Perez 62 105, Tadeo 8 004 m3/d. https://openjicareport.jica.go.jp/pdf/11767225.pdf
 Q_RIOS = {"luyano": 114860 / 86400, "martin perez": 62105 / 86400, "tadeo": 8004 / 86400}
@@ -53,7 +57,7 @@ OSM_RIOS = RAIZ / "datos" / "batimetria" / "fuentes" / "osm_rios_habana.json"
 FREC = dict(m2=1.405189e-4, s2=1.454441e-4, n2=1.378797e-4, k2=1.458423e-4, k1=7.292117e-5, o1=6.759774e-5,
             p1=7.251056e-5, q1=6.495854e-5, m4=2.810378e-4, ms4=2.859630e-4, mn4=2.783986e-4)   # rad/s
 H_TOPE = 200.0                # m: profundidad maxima del modelo (el talud llega a 1200 m; solo importa la onda de marea)
-NV = 16                       # niveles verticales: S puros; con h_s > fondo maximo SCHISM no pide niveles Z (h_s = H_TOPE+10)
+NV = int(os.environ.get("NIVELES", 16))                       # niveles verticales: S puros; con h_s > fondo maximo SCHISM no pide niveles Z (h_s = H_TOPE+10)
 D_ADV = 800.0                 # m: sin adveccion de momento a menos de esto del borde abierto
 CD = float(os.environ.get("CD", 0.0025))
 # Correccion del borde abierto (prueba del 13-oct: chorro espurio de hasta 2 m/s donde el arco abierto
@@ -143,8 +147,11 @@ def main():
     cd = CD + (0.05 - CD) * np.clip(1 - d_borde / R_ESQ, 0, 1) ** 2 if ESPONJA else np.full(n, CD)   # todo el borde: 4,45 m/s en el arco (17-oct)
     escribir_gr3(RUN / "drag.gr3", x, y, cd, tri, "drag.gr3 (esponja junto al borde abierto)")
     fv = VFAC * (np.clip((d_borde - VIENTO_BORDE[0]) / (VIENTO_BORDE[1] - VIENTO_BORDE[0]), 0, 1) if ESPONJA else np.ones(n))
+    if CALOR:   # flujo de calor: albedo del agua 0,06 y Jerlov tipo 7 (agua costera turbia)
+        escribir_gr3(RUN / "albedo.gr3", x, y, np.full(n, 0.06), tri, "albedo.gr3")
+        escribir_gr3(RUN / "watertype.gr3", x, y, np.full(n, 7.0), tri, "watertype.gr3 (Jerlov 7)")
     escribir_gr3(RUN / "windfactor.gr3", x, y, fv, tri, "windfactor: 0 junto al borde abierto")
-    for nombre, v in (("diffmin.gr3", 1e-6), ("diffmax.gr3", 1e-2)):
+    for nombre, v in (("diffmin.gr3", DIFFMIN), ("diffmax.gr3", 1e-2)):
         escribir_gr3(RUN / nombre, x, y, np.full(n, v), tri, nombre)
     # convergencia de meridianos UTM (grados) para girar el viento de geografico a la malla
     conv = np.degrees(np.arctan(np.tan(np.radians(lon + 81)) * np.sin(np.radians(lat))))
@@ -203,7 +210,7 @@ def main():
                            start_hour=0, utc_start=0, if_source=RIOS, dramp_ss=2, ics=1, ihot=0, ncor=NCOR, coricoef=0,
                            slam0=round(float(lon.mean()), 4), sfea0=round(float(lat.mean()), 4),
                            nchi=0, ic_elev=0, nadv=0, nws=NWS, wtiminc=DT, ishapiro=1, drampwind=1, iwindoff=ESPONJA,
-                           ihconsv=0, itur=3, itr_met=3, level_age=-999, **{"flag_ic(1)": 2, "flag_ic(2)": 2}),
+                           ihconsv=CALOR, itur=3, mid=f"'{TURB}'", itr_met=3, level_age=-999, **{"flag_ic(1)": 2, "flag_ic(2)": 2}),
                "SCHOUT": {"nhot": 0, "iout_sta": 0, "iof_hydro(1)": 1, "iof_hydro(14)": 1,
                           "iof_hydro(16)": 1, "iof_hydro(19)": RIOS, "iof_hydro(25)": 0, "iof_hydro(26)": 0, "iof_age(1)": 1}}   # AGE_1 = edad en dias (alfa/C/86400)
     for sec, kv in cambios.items():

@@ -3,6 +3,7 @@
 
   python scripts/conjunto.py diseno  [N=64]      -> datos/conjunto/diseno.csv (versionado)
   CONJ_DIR=runs/mecanismo CONJ_DIAS=365 python scripts/conjunto.py mecanismo   -> 3 experimentos de mecanismo
+  CONJ_DIR=runs/robustez CONJ_DIAS=120 CONJ_SEG=20 python scripts/conjunto.py robustez -> 5 pruebas de la densidad
   python scripts/conjunto.py prueba               -> autoprueba: Jansen sobre Ishigami con la misma construccion
   python scripts/conjunto.py generar [J=6] [m,m,...]  -> runs/conjunto/mNNNN/ (caso_real.py por miembro, J a la vez;
                                                     solo los miembros indicados si se da la lista)
@@ -91,6 +92,11 @@ def uno(fila):
 BASE = dict(carta="1887", alfa="0.5", semilla="-1", datum="0.25", cd="0.0025", vfac="1", vrot="0", mfac="1", qfac="1")
 MECANISMO = [("solo marea", {"NWS": "0", "RIOS": "0"}), ("marea + viento", {"NWS": "2", "RIOS": "0"}),
              ("marea + viento + rios y densidad", {"NWS": "2", "RIOS": "1"})]
+# Robustez de la circulacion por densidad (26-oct): miembro central con rios; se cambia una cosa cada vez.
+# shortcut: sin evaporacion/precipitacion (pide recompilar SCHISM con PREC_EVAP); E - P neta ~0,1 m3/s, ~5 % de los rios.
+ROBUSTEZ = [("base (rios JICA, densidad por salinidad)", {}), ("+ flujo de calor ERA5", {"CALOR": "1"}),
+            ("cierre k-epsilon", {"TURB": "KE"}), ("32 niveles verticales", {"NIVELES": "32"}),
+            ("difusividad minima x10 (1e-5)", {"DIFFMIN": "1e-5"})]
 
 
 def caso_dt():
@@ -171,6 +177,10 @@ if __name__ == "__main__":
         filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", **e}) for k, (_, e) in enumerate(MECANISMO)]
         for k, (nom, _) in enumerate(MECANISMO): print(f"m{k:04d}: {nom}")
         generar(3, filas=filas)
+    elif accion == "robustez":      # CONJ_DIR=runs/robustez CONJ_DIAS=120 CONJ_SEG=20 python scripts/conjunto.py robustez
+        filas = [dict(BASE, miembro=str(k), extra=e) for k, (_, e) in enumerate(ROBUSTEZ)]
+        for k, (nom, _) in enumerate(ROBUSTEZ): print(f"m{k:04d}: {nom}")
+        generar(5, filas=filas)
     elif accion == "generar":
         generar(int(sys.argv[2]) if len(sys.argv) > 2 else 6,
                 [int(m) for m in sys.argv[3].split(",")] if len(sys.argv) > 3 else None)

@@ -3,7 +3,7 @@
 y robustez de las conclusiones cualitativas. Solo numpy + matplotlib (corre en el Mac/VM sobre los resumen.* bajados).
 
   python scripts/analisis_conjunto.py [runs/conjunto]   -> resultados/conjunto/{sobol.csv, metricas.csv, orden_zonas.csv,
-                                                            prob_edad_mayor_30d.npz, sobol.png}
+                                                            prob_edad_sup.npz, conclusiones.csv, sobol.png}
   python scripts/analisis_conjunto.py --prueba          -> autoprueba con un conjunto sintetico de indices conocidos
 
 Entradas: datos/conjunto/diseno.csv y <runs>/mNNNN/resumen.json (+ resumen.npz para el mapa). Los miembros que faltan
@@ -17,7 +17,8 @@ RAIZ = Path(__file__).resolve().parent.parent
 DISENO = RAIZ / "datos" / "conjunto" / "diseno.csv"
 SALIDA = RAIZ / "resultados" / "conjunto"
 ZONAS = ["canal", "cuenca", "Marimelena", "Guasabacoa", "Atares", "bahia"]
-UMBRAL = 30.0
+UMBRALES = (7.0, 14.0, 30.0)          # dias; fijados el 27-oct antes de ver el conjunto (docs/protocolo_metricas_conjunto.md)
+DERIVA_MAX = 0.05                     # d/d en los ultimos 10 dias: por encima, el miembro no llego al equilibrio
 NBOOT, RNG = 1000, np.random.default_rng(20261021)
 
 
@@ -58,7 +59,10 @@ def sobol(y, bloque, j, params, N):
 def analiza(runs, salida=SALIDA, figura=True):
     filas, params = lee_diseno(); N = sum(f["bloque"] == "A" for f in filas)
     bloque = [f["bloque"] for f in filas]; j = [int(f["j"]) for f in filas]
-    res, mapas = [], {}
+    res, mapas, canal_sf = [], {}, {}
+    try:
+        Mm = np.load(RAIZ / "datos" / "conjunto" / "posproceso_malla.npz"); zona, area = Mm["zona"], Mm["area"]
+    except OSError: zona = area = None
     for f in filas:
         d = runs / f"m{int(f['miembro']):04d}"
         try: r = json.loads((d / "resumen.json").read_text())
@@ -66,7 +70,10 @@ def analiza(runs, salida=SALIDA, figura=True):
         if r and r.get("nan", 0): r = None                       # miembro inestable: fuera
         res.append(metricas(r) if r else {})
         if r and f["bloque"] in "AB" and (d / "resumen.npz").exists():
-            mapas[int(f["miembro"])] = np.load(d / "resumen.npz")["edad_sup"]
+            nz = np.load(d / "resumen.npz"); mapas[int(f["miembro"])] = nz["edad_sup"]
+            if zona is not None and len(nz["edad_sup"]) == len(zona):          # edad sup y fondo en el canal (zona 1)
+                c = zona == 1; w = area[c]
+                canal_sf[int(f["miembro"])] = ((nz["edad_sup"][c] * w).sum() / w.sum(), (nz["edad_fondo"][c] * w).sum() / w.sum())
     nombres = sorted({k for r in res for k in r})
     ok = sum(bool(r) for r in res); print(f"{ok}/{len(filas)} miembros con resumen valido; {len(nombres)} metricas")
     salida.mkdir(parents=True, exist_ok=True); AB = np.isin(bloque, ["A", "B"])
@@ -90,10 +97,39 @@ def analiza(runs, salida=SALIDA, figura=True):
         for a, za in enumerate(ZONAS): w.writerow([za] + [f"{np.mean(E[:, a] > E[:, b]):.3f}" if len(E) else "" for b in range(len(ZONAS))])
     if mapas:
         M = np.array(list(mapas.values()))
-        np.savez_compressed(salida / "prob_edad_mayor_30d.npz", p=(M > UMBRAL).mean(0).astype(np.float32),
-                            p50=np.median(M, 0).astype(np.float32), n=len(M), umbral_d=UMBRAL)
+        np.savez_compressed(salida / "prob_edad_sup.npz", n=len(M), umbrales_d=np.array(UMBRALES), p50=np.median(M, 0).astype(np.float32),
+                            **{f"p_mayor_{u:g}d": (M > u).mean(0).astype(np.float32) for u in UMBRALES})
+    conclusiones(res, AB, filas, canal_sf, S, salida)
     if figura: dibuja(S, params, salida)
     return S
+
+
+def conclusiones(res, AB, filas, canal_sf, S, salida):
+    """Conclusiones declaradas el 27-oct (docs/protocolo_metricas_conjunto.md): fraccion de miembros A y B en que se cumple
+    cada una; robusta >= 90 %, fragil 10-90 %, rechazada <= 10 %. Se repite con solo los miembros en equilibrio."""
+    ed = lambda r, z: r.get(f"edad_media_d_{z}", np.nan)
+    C = {"C1 orden canal < cuenca < Guasabacoa < Atares": lambda r, m: ed(r, "canal") < ed(r, "cuenca") < ed(r, "Guasabacoa") < ed(r, "Atares"),
+         "C2 Atares mas vieja que el canal": lambda r, m: ed(r, "Atares") > ed(r, "canal"),
+         "C3 Marimelena mas vieja que la cuenca": lambda r, m: ed(r, "Marimelena") > ed(r, "cuenca"),
+         "C4 Guasabacoa y Atares mas viejas que la cuenca": lambda r, m: min(ed(r, "Guasabacoa"), ed(r, "Atares")) > ed(r, "cuenca"),
+         "C5 edad de la bahia < 30 d": lambda r, m: ed(r, "bahia") < 30,
+         "C6 edad de la bahia < 120 d (JICA ~4 meses)": lambda r, m: ed(r, "bahia") < 120,
+         "C7 canal: superficie mas vieja que el fondo (circulacion estuarina)": lambda r, m: canal_sf[m][0] > canal_sf[m][1] if m in canal_sf else np.nan}
+    for u in UMBRALES:
+        C[f"P edad de la bahia > {u:g} d"] = (lambda uu: lambda r, m: ed(r, "bahia") > uu)(u)
+    miembros = [(r, int(f["miembro"])) for r, f, a in zip(res, filas, AB) if a and r]
+    eq = [(r, m) for r, m in miembros if abs(r.get("deriva_edad_bahia_d_por_d", np.nan)) <= DERIVA_MAX]
+    clase = lambda x: "" if np.isnan(x) else "robusta" if x >= 0.9 else "rechazada" if x <= 0.1 else "fragil"
+    with open(salida / "conclusiones.csv", "w", newline="") as f:
+        w = csv.writer(f); w.writerow(["conclusion", "frac_todos", "clase", "frac_en_equilibrio", "clase_eq", "n_todos", "n_eq"])
+        for nom, fn in C.items():
+            fr = [np.nanmean([float(fn(r, m)) for r, m in grupo]) if grupo else np.nan for grupo in (miembros, eq)]
+            w.writerow([nom, f"{fr[0]:.3f}", clase(fr[0]), f"{fr[1]:.3f}", clase(fr[1]), len(miembros), len(eq)])
+        m = "edad_media_d_bahia"
+        if m in S:
+            dom = max(S[m], key=lambda q: -1 if np.isnan(q[4]) else q[4])
+            w.writerow([f"C8 parametro con mayor ST en la edad de la bahia: {dom[0]} (ST {dom[4]:.2f}, IC {dom[5]:.2f}-{dom[6]:.2f})", "", "", "", "", "", ""])
+    print(f"{len(miembros)} miembros A/B, {len(eq)} en equilibrio (|deriva| <= {DERIVA_MAX} d/d) -> {salida / 'conclusiones.csv'}")
 
 
 def dibuja(S, params, salida):
@@ -118,8 +154,9 @@ def prueba():
         for f in filas[10:]:
             u = {p: float(f[f"u_{p}"]) for p in params}; e = 20 + sum(c.get(p, 0) * u[p] for p in params)
             d = runs / f"m{int(f['miembro']):04d}"; d.mkdir()
-            (d / "resumen.json").write_text(json.dumps({"nan": 0, **{f"edad_media_d_{z}": e * (1 + k / 10) for k, z in enumerate(ZONAS)}}))
-            np.savez(d / "resumen.npz", edad_sup=np.full(5, e + 9))
+            (d / "resumen.json").write_text(json.dumps({"nan": 0, "deriva_edad_bahia_d_por_d": 0.01 if int(f["miembro"]) % 2 else 0.2,
+                                                        **{f"edad_media_d_{z}": e * (1 + k / 10) for k, z in enumerate(ZONAS)}}))
+            np.savez(d / "resumen.npz", edad_sup=np.full(4832, e + 9), edad_fondo=np.full(4832, e + 8))
         S = analiza(runs, Path(tmp) / "salida", figura=False)
         exacto = {p: c.get(p, 0) ** 2 / 21 for p in params}
         for p, S1, _, _, ST, lo, hi, n in S["edad_media_d_bahia"]:
@@ -128,7 +165,12 @@ def prueba():
             assert lo - 0.02 <= exacto[p] <= hi + 0.02, (p, lo, hi, exacto[p])
         o = list(csv.reader(open(Path(tmp) / "salida" / "orden_zonas.csv")))
         assert o[6][1] == "1.000" and o[1][6] == "0.000", o          # bahia (x1,5) siempre mas vieja que canal
-        p = np.load(Path(tmp) / "salida" / "prob_edad_mayor_30d.npz")["p"]; assert 0 < p[0] < 1
+        p = np.load(Path(tmp) / "salida" / "prob_edad_sup.npz")["p_mayor_30d"]; assert 0 < p[0] < 1
+        cc = {r[0]: r for r in csv.reader(open(Path(tmp) / "salida" / "conclusiones.csv"))}
+        assert cc["C2 Atares mas vieja que el canal"][2] == "robusta", cc
+        assert cc["C7 canal: superficie mas vieja que el fondo (circulacion estuarina)"][1] == "1.000", cc
+        k1 = cc["C1 orden canal < cuenca < Guasabacoa < Atares"]
+        assert cc["C5 edad de la bahia < 30 d"][2] == "rechazada" and 0 < int(k1[6]) < int(k1[5]), cc
     print("autoprueba Sobol/Jansen sobre el diseno real con huecos: ok")
 
 
