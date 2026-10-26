@@ -1,0 +1,14 @@
+{
+ "miembro": "runs/mecanismo/m0002",
+ "campo": "s2_dulce",
+ "rho": 0.44821141925838337,
+ "ic95": [
+  0.3522744717469767,
+  0.5353541613221299
+ ],
+ "n_pixeles": 8908,
+ "n_bloques": 145,
+ "cumple": true,
+ "p_desplazamientos": 0.158,
+ "rho_nulo_p95": 0.6075959160651924
+}

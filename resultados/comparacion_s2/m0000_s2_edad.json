@@ -1,0 +1,14 @@
+{
+ "miembro": "runs/mecanismo/m0000",
+ "campo": "s2_edad",
+ "rho": 0.28566159329670293,
+ "ic95": [
+  0.17174563477527283,
+  0.3969847916012744
+ ],
+ "n_pixeles": 8908,
+ "n_bloques": 145,
+ "cumple": true,
+ "p_desplazamientos": 0.275,
+ "rho_nulo_p95": 0.6065273411136519
+}

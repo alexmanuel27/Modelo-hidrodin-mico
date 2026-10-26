@@ -9,7 +9,8 @@
                                                     + runs/conjunto/correr_array.sh
 Diseno: Saltelli (2002) con Sobol aleatorizado (scipy.stats.qmc): matrices A, B y AB_i -> N*(d+2) miembros;
 los indices de Sobol (Jansen) salen de las mismas corridas. Todos los miembros: marea EOT20 y rios de JICA 2004
-(2,14 m3/s) con densidad; los rios no son dimension del Sobol. Parametros (rangos acordados el 16-oct-2026):"""
+(2,14 m3/s) x qfac, con densidad. 120 dias por miembro, metricas en los ultimos 30 (26-oct: con densidad la edad se
+estabiliza en ~30 d; margen para caudales bajos). Parametros (rangos acordados el 16-oct-2026; qfac el 26-oct):"""
 import csv, os, subprocess, sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -19,8 +20,8 @@ from scipy.stats import qmc
 RAIZ = Path(__file__).resolve().parent.parent
 DISENO = RAIZ / "datos" / "conjunto" / "diseno.csv"
 RUNS = RAIZ / os.environ.get("CONJ_DIR", "runs/conjunto")     # p. ej. CONJ_DIR=runs/largo CONJ_DIAS=365
-DIAS, SALIDA_H, NUCLEOS = int(os.environ.get("CONJ_DIAS", 90)), 4, 4
-SEG = min(DIAS, int(os.environ.get("CONJ_SEG", 73)))   # dias por tramo de Slurm (hotstart entre tramos); 73 d midieron 2,4-7,1 h -> se piden 10 h
+DIAS, SALIDA_H, NUCLEOS = int(os.environ.get("CONJ_DIAS", 120)), 4, 4
+SEG = min(DIAS, int(os.environ.get("CONJ_SEG", 60)))   # dias por tramo de Slurm (hotstart entre tramos); 73 d midieron 2,4-7,1 h
 ESCRIBAS = 3                                 # SCHISM exige >= 1 scribe por variable 3D de salida (AGE_1 + salinidad + ...)
 GUARDAR = (0, 1, 2)                           # miembros que conservan los campos completos (figuras); el resto solo resumen.*
 SEMILLA_DISENO = 20261016
@@ -35,6 +36,7 @@ PARAM = [
     ("vfac",    lambda u: 0.8 + 0.4 * u),                              # fuerza del viento x0,8-1,2
     ("vrot",    lambda u: -15 + 30 * u),                               # direccion del viento +-15 grados
     ("mfac",    lambda u: 0.9 + 0.2 * u),                              # amplitud de la marea x0,9-1,1
+    ("qfac",    lambda u: float(np.exp(np.log(0.25) + u * np.log(8)))),   # caudal de los rios x0,25-2 (JICA 2004), log-uniforme
 ]
 __doc__ += "\n" + "\n".join(f"  {n}" for n, _ in PARAM)
 
@@ -77,7 +79,7 @@ def uno(fila):
     if (run / "param.nml").exists(): return m, "ya"
     env = {**os.environ, "RUNDIR": str(run), "CASO": f"c{m:04d}", "CARTA": fila["carta"], "ALFA": fila["alfa"],
            "SEMILLA": fila["semilla"], "DATUM": fila["datum"], "CD": fila["cd"], "VFAC": fila["vfac"],
-           "VROT": fila["vrot"], "MFAC": fila["mfac"], "SALIDA_H": str(SALIDA_H),
+           "VROT": fila["vrot"], "MFAC": fila["mfac"], "QFAC": fila["qfac"], "SALIDA_H": str(SALIDA_H),
            "MAREA": "eot20", "RIOS": "1", **fila.get("extra", {})}   # conjunto: EOT20 (CC BY) + rios JICA y densidad (21-oct, Alex)
     r = subprocess.run([sys.executable, str(RAIZ / "scripts" / "caso_real.py"), str(DIAS)], env=env, capture_output=True, text=True)
     if r.returncode: (run.parent / f"error_m{m:04d}.txt").write_text(r.stdout + r.stderr); return m, "ERROR"
@@ -86,7 +88,7 @@ def uno(fila):
 
 
 # Experimentos de mecanismo: un miembro central, marea EOT20; se anade un proceso cada vez
-BASE = dict(carta="1887", alfa="0.5", semilla="-1", datum="0.25", cd="0.0025", vfac="1", vrot="0", mfac="1")
+BASE = dict(carta="1887", alfa="0.5", semilla="-1", datum="0.25", cd="0.0025", vfac="1", vrot="0", mfac="1", qfac="1")
 MECANISMO = [("solo marea", {"NWS": "0", "RIOS": "0"}), ("marea + viento", {"NWS": "2", "RIOS": "0"}),
              ("marea + viento + rios y densidad", {"NWS": "2", "RIOS": "1"})]
 
