@@ -20,7 +20,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 DISENO = RAIZ / "datos" / "conjunto" / "diseno.csv"
 RUNS = RAIZ / os.environ.get("CONJ_DIR", "runs/conjunto")     # p. ej. CONJ_DIR=runs/largo CONJ_DIAS=365
 DIAS, SALIDA_H, NUCLEOS = int(os.environ.get("CONJ_DIAS", 90)), 4, 4
-SEG = min(DIAS, int(os.environ.get("CONJ_SEG", 73)))   # dias por tramo de Slurm (hotstart entre tramos): trabajos cortos entran antes en la cola          # 90 d (>3x renovacion de 23 d); salidas cada 4 h (incluye las 16 UTC de Sentinel-2); 4 nucleos + 3 scribes
+SEG = min(DIAS, int(os.environ.get("CONJ_SEG", 73)))   # dias por tramo de Slurm (hotstart entre tramos); 73 d midieron 2,4-7,1 h -> se piden 10 h
 ESCRIBAS = 3                                 # SCHISM exige >= 1 scribe por variable 3D de salida (AGE_1 + salinidad + ...)
 GUARDAR = (0, 1, 2)                           # miembros que conservan los campos completos (figuras); el resto solo resumen.*
 SEMILLA_DISENO = 20261016
@@ -110,7 +110,7 @@ def generar(J, solo=None, filas=None):
 #   ssh lemaitre4 'bash -lc "cd bahia/{RUNS.relative_to(RAIZ)} && bash lanzar.sh"'        (prueba: bash lanzar.sh 0-1)
 #SBATCH --job-name=bahia_conj
 #SBATCH --ntasks={NUCLEOS + ESCRIBAS}
-#SBATCH --time={int(np.ceil(SEG / 90 * 6.5)) + 2:02d}:00:00
+#SBATCH --time={int(np.ceil(SEG / 73 * 7.5)) + 2:02d}:00:00
 #SBATCH --mem-per-cpu=4000
 #SBATCH --output=slurm_%A_%a.out
 set -eo pipefail
