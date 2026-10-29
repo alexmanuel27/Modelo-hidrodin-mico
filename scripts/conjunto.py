@@ -134,7 +134,7 @@ DT={caso_dt()}; TOTAL={DIAS}; SEG={SEG}; PASOS_SEG=$(( SEG * 86400 / ${{DT%.*}} 
 IT=$(ls outputs/hotstart_000000_*.nc 2>/dev/null | sed 's/.*_\\([0-9]*\\)\\.nc/\\1/' | sort -n | tail -1 || true)
 if [ -n "$IT" ]; then
   (cd outputs && $HOME/schism/build/bin/combine_hotstart7 -i $IT > combine.log 2>&1) && mv "outputs/hotstart_it=$IT.nc" hotstart.nc
-  rm -f outputs/hotstart_0*_*.nc; IHOT=2; HECHOS=$(( IT * ${{DT%.*}} / 86400 ))
+  IHOT=2; HECHOS=$(( IT * ${{DT%.*}} / 86400 ))
 else
   IHOT=0; HECHOS=0
 fi
@@ -148,6 +148,9 @@ grep -q "Run completed successfully" outputs/mirror.out && OK=si || OK=no
 T=$(( $(date +%s) - START ))
 echo "$SLURM_ARRAY_TASK_ID $SLURM_CLUSTER_NAME tramo=$HECHOS-$FIN segundos=$T completo=$OK" >> ../coste.txt
 [ $OK = si ] || exit 1                                   # corta la cadena de este miembro
+# el hotstart por rango del tramo anterior se borra solo ahora: si el tramo muere a medias, el siguiente intento lo
+# vuelve a combinar (shortcut: un tramo muerto mientras escribe su propio hotstart dejaria uno parcial; no visto)
+[ -n "$IT" ] && find outputs -maxdepth 1 -name "hotstart_0*_${{IT}}.nc" -delete
 [ $FIN -lt $TOTAL ] && exit 0                            # quedan tramos
 # ultimo tramo: posproceso (numpy + netCDF4) y, si salio bien, borrar los campos completos
 P=no
