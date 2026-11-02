@@ -111,7 +111,7 @@ def generar(J, solo=None, filas=None):
         for k, (m, est) in enumerate(ex.map(uno, filas)):
             if est == "ERROR" or k % 50 == 0: print(f"m{m:04d}: {est}  ({k + 1}/{len(filas)})", flush=True)
     n = len(filas)
-    K = int(np.ceil(DIAS / SEG)); conc = int(os.environ.get("CONJ_SIMULTANEOS", 60))   # mas de ~60 a la vez no aumenta el ritmo total y alarga cada tramo (diag 2-nov)
+    K = int(np.ceil(DIAS / SEG)); conc = int(os.environ.get("CONJ_SIMULTANEOS", 25))   # por array (tramo); con 2-3 tramos activos a la vez son ~50-75: mas de ~60 no aumenta el ritmo y alarga cada tramo (diag 2-nov)
     (RUNS / "correr_array.sh").write_text(f"""#!/bin/bash -l
 # Lemaitre4. Un tramo de {SEG} d por trabajo; lanzar.sh encadena los {K} tramos (cada miembro sigue a su propio tramo
 # anterior con --dependency=aftercorr). Desde la raiz del repo en el Mac:
