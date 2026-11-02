@@ -111,7 +111,7 @@ def generar(J, solo=None, filas=None):
         for k, (m, est) in enumerate(ex.map(uno, filas)):
             if est == "ERROR" or k % 50 == 0: print(f"m{m:04d}: {est}  ({k + 1}/{len(filas)})", flush=True)
     n = len(filas)
-    K = int(np.ceil(DIAS / SEG)); conc = 4096 // (NUCLEOS + ESCRIBAS)
+    K = int(np.ceil(DIAS / SEG)); conc = int(os.environ.get("CONJ_SIMULTANEOS", 60))   # mas de ~60 a la vez no aumenta el ritmo total y alarga cada tramo (diag 2-nov)
     (RUNS / "correr_array.sh").write_text(f"""#!/bin/bash -l
 # Lemaitre4. Un tramo de {SEG} d por trabajo; lanzar.sh encadena los {K} tramos (cada miembro sigue a su propio tramo
 # anterior con --dependency=aftercorr). Desde la raiz del repo en el Mac:
@@ -119,6 +119,7 @@ def generar(J, solo=None, filas=None):
 #   ssh lemaitre4 'bash -lc "cd bahia/{RUNS.relative_to(RAIZ)} && bash lanzar.sh"'        (prueba: bash lanzar.sh 0-1)
 #SBATCH --job-name=bahia_conj
 #SBATCH --ntasks={NUCLEOS + ESCRIBAS}
+#SBATCH --nodes=1
 #SBATCH --time={int(np.ceil(SEG * H_POR_DIA)) + 1:02d}:00:00
 #SBATCH --mem-per-cpu=4000
 #SBATCH --output=slurm_%A_%a.out
