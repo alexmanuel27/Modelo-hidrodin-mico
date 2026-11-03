@@ -100,6 +100,35 @@ ROBUSTEZ = [("base (rios JICA, densidad por salinidad)", {}), ("+ flujo de calor
             ("difusividad minima x10 (1e-5)", {"DIFFMIN": "1e-5"})]
 
 
+TRABAJADOR = r"""#!/bin/bash -l
+#SBATCH --ntasks=7
+#SBATCH --nodes=1
+#SBATCH --time=@HORAS@:00:00
+#SBATCH --mem-per-cpu=4000
+#SBATCH --output=trabajadores/%x_%j.out
+# Avanza los miembros de su carril (m % NCARRILES == CARRIL) tramo a tramo con correr_array.sh, hasta que no quepa
+# otro tramo en el tiempo que le queda. Lo lanza lanzar_trabajadores.sh. Un miembro que falla 4 veces se aparta
+# (fichero FALLOS) para no repetir sin fin.
+cd "$SLURM_SUBMIT_DIR"; mkdir -p trabajadores
+FIN_TRABAJO=$(( $(date +%s) + @HORAS@ * 3600 - 300 ))
+PEND=""
+for d in m[0-9]*; do
+  i=$((10#${d#m}))
+  [ $((i % NCARRILES)) -eq "$CARRIL" ] && [ ! -f "$d/HECHO" ] && [ "$(cat "$d/FALLOS" 2>/dev/null || echo 0)" -lt 4 ] && PEND="$PEND $d"
+done
+[ -z "$PEND" ] && { echo "carril $CARRIL: nada pendiente"; exit 0; }
+sbatch --job-name="$SLURM_JOB_NAME" --dependency=afterany:"$SLURM_JOB_ID" --export=ALL,CARRIL="$CARRIL",NCARRILES="$NCARRILES" trabajador.sh
+for d in $PEND; do
+  while [ ! -f "$d/HECHO" ]; do
+    [ $(( FIN_TRABAJO - $(date +%s) )) -lt $(( @MARGEN@ * 3600 )) ] && { echo "sin tiempo para otro tramo"; exit 0; }
+    if ! SLURM_ARRAY_TASK_ID=$((10#${d#m})) bash correr_array.sh; then
+      echo $(( $(cat "$d/FALLOS" 2>/dev/null || echo 0) + 1 )) > "$d/FALLOS"; break
+    fi
+  done
+done
+"""
+
+
 def caso_dt():
     import re
     return re.search(r"^DT = ([0-9.]+)", (RAIZ / "scripts" / "caso_real.py").read_text(), re.M).group(1)
@@ -168,6 +197,20 @@ J=$(sbatch --parsable --array=$R%{conc} correr_array.sh); echo "tramo 1: $J"
 for k in $(seq 2 {K}); do
   J=$(sbatch --parsable --array=$R%{conc} --dependency=aftercorr:$J --kill-on-invalid-dep=yes correr_array.sh); echo "tramo $k: $J"
 done
+""")
+    # Trabajadores (3-nov): con cientos de miembros, la cadena de arrays con aftercorr se atasca (Slurm separa las tareas
+    # en orden de indice y una tarea cuya dependencia no se cumple bloquea a las demas). En su lugar, CARRILES trabajos
+    # fijos: cada uno avanza sus miembros (m % CARRILES == carril) tramo a tramo y deja en cola a su sucesor
+    # (afterany: sigue aunque este muera por tiempo). Maximo CARRILES miembros a la vez; un corte no arrastra a nadie.
+    (RUNS / "trabajador.sh").write_text(TRABAJADOR.replace("@HORAS@", str(int(np.ceil(SEG * H_POR_DIA)) + 1))
+                                         .replace("@MARGEN@", str(int(np.ceil(SEG * 0.2)))))   # empieza otro tramo si quedan >= 4 h (20 d: 1,5-3 h con <= 50 a la vez)
+    (RUNS / "lanzar_trabajadores.sh").write_text("""#!/bin/bash -l
+# Uso: bash lanzar_trabajadores.sh [carriles, por defecto 50]
+N=${1:-50}
+mkdir -p trabajadores
+for c in $(seq 0 $((N - 1))); do
+  sbatch --parsable --job-name=bahia_t$c --export=ALL,CARRIL=$c,NCARRILES=$N trabajador.sh
+done | wc -l | xargs echo trabajadores lanzados:
 """)
     print(f"listo: {n} casos en {RUNS}; lanzador {RUNS / 'correr_array.sh'}")
 
