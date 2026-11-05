@@ -1,0 +1,41 @@
+# Robustez de la circulación por densidad (5 experimentos, 120 d, 2016) — resultados
+
+Miembro central con ríos de JICA (2,14 m³/s) y densidad. Se cambia una cosa cada vez (`conjunto.py robustez`).
+Corridas en Lemaitre4 entre el 1 y el 4-nov-2026, en tramos de 10 d; ninguna con NaN.
+Figura: `docs/figuras/robustez.png`. Datos: `runs/robustez/m000{0..4}/resumen.*` (no versionados).
+
+## Edad media del agua (días, días 90–120)
+
+| Zona | Base | k-ε | 32 niveles | Difusividad ×10 | **+ flujo de calor** |
+|---|---|---|---|---|---|
+| Canal | 4,0 | 4,4 | 4,9 | 4,1 | **11,5** |
+| Cuenca | 6,7 | 7,0 | 7,5 | 6,7 | **17,9** |
+| Marimelena | 7,0 | 7,1 | 7,5 | 7,1 | **19,3** |
+| Guasabacoa | 7,6 | 8,0 | 8,7 | 7,6 | **18,1** |
+| Atarés | 8,8 | 9,4 | 10,0 | 8,8 | **19,5** |
+| **Bahía** | **6,6** | **6,9** | **7,5** | **6,6** | **16,8** |
+| Deriva al final (d/d) | +0,02 | +0,01 | +0,01 | +0,03 | **−0,10** (no estable) |
+| Canal: edad sup / fondo | 6,6 / 1,8 | 6,7 / 2,1 | 7,5 / 2,3 | 6,6 / 1,9 | 14,2 / 10,6 |
+
+## Lectura
+
+1. **Robusta frente a la turbulencia y la resolución vertical.** Con otro cierre (k-ε), con el doble de niveles o con
+   10 veces más mezcla de fondo, la edad de la bahía queda en 6,6–7,5 d. La firma estuarina del canal (superficie más
+   vieja que el fondo) se mantiene en todos. El orden de las zonas tampoco cambia.
+2. **Frágil frente al balance de calor.** Con el flujo de calor aire-mar de ERA5, la edad sube a 16,8 d (×2,5). Crece
+   hasta ~22 d hacia el día 90 y luego baja: no está en equilibrio. La diferencia entre superficie y fondo del canal casi
+   desaparece (14,2 / 10,6 d), así que la circulación estuarina se debilita.
+3. **Ojo, puede ser un artefacto de cómo está montado el experimento.** El borde abierto tiene la temperatura fija en
+   28 °C y no hay datos de temperatura del mar en el modelo. En enero–abril la atmósfera de ERA5 enfría la bahía somera
+   frente a un mar que se mantiene a 28 °C. El agua de la bahía se vuelve más densa y contrarresta la flotabilidad del
+   agua dulce. En la realidad el mar también se enfría en invierno (POR CONFIRMAR con datos de SST). La prueba honesta
+   pide una temperatura de borde y una inicial realistas: SST pública (NOAA OISST o ERA5).
+4. **Caudal bruto con 32 niveles: 90 m³/s frente a 70 en las demás.** No se explica por el prisma; POR CONFIRMAR antes de
+   usar la cifra.
+
+## Para el artículo
+
+- La renovación de ~1 semana es robusta a la turbulencia, a la resolución vertical y a la mezcla de fondo. Depende del
+  balance de densidad: con calor (y borde a 28 °C) se alarga a ~2–3 semanas. **Conclusión frágil**, que hay que contar
+  como tal.
+- El conjunto de 704 miembros no tiene flujo de calor. Sus conclusiones son condicionales a "densidad solo por salinidad".
