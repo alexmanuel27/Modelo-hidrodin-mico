@@ -1,0 +1,2 @@
+archivo	url	fecha_acceso_utc	bytes	sha256
+oisst_caja_2016.csv	https://coastwatch.pfeg.noaa.gov/erddap/griddap/ncdcOisst21Agg_LonPM180.csv?sst%5B(2015-12-31T12:00:00Z):1:(2017-01-01T12:00:00Z)%5D%5B(0.0)%5D%5B(23.125):1:(23.625)%5D%5B(-82.875):1:(-81.875)%5D	2026-11-05T17:12Z	252020	76f7c40f2d98edc4e61ee08d1420f8f6c1c1602bbcd520b756d097918c3bae5e
