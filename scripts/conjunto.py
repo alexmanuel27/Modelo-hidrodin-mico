@@ -97,7 +97,8 @@ MECANISMO = [("solo marea", {"NWS": "0", "RIOS": "0"}), ("marea + viento", {"NWS
 # shortcut: sin evaporacion/precipitacion (pide recompilar SCHISM con PREC_EVAP); E - P neta ~0,1 m3/s, ~5 % de los rios.
 ROBUSTEZ = [("base (rios JICA, densidad por salinidad)", {}), ("+ flujo de calor ERA5", {"CALOR": "1"}),
             ("cierre k-epsilon", {"TURB": "KE"}), ("32 niveles verticales", {"NIVELES": "32"}),
-            ("difusividad minima x10 (1e-5)", {"DIFFMIN": "1e-5"})]
+            ("difusividad minima x10 (1e-5)", {"DIFFMIN": "1e-5"}),
+            ("+ flujo de calor con SST OISST en borde e inicio", {"CALOR": "1", "SST": "oisst"})]   # 5-nov: borde a 28 C fijo era sospechoso
 
 
 TRABAJADOR = r"""#!/bin/bash -l
@@ -228,7 +229,7 @@ if __name__ == "__main__":
     elif accion == "robustez":      # CONJ_DIR=runs/robustez CONJ_DIAS=120 CONJ_SEG=20 python scripts/conjunto.py robustez
         filas = [dict(BASE, miembro=str(k), extra=e) for k, (_, e) in enumerate(ROBUSTEZ)]
         for k, (nom, _) in enumerate(ROBUSTEZ): print(f"m{k:04d}: {nom}")
-        generar(5, filas=filas)
+        generar(6, filas=filas)
     elif accion == "generar":
         generar(int(sys.argv[2]) if len(sys.argv) > 2 else 6,
                 [int(m) for m in sys.argv[3].split(",")] if len(sys.argv) > 3 else None)

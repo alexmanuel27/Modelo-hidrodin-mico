@@ -11,7 +11,8 @@ Uso:  python scripts/caso_real.py [dias]            (por defecto 2)
                  MFAC (x amplitud de marea, 1), SALIDA_H (horas entre salidas, 1), RUNDIR (carpeta del caso),
                  RIOS (1 = rios + modelo baroclinico por salinidad; 0), QFAC (x caudal de los rios, 1),
                  pruebas de robustez: CALOR (1 = flujo de calor aire-mar ERA5, ihconsv=1; 0), TURB (cierre GLS: KL | KE),
-                 NIVELES (niveles S, 16), DIFFMIN (difusividad vertical minima m2/s, 1e-6)
+                 NIVELES (niveles S, 16), DIFFMIN (difusividad vertical minima m2/s, 1e-6),
+                 SST (oisst = T del borde e inicial con la SST diaria de NOAA OISST, scripts/descargar_sst.sh; si no, 28 C)
       Mac:   bash runs/real_<CASO>/correr.sh
       CECI:  ver runs/real_<CASO>/correr_slurm.sh
 Requiere numpy, scipy y, con MAREA=fes/eot20, pyTMD (correcciones nodales; pip install pyTMD), y datos/batimetria/superficies/*.nc (07) + datos/malla/hgrid.{gr3,ll} (09).
@@ -50,6 +51,7 @@ FES = MODELOS_MAREA.get(MAREA)                   # archivo de armonicos del mode
 RIOS, QFAC = int(os.environ.get("RIOS", 0)), float(os.environ.get("QFAC", 1))
 CALOR, TURB = int(os.environ.get("CALOR", 0)), os.environ.get("TURB", "KL")
 DIFFMIN = float(os.environ.get("DIFFMIN", 1e-6))
+SST = os.environ.get("SST", "")
 # Caudales medios (m3/s) de JICA 2004, Informe final vol. IV, tabla 1.1 (datos CIMAB, ago-2002; no hay aforos permanentes):
 # Luyano 114 860, Martin Perez 62 105, Tadeo 8 004 m3/d. https://openjicareport.jica.go.jp/pdf/11767225.pdf
 Q_RIOS = {"luyano": 114860 / 86400, "martin perez": 62105 / 86400, "tadeo": 8004 / 86400}
@@ -166,8 +168,20 @@ def main():
     (RUN / "vgrid.in").write_text(
         f"2 !ivcor\n{NV} 1 {H_TOPE + 10:.1f} !nvrt, kz, h_s\nZ levels\n1 -{H_TOPE + 10:.1f}\nS levels\n5. 0. 1.e-4 !h_c, theta_b, theta_f\n"
         + "".join(f"{k+1} {-1 + k / (NV - 1):.4f}\n" for k in range(NV)))
-    (RUN / "ts.ic").write_text(f"2\n1 -{H_TOPE + 10:.0f}. 28. 36.\n2 0. 28. 36.\n")
+    T0 = 28.0
     TS, TS_BORDE = ("2 2", "28.\n1.\n36.\n1.\n") if RIOS else ("0 0", "")   # T, S constantes (28 C, 36) en el borde
+    if RIOS and SST == "oisst":   # T del borde = SST diaria OISST (TEM_1.th, uniforme en el borde); T inicial = la del dia 0
+        import csv as _csv
+        filas = list(_csv.DictReader(open(RAIZ / "datos" / "forzamiento" / "sst" / "oisst_habana.csv")))
+        t0 = np.datetime64(f"{INICIO[0]:04d}-{INICIO[1]:02d}-{INICIO[2]:02d}")
+        serie = [((np.datetime64(f["fecha"]) - t0).astype(int), float(f["sst_C"])) for f in filas]
+        serie = [(d, v) for d, v in serie if 0 <= d <= RNDAY + 1]
+        assert len(serie) >= RNDAY + 1 and serie[0][0] == 0, "faltan dias de SST: python scripts/descargar_sst.sh"
+        T0 = serie[0][1]
+        (RUN / "TEM_1.th").write_text("".join(f"{d * 86400.0:.1f} {v:.3f}\n" for d, v in serie))
+        TS, TS_BORDE = "1 2", "1.\n36.\n1.\n"
+        print(f"SST OISST en el borde: {min(v for _, v in serie):.2f}-{max(v for _, v in serie):.2f} C, inicial {T0:.2f} C")
+    (RUN / "ts.ic").write_text(f"2\n1 -{H_TOPE + 10:.0f}. {T0:.2f} 36.\n2 0. {T0:.2f} 36.\n")
     if RIOS:
         rio = desembocaduras(xy, tri, malla.en_bahia(xy))
         for nom, e, d in rio: print(f"rio {nom}: elemento {e + 1}, {Q_RIOS[nom] * QFAC:.2f} m3/s, a {d:.0f} m del cauce OSM")
