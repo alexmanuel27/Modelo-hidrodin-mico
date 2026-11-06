@@ -33,7 +33,7 @@ Figura: `docs/figuras/robustez.png`. Datos: `runs/robustez/m000{0..4}/resumen.*`
 4. **Caudal bruto con 32 niveles: 90 m³/s frente a 70 en las demás.** No se explica por el prisma. Análisis de la serie Q guardada (6-nov, `resumen.npz`, muestreo cada 4 h, últimos 30 d, 180 instantes):
    la diferencia viene de 7 instantes con |Q| > 300 m³/s (máx. 932; la base tiene 2 y máx. 370). Sin ellos la media es 72 frente a 67 m³/s.
    La correlación entre las series de Q de ambas corridas es solo 0,37 pese a tener el mismo forzamiento. No sabemos si los picos son
-   físicos o numéricos (POR CONFIRMAR con `out2d` de los días ~91, 106 y 112 en el cluster). Hasta entonces, no usar la cifra de 90 m³/s.
+   físicos o numéricos (POR CONFIRMAR con `scripts/diag_caudal.py`, que lee `out2d`). Ojo: solo conservan `out2d` los miembros de `GUARDAR` (0, 1, 2); m0003 (32 niveles) no, así que habría que repetirlo conservando los campos. Hasta entonces, no usar la cifra de 90 m³/s.
 
 ## Para el artículo
 
