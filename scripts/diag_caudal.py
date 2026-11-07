@@ -70,7 +70,7 @@ def carga(dirm, dias):
             t.append(np.asarray(d["time"][:], float)); eta.append(np.asarray(d["elevation"][:], np.float32))
             u.append(np.asarray(d["depthAverageVelX"][:], np.float32)); v.append(np.asarray(d["depthAverageVelY"][:], np.float32))
             prof = np.asarray(d["depth"][:])
-    if not t: sys.exit(f"No hay out2d_*.nc en {out}: el miembro no esta en GUARDAR (conjunto.py) y se borraron al terminar.")
+    if not t: sys.exit(f"No hay out2d_*.nc en {out}. En m0000_hf: el trabajo hf_caudal.sh no se lanzo, sigue en cola o fallo. En un miembro normal: no esta en GUARDAR (conjunto.py) y se borraron al terminar.")
     return np.concatenate(t), np.concatenate(eta), np.concatenate(u), np.concatenate(v), prof
 
 
