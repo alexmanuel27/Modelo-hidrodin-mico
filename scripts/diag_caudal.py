@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Diagnostico (solo lectura) de los picos de caudal bruto por la seccion del canal. numpy + netCDF4.
 Uso: python diag_caudal.py <carpeta del miembro> [N_picos=8] [malla.npz]
+     python diag_caudal.py --hf <carpeta con out2d cada ~10 min>   (espectro de Q y efecto del muestreo de 4 h; ver cluster/hf_caudal.sh)
      python diag_caudal.py --prueba
 Toma de <miembro>/resumen.npz los N instantes con mayor |Q| de los ultimos 30 d, relee out2d de esos dias y de los
 vecinos (necesita outputs/out2d_*.nc: solo los miembros en GUARDAR de conjunto.py los conservan) y, por instante, dice:
@@ -15,10 +16,7 @@ RIO = 2.14   # m3/s que entran por los rios (JICA 2004); el resto del cambio de 
 
 def analiza(t, eta, u, v, prof, M, js):
     """t (s), eta/u/v (tiempo, nodo), prof (nodo). js = indices de t a diagnosticar. Devuelve una lista de dicts."""
-    H = np.maximum(prof[None] + eta, 0.0); i, wt = M["sec_i"], M["sec_w"]
-    un = u * M["sec_dir"][0] + v * M["sec_dir"][1]                                   # velocidad normal, > 0 hacia dentro
-    Qp = (un[:, i] * wt[None]).sum(2) * (H[:, i] * wt[None]).sum(2) * float(M["sec_dn"]); Q = Qp.sum(1)
-    bahia = M["zona"] > 0; V = (H[:, bahia] * M["area"][bahia][None]).sum(1)
+    i = M["sec_i"]; Qp, un, Q, V, H = serie(t, eta, u, v, prof, M)
     dt = np.diff(t); dVdt = np.where(dt <= 5 * 3600, np.diff(V) / np.where(dt > 0, dt, 1) - RIO, np.nan)   # j -> j+1
     nodos = np.unique(i); res = []
     for j in js:
@@ -31,9 +29,40 @@ def analiza(t, eta, u, v, prof, M, js):
     return res
 
 
+def espectro(t, Q):
+    """Q (m3/s) a paso constante. Devuelve (picos, bandas, media|Q| completa, (min, media, max) de media|Q| con muestreo de 4 h y todas las fases)."""
+    dt = float(np.median(np.diff(t))); n = len(Q); f = np.fft.rfftfreq(n, dt)
+    P = np.abs(np.fft.rfft((Q - Q.mean()) * np.hanning(n))) ** 2; per = np.where(f > 0, 1 / np.where(f > 0, f, 1) / 3600, np.inf)
+    k = [x for x in range(1, len(P) - 1) if P[x] > P[x - 1] and P[x] > P[x + 1]]; k = sorted(k, key=lambda x: -P[x])[:3]
+    picos = [(float(per[x]), float(P[x] / P[1:].sum())) for x in k]
+    bandas = {nom: float(P[(per >= a) & (per < b)].sum() / P[1:].sum()) for nom, a, b in (("<2 h", 0, 2), ("2-8 h", 2, 8), ("8-16 h", 8, 16), (">16 h", 16, 1e9))}
+    paso = max(1, int(round(4 * 3600 / dt))); m = [np.abs(Q[o::paso]).mean() for o in range(paso)]
+    return picos, bandas, float(np.abs(Q).mean()), (min(m), float(np.mean(m)), max(m))
+
+
+def main_hf(dirm, malla=None):
+    M = dict(np.load(malla or Path(__file__).resolve().parent.parent / "datos" / "conjunto" / "posproceso_malla.npz"))
+    t, eta, u, v, prof = carga(dirm, None); Q = serie(t, eta, u, v, prof, M)[2]
+    picos, bandas, completa, (lo, med, hi) = espectro(t, Q)
+    print(f"{dirm}: {len(t)} instantes cada {np.median(np.diff(t)) / 60:.0f} min, {np.ptp(t) / 86400:.1f} d")
+    print("picos del espectro de Q (periodo h, parte de la varianza): " + "; ".join(f"{p:.2f} h ({w:.0%})" for p, w in picos))
+    print("varianza por banda: " + ", ".join(f"{k}: {w:.0%}" for k, w in bandas.items()))
+    print(f"media |Q|: completa {completa:.1f}; con muestreo de 4 h segun la fase: min {lo:.1f}, media {med:.1f}, max {hi:.1f} m3/s")
+
+
+def serie(t, eta, u, v, prof, M):
+    """Q por punto de la seccion (tiempo, 33; > 0 hacia dentro), velocidad normal, Q total y volumen de la bahia."""
+    H = np.maximum(prof[None] + eta, 0.0); i, wt = M["sec_i"], M["sec_w"]
+    un = u * M["sec_dir"][0] + v * M["sec_dir"][1]
+    Qp = (un[:, i] * wt[None]).sum(2) * (H[:, i] * wt[None]).sum(2) * float(M["sec_dn"])
+    bahia = M["zona"] > 0
+    return Qp, un, Qp.sum(1), (H[:, bahia] * M["area"][bahia][None]).sum(1), H
+
+
 def carga(dirm, dias):
     from netCDF4 import Dataset
     out, t, eta, u, v = Path(dirm) / "outputs", [], [], [], []
+    if dias is None: dias = [int(f.stem.split("_")[-1]) for f in out.glob("out2d_*.nc")]
     for n in sorted(dias):
         f = out / f"out2d_{n}.nc"
         if not f.exists(): continue
@@ -68,9 +97,13 @@ def prueba():
     k = int(M["sec_i"][5, 0]); u[3, k] *= 20; v[3, k] *= 20                                                       # pico en un nodo, un instante
     r = analiza(t, eta, u, v, prof, M, [3])[0]
     assert r["nodo"] == k + 1 and r["Q"] > 400 and r["cociente"] > 100 and abs(r["un_vecinos"][0] - 0.1) < 1e-6 and abs(r["un_vecinos"][1] - 2.0) < 1e-6, r
+    tt = np.arange(0, 48 * 3600, 600.0)                                                  # Q sintetico: marea M2 + oscilacion de 55 min
+    pk, _, comp, (lo, med, hi) = espectro(tt, 100 * np.sin(2 * np.pi * tt / (12.42 * 3600)) + 150 * np.sin(2 * np.pi * tt / 3300))
+    assert abs(pk[0][0] - 0.92) < 0.08 and any(abs(p - 12.4) < 1.6 for p, _ in pk) and hi / lo > 1.15, (pk, lo, med, hi)
     print("prueba ok")
 
 
 if __name__ == "__main__":
     if sys.argv[1] == "--prueba": prueba()
+    elif sys.argv[1] == "--hf": main_hf(sys.argv[2], sys.argv[3] if len(sys.argv) > 3 else None)
     else: main(sys.argv[1], int(sys.argv[2]) if len(sys.argv) > 2 else 8, sys.argv[3] if len(sys.argv) > 3 else None)
