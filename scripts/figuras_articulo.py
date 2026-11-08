@@ -209,34 +209,39 @@ def fig2():
     guarda(fig, "fig02_bathymetry")
 
 
+def cuadrado(l):
+    """Límites (x0, x1, y0, y1) ampliados al cuadrado del mismo centro: paneles de igual tamaño con aspecto 1."""
+    cx, cy, r = (l[0] + l[1]) / 2, (l[2] + l[3]) / 2, max(l[1] - l[0], l[3] - l[2]) / 2
+    return cx - r, cx + r, cy - r, cy + r
+
+
 def fig3():
     """Malla: dominio completo con profundidad, borde abierto y esponja; bahía; detalle del canal."""
     costa = costa_km()
     x, y, d, el, ab = hgrid(RAIZ / "runs" / "robustez" / "m0000" / "hgrid.gr3")
     xk, yk = x / 1000, y / 1000
     dist = np.min(np.hypot(x[:, None] - x[ab][None], y[:, None] - y[ab][None]), axis=1)
-    fig = plt.figure(figsize=(ANCHO, ANCHO * 0.52), constrained_layout=True)
-    gs = fig.add_gridspec(1, 3, width_ratios=[1.25, 1, 0.75])
-    a = fig.add_subplot(gs[0]); fondo(a, costa)
+    fig, (a, b, e) = plt.subplots(1, 3, figsize=(ANCHO, ANCHO * 0.44), constrained_layout=True)
+    bahia, det = cuadrado(BAHIA), (361.35, 361.95, 2559.85, 2560.45)
+    fondo(a, costa)
     tp = a.tripcolor(xk, yk, el, np.clip(d, 0.5, 200), norm=LogNorm(0.5, 200), cmap="viridis_r", shading="gouraud", zorder=1)
     a.triplot(xk, yk, el, color="k", lw=0.08, alpha=0.6, zorder=2)
     a.tricontour(xk, yk, el, dist, [1000], colors="r", linewidths=0.7, linestyles="--", zorder=3)
     a.plot(xk[ab], yk[ab], "r-", lw=1.4, zorder=4)
-    lim = (xk.min() - 0.2, xk.max() + 0.2, yk.min() - 0.2, yk.max() + 0.2)
-    ejes_km(a, lim); a.set_title(f"Model domain ({len(x)} nodes, {len(el)} elements)"); letra(a, "a")
-    a.add_patch(Rectangle((BAHIA[0], BAHIA[2]), BAHIA[1] - BAHIA[0], BAHIA[3] - BAHIA[2], fill=False, ec="w", lw=0.8, zorder=5))
+    ejes_km(a, cuadrado((xk.min() - 0.2, xk.max() + 0.2, yk.min() - 0.2, yk.max() + 0.2)))
+    a.set_title(f"Domain: {len(x)} nodes"); letra(a, "a")
+    a.add_patch(Rectangle((bahia[0], bahia[2]), bahia[1] - bahia[0], bahia[3] - bahia[2], fill=False, ec="w", lw=0.8, zorder=5))
     a.legend(handles=[Line2D([], [], color="r", lw=1.4, label="Open boundary (EOT20 tide)"),
                       Line2D([], [], color="r", lw=0.7, ls="--", label="Sponge layer limit (1 km)")], loc="lower left")
     c = fig.colorbar(tp, ax=a, shrink=0.8, location="bottom", pad=0.02); c.set_label("Model depth (m)")
-    b = fig.add_subplot(gs[1]); fondo(b, costa)
+    fondo(b, costa)
     b.tripcolor(xk, yk, el, np.clip(d, 0, 15), vmin=0, vmax=15, cmap="viridis_r", shading="gouraud", zorder=1)
     b.triplot(xk, yk, el, color="k", lw=0.12, alpha=0.7, zorder=2)
-    det = (361.35, 361.95, 2559.85, 2560.45)
     b.add_patch(Rectangle((det[0], det[2]), det[1] - det[0], det[3] - det[2], fill=False, ec="r", lw=0.8, zorder=5))
-    ejes_km(b, BAHIA, (True, False)); b.set_title("Bay: 40 m elements"); letra(b, "b"); escala(b)
-    c = fig.colorbar(plt.cm.ScalarMappable(norm=plt.Normalize(0, 15), cmap="viridis_r"), ax=b, shrink=0.8, location="bottom",
-                     pad=0.02, extend="max"); c.set_label("Model depth (m)")
-    e = fig.add_subplot(gs[2]); fondo(e, costa)
+    ejes_km(b, bahia, (True, False)); b.set_title("Bay: 40 m elements"); letra(b, "b"); escala(b)
+    c = fig.colorbar(plt.cm.ScalarMappable(norm=plt.Normalize(0, 15), cmap="viridis_r"), ax=[b, e], shrink=0.6, location="bottom",
+                     pad=0.02, extend="max"); c.set_label("Model depth (m), panels (b) and (c)")
+    fondo(e, costa)
     e.tripcolor(xk, yk, el, np.clip(d, 0, 15), vmin=0, vmax=15, cmap="viridis_r", shading="gouraud", zorder=1)
     e.triplot(xk, yk, el, color="k", lw=0.3, zorder=2)
     ejes_km(e, det, (True, False)); e.set_title("Entrance channel: 25 m"); letra(e, "c"); escala(e, 0.1)
