@@ -18,4 +18,4 @@
 
 SHA-256 checksums of every downloaded file: `datos/batimetria/fuentes/descargas.tsv`, `datos/marea/descargas.tsv`.
 
-Required attributions: "Contains modified Copernicus Climate Change Service information (2026)"; "Contains modified Copernicus Sentinel data (2016–2025)"; "© OpenStreetMap contributors, ODbL"; "GEBCO Compilation Group (2026) GEBCO 2026 Grid".
+Required attributions: "Contains modified Copernicus Climate Change Service information (2026)"; "Contains modified Copernicus Sentinel data [2017–2025]"; "© OpenStreetMap contributors, ODbL"; "GEBCO Compilation Group (2026) GEBCO 2026 Grid".

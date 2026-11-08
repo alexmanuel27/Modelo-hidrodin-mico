@@ -41,4 +41,4 @@ Para el chat del artículo: lo que el texto debe decir, con su fuente. No es pro
 - Procedencia de los datos (URL, fecha, licencia): `../procedencia_datos.md` y los `descargas.tsv` de `datos/`.
 - Bitácora completa: `../00_estado_y_plan.md`. **Este repo es la única fuente**: desde el 8-nov no se guarda nada en el Project de Claude (`claude/`); las copias que hay allí están congeladas y pueden estar viejas.
 - Figura 8 (destino del agua de cada río): protocolo en borrador, `../protocolo_trazadores_rios.md`.
-- **Histórico, no usar:** `../resumen_para_articulo.md` (2-oct) y `../nota_vault_2026-09-25.md`.
+- **Histórico, no usar:** `../historico/` (resúmenes viejos, cuerpo antiguo de la nota del vault y copia de lo que había en el Project de Claude, con su índice en `../historico/README.md`).

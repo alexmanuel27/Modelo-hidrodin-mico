@@ -420,7 +420,7 @@ profundas; repetir esta prueba con `ncor=1`; después, el 2D/3D base y el invent
 
 No hay cuadrícula moderna abierta. Fuentes encontradas y propuesta (carta U.S. H.O. de 1889
 georreferenciada + 1898 + canal a 12,8 m + calados de muelles + GEBCO, con incertidumbre 1–2 m
-fuera del canal como dimensión del conjunto): ver `docs/resumen_para_articulo.md`, sección 4.
+fuera del canal como dimensión del conjunto): ver `docs/historico/resumen_para_articulo.md`, sección 4.
 
 ## 18. Reorganización (2-oct): enfoque nuevo del artículo
 
@@ -618,3 +618,4 @@ Descargado (`datos/batimetria/fuentes/descargas.tsv` con URL, fecha y sha256):
 - **8-nov — tiempo de renovación del agua dulce** (`scripts/renovacion_dulce.py`, T_f = V_f/Q, últimos 30 d, Lemaitre4): robustez base 1,9 d (agua dulce media 1,16 %, superficie 2,45 %), k-ε 2,0 d, mecanismo m0002 (días 336–365) 1,8 d, flujo de calor con borde a 28 °C 4,2 d (2,54 %). La fracción de superficie coincide con `resumen.json`. Es la magnitud comparable al "tiempo de retención del agua dulce ≈ 4 meses" de JICA (p. R-7): ~60 veces menor. Prueba hf_caudal 8119903: SCHISM arrancó y cayó a los 3 min 20 s (POR CONFIRMAR la causa).
 - **8-nov — prueba de caudal cada 10 min, día 121 de la base** (8119903 se paró al acabar `vsource.th` en el día 121; corregido en 4ad6160): espectro de Q con pico a 12 h (69 % de la varianza), banda < 2 h 0 %, 8–16 h 88 % → **no hay oscilación de ~1 h** ese día; la hipótesis no se sostiene y los picos de las salidas de 4 h siguen sin explicar (intermitentes). Media de |Q| ese día 40,6 m³/s; con muestreo de 4 h, 34,5–46,8 según la fase (±15 %). Relanzado para 2 días (8120606).
 - **8-nov — decisiones de Alex:** (1) la figura 8 se mantiene, con un trazador por río (no partículas): borrador del protocolo en `docs/protocolo_trazadores_rios.md` (4 casos: central, caudal ×0,25 y ×2, calor con SST; conclusiones R1–R4; robusta si se cumple en los 4), pendiente de aprobación. (2) **No se guarda nada más en el Project de Claude (`claude/`)**: todo va a este repo. Dudas del chat del artículo respondidas: orientación verificada con centroides (Marimelena E 85°, Guasabacoa S 190°, Atarés SO 227° desde la cuenca).
+- **8-nov — Project de Claude vaciado** (decisión de Alex): lo que no estaba en el repo (estado del chat del artículo, su revisión del repo y los resúmenes del 13 y 17-oct) se archivó en `docs/historico/project_claude/`; el resto ya estaba en el repo (índice en `docs/historico/README.md`). Documentos superados movidos a `docs/historico/`. Atribución Sentinel-2 corregida a [2017–2025] (años de las escenas usadas, `datos/sentinel2/README.md`).
