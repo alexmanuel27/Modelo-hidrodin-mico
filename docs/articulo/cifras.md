@@ -115,7 +115,7 @@ Se informará según el protocolo congelado: C1–C7 y P(edad > 7/14/30 d) con s
 ### Avisos sobre el caudal por el canal — no usar como resultado
 
 - **Neto:** −6 a +7 m³/s cuando debería ser ≈ −2,1 → error de ±6 m³/s.
-- **Bruto (~70 m³/s):** sale de instantáneas cada 4 h de la velocidad promediada en vertical. Tiene picos de toda la sección de hasta 3–10 veces el cambio de volumen de la bahía (base: máx. 370 m³/s; 32 niveles: máx. 932, por eso da 90). Hipótesis en prueba: oscilación bahía–canal de ~1 h que el muestreo de 4 h ve a medias. Además, al promediar en vertical no ve la circulación estuarina. Hasta la prueba de alta frecuencia (`cluster/hf_caudal.sh`), tampoco usarlo para "el modelo reproduce el prisma".
+- **Bruto (~70 m³/s):** sale de instantáneas cada 4 h de la velocidad promediada en vertical. Tiene picos de toda la sección de hasta 3–10 veces el cambio de volumen de la bahía (base: máx. 370 m³/s; 32 niveles: máx. 932, por eso da 90). La hipótesis de una oscilación permanente de ~1 h **no se sostiene**: el día 121 con salida cada 10 min (`cluster/hf_caudal.sh`) no tiene varianza por debajo de 2 h (88 % semidiurna); los picos siguen sin explicar (intermitentes). Ese día, la media de |Q| muestreada cada 4 h varía ±15 % según la fase (34,5–46,8 frente a 40,6 m³/s). Además, al promediar en vertical no ve la circulación estuarina. Tampoco usarlo para "el modelo reproduce el prisma".
 
 ### Superado (no usar)
 

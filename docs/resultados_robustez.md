@@ -41,6 +41,9 @@ Figura: `docs/figuras/robustez.png`. Datos: `runs/robustez/m000{0..4}/resumen.*`
    solo ve en parte; entonces la media de |Q| depende del muestreo y no es una cifra robusta. Además Q usa la velocidad promediada en
    vertical, así que la circulación estuarina (superficie hacia fuera, fondo hacia dentro) se anula y el caudal bruto no mide ese
    intercambio. La sección está a mitad del canal: 0,26 km² de canal quedan del lado del mar y el diagnóstico los cuenta como bahía (~5 %).
+   8-nov, día 121 de la base con salida cada 10 min (`cluster/hf_caudal.sh`, `diag_caudal.py --hf`): sin oscilación de ~1 h
+   (varianza por debajo de 2 h: 0 %; 88 % en la banda semidiurna). La hipótesis no se sostiene ese día y los picos siguen sin
+   explicar. Muestrear cada 4 h cambia la media diaria de |Q| en ±15 % según la fase.
 
 ## Para el artículo
 
