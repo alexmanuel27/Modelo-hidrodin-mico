@@ -18,6 +18,8 @@ IT=103680; [ -e m0000/outputs/hotstart_000000_$IT.nc ] || { echo "falta el hotst
 mkdir m0000_hf m0000_hf/outputs
 rsync -a --exclude=outputs --exclude=sflux --exclude='resumen.*' --exclude=posproceso.log --exclude=HECHO --exclude='slurm_*' m0000/ m0000_hf/
 ln -s "$(readlink -f m0000/sflux)" m0000_hf/sflux
+# vsource.th y msource.th solo llegan al dia 121 (8119903 se paro ahi): se alarga el ultimo caudal hasta el dia 200
+for f in vsource.th msource.th; do tail -1 m0000_hf/$f | awk '{$1="17280000."; print}' >> m0000_hf/$f; done
 cd m0000_hf/outputs
 for r in 0 1 2 3; do ln -s ../../m0000/outputs/hotstart_00000${r}_$IT.nc .; done
 cp ../../m0000/outputs/flux.out .   # con ihot=2 SCHISM abre flux.out para añadir y falla si no existe (8109668)
