@@ -1,4 +1,4 @@
-# 5. Métodos
+# 5. Métodos (actualizado 7-nov-2026)
 
 ## 1. Batimetría desde cartas históricas y su incertidumbre
 
@@ -14,34 +14,32 @@
 
 ## 2. Modelo hidrodinámico
 
-- **SCHISM** (commit 09f407e8), 3D, con módulo AGE. Corregir en el texto: niveles **S** y no LSC²; borde con **esponja** y no Flather; partículas todavía sin implementar.
+- **SCHISM** (commit 09f407e8, el mismo en el Mac y en Lemaitre4), 3D, con módulo AGE. En el texto: niveles **S** (no LSC²) y borde con **esponja** (no Flather).
 - **Malla** (DistMesh, Persson y Strang 2004; `09_malla.py`): círculo de 5 km centrado en la boca; **4832 nodos y 8941 triángulos** (4001 nodos en la bahía); 25 m en el canal (~11 elementos a lo ancho), 40 m en la bahía, hasta 400 m mar afuera; ángulo mínimo 12,4°. Figura: `../../figuras/malla.png`.
-- **Vertical:** 16 niveles S. La profundidad se topa a 200 m (el talud llega a 1200 m y solo transmite la marea).
-- **Numérica:** dt = 100 s; turbulencia GLS (itur = 3); Coriolis activado; rozamiento de fondo Cd uniforme (dimensión del conjunto).
-- **Borde abierto:** arco de 33 nodos. Elevación armónica. Esponja de rozamiento (Cd → 0,05 a < 1 km del borde), viento que crece de 0 (a < 1 km del borde) a su valor pleno a 2 km, y sin advección de momento a < 800 m. Hay una corriente espuria en los nodos del borde (hasta ~1–4 m/s según la fricción), pero las cifras de la bahía no cambian con o sin esponja → va al material suplementario.
-- **Con ríos (experimentos de mecanismo):** modelo baroclínico por salinidad (T y S constantes en el borde: 28 °C, 36; sin flujo de calor).
+- **Vertical:** 16 niveles S; profundidad topada a 200 m (el talud llega a 1200 m y solo transmite la marea).
+- **Numérica:** dt = 100 s; turbulencia GLS k-kl (itur = 3); Coriolis; Cd de fondo uniforme (dimensión del conjunto).
+- **Borde abierto:** arco de 33 nodos; elevación armónica; esponja (Cd → 0,05 a < 1 km del borde), viento de 0 a < 1 km hasta pleno a 2 km, sin advección de momento a < 800 m. La corriente espuria del borde no cambia las cifras de la bahía (suplementario).
+- **Densidad en todos los miembros** (decisión 21-oct): baroclínico por salinidad. Ríos con S = 0; borde con S = 36 y T = 28 °C fijas; temperatura constante y **sin flujo de calor**; **sin evaporación ni precipitación** (SCHISM pide recompilar con PREC_EVAP). Esto se declara como límite y se prueba aparte (§6 bis).
 
 ## 3. Forzamiento
 
-- **Atmósfera:** ERA5 horario 2016–2025, dominio 22,8–23,5 N / 82,8–81,9 O (3 × 4 puntos útiles), 87 672 h sin huecos, convertido a `sflux`. Ventana de simulación: desde el 1-ene-2016.
-- **Marea:** 11 constituyentes de FES2022 o 9 de EOT20, interpoladas en complejo a los 33 nodos del borde, con factores nodales y argumento astronómico de pyTMD. Los dos modelos difieren menos de 0,4 cm en amplitud (figura `../../figuras/marea_fes_eot20.png`).
-- **Ríos:** Luyanó, Martín Pérez y Tadeo (2,14 m³ s⁻¹ en total), S = 0, entran como "agua nueva" para la edad.
+- **Atmósfera:** ERA5 horario 2016–2025, 22,8–23,5 N / 82,8–81,9 O, convertido a `sflux`. Todas las corridas empiezan el 1-ene-2016.
+- **Marea:** **EOT20** (9 constituyentes; CC BY, sin registro) en el conjunto, el mecanismo y la robustez. FES2022 (11 constituyentes) solo como comparación: difieren < 0,4 cm en amplitud (`../../figuras/marea_fes_eot20.png`). Factores nodales y argumento astronómico de pyTMD.
+- **Ríos:** Luyanó, Martín Pérez y Tadeo, 2,14 m³ s⁻¹ en total (JICA 2004) × factor del conjunto; S = 0; cuentan como agua nueva para la edad.
+- **SST (solo robustez):** NOAA OISST v2.1 diaria, media de 13 celdas de mar frente a la bahía; ene–abr 2016 24,5–27,9 °C. Entra como T del borde (serie diaria) y T inicial en el experimento de calor realista.
 
-## 4. Escalas de tiempo de transporte
+## 4. Escalas de tiempo de transporte y métricas (protocolo congelado 27-oct, `../../protocolo_metricas_conjunto.md`)
 
-- **Edad del agua** (módulo AGE; Deleersnijder et al. 2001): días desde que el agua salió del mar abierto (o de un río). Fuera de la bahía vale 0; dentro arranca en 0 el día 0. SCHISM escribe directamente la edad en días (α/C/86400).
-- **Salidas por miembro** (`posproceso.py`, cada 4 h, ventana de los últimos 30 d):
-  - edad media y p10/p50/p90 por zona;
-  - fracción del volumen con edad > 30 d;
-  - mapas de superficie y de fondo;
-  - caudal neto y bruto por una sección del canal (330 m);
-  - edad en superficie a las 16:00 UTC en la rejilla Sentinel-2 (252 × 238 celdas de 20 m).
+- **Edad del agua** (AGE; Deleersnijder et al. 2001): días desde que el agua salió del mar abierto o de un río; SCHISM escribe la edad en días.
+- **Salidas** cada 4 h; métricas en los **últimos 30 de los 120 d** (`posproceso.py`): edad media y p10/50/90 por zona; fracción del volumen con edad > **7, 14 y 30 d** (7 d ≈ edad con densidad en el miembro central; 14 d ≈ sicigias–cuadratura; 30 d = umbral del plan original, fijados antes de ver el conjunto); mapas de superficie y fondo; edad en superficie y fondo del canal; agua dulce en superficie (1 − S/36); campos a las 16:00 UTC en la rejilla Sentinel-2.
+- **Equilibrio:** deriva de la edad de la bahía ≤ 0,05 d/d en sus últimos 10 d; resultados con todos los miembros y aparte con los que están en equilibrio.
+- **Caudal por el canal:** se calcula, pero no es un resultado del artículo (avisos en `../cifras.md`).
 - **Zonas:** canal, cuenca, Marimelena, Guasabacoa, Atarés (`../../figuras/zonas.png`).
-- Pendiente: partículas por foco (fracción retenida a 30/60/90 d).
+- **Pendiente:** destino del agua de cada río (fig. 8): partículas o un trazador por río, sin decidir.
 
 ## 5. Diseño del conjunto y sensibilidad
 
-- **Saltelli** con Sobol aleatorizado (scipy), N = 64, d = 8 → **640 miembros**. Índices de Jansen de primer orden y totales. Autoprueba con Ishigami: recupera los índices exactos con error < 0,02.
+- **Saltelli** con Sobol aleatorizado (scipy), N = 64, **d = 9 → 704 miembros** (64 × 11), **120 d** cada uno. Índices de Jansen S1 y ST con IC bootstrap 95 %; autoprueba con Ishigami.
 
 | Parámetro | Rango |
 |---|---|
@@ -50,23 +48,30 @@
 | Realización del error de carta | semilla del campo aleatorio |
 | Datum | 0 a +0,5 m |
 | Cd | 0,001–0,005 (log-uniforme) |
-| Escala del viento | ×0,8–1,2 |
-| Dirección del viento | ±15° |
-| Amplitud de la marea | ×0,9–1,1 |
+| Escala del viento | × 0,8–1,2 |
+| Dirección del viento | ± 15° |
+| Amplitud de la marea | × 0,9–1,1 |
+| **Caudal de los ríos** | **× 0,25–2 (log-uniforme)** sobre 2,14 m³ s⁻¹ |
 
-- **Pendiente:** la duración de cada miembro. A 90 d la edad aún no está en equilibrio y la corrida de 1 año lo decidirá. También falta la convergencia de los índices por bootstrap.
+- **Duración:** con densidad la edad llega al equilibrio en ~30 d (experimento de mecanismo) → 120 d con la métrica en los últimos 30 y la deriva como control.
+- **Conclusiones que se ponen a prueba** (fijadas antes de ver el conjunto): C1 orden canal < cuenca < Guasabacoa < Atarés; C2 Atarés > canal; C3 Marimelena > cuenca; C4 Guasabacoa y Atarés > cuenca; C5 edad de la bahía < 30 d; C6 < 120 d (los "4 meses" de JICA); C7 en el canal, superficie más vieja que fondo; P(edad > 7/14/30 d); C8 parámetro con mayor ST (se informa, no se clasifica). **Robusta** ≥ 90 % de los miembros, **frágil** 10–90 %, **rechazada** ≤ 10 %.
+- Con N = 64 el error de los índices es ~0,1 en ST y ~0,2 en S1 → interpretar sobre todo ST.
 
-## 6. Experimentos de mecanismo
+## 6. Experimentos de mecanismo (hechos)
 
-Un miembro base, 1 año: (1) solo marea, (2) marea + viento, (3) marea + viento + ríos y densidad. El diseño está listo (`NWS`, `RIOS`, `QFAC`) y la prueba de 2 d con ríos corrió bien. Sin resultados todavía.
+Miembro central (carta 1887, α = 0,5, datum +0,25 m, Cd 0,0025), 1 año 2016, EOT20: (1) solo marea; (2) marea + viento; (3) marea + viento + ríos y densidad.
+
+## 6 bis. Robustez de la circulación por densidad (nuevo; hechos salvo uno)
+
+Miembro central con ríos, 120 d; se cambia una cosa cada vez: cierre k-ε; 32 niveles; difusividad mínima × 10; flujo de calor aire-mar de ERA5 (albedo 0,06, agua Jerlov 7) con el borde a 28 °C; y flujo de calor con la SST diaria de OISST en el borde y como T inicial (⏳ corriendo).
 
 ## 7. Cómputo
 
-CÉCI, Lemaitre4 (EPYC 9534, 4096 núcleos simultáneos por usuario, arrays de Slurm). Cada miembro usa 4 núcleos de cálculo + 2 de escritura: **2,7–3,9 h por 90 d simulados**; con ríos el coste es el mismo. El conjunto cabe en un array de ≤ 682 miembros simultáneos. Las horas de núcleo totales dependen de la duración final.
+Lemaitre4 (CÉCI). **7 núcleos por miembro** (4 de cálculo + 3 de escritura, porque la salinidad es una 3.ª salida 3D). **Tramos de 20 d** encadenados con hotstart (combinado con `combine_hotstart7`, `ihot = 2`); comprobado que reiniciar no cambia las métricas (0,01 %). Los miembros avanzan con ~50 "trabajadores" de Slurm en paralelo. Un tramo de 20 d tarda 0,65–9 h (mediana 1,6 h) según la carga. Posproceso dentro del trabajo; los campos completos se borran salvo 3 miembros. Horas-núcleo totales: ⏳ (~5·10⁴, estimación gruesa).
 
 ## 8. Evaluación sin observaciones locales
 
-- **(1) Control analítico:** el caudal de marea del modelo, 64–74 m³ s⁻¹, coincide con el del prisma, 66 m³ s⁻¹ ✅. La renovación es más lenta que en el control → discusión.
-- **(2) Insensibilidad al tratamiento del borde:** con y sin esponja, las cifras de la bahía no cambian ✅.
-- **(3) Dos modelos de marea independientes** coinciden en < 0,4 cm ✅.
-- **(4) Sentinel-2:** la edad en superficie a la hora del paso del satélite ya se genera. Falta compararla con la persistencia de las anomalías de turbidez.
+- **(1) Control analítico:** con solo marea el modelo coincide con el diagnóstico del prisma (excursión < canal → renovación mala) y lo supera (166 d frente a 24 d). La coincidencia de caudales del borrador queda en suspenso (avisos de caudal).
+- **(2) JICA 2004 ("≈ 4 meses"):** solo encaja con el modelo sin densidad (97–166 d). Con densidad, ~1 semana. Choque abierto → discusión.
+- **(3) Dos modelos de marea independientes** coinciden en < 0,4 cm ✅. **(4) Reinicio por tramos** no cambia las métricas ✅. **(5) Insensibilidad al borde** ✅.
+- **(6) Sentinel-2** (protocolo congelado 21-oct, control de desplazamientos registrado 26-oct): ρ = 0,45 en la prueba principal, pero no distinguible del azar espacial (p = 0,16). Sentinel-2 no valida el modelo más allá del gradiente boca → cabeceras.

@@ -1,3 +1,5 @@
+> **HISTÓRICO (2-oct-2026), superado.** Lo vigente para el artículo está en `docs/articulo/` (empezar por su `README.md`).
+
 # Resumen técnico para el chat del artículo (2-oct-2026)
 
 Lo que hay hecho en el repo de trabajo (`repos/Modelo-hidrodin-mico`) y lo que afecta al

@@ -1,6 +1,6 @@
 # Cifras del artículo: valor en el borrador, valor actual y de dónde sale
 
-Fuente de verdad de cada número que aparece (o aparecerá) en `publication plan/modelo-hidrodin-mico/articulo/main.tex`.
+**Actualizado el 7-nov-2026** (main.tex es del 17-oct). Fuente de verdad de cada número que aparece (o aparecerá) en `publication plan/modelo-hidrodin-mico/articulo/main.tex`.
 Al cambiar un resultado, se cambia aquí primero; al pasar el número al manuscrito, se marca ✅.
 
 Estado: ✅ final y ya en el manuscrito · 🔁 en el manuscrito pero desactualizado · ⏳ provisional (cambiará) · ➕ falta en el manuscrito
@@ -26,6 +26,9 @@ Estado: ✅ final y ya en el manuscrito · 🔁 en el manuscrito pero desactuali
 | GEBCO | `\todo{ref}` | GEBCO 2026 Grid (citar GEBCO Compilation Group 2026) |
 | Marea | FES2022 `\todo{ref}` | FES2022 (doi:10.24400/527896/A01-2024.004) **y EOT20** (Hart-Davis et al. 2021, doi:10.17882/79489, CC BY 4.0, sin registro) |
 | Descargas | "literature and Sentinel-2; flows as wide ranges" | **JICA 2004 (tabla 1.1)** para caudales; desembocaduras de OSM `waterway` |
+| Marea del conjunto | — | **solo EOT20** en el conjunto, mecanismo y robustez; FES2022 solo para comparar (no redistribuible) |
+| SST (solo robustez) | — | ➕ NOAA OISST v2.1 diaria (ERDDAP CoastWatch, dominio público), caja 23,125–23,625 N / 82,875–81,875 W, 13 celdas de mar; ene–abr 2016: 24,5–27,9 °C (`datos/forzamiento/sst/`) |
+| Sentinel-2 (evaluación) | `\todo{ref own Sentinel-2 study}` | ➕ entrega del estudio propio en `datos/sentinel2/` (persistencia de anomalías, máscara, focos) |
 
 ## Control analítico (sec. 4, tab. 2) — `scripts/prisma_marea.py` → `resultados/prisma_marea.csv`
 
@@ -44,29 +47,79 @@ Estado: ✅ final y ya en el manuscrito · 🔁 en el manuscrito pero desactuali
 
 Ojo: el mensaje de main.tex "la excursión es menor que la mitad del canal en todas las muestras" debe pasar a "shorter than the channel in all samples; ≤ 0.63 of its length in 95 %". Valores = mediana (P5–P95) del Monte Carlo, 21-oct-2026.
 
-## Métodos (sec. 5) — datos ya disponibles para quitar los `\todo`
+## Métodos (sec. 5)
 
-| Apartado | Cifra | Fuente |
-|---|---|---|
-| Batimetría | 1126 (1879) + 1514 (1887) sondeos; georreferencia RMS 18 m; registro 1898→1889 residuo mediano 1.2 m; datum incierto 0 a +0.5 m; campo aleatorio exponencial σ = 0.9 m, L = 150 m (variograma de 12 134 diferencias); estado de dragado α ∈ [0, 1] | `docs/00_estado_y_plan.md` §19 |
-| Malla | 4832 nodos, 8941 triángulos; 25 m en el canal (~11 elementos a lo ancho), 40 m en la bahía, ≤ 400 m fuera; ángulo mínimo 12.4°; dominio: círculo de 5 km centrado en la boca | `datos/malla/malla_resumen.json` |
-| Vertical | 16 niveles S (h_s = 210 m; profundidad del modelo topada a 200 m) — **no LSC²**: corregir el texto | `scripts/caso_real.py` |
-| Tiempo | dt = 100 s; turbulencia GLS (itur = 3); Coriolis activado | ídem |
-| Borde abierto | elevación armónica; esponja de fricción (Cd → 0.05) y sin viento a < 1 km del borde; sin advección de momento a < 800 m — **no Flather**: corregir | ídem |
-| Edad del agua | módulo AGE de SCHISM; agua nueva = mar abierto (y ríos en los experimentos con densidad) | ídem |
-| Conjunto | Saltelli, N = 64, d = 8 → 640 miembros; parámetros y rangos | `scripts/conjunto.py`, `datos/conjunto/diseno.csv` |
-| Análisis | Jansen S1 y ST, IC bootstrap 95 % (1000 remuestreos); distribuciones con bloques A y B (2N = 128); con N = 64 los S1 llevan IC ±0.2 → reportar ST | `scripts/analisis_conjunto.py` |
-| Cómputo | Lemaitre4 (CÉCI), 4 + 2 núcleos por miembro, 2.7–3.9 h por 90 días simulados | `cluster/`, `coste.txt` |
+En main.tex (17-oct): 🔁 = el texto tiene el valor viejo.
 
-## Resultados (sec. 6) — provisionales (2 miembros, M2 de prueba, sin ríos)
+| Apartado | Cifra actual | Fuente | main.tex |
+|---|---|---|---|
+| Batimetría | 1126 (1879) + 1514 (1887) sondeos; georreferencia RMS 18 m; registro 1898→1889 residuo mediano 1,2 m; datum incierto 0 a +0,5 m; campo aleatorio exponencial σ = 0,9 m, L = 150 m (variograma de 12 134 diferencias); estado de dragado α ∈ [0, 1] | `docs/00_estado_y_plan.md` §19 | |
+| Malla | 4832 nodos, 8941 triángulos; 25 m en el canal (~11 elementos a lo ancho), 40 m en la bahía, ≤ 400 m fuera; ángulo mínimo 12,4°; círculo de 5 km centrado en la boca | `datos/malla/malla_resumen.json` | |
+| Vertical | 16 niveles S (h_s = 210 m; profundidad topada a 200 m); 32 solo en una prueba de robustez | `scripts/caso_real.py` | |
+| Numérica | dt = 100 s; GLS k-kl (itur = 3, mid = KL, stab = KC); Coriolis; salidas cada 4 h | ídem | |
+| Borde abierto | elevación armónica (EOT20, 9 constituyentes); esponja de fricción (Cd → 0,05) y sin viento a < 1 km del borde; sin advección de momento a < 800 m; T = 28 °C y S = 36 fijas | ídem | |
+| Densidad | **baroclínico por salinidad en todos los miembros** (ríos con S = 0); temperatura constante, sin flujo de calor; sin evaporación ni precipitación (E − P ~0,1 m³/s en seca, estimación gruesa sin fuente, ~5 % de los ríos) | `caso_real.py`, `docs/protocolo_metricas_conjunto.md` | 🔁 (solo decía densidad en el experimento 3) |
+| Edad del agua | módulo AGE; agua nueva = mar abierto **y agua de los ríos** | ídem | |
+| Conjunto | Saltelli, N = 64, **d = 9 → 704 miembros** (64 × 11); 9.º parámetro: **caudal de los ríos × 0,25–2** (log-uniforme) sobre 2,14 m³/s; **120 d** desde el 1-ene-2016; marea EOT20 | `scripts/conjunto.py`, `datos/conjunto/diseno.csv` | 🔁 (640, d = 8, 90 d) |
+| Métricas | últimos 30 de los 120 d; edad media y p10/50/90 por zona; fracción de volumen con edad > **7, 14 y 30 d**; edad en superficie y fondo del canal; agua dulce en superficie; caudal bruto (ver avisos) | protocolo congelado 27-oct (commit 4564b7e) | 🔁 (solo > 30 d) |
+| Equilibrio | deriva de la edad de la bahía ≤ 0,05 d/d en los últimos 10 d; si > 10 % de miembros no llega, se alargan | ídem | |
+| Clasificación | robusta ≥ 90 % de los miembros; frágil 10–90 %; rechazada ≤ 10 % (bloques A y B, 2N = 128) | ídem | ➕ |
+| Sobol | Jansen S1 y ST; IC 95 % bootstrap (1000); con N = 64 error ~0,1 en ST y ~0,2 en S1 → interpretar ST | `scripts/analisis_conjunto.py` | |
+| Cómputo | Lemaitre4 (CÉCI); **7 núcleos por miembro** (4 de cálculo + 3 de escritura: la salinidad es la 3.ª salida 3D); **tramos de 20 d con hotstart** (reinicio comprobado: métricas iguales al 0,01 %); 20 d tardan 0,65–9 h (mediana 1,6 h) según cuántos miembros corren a la vez; total ~5·10⁴ horas-núcleo (estimación gruesa: 704 × 6 × 1,6 h × 7) ⏳ | `cluster/`, `runs/*/coste.txt`, `docs/00_estado_y_plan.md` (2-nov, 6-nov) | 🔁 (4 + 2 núcleos, 2,7–3,9 h por 90 d) |
+| Mecanismo | miembro central (carta 1887, α = 0,5, datum +0,25 m, Cd 0,0025), 1 año 2016, EOT20, 5 tramos de 73 d | `docs/resultados_mecanismo.md` | |
+| Robustez | miembro central con ríos, 120 d: cierre k-ε; 32 niveles; difusividad mínima × 10 (10⁻⁵ m²/s); flujo de calor ERA5 (albedo 0,06, Jerlov 7) con borde a 28 °C; **flujo de calor con SST diaria NOAA OISST v2.1 en el borde y como T inicial** ⏳ (corriendo) | `docs/resultados_robustez.md`, `datos/forzamiento/sst/` | ➕ |
 
-| Cifra | Valor | Estado |
-|---|---|---|
-| Caudal bruto por el canal | 64–74 m³ s⁻¹ (prisma: 66) | ⏳ |
-| Edad media de la bahía, días 60–90 | 28–31 d, aún creciendo ~0.4 d/d | ⏳ (no equilibrio) |
-| Edad por zona (días 60–90) | canal 15; cuenca 30–32; Marimelena 30–33; Guasabacoa 33–37; Atarés 36–41 d | ⏳ |
-| Fracción de volumen con edad > 30 d | 0.55–0.76 (ensenadas ≈ 1) | ⏳ |
+## Resultados (sec. 6)
+
+### Mecanismo — firme (`docs/resultados_mecanismo.md`)
+
+Edad media (d, últimos 30 d del año, media de superficie y fondo):
+
+| Zona | Solo marea | + viento | + ríos y densidad |
+|---|---|---|---|
+| Canal | 35 | 53 | 4,2 |
+| Cuenca | 173 | 103 | 6,3 |
+| Marimelena | 291 | 102 | 7,1 |
+| Guasabacoa | 240 | 115 | 8,1 |
+| Atarés | 251 | 118 | 9,6 |
+| **Bahía** | **166** | **97** | **6,6** |
+| Deriva final (d/d) | +0,36 (sin equilibrio) | +0,09 | −0,03 (equilibrio desde ~día 30) |
+
+Con densidad: canal 6,5 d en superficie y 1,9 d en el fondo (circulación estuarina); intercambio implícito V/edad ≈ 50 m³/s ≈ 25 veces el caudal de los ríos; coherente con Knudsen (~50–100 m³/s).
+
+### Robustez de la densidad — firme salvo el flujo de calor (`docs/resultados_robustez.md`)
+
+| | Base | k-ε | 32 niveles | Difusividad × 10 | + calor (borde 28 °C) | + calor (SST OISST) |
+|---|---|---|---|---|---|---|
+| Edad de la bahía (d, días 90–120) | 6,6 | 6,9 | 7,5 | 6,6 | 16,8 (sin equilibrio, deriva −0,10) | ⏳ |
+| Canal sup / fondo (d) | 6,6 / 1,8 | 6,7 / 2,1 | 7,5 / 2,3 | 6,6 / 1,9 | 14,2 / 10,6 | ⏳ |
+
+El orden de las zonas no cambia en ninguno. El experimento con calor y borde a 28 °C es sospechoso: la SST real de ene–abr 2016 es 24,5–27,9 °C.
+
+### Sentinel-2 — firme, resultado negativo (protocolo congelado 21-oct + control 26-oct)
+
+| Experimento | Campo | ρ Spearman | IC 95 % (bloques) | p por desplazamientos | ρ nulo P95 |
+|---|---|---|---|---|---|
+| ríos y densidad (prueba principal) | agua dulce en superficie | 0,45 | 0,35–0,54 | 0,16 | 0,61 |
+| + viento (secundaria) | edad en superficie | 0,48 | 0,39–0,57 | 0,15 | 0,63 |
+| solo marea | edad en superficie | 0,29 | 0,17–0,40 | 0,28 | 0,61 |
+
+8908 píxeles, 145 bloques. Regla registrada: criterio principal cumplido, pero p ≥ 0,05 → **no distinguible del azar espacial**: los dos mapas solo comparten el gradiente boca → cabeceras.
+
+### Conjunto de 704 — ⏳ (598/704 terminados el 6-nov)
+
+Se informará según el protocolo congelado: C1–C7 y P(edad > 7/14/30 d) con su clase (robusta/frágil/rechazada), C8 (parámetro con mayor ST) e IC. Todo condicional a "densidad solo por salinidad, ene–abr 2016".
+
+### Avisos sobre el caudal por el canal — no usar como resultado
+
+- **Neto:** −6 a +7 m³/s cuando debería ser ≈ −2,1 → error de ±6 m³/s.
+- **Bruto (~70 m³/s):** sale de instantáneas cada 4 h de la velocidad promediada en vertical. Tiene picos de toda la sección de hasta 3–10 veces el cambio de volumen de la bahía (base: máx. 370 m³/s; 32 niveles: máx. 932, por eso da 90). Hipótesis en prueba: oscilación bahía–canal de ~1 h que el muestreo de 4 h ve a medias. Además, al promediar en vertical no ve la circulación estuarina. Hasta la prueba de alta frecuencia (`cluster/hf_caudal.sh`), tampoco usarlo para "el modelo reproduce el prisma".
+
+### Superado (no usar)
+
+Las cifras provisionales del 17-oct que hay en main.tex sec. 6.1 (2 miembros de 90 d, M2 de 0,15 m, sin ríos: edad 28–37 d, 55–76 % del volumen > 30 d, caudal 64–74 frente a 66 del prisma) y el conjunto de 640.
 
 ## Highlights
 
-- "Tidal excursion is shorter than the entrance channel: the tide alone flushes poorly" → sigue valiendo (0.40 del canal).
+- "Tidal excursion is shorter than the entrance channel: the tide alone flushes poorly" → sigue valiendo (0,41 del canal) y ahora lo confirma el modelo (166 d con solo marea).
+- Nuevo candidato: "Density-driven exchange from 2 m³/s of river water flushes the bay in about a week, 25 times faster than the tide alone" (firme frente a turbulencia y resolución; pendiente del flujo de calor).
