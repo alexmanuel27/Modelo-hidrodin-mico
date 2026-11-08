@@ -12,7 +12,7 @@ Las de `docs/figuras/` son de trabajo (en español) y no van al artículo tal cu
 | 5 | P(edad > 7/14/30 d) por zona y mapa; mediana y P5–P95 | conjunto + `analisis_conjunto.py` | espera al conjunto (598/704 el 6-nov) |
 | 6 | Índices de Sobol S1 y ST por zona, con IC | conjunto | espera al conjunto |
 | 7 | Mecanismo: edad media por experimento (marea / + viento / + densidad) | `docs/figuras/mecanismo.png` | trabajo hecho; falta inglés. Sin caudal neto ni bruto (no fiables) |
-| 8 | Destino del agua de los ríos | — | sin decidir (partículas o trazador por río) |
+| 8 | Destino del agua de los ríos | — | protocolo aprobado y congelado 8-nov (`docs/protocolo_trazadores_rios.md`); trazador por río, 4 casos; resultados pendientes (primero compilar y validar) |
 | 9 | Sentinel-2: agua dulce en superficie frente a persistencia de anomalías + distribución nula por desplazamientos | `docs/figuras/s2_vs_dulce.png`, `resultados/comparacion_s2/*.json` | trabajo hecho; falta inglés y mostrar el nulo |
 | 10 | Marea en el borde: FES2022 frente a EOT20 | `docs/figuras/marea_fes_eot20.png` | trabajo hecho (correcciones del 21-oct) |
 | S1 | Corriente espuria del borde y su insensibilidad en la bahía | `revisar_real.py` | datos hechos |

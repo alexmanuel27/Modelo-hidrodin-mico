@@ -1,7 +1,7 @@
-# Destino del agua de cada río (figura 8): protocolo de trazadores — BORRADOR para que Alex lo apruebe
+# Destino del agua de cada río (figura 8): protocolo de trazadores — CONGELADO (aprobado por Alex el 8-nov-2026)
 
-> **Estado: borrador (8-nov-2026).** Se congela con fecha y hash **antes** de correr ningún caso. Cambios posteriores,
-> solo en el registro fechado del final. Decisión de Alex del 8-nov: trazador por río (no partículas) y la figura 8 se
+> **Estado: congelado el 8-nov-2026, aprobado por Alex.** El texto es el del commit que lleva este cambio; ningún caso se
+> había corrido. Cambios posteriores, solo en el registro fechado del final. Decisión de Alex del 8-nov: trazador por río (no partículas) y la figura 8 se
 > mantiene; objetivo: el menor número posible de conclusiones frágiles.
 >
 > **Lo que ya se ha visto antes de redactarlo** (declararlo): el borrador `runs/borradores/fig8_borrador_dulce.png`
@@ -82,4 +82,5 @@ renovaciones de días, a los 30 d no quedaría nada. T_i y los mapas responden l
 
 ## Registro de cambios
 
-*(vacío)*
+- 2026-11-08 — Aprobado por Alex y congelado, sin cambios de texto respecto al borrador (commit cf63c26). Aún no se ha compilado ni corrido nada.
+
