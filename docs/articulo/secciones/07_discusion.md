@@ -17,7 +17,7 @@ Ideas con su apoyo, no texto. Subsecciones de `main.tex`.
 ## JICA 2004 ("tiempo de retención del agua dulce ≈ 4 meses", p. R-7)
 
 - **No es la misma magnitud que la edad del modelo.** La edad cuenta el agua de los ríos como agua nueva; JICA habla de retención del agua dulce y no da el método en el resumen. Comparar la edad (~7 d) con los 4 meses (C6 del protocolo) compara magnitudes distintas.
-- **La comparable es el tiempo de renovación del agua dulce** T_f = V_f / Q (método de la fracción de agua dulce). Cota con la salinidad de superficie: ≲ 4 d. Exacta con `scripts/renovacion_dulce.py` ⏳. Si se confirma, el choque con JICA es aún mayor que con la edad.
+- **La comparable es el tiempo de renovación del agua dulce** T_f = V_f / Q (método de la fracción de agua dulce). Resultado (8-nov): **T_f = 1,8–2,0 d** (4,2 d con calor y borde a 28 °C); agua dulce media 1,1–1,2 % del volumen. El choque con JICA es aún mayor que con la edad: ~60 veces. El agua dulce sale rápido por la capa de superficie; la edad (~7 d) es mayor porque mide también el agua de mar que entra por el fondo.
 - Hipótesis sobre JICA (sin confirmar): V/Q sin intercambio. Con sus 47 hm³ y 4 meses saldría Q ≈ 4,5 m³/s, el doble de los ríos aforados (¿con drenajes y aguas residuales?).
 - Causas posibles de la diferencia, todas declaradas: caudal real (una campaña de 2002; aguas residuales sin aforar); mezcla vertical (la robustez dice que la edad apenas cambia con el cierre, los niveles o la mezcla de fondo); falta de flujo de calor y de E − P (⏳ SST real); método de JICA desconocido.
 

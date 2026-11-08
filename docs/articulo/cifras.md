@@ -87,7 +87,7 @@ Edad media (d, últimos 30 d del año, media de superficie y fondo):
 
 Con densidad: canal 6,5 d en superficie y 1,9 d en el fondo (circulación estuarina); intercambio implícito V/edad ≈ 50 m³/s ≈ 25 veces el caudal de los ríos; coherente con Knudsen (~50–100 m³/s).
 
-**Ojo con la definición:** la edad cuenta el agua de los ríos como agua nueva, así que no es el "tiempo de retención del agua dulce" de JICA. La magnitud comparable es T_f = volumen de agua dulce / caudal de los ríos. Cota con lo que ya hay: agua dulce en superficie 2,3–2,5 % (mecanismo y robustez base) → T_f ≲ 4 d (V ≈ 30 hm³, Q = 2,14 m³/s; la media vertical suele ser menor que la de superficie). Cifra exacta: `scripts/renovacion_dulce.py` en los miembros con campos ⏳. Con ríos solos sin intercambio, V/Q = 136 d (prisma); JICA, con su volumen de 47 hm³, necesitaría Q ≈ 4,5 m³/s para dar 4 meses por V/Q (hipótesis, no se puede afirmar).
+**Ojo con la definición:** la edad cuenta el agua de los ríos como agua nueva, así que no es el "tiempo de retención del agua dulce" de JICA. La magnitud comparable es T_f = volumen de agua dulce / caudal de los ríos. **Resultado (8-nov, `scripts/renovacion_dulce.py`, últimos 30 d, V = 30,8 hm³, Q = 2,14 m³/s):** agua dulce media en la bahía 1,1–1,2 % (superficie 2,3–2,5 %, igual que `resumen.json`) → **T_f = 1,8–2,0 d** (robustez base 1,9; k-ε 2,0; mecanismo con 1 año 1,8); **4,2 d** con flujo de calor y borde a 28 °C. Frente a los ~120 d de JICA, unas 60 veces menos. Con ríos solos sin intercambio, V/Q = 136 d (prisma); JICA, con su volumen de 47 hm³, necesitaría Q ≈ 4,5 m³/s para dar 4 meses por V/Q (hipótesis, no se puede afirmar).
 
 ### Robustez de la densidad — firme salvo el flujo de calor (`docs/resultados_robustez.md`)
 

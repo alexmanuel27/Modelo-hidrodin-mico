@@ -73,6 +73,6 @@ Lemaitre4 (CÉCI). **7 núcleos por miembro** (4 de cálculo + 3 de escritura, p
 ## 8. Evaluación sin observaciones locales
 
 - **(1) Control analítico:** con solo marea el modelo coincide con el diagnóstico del prisma (excursión < canal → renovación mala) y lo supera (166 d frente a 24 d). La coincidencia de caudales del borrador queda en suspenso (avisos de caudal).
-- **(2) JICA 2004 ("tiempo de retención del agua dulce ≈ 4 meses"):** no es comparable con la edad (que cuenta el agua de los ríos como nueva); la magnitud comparable es el tiempo de renovación del agua dulce (`renovacion_dulce.py`, ⏳; cota ≲ 4 d). → discusión.
+- **(2) JICA 2004 ("tiempo de retención del agua dulce ≈ 4 meses"):** no es comparable con la edad (que cuenta el agua de los ríos como nueva); la magnitud comparable es el tiempo de renovación del agua dulce (`renovacion_dulce.py`: T_f = 1,8–2,0 d en los miembros con campos). → discusión.
 - **(3) Dos modelos de marea independientes** coinciden en < 0,4 cm ✅. **(4) Reinicio por tramos** no cambia las métricas ✅. **(5) Insensibilidad al borde** ✅.
 - **(6) Sentinel-2** (protocolo congelado 21-oct, control de desplazamientos registrado 26-oct): ρ = 0,45 en la prueba principal, pero no distinguible del azar espacial (p = 0,16). Sentinel-2 no valida el modelo más allá del gradiente boca → cabeceras.
