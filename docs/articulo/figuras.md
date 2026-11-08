@@ -5,7 +5,7 @@ Las de `docs/figuras/` son de trabajo (en español) y no van al artículo tal cu
 
 | # | Contenido | Datos / figura de trabajo | Estado (7-nov) |
 |---|---|---|---|
-| 1 | Mapa: bahía, canal, ensenadas, zonas, ríos y focos; recuadro de Cuba | **`docs/figuras/articulo/fig01_map.png`** (`scripts/figuras_articulo.py 1`) | **inglés hecho (8-nov)**; falta el recuadro de Cuba: correr `scripts/descargar_natural_earth.sh` en el Mac |
+| 1 | Mapa: bahía, canal, ensenadas, zonas, ríos y focos; recuadro de Cuba | **`docs/figuras/articulo/fig01_map.png`** (`scripts/figuras_articulo.py 1`) | **inglés hecho (8-nov)**, con recuadro de Cuba (Natural Earth) |
 | 2 | Batimetría: superficies 1879 / 1887 con sondeos, diferencia (solo donde las dos tienen sondeos a < 100 m), miembro dragado, campo de error, volumen frente a α | **`docs/figuras/articulo/fig02_bathymetry.png`** | **inglés hecho (8-nov)**, con las correcciones del 21-oct |
 | 3 | Malla: dominio con profundidad, borde abierto y esponja; bahía; detalle del canal | **`docs/figuras/articulo/fig03_mesh.png`** (profundidad del miembro central) | **inglés hecho (8-nov)** |
 | 4 | Control analítico (prisma) | `resultados/prisma_marea.png` | **lista en inglés**; copiarla a `articulo/figuras/fig_prisma_marea.png` (la de allí es vieja) |

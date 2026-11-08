@@ -123,7 +123,7 @@ def cuba(ax):
             a = np.array(p[0]); ax.fill(a[:, 0], a[:, 1], color=TIERRA if ft["properties"]["ADMIN"] != "Cuba" else "0.55", lw=0.3, ec="0.3")
     ax.plot(-82.35, 23.14, "rs", ms=3); ax.set_xlim(-85.5, -73.8); ax.set_ylim(19.5, 25.6); ax.set_facecolor(MAR)
     ax.set_aspect(1 / np.cos(np.radians(22.5))); ax.set_xticks([]); ax.set_yticks([])
-    ax.text(-79.6, 21.3, "Cuba", fontsize=6, ha="center"); ax.text(-81.0, 24.6, "Straits of Florida", fontsize=4.5, ha="center", style="italic")
+    ax.text(-79.6, 21.3, "Cuba", fontsize=6, ha="center"); ax.text(-80.4, 23.85, "Straits of Florida", fontsize=4.5, ha="center", style="italic", color="0.3")
 
 
 def fig1():
