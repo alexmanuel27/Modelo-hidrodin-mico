@@ -39,5 +39,6 @@ Para el chat del artículo: lo que el texto debe decir, con su fuente. No es pro
 - Protocolos congelados antes de ver resultados (citarlos como tales, con fecha): `../protocolo_comparacion_s2.md` (21-oct, control 26-oct) y `../protocolo_metricas_conjunto.md` (27-oct).
 - Resultados en detalle: `../resultados_mecanismo.md`, `../resultados_robustez.md`; comparación S2 en `../../resultados/comparacion_s2/`.
 - Procedencia de los datos (URL, fecha, licencia): `../procedencia_datos.md` y los `descargas.tsv` de `datos/`.
-- Bitácora completa: `../00_estado_y_plan.md`. Copia en el Project de Claude: `claude/material_articulo_2026-11-07.md`.
+- Bitácora completa: `../00_estado_y_plan.md`. **Este repo es la única fuente**: desde el 8-nov no se guarda nada en el Project de Claude (`claude/`); las copias que hay allí están congeladas y pueden estar viejas.
+- Figura 8 (destino del agua de cada río): protocolo en borrador, `../protocolo_trazadores_rios.md`.
 - **Histórico, no usar:** `../resumen_para_articulo.md` (2-oct) y `../nota_vault_2026-09-25.md`.
