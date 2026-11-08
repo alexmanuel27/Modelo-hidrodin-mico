@@ -30,8 +30,9 @@
 
 ## 4. Escalas de tiempo de transporte y métricas (protocolo congelado 27-oct, `../../protocolo_metricas_conjunto.md`)
 
-- **Edad del agua** (AGE; Deleersnijder et al. 2001): días desde que el agua salió del mar abierto o de un río; SCHISM escribe la edad en días.
-- **Salidas** cada 4 h; métricas en los **últimos 30 de los 120 d** (`posproceso.py`): edad media y p10/50/90 por zona; fracción del volumen con edad > **7, 14 y 30 d** (7 d ≈ edad con densidad en el miembro central; 14 d ≈ sicigias–cuadratura; 30 d = umbral del plan original, fijados antes de ver el conjunto); mapas de superficie y fondo; edad en superficie y fondo del canal; agua dulce en superficie (1 − S/36); campos a las 16:00 UTC en la rejilla Sentinel-2.
+- **Edad del agua** (AGE; Deleersnijder et al. 2001): días desde que el agua salió del mar abierto **o de un río** (los ríos entran con AGE = 1, `msource.th`); SCHISM escribe la edad en días. Decirlo explícitamente: no es un tiempo de renovación del agua dulce.
+- **Desviación del protocolo (registrada el 8-nov):** la fracción de volumen se da solo para > 30 d; para 7 y 14 d, P entre miembros y mapas de superficie.
+- **Salidas** cada 4 h; métricas en los **últimos 30 de los 120 d** (`posproceso.py`): edad media y p10/50/90 por zona; fracción del volumen con edad > **30 d** (> 7 y > 14 d previstas pero no calculadas: desviación registrada) y P(edad > **7, 14 y 30 d**) entre miembros (7 d ≈ edad con densidad en el miembro central; 14 d ≈ sicigias–cuadratura; 30 d = umbral del plan original, fijados antes de ver el conjunto); mapas de superficie y fondo; edad en superficie y fondo del canal; agua dulce en superficie (1 − S/36); campos a las 16:00 UTC en la rejilla Sentinel-2.
 - **Equilibrio:** deriva de la edad de la bahía ≤ 0,05 d/d en sus últimos 10 d; resultados con todos los miembros y aparte con los que están en equilibrio.
 - **Caudal por el canal:** se calcula, pero no es un resultado del artículo (avisos en `../cifras.md`).
 - **Zonas:** canal, cuenca, Marimelena, Guasabacoa, Atarés (`../../figuras/zonas.png`).
@@ -72,6 +73,6 @@ Lemaitre4 (CÉCI). **7 núcleos por miembro** (4 de cálculo + 3 de escritura, p
 ## 8. Evaluación sin observaciones locales
 
 - **(1) Control analítico:** con solo marea el modelo coincide con el diagnóstico del prisma (excursión < canal → renovación mala) y lo supera (166 d frente a 24 d). La coincidencia de caudales del borrador queda en suspenso (avisos de caudal).
-- **(2) JICA 2004 ("≈ 4 meses"):** solo encaja con el modelo sin densidad (97–166 d). Con densidad, ~1 semana. Choque abierto → discusión.
+- **(2) JICA 2004 ("tiempo de retención del agua dulce ≈ 4 meses"):** no es comparable con la edad (que cuenta el agua de los ríos como nueva); la magnitud comparable es el tiempo de renovación del agua dulce (`renovacion_dulce.py`, ⏳; cota ≲ 4 d). → discusión.
 - **(3) Dos modelos de marea independientes** coinciden en < 0,4 cm ✅. **(4) Reinicio por tramos** no cambia las métricas ✅. **(5) Insensibilidad al borde** ✅.
 - **(6) Sentinel-2** (protocolo congelado 21-oct, control de desplazamientos registrado 26-oct): ρ = 0,45 en la prueba principal, pero no distinguible del azar espacial (p = 0,16). Sentinel-2 no valida el modelo más allá del gradiente boca → cabeceras.

@@ -15,7 +15,7 @@ Estado: ✅ final y ya en el manuscrito · 🔁 en el manuscrito pero desactuali
 | Canal de entrada | 1530 m, 220–330 m, 12.8 m | igual | Prácticos 2018 | ✅ |
 | Marea | "small and mixed, mainly semidiurnal" | Frente a la boca, FES2022 / EOT20: M2 12.2 / 12.6, K1 8.3 / 8.0, O1 8.8 / 8.4, S2 3.9 / 3.8 cm; form factor 1.05 / 1.00 → **mixed**, diurnal ≈ semidiurnal (corregir "mainly semidiurnal"); los dos modelos difieren < 0.4 cm; carrera media 0.29 m (JICA 2004) | `marea_fes2022.py`, `marea_eot20.py` | ⏳ |
 | Ríos | — | Luyanó 1.33, Martín Pérez 0.72, Tadeo 0.09 m³ s⁻¹ (total 2.14; CIMAB 2002 en JICA 2004) | `scripts/caso_real.py` (Q_RIOS) | ➕ |
-| Renovación del agua dulce (literatura) | — | ≈ 4 meses (JICA 2004) | JICA 2004, p. R-7 | ➕ (discusión) |
+| Retención del agua dulce (literatura) | — | "tiempo de retención del agua dulce ≈ 4 meses" (JICA 2004); el resumen no da el método | JICA 2004, resumen ejecutivo, p. R-7 | ➕ (discusión) |
 
 ## Tabla de datos públicos (tab. 1)
 
@@ -34,18 +34,18 @@ Estado: ✅ final y ya en el manuscrito · 🔁 en el manuscrito pero desactuali
 
 | Magnitud | En main.tex | Actual (central, P5–P95) | Estado |
 |---|---|---|---|
-| Volumen | 47 (39–55) hm³ | **30.4 (27.2–34.5)** hm³ | 🔁 |
+| Volumen | 47 (39–55) hm³ | **30.7 (27.2–34.5)** hm³ | 🔁 |
 | Marea | rango supuesto 0.30 (0.20–0.50) m | **días reales de un año EOT20**: mayor llenante 0.33 (0.18–0.50) m, 1.93 llenantes/d | 🔁 |
 | Prisma de marea | 1.6 (1.2–2.3) hm³ | **1.6 (0.9–2.5)** hm³ (mayor llenante del día) | 🔁 |
 | Fracción renovada | 3.3 (2.6–5.1) % por ciclo | **8.7 (4.1–12.7)** % por día | 🔁 |
-| Renovación sin retorno | 16 (10–20) d | **11.5 (7.9–24.5)** d | 🔁 |
+| Renovación sin retorno | 16 (10–20) d | **11.6 (7.9–24.5)** d | 🔁 |
 | Renovación con retorno + ríos | 34 (18–51) d | **24 (14–47)** d | 🔁 |
 | Solo ríos V/Q | — | **136 (83–243)** d (Q 2.14, JICA) | 🔁 |
 | Velocidad máx. de marea en el canal | 4.5 (3.2–6.5) cm s⁻¹ | **4.7 (2.7–7.3)** cm s⁻¹ | 🔁 |
 | Excursión mareal | 650 (460–920) m | **630 (340–960)** m; 0.41 (0.22–0.63) del canal | 🔁 |
 | Figura `fig_prisma_marea.png` | versión vieja | regenerar en inglés con los valores nuevos | 🔁 |
 
-Ojo: el mensaje de main.tex "la excursión es menor que la mitad del canal en todas las muestras" debe pasar a "shorter than the channel in all samples; ≤ 0.63 of its length in 95 %". Valores = mediana (P5–P95) del Monte Carlo, 21-oct-2026.
+Ojo: el mensaje de main.tex "la excursión es menor que la mitad del canal en todas las muestras" debe pasar a "shorter than the channel in all samples; ≤ 0.63 of its length in 95 %". Valores = mediana (P5–P95) del Monte Carlo, 21-oct-2026 (`resultados/prisma_marea.csv`, columna p50). No mezclar con la columna "central" (todas las entradas en su moda: 30,4 hm³, 11,5 d, 24,4 d, 165 d, 5,1 cm/s, 671 m), que es la que tiene hoy main.tex para el volumen.
 
 ## Métodos (sec. 5)
 
@@ -86,6 +86,8 @@ Edad media (d, últimos 30 d del año, media de superficie y fondo):
 | Deriva final (d/d) | +0,36 (sin equilibrio) | +0,09 | −0,03 (equilibrio desde ~día 30) |
 
 Con densidad: canal 6,5 d en superficie y 1,9 d en el fondo (circulación estuarina); intercambio implícito V/edad ≈ 50 m³/s ≈ 25 veces el caudal de los ríos; coherente con Knudsen (~50–100 m³/s).
+
+**Ojo con la definición:** la edad cuenta el agua de los ríos como agua nueva, así que no es el "tiempo de retención del agua dulce" de JICA. La magnitud comparable es T_f = volumen de agua dulce / caudal de los ríos. Cota con lo que ya hay: agua dulce en superficie 2,3–2,5 % (mecanismo y robustez base) → T_f ≲ 4 d (V ≈ 30 hm³, Q = 2,14 m³/s; la media vertical suele ser menor que la de superficie). Cifra exacta: `scripts/renovacion_dulce.py` en los miembros con campos ⏳. Con ríos solos sin intercambio, V/Q = 136 d (prisma); JICA, con su volumen de 47 hm³, necesitaría Q ≈ 4,5 m³/s para dar 4 meses por V/Q (hipótesis, no se puede afirmar).
 
 ### Robustez de la densidad — firme salvo el flujo de calor (`docs/resultados_robustez.md`)
 

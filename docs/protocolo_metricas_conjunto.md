@@ -1,8 +1,8 @@
-# Métricas y conclusiones del conjunto: protocolo (BORRADOR, 27-oct-2026)
+# Métricas y conclusiones del conjunto: protocolo CONGELADO
 
-> **Estado: borrador para que Alex lo apruebe.** Se congela con fecha y hash **antes** de bajar ningún resultado del
-> conjunto de 704 miembros (lanzado el 27-oct, arrays 8018180/8018181). Lo implementa `scripts/analisis_conjunto.py`.
-> Cambios posteriores, solo en el registro fechado del final.
+> **Congelado el 27-oct-2026, aprobado por Alex**, antes de bajar ningún resultado del conjunto de 704 miembros
+> (lanzado el 27-oct, arrays 8018180/8018181). El texto es el del commit 4564b7e; solo cambia esta cabecera (corregida el
+> 8-nov, ver el registro). Lo implementa `scripts/analisis_conjunto.py`. Cambios posteriores, solo en el registro fechado.
 
 ## Por qué cambia la métrica
 
@@ -62,4 +62,19 @@ Los índices de Sobol se dan siempre con su IC 95 % (bootstrap). Con N = 64 su e
 
 ## Registro de cambios
 
-*(vacío)*
+- **27-oct-2026** — Alex aprueba el borrador (texto del commit 4564b7e) y queda congelado.
+- **29-oct-2026** — el commit 4dff6a7 dice "protocolo de métricas congelado" pero no tocó este archivo, que siguió diciendo
+  "BORRADOR". Se corrige la cabecera el 8-nov sin cambiar el contenido.
+- **5-nov-2026** — se copian al Mac los `resumen.*` de 488 miembros (sin análisis del conjunto). Ya se conocían los
+  experimentos de mecanismo y de robustez del miembro central, que no son miembros del conjunto.
+- **8-nov-2026** — el chat del artículo, al revisar el repo, mira la edad de la bahía en esos 488 miembros: mediana 7,7 d
+  (P5–P95 5,6–10,8; máx. 12,7), 0 con NaN, 8,8 % con |deriva| > 0,05 d/d. No calcula Sobol ni conclusiones.
+- **8-nov-2026 — desviación:** `posproceso.py` solo guarda la fracción de volumen con edad > **30 d** por zona; la de > 7 y
+  > 14 d no existe y no se puede recalcular (los campos se borran salvo en 3 miembros). Para 7 y 14 d se informa solo lo que
+  sí existe: P(edad de la bahía > umbral) entre miembros (`conclusiones.csv`) y la probabilidad por nodo de que la edad en
+  superficie lo supere (`prob_edad_sup.npz`). La fracción de volumen se da solo para 30 d.
+- **8-nov-2026 — aclaración de la métrica (no cambia el protocolo):** la edad cuenta el agua de los ríos como agua nueva
+  (`msource.th`, AGE = 1). No es la misma magnitud que el "tiempo de retención del agua dulce ≈ 4 meses" de JICA (2004,
+  p. R-7), así que C6 compara magnitudes distintas y se interpreta con esa reserva. Como complemento, fuera del protocolo, se
+  calcula el tiempo de renovación del agua dulce (fracción de agua dulce, `scripts/renovacion_dulce.py`) en los miembros
+  con campos.

@@ -14,13 +14,18 @@ INCLUIR=(
   datos/batimetria/sondeos datos/batimetria/superficies/volumenes_conjunto.json
   datos/malla datos/conjunto/diseno.csv datos/conjunto/posproceso_malla.npz
   datos/marea/eot20_habana.json datos/marea/descargas.tsv
-  datos/forzamiento/sflux
+  datos/forzamiento/sflux datos/forzamiento/sst
+  datos/sentinel2/rejilla.npz datos/sentinel2/README.md datos/sentinel2/escenas.csv datos/sentinel2/focos.csv
+  docs/protocolo_comparacion_s2.md docs/protocolo_metricas_conjunto.md docs/procedencia_datos.md
   resultados docs/figuras
 )
-# shortcut: resultados del conjunto (resumenes por miembro, Sobol) se anaden a INCLUIR cuando existan
+# shortcut: los resumenes del conjunto (704) y el Sobol se anaden igual que los de mecanismo y robustez cuando el conjunto termine
 rm -rf "$DEST"; mkdir -p "$DEST"
 for p in "${INCLUIR[@]}"; do [ -e "$p" ] || { echo "!! falta $p"; exit 1; }; done
 rsync -aR --exclude '__pycache__' --exclude '.DS_Store' "${INCLUIR[@]}" "$DEST/"
+for d in mecanismo robustez; do for f in runs/$d/m[0-9][0-9][0-9][0-9]/resumen.json; do
+  [ -e "$f" ] || continue; m=$(dirname "$f"); o="$DEST/resultados/$d/$(basename "$m")"; mkdir -p "$o"; cp "$m"/resumen.json "$m"/resumen.npz "$o/"
+done; done
 cp publicacion/README.md publicacion/DATA_SOURCES.md publicacion/LICENSE publicacion/LICENSE-DATA.md publicacion/CITATION.cff publicacion/.zenodo.json "$DEST/"
 printf '__pycache__/\n.DS_Store\nruns/\nbuild/\ndatos/forzamiento/era5/\ndatos/forzamiento/fes2022/\ndatos/forzamiento/eot20/\ndatos/marea/fes2022_habana.json\n*.tif\n*.jpg\n' > "$DEST/.gitignore"
 # nada que no se pueda redistribuir

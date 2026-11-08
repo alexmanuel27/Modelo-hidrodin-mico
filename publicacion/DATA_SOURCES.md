@@ -12,8 +12,10 @@
 | Atmosphere (hourly, 2016–2025) | ERA5 hourly data on single levels (Hersbach et al. 2020), Copernicus Climate Data Store | 2026-09-27/30 | Copernicus licence, attribution required | converted `sflux` files |
 | Tide (no account needed) | EOT20 (Hart-Davis et al. 2021, doi:10.17882/79489), SEANOE | 2026-10-19 | CC BY 4.0 | harmonics extract `eot20_habana.json` |
 | Tide (alternative) | FES2022b (doi:10.24400/527896/A01-2024.004), AVISO+ | 2026-10-20/21 | AVISO+ licence (free account) | not redistributed; `scripts/marea_fes2022.py` |
+| Sea surface temperature (heat-flux robustness test only) | NOAA OISST v2.1 daily (Huang et al. 2021) via CoastWatch ERDDAP, https://coastwatch.pfeg.noaa.gov/erddap/griddap/ncdcOisst21Agg_LonPM180 | 2026-11-05 | Public domain (NOAA) | `datos/forzamiento/sst/` (with query URL and sha256) |
+| Turbidity-anomaly persistence (evaluation only) | Own Sentinel-2 study (Copernicus Sentinel-2 data) | 2026-10-21 | Copernicus data free and open; derived products CC BY 4.0 | `datos/sentinel2/rejilla.npz` and scene list |
 | Hydrodynamic model | SCHISM, https://github.com/schism-dev/schism, commit 09f407e8 | 2026-09-27 | Apache 2.0 | not included |
 
 SHA-256 checksums of every downloaded file: `datos/batimetria/fuentes/descargas.tsv`, `datos/marea/descargas.tsv`.
 
-Required attributions: "Contains modified Copernicus Climate Change Service information (2026)"; "© OpenStreetMap contributors, ODbL"; "GEBCO Compilation Group (2026) GEBCO 2026 Grid".
+Required attributions: "Contains modified Copernicus Climate Change Service information (2026)"; "Contains modified Copernicus Sentinel data (2016–2025)"; "© OpenStreetMap contributors, ODbL"; "GEBCO Compilation Group (2026) GEBCO 2026 Grid".

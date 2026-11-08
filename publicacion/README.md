@@ -14,7 +14,7 @@ Everything needed to reproduce *"What can be known about flushing in a bay witho
 | `datos/malla/` | SCHISM mesh (`hgrid.gr3`, `hgrid.ll`), 4832 nodes | CC BY 4.0 + ODbL (coastline © OpenStreetMap contributors) |
 | `datos/marea/` | EOT20 tidal harmonics around the bay | CC BY 4.0 (EOT20, Hart-Davis et al. 2021) |
 | `datos/forzamiento/sflux/` | ERA5 atmospheric forcing converted to SCHISM `sflux` | Copernicus licence (contains modified Copernicus Climate Change Service information) |
-| `datos/conjunto/` | Saltelli ensemble design (640 members) and post-processing weights (zones, Sentinel-2 grid, channel section) | CC BY 4.0 |
+| `datos/conjunto/` | Saltelli ensemble design (704 members, 9 inputs) and post-processing weights (zones, Sentinel-2 grid, channel section) | CC BY 4.0 |
 | `resultados/` | Analytical tidal-prism control; ensemble summaries and Sobol indices (when available) | CC BY 4.0 |
 | `scripts/` | Full processing chain, from downloads to post-processing | MIT |
 | `cluster/` | SCHISM build and Slurm templates for CÉCI clusters | MIT |
