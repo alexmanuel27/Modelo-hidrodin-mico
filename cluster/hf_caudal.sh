@@ -20,6 +20,7 @@ rsync -a --exclude=outputs --exclude=sflux --exclude='resumen.*' --exclude=pospr
 ln -s "$(readlink -f m0000/sflux)" m0000_hf/sflux
 cd m0000_hf/outputs
 for r in 0 1 2 3; do ln -s ../../m0000/outputs/hotstart_00000${r}_$IT.nc .; done
+cp ../../m0000/outputs/flux.out .   # con ihot=2 SCHISM abre flux.out para añadir y falla si no existe (8109668)
 cp ../../m0000/outputs/local_to_global_00000? .   # combine_hotstart7 los pide; copiados (no enlazados) para que SCHISM no sobrescriba los de m0000
 $HOME/schism/build/bin/combine_hotstart7 -i $IT > combine.log 2>&1
 mv "hotstart_it=$IT.nc" ../hotstart.nc; rm -f hotstart_00000?_$IT.nc; cd ..
