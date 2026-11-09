@@ -21,12 +21,15 @@ module list 2>&1
 cd "$HOME"
 [ -d schism ] || git clone https://github.com/schism-dev/schism.git
 cd schism && git fetch -q origin && git checkout -q "$COMMIT" && git log -1 --format='SCHISM %H %cd'
-rm -rf build && mkdir build && cd build
+# GEN=1: variante con el modulo de trazadores genericos, en build_gen (el ejecutable del conjunto en build/ no se toca):
+#   ssh lemaitre4 "GEN=1 bash -l compilar_schism_ceci.sh" > cluster/schism_gen_lemaitre4.log 2>&1
+BUILD=build; EXTRA=""; [ "${GEN:-0}" = 1 ] && { BUILD=build_gen; EXTRA="-DUSE_GEN=ON"; }
+rm -rf "$BUILD" && mkdir "$BUILD" && cd "$BUILD"
 cmake -C ../cmake/SCHISM.local.build \
       -DCMAKE_Fortran_COMPILER=mpif90 -DCMAKE_C_COMPILER=mpicc -DCMAKE_CXX_COMPILER=mpicxx \
       -DCMAKE_Fortran_FLAGS="-fallow-argument-mismatch" \
       -DNetCDF_FORTRAN_DIR="$EBROOTNETCDFMINFORTRAN" -DNetCDF_C_DIR="$EBROOTNETCDF" \
-      -DUSE_AGE=ON -DCMAKE_BUILD_TYPE=Release ../src
+      -DUSE_AGE=ON $EXTRA -DCMAKE_BUILD_TYPE=Release ../src
 make -j8 pschism
 ls -l bin/
 echo "LISTO: $(ls bin/pschism_* | head -1)"

@@ -4,6 +4,7 @@
   python scripts/conjunto.py diseno  [N=64]      -> datos/conjunto/diseno.csv (versionado)
   CONJ_DIR=runs/mecanismo CONJ_DIAS=365 python scripts/conjunto.py mecanismo   -> 3 experimentos de mecanismo
   CONJ_DIR=runs/robustez CONJ_DIAS=120 CONJ_SEG=20 python scripts/conjunto.py robustez -> 5 pruebas de la densidad
+  CONJ_DIR=runs/trazadores CONJ_DIAS=120 CONJ_SEG=10 CONJ_ESCRIBAS=6 CONJ_POSPROCESO=0 CONJ_BIN=... python scripts/conjunto.py trazadores -> 4 casos
   python scripts/conjunto.py prueba               -> autoprueba: Jansen sobre Ishigami con la misma construccion
   python scripts/conjunto.py generar [J=6] [m,m,...]  -> runs/conjunto/mNNNN/ (caso_real.py por miembro, J a la vez;
                                                     solo los miembros indicados si se da la lista)
@@ -24,7 +25,9 @@ RUNS = RAIZ / os.environ.get("CONJ_DIR", "runs/conjunto")     # p. ej. CONJ_DIR=
 DIAS, SALIDA_H, NUCLEOS = int(os.environ.get("CONJ_DIAS", 120)), 4, 4
 SEG = min(DIAS, int(os.environ.get("CONJ_SEG", 20)))   # dias por tramo de Slurm (hotstart entre tramos)
 H_POR_DIA = 0.35   # limite de Slurm por dia simulado: 2x el peor medido en el conjunto (60 d en 9,0 h, 1-nov); 324 tramos de 60 d murieron por tiempo
-ESCRIBAS = 3                                 # SCHISM exige >= 1 scribe por variable 3D de salida (AGE_1 + salinidad + ...)
+ESCRIBAS = int(os.environ.get("CONJ_ESCRIBAS", 3))   # trazadores: 6 (3 mas por GEN_1..3) # SCHISM exige >= 1 scribe por variable 3D de salida (AGE_1 + salinidad + ...)
+BIN = os.environ.get("CONJ_BIN", "$HOME/schism/build/bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL")   # trazadores: el de build_gen
+POSPROCESO = int(os.environ.get("CONJ_POSPROCESO", 1))   # 0: sin posproceso ni borrado de campos (trazadores)
 GUARDAR = (0, 1, 2)                           # miembros que conservan los campos completos (figuras); el resto solo resumen.*
 SEMILLA_DISENO = 20261016
 
@@ -99,6 +102,10 @@ ROBUSTEZ = [("base (rios JICA, densidad por salinidad)", {}), ("+ flujo de calor
             ("cierre k-epsilon", {"TURB": "KE"}), ("32 niveles verticales", {"NIVELES": "32"}),
             ("difusividad minima x10 (1e-5)", {"DIFFMIN": "1e-5"}),
             ("+ flujo de calor con SST OISST en borde e inicio", {"CALOR": "1", "SST": "oisst"})]   # 5-nov: borde a 28 C fijo era sospechoso
+
+# Trazadores por rio (8-nov, docs/protocolo_trazadores_rios.md): 4 casos con GEN_1..3; SCHISM compilado con USE_GEN (build_gen).
+TRAZADORES = [("T0 caudal x1 (referencia)", {}), ("T1 caudal x0,25", {"QFAC": "0.25"}), ("T2 caudal x2", {"QFAC": "2"}),
+              ("T3 flujo de calor con SST OISST", {"CALOR": "1", "SST": "oisst"})]
 
 
 TRABAJADOR = r"""#!/bin/bash -l
@@ -175,7 +182,7 @@ sed -i -E "s/^( *rnday *=).*/\\1 $FIN/; s/^( *ihot *=).*/\\1 $IHOT/; s/^( *nhot 
 echo "tramo: dias $HECHOS -> $FIN de $TOTAL (ihot=$IHOT)"
 mv outputs/mirror.out outputs/mirror_hasta_$HECHOS.out 2>/dev/null || true   # el "Run completed" debe ser de este tramo
 START=$(date +%s)
-srun $HOME/schism/build/bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL {ESCRIBAS} > outputs/pantalla_$FIN.log 2>&1 || true
+srun {BIN} {ESCRIBAS} > outputs/pantalla_$FIN.log 2>&1 || true
 grep -q "Run completed successfully" outputs/mirror.out && OK=si || OK=no
 T=$(( $(date +%s) - START ))
 echo "$SLURM_ARRAY_TASK_ID $SLURM_CLUSTER_NAME tramo=$HECHOS-$FIN segundos=$T completo=$OK" >> ../coste.txt
@@ -186,9 +193,11 @@ echo "$SLURM_ARRAY_TASK_ID $SLURM_CLUSTER_NAME tramo=$HECHOS-$FIN segundos=$T co
 [ $FIN -lt $TOTAL ] && exit 0                            # quedan tramos
 # ultimo tramo: posproceso (numpy + netCDF4) y, si salio bien, borrar los campos completos
 P=no
+if [ {POSPROCESO} = 1 ]; then
 module load netcdf4-python/1.7.1.post2-foss-2024a >/dev/null 2>&1 || true
 python ../../../scripts/posproceso.py . ../../../datos/conjunto/posproceso_malla.npz > posproceso.log 2>&1 && P=si
 case " {' '.join(map(str, GUARDAR))} " in *" $SLURM_ARRAY_TASK_ID "*) ;; *) [ $P = si ] && rm -f outputs/*.nc ;; esac
+else P=omitido; fi
 echo "$SLURM_ARRAY_TASK_ID posproceso=$P" >> ../coste.txt; touch HECHO
 """)
     (RUNS / "lanzar.sh").write_text(f"""#!/bin/bash -l
@@ -230,6 +239,10 @@ if __name__ == "__main__":
         filas = [dict(BASE, miembro=str(k), extra=e) for k, (_, e) in enumerate(ROBUSTEZ)]
         for k, (nom, _) in enumerate(ROBUSTEZ): print(f"m{k:04d}: {nom}")
         generar(6, filas=filas)
+    elif accion == "trazadores":    # CONJ_DIR=runs/trazadores CONJ_DIAS=120 CONJ_SEG=10 CONJ_ESCRIBAS=6 CONJ_POSPROCESO=0 CONJ_BIN='$HOME/schism/build_gen/bin/<ejecutable>' python scripts/conjunto.py trazadores
+        filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", "TRAZADORES": "1", **e}) for k, (_, e) in enumerate(TRAZADORES)]
+        for k, (nom, _) in enumerate(TRAZADORES): print(f"m{k:04d}: {nom}")
+        generar(4, filas=filas)
     elif accion == "generar":
         generar(int(sys.argv[2]) if len(sys.argv) > 2 else 6,
                 [int(m) for m in sys.argv[3].split(",")] if len(sys.argv) > 3 else None)
