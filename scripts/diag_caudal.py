@@ -48,6 +48,11 @@ def main_hf(dirm, malla=None):
     print("picos del espectro de Q (periodo h, parte de la varianza): " + "; ".join(f"{p:.2f} h ({w:.0%})" for p, w in picos))
     print("varianza por banda: " + ", ".join(f"{k}: {w:.0%}" for k, w in bandas.items()))
     print(f"media |Q|: completa {completa:.1f}; con muestreo de 4 h segun la fase: min {lo:.1f}, media {med:.1f}, max {hi:.1f} m3/s")
+    k = t - t[0] >= 86400            # sin el primer dia: el reinicio desde hotstart puede dejar un transitorio de alta frecuencia
+    _, b2, c2, (lo2, med2, hi2) = espectro(t[k], Q[k])
+    print("segundo dia solo, varianza por banda: " + ", ".join(f"{q}: {w:.0%}" for q, w in b2.items()) + f"; media |Q| {c2:.1f}, con muestreo de 4 h {lo2:.1f}-{hi2:.1f}")
+    h = 6 * 3600; r = [float(np.std(np.diff(Q[(t - t[0] >= x) & (t - t[0] < x + h)]))) for x in range(0, int(t[-1] - t[0]) - h + 1, h)]
+    print("desviacion de los saltos de Q entre instantes de 10 min, por bloques de 6 h (m3/s): " + " ".join(f"{x:.1f}" for x in r))
 
 
 def serie(t, eta, u, v, prof, M):

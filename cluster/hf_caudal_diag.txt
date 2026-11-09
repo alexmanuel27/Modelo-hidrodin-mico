@@ -1,0 +1,5 @@
+[1794230909.284225] [lm4-f001:597959:0]        rc_iface.c:513  UCX  ERROR ibv_create_srq() failed: Operation not supported
+runs/robustez/m0000_hf: 288 instantes cada 10 min, 2.0 d
+picos del espectro de Q (periodo h, parte de la varianza): 12.00 h (22%); 1.00 h (5%); 6.00 h (1%)
+varianza por banda: <2 h: 46%, 2-8 h: 6%, 8-16 h: 26%, >16 h: 22%
+media |Q|: completa 59.8; con muestreo de 4 h segun la fase: min 45.6, media 59.8, max 79.6 m3/s
