@@ -25,23 +25,12 @@ bat = importlib.import_module("08_batimetria_conjunto")          # miembros de b
 SALIDA = RAIZ / "docs" / "figuras" / "articulo"
 DSUP = RAIZ / "datos" / "batimetria" / "superficies"
 FUENTES = RAIZ / "datos" / "batimetria" / "fuentes"
-ANCHO = 190 / 25.4                                               # pulgadas
+from estilo_figuras import ANCHO2 as ANCHO, MM, estilo, letra, guarda as _guarda     # noqa: E402  (estilo comun, 190 mm)
 TIERRA, MAR = "#e3ded3", "#ffffff"
 BAHIA = (360.6, 365.3, 2556.3, 2561.2)                           # km UTM 17N
 ZONAS = {1: ("Entrance channel", "#56B4E9"), 2: ("Main basin", "#a6d9a0"), 3: ("Marimelena", "#F0E442"),
          4: ("Guasabacoa", "#E69F00"), 5: ("Atarés", "#CC79A7")}
 RIOS = {"Río Luyanó": "Luyanó", "Río Martín Pérez": "Martín Pérez", "Arroyo Tadeo": "Tadeo"}
-
-
-def estilo():
-    plt.rcParams.update({"font.family": "DejaVu Sans", "font.size": 7.5, "axes.titlesize": 8, "axes.labelsize": 7.5,
-                         "xtick.labelsize": 6.5, "ytick.labelsize": 6.5, "legend.fontsize": 6.5, "axes.linewidth": 0.6,
-                         "xtick.major.width": 0.6, "ytick.major.width": 0.6, "savefig.dpi": 300, "figure.dpi": 100})
-
-
-def letra(ax, s):
-    ax.text(0.02, 0.98, f"({s})", transform=ax.transAxes, ha="left", va="top", fontweight="bold", fontsize=8,
-            bbox=dict(boxstyle="square,pad=0.15", fc="white", ec="none", alpha=0.8))
 
 
 def ejes_km(ax, lim, etiquetas=(True, True)):
@@ -130,7 +119,7 @@ def fig1():
     """Mapa: zonas, canal, ríos y desembocaduras, sitios de turbidez de Sentinel-2; recuadro de Cuba."""
     costa = costa_km(); x, y, X, Y, h, b = rejilla_bahia()
     z = zonas(X, Y, b).astype(float); z[z == 0] = np.nan
-    fig = plt.figure(figsize=(ANCHO, ANCHO * 0.6)); ax = fig.add_axes([0.07, 0.08, 0.58, 0.9])
+    fig = plt.figure(figsize=(ANCHO, 98 * MM)); ax = fig.add_axes([0.07, 0.11, 0.44, 0.85])
     fondo(ax, costa)
     cm = ListedColormap([ZONAS[k][1] for k in range(1, 6)])
     ax.pcolormesh(x / 1000, y / 1000, z, cmap=cm, norm=BoundaryNorm(np.arange(0.5, 6.5), 5), alpha=0.55, shading="nearest", zorder=1)
@@ -146,7 +135,7 @@ def fig1():
         fo = [r for r in csv.DictReader(f) if lim[0] < float(r["E"]) / 1000 < lim[1] and lim[2] < float(r["N"]) / 1000 < lim[3]]
     for r in fo: ax.plot(float(r["E"]) / 1000, float(r["N"]) / 1000, "o", mfc="none", mec="#D55E00", mew=1.2, ms=7, zorder=5)
     etiquetas = {1: (360.55, 2560.15, "Entrance\nchannel"), 2: (363.0, 2559.4, "Main\nbasin"), 3: (364.35, 2559.6, "Marimelena"),
-                 4: (362.85, 2557.25, "Guasa-\nbacoa"), 5: (361.25, 2557.35, "Atarés")}
+                 4: (362.85, 2557.25, "Guasa-\nbacoa"), 5: (361.5, 2557.95, "Atarés")}
     for k, (e, nn, t) in etiquetas.items():
         ax.text(e, nn, t, fontsize=6.5, ha="center", va="center", fontweight="bold", zorder=6,
                 bbox=dict(boxstyle="round,pad=0.1", fc="white", ec="none", alpha=0.6) if k == 1 else None)
@@ -157,8 +146,8 @@ def fig1():
         Line2D([], [], color="k", ls="--", lw=0.6, label="Dredged channel (pilots, 2018)"),
         Line2D([], [], color="#0072B2", lw=0.9, marker="v", mec="k", mew=0.4, ms=5, label="River and model inflow"),
         Line2D([], [], ls="none", marker="o", mfc="none", mec="#D55E00", mew=1.2, ms=7, label="Recurrent turbidity site (Sentinel-2)")]
-    fig.legend(handles=leg, loc="upper left", bbox_to_anchor=(0.68, 0.56), frameon=False)
-    cuba(fig.add_axes([0.69, 0.6, 0.29, 0.36]))
+    fig.legend(handles=leg, loc="upper left", bbox_to_anchor=(0.55, 0.50), frameon=False)
+    cuba(fig.add_axes([0.57, 0.56, 0.40, 0.40]))
     guarda(fig, "fig01_map")
 
 
@@ -176,7 +165,7 @@ def fig2():
     dz = np.where(cerca.reshape(X.shape) & b, dz, np.nan)
     _, _, hdr, m = bat.miembro(DSUP, carta="1887", alfa=1.0, sigma=0)
     eps = bat.campo_aleatorio(h7.shape, 20.0, bat.SIGMA, bat.L, 1)
-    fig, axs = plt.subplots(2, 3, figsize=(ANCHO, ANCHO * 0.72), constrained_layout=True)
+    fig, axs = plt.subplots(2, 3, figsize=(ANCHO, 118 * MM), constrained_layout=True)
     kw = dict(cmap="viridis_r", vmin=0, vmax=15, shading="nearest", zorder=1)
     paneles = [("1879 survey (chart ed. 1889)", h9, kw, son["1879"]), ("1887 survey (chart ed. 1898)", h7, kw, son["1887"]),
                ("Difference 1887 − 1879", dz, dict(cmap="RdBu", vmin=-3, vmax=3, shading="nearest", zorder=1), None),
@@ -249,8 +238,7 @@ def fig3():
 
 
 def guarda(fig, nombre):
-    SALIDA.mkdir(parents=True, exist_ok=True)
-    fig.savefig(SALIDA / f"{nombre}.png"); plt.close(fig); print("->", SALIDA / f"{nombre}.png")
+    _guarda(fig, nombre, 190, alto_max=120 if nombre == "fig02_bathymetry" else None)   # fig. 2: 6 paneles, 120 mm pedidos
 
 
 if __name__ == "__main__":

@@ -78,3 +78,7 @@ Los índices de Sobol se dan siempre con su IC 95 % (bootstrap). Con N = 64 su e
   p. R-7), así que C6 compara magnitudes distintas y se interpreta con esa reserva. Como complemento, fuera del protocolo, se
   calcula el tiempo de renovación del agua dulce (fracción de agua dulce, `scripts/renovacion_dulce.py`) en los miembros
   con campos.
+- **9-nov-2026 — aclaración del análisis (no cambia el protocolo ni se ha visto ningún resultado del conjunto):** `analisis_conjunto.py`
+  escribe además `prob_zonas.csv` con P(edad media de la zona > 7, 14 y 30 d) entre los miembros A y B y su mediana y P5–P95 por zona. Sale de
+  `edad_media_d_*` de `resumen.json` (ya existente), no de la fracción de volumen. Probado solo con el conjunto sintético
+  (`analisis_conjunto.py --prueba`). Las figuras 5 y 6 del artículo (`figuras_resultados.py conjunto sobol`) leen estos ficheros.

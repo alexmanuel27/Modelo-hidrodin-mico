@@ -13,7 +13,7 @@ Estado: ✅ final y ya en el manuscrito · 🔁 en el manuscrito pero desactuali
 | Profundidad media | ~9 m | **5.2 (1887) – 5.6 (1879) m** tal cual las cartas; 6.4–7.3 m con dragado | `datos/batimetria/superficies/volumenes_conjunto.json` | 🔁 |
 | Volumen | 47 hm³ (tabla 2) | **26–36 hm³** según carta y dragado (central 30) | ídem | 🔁 |
 | Canal de entrada | 1530 m, 220–330 m, 12.8 m | igual | Prácticos 2018 | ✅ |
-| Marea | "small and mixed, mainly semidiurnal" | Frente a la boca, FES2022 / EOT20: M2 12.2 / 12.6, K1 8.3 / 8.0, O1 8.8 / 8.4, S2 3.9 / 3.8 cm; form factor 1.05 / 1.00 → **mixed**, diurnal ≈ semidiurnal (corregir "mainly semidiurnal"); los dos modelos difieren < 0.4 cm; carrera media 0.29 m (JICA 2004) | `marea_fes2022.py`, `marea_eot20.py` | ⏳ |
+| Marea | "small and mixed, mainly semidiurnal" | Frente a la boca, FES2022 / EOT20: M2 12.2 / 12.6, K1 8.3 / 8.0, O1 8.8 / 8.4, S2 3.9 / 3.8 cm; form factor 1.05 / 1.00 → **mixed**, diurnal ≈ semidiurnal (corregir "mainly semidiurnal"); los dos modelos difieren < 0.4 cm por constituyente y **1,15 cm RMS en el nivel** (9 constituyentes comunes, mismo punto y método que `prisma_marea.py`; `fig_tide`, `scripts/figuras_resultados.py marea`: RMS exacto 1,15 cm, enero 2016 1,16 cm); carrera media 0.29 m (JICA 2004) | `marea_fes2022.py`, `marea_eot20.py` | ⏳ |
 | Ríos | — | Luyanó 1.33, Martín Pérez 0.72, Tadeo 0.09 m³ s⁻¹ (total 2.14; CIMAB 2002 en JICA 2004) | `scripts/caso_real.py` (Q_RIOS) | ➕ |
 | Retención del agua dulce (literatura) | — | "tiempo de retención del agua dulce ≈ 4 meses" (JICA 2004); el resumen no da el método | JICA 2004, resumen ejecutivo, p. R-7 | ➕ (discusión) |
 
@@ -65,7 +65,7 @@ En main.tex (17-oct): 🔁 = el texto tiene el valor viejo.
 | Equilibrio | deriva de la edad de la bahía ≤ 0,05 d/d en los últimos 10 d; si > 10 % de miembros no llega, se alargan | ídem | |
 | Clasificación | robusta ≥ 90 % de los miembros; frágil 10–90 %; rechazada ≤ 10 % (bloques A y B, 2N = 128) | ídem | ➕ |
 | Sobol | Jansen S1 y ST; IC 95 % bootstrap (1000); con N = 64 error ~0,1 en ST y ~0,2 en S1 → interpretar ST | `scripts/analisis_conjunto.py` | |
-| Cómputo | Lemaitre4 (CÉCI); **7 núcleos por miembro** (4 de cálculo + 3 de escritura: la salinidad es la 3.ª salida 3D); **tramos de 20 d con hotstart** (reinicio comprobado: métricas iguales al 0,01 %); 20 d tardan 0,65–9 h (mediana 1,6 h) según cuántos miembros corren a la vez; total ~5·10⁴ horas-núcleo (estimación gruesa: 704 × 6 × 1,6 h × 7) ⏳ | `cluster/`, `runs/*/coste.txt`, `docs/00_estado_y_plan.md` (2-nov, 6-nov) | 🔁 (4 + 2 núcleos, 2,7–3,9 h por 90 d) |
+| Cómputo | Lemaitre4 (CÉCI); **7 núcleos por miembro** (4 de cálculo + 3 de escritura: la salinidad es la 3.ª salida 3D); **tramos de 20 d con hotstart** (reinicio comprobado: métricas iguales al 0,01 %); 20 d tardan 0,65–9 h (mediana 1,6 h) según cuántos miembros corren a la vez; **≈ 5,4·10⁴ horas-núcleo** para los 704 (9-nov: los 484 miembros completos de la copia de `runs/conjunto/coste.txt` tardan 10,9 h de reloj de media, P5–P95 7,0–15,7 h, × 7 núcleos = 76 h-núcleo por miembro; × 704); mecanismo ≈ 4,4·10² y robustez ≈ 6,4·10² (sin m0005); no cuenta posproceso ni reintentos no registrados; reloj de pared del trabajo × núcleos asignados, no CPU usada ⏳ (repetir al terminar) | `cluster/`, `runs/*/coste.txt`, `docs/00_estado_y_plan.md` (2-nov, 6-nov) | 🔁 (4 + 2 núcleos, 2,7–3,9 h por 90 d) |
 | Mecanismo | miembro central (carta 1887, α = 0,5, datum +0,25 m, Cd 0,0025), 1 año 2016, EOT20, 5 tramos de 73 d | `docs/resultados_mecanismo.md` | |
 | Robustez | miembro central con ríos, 120 d: cierre k-ε; 32 niveles; difusividad mínima × 10 (10⁻⁵ m²/s); flujo de calor ERA5 (albedo 0,06, Jerlov 7) con borde a 28 °C; **flujo de calor con SST diaria NOAA OISST v2.1 en el borde y como T inicial** ⏳ (corriendo) | `docs/resultados_robustez.md`, `datos/forzamiento/sst/` | ➕ |
 
@@ -84,6 +84,19 @@ Edad media (d, últimos 30 d del año, media de superficie y fondo):
 | Atarés | 251 | 118 | 9,6 |
 | **Bahía** | **166** | **97** | **6,6** |
 | Deriva final (d/d) | +0,36 (sin equilibrio) | +0,09 | −0,03 (equilibrio desde ~día 30) |
+
+**⚠ Dos definiciones de «edad media por zona» en uso (9-nov).** La tabla de arriba es la media simple sobre los nodos de la zona de los mapas de edad en superficie y fondo (promediados en los últimos 30 d); la bahía coincide con la otra definición (166 / 97 / 6,6 d) pero las zonas **no**. La definición del protocolo congelado, la de `resumen.json` (`edad_media_d_*`) y la de la tabla de robustez es la **media ponderada por volumen en los últimos 30 d**:
+
+| Zona | Solo marea | + viento | + ríos y densidad |
+|---|---|---|---|
+| Canal | 35,6 | 55,5 | 4,0 |
+| Cuenca | 170,5 | 103,3 | 6,6 |
+| Marimelena | 295,1 | 102,0 | 7,0 |
+| Guasabacoa | 211,5 | 113,9 | 7,6 |
+| Atarés | 233,3 | 116,7 | 8,9 |
+| **Bahía** | **166,2** | **96,7** | **6,6** |
+
+(`runs/mecanismo/m000{0,1,2}/resumen.json`; con ríos coincide con la base de robustez: 4,0 / 6,7 / 7,0 / 7,6 / 8,8 / 6,6.) **Recomendación:** usar esta segunda tabla en el artículo (misma definición que robustez, el protocolo y el conjunto) y decirlo en Métodos. El orden canal < cuenca < Guasabacoa < Atarés se cumple en las dos definiciones y en los tres experimentos; Marimelena sigue siendo la zona frágil (la más vieja con solo marea, algo por debajo de la cuenca con viento, entre cuenca y Guasabacoa con ríos). La figura 7 (`fig_mechanism`) usa la definición ponderada por volumen.
 
 Con densidad: canal 6,5 d en superficie y 1,9 d en el fondo (circulación estuarina); intercambio implícito V/edad ≈ 50 m³/s ≈ 25 veces el caudal de los ríos; coherente con Knudsen (~50–100 m³/s).
 
@@ -105,8 +118,9 @@ El orden de las zonas no cambia en ninguno. El experimento con calor y borde a 2
 | ríos y densidad (prueba principal) | agua dulce en superficie | 0,45 | 0,35–0,54 | 0,16 | 0,61 |
 | + viento (secundaria) | edad en superficie | 0,48 | 0,39–0,57 | 0,15 | 0,63 |
 | solo marea | edad en superficie | 0,29 | 0,17–0,40 | 0,28 | 0,61 |
+| ríos y densidad (secundaria) | edad en superficie | 0,46 | 0,37–0,55 | 0,15 | 0,60 |
 
-8908 píxeles, 145 bloques. Regla registrada: criterio principal cumplido, pero p ≥ 0,05 → **no distinguible del azar espacial**: los dos mapas solo comparten el gradiente boca → cabeceras.
+Fuentes: `resultados/comparacion_s2/m0002_s2_dulce.json` (principal), `m0002_s2_edad.json` (fila «ríos y densidad · edad»; ρ = 0,465, p = 0,147), `m0001_s2_edad.json` (+ viento), `m0000_s2_edad.json` (solo marea). 8908 píxeles, 145 bloques. Regla registrada: criterio principal cumplido, pero p ≥ 0,05 → **no distinguible del azar espacial**: los dos mapas solo comparten el gradiente boca → cabeceras.
 
 ### Conjunto de 704 — ⏳ (598/704 terminados el 6-nov)
 
@@ -125,3 +139,7 @@ Las cifras provisionales del 17-oct que hay en main.tex sec. 6.1 (2 miembros de 
 
 - "Tidal excursion is shorter than the entrance channel: the tide alone flushes poorly" → sigue valiendo (0,41 del canal) y ahora lo confirma el modelo (166 d con solo marea).
 - Nuevo candidato: "Density-driven exchange from 2 m³/s of river water flushes the bay in about a week, 25 times faster than the tide alone" (firme frente a turbulencia y resolución; pendiente del flujo de calor).
+
+## Nombres de las figuras de resultados a tamaño final (9-nov)
+
+`docs/figuras/articulo/`: `fig_prisma` (control analítico, 190 × 72 mm), `fig_mechanism` (mecanismo, 190 × 72), `fig_robustness` (robustez, **90 × 62**), `fig_sentinel2` (Sentinel-2 con (a)(b) y el nulo de ρ, 190 × 70), `fig_tide` (EOT20 − FES2022, 190 × 70); tras el conjunto: `fig_ensemble` (190 × 72) y `fig_sobol` (190 × 80). PNG a 300 ppp y PDF vectorial (mapas solo PNG). No llevan el número de figura en el nombre porque la numeración difiere entre los documentos (ver `figuras.md`).

@@ -3,7 +3,7 @@
 y robustez de las conclusiones cualitativas. Solo numpy + matplotlib (corre en el Mac/VM sobre los resumen.* bajados).
 
   python scripts/analisis_conjunto.py [runs/conjunto]   -> resultados/conjunto/{sobol.csv, metricas.csv, orden_zonas.csv,
-                                                            prob_edad_sup.npz, conclusiones.csv, sobol.png}
+                                                            prob_zonas.csv, prob_edad_sup.npz, conclusiones.csv, sobol.png}
   python scripts/analisis_conjunto.py --prueba          -> autoprueba con un conjunto sintetico de indices conocidos
 
 Entradas: datos/conjunto/diseno.csv y <runs>/mNNNN/resumen.json (+ resumen.npz para el mapa). Los miembros que faltan
@@ -95,6 +95,13 @@ def analiza(runs, salida=SALIDA, figura=True):
     with open(salida / "orden_zonas.csv", "w", newline="") as f:
         w = csv.writer(f); w.writerow(["P(fila mas vieja que columna)"] + ZONAS)
         for a, za in enumerate(ZONAS): w.writerow([za] + [f"{np.mean(E[:, a] > E[:, b]):.3f}" if len(E) else "" for b in range(len(ZONAS))])
+    # P(edad media de la zona > umbral) entre los miembros A y B, y su mediana y P5-P95 (protocolo: desviacion del 8-nov)
+    with open(salida / "prob_zonas.csv", "w", newline="") as f:
+        w = csv.writer(f); w.writerow(["zona"] + [f"P_mayor_{u:g}d" for u in UMBRALES] + ["p5", "p50", "p95", "n"])
+        for k, z in enumerate(ZONAS):
+            e = E[:, k][np.isfinite(E[:, k])] if len(E) else np.array([])
+            w.writerow([z] + ([f"{np.mean(e > u):.3f}" for u in UMBRALES] + [f"{v:.4g}" for v in np.percentile(e, [5, 50, 95])] + [len(e)]
+                              if len(e) else [""] * 7))
     if mapas:
         M = np.array(list(mapas.values()))
         np.savez_compressed(salida / "prob_edad_sup.npz", n=len(M), umbrales_d=np.array(UMBRALES), p50=np.median(M, 0).astype(np.float32),
@@ -166,6 +173,10 @@ def prueba():
         o = list(csv.reader(open(Path(tmp) / "salida" / "orden_zonas.csv")))
         assert o[6][1] == "1.000" and o[1][6] == "0.000", o          # bahia (x1,5) siempre mas vieja que canal
         p = np.load(Path(tmp) / "salida" / "prob_edad_sup.npz")["p_mayor_30d"]; assert 0 < p[0] < 1
+        pz = list(csv.DictReader(open(Path(tmp) / "salida" / "prob_zonas.csv")))
+        assert pz[0]["zona"] == "canal" and float(pz[0]["P_mayor_30d"]) == 0.0 and float(pz[5]["P_mayor_30d"]) > 0.9 and float(pz[5]["P_mayor_7d"]) == 1.0, pz   # edad sintetica 20-27 d (canal), x1,5 en la bahia
+        from figuras_resultados import fig_conjunto, fig_sobol          # las figuras 5 y 6 del articulo, con el tamano comprobado
+        fig_conjunto(Path(tmp) / "salida", Path(tmp) / "fig"); fig_sobol(Path(tmp) / "salida", Path(tmp) / "fig")
         cc = {r[0]: r for r in csv.reader(open(Path(tmp) / "salida" / "conclusiones.csv"))}
         assert cc["C2 Atares mas vieja que el canal"][2] == "robusta", cc
         assert cc["C7 canal: superficie mas vieja que el fondo (circulacion estuarina)"][1] == "1.000", cc

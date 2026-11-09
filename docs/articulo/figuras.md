@@ -5,23 +5,25 @@ Las de `docs/figuras/` son de trabajo (en español) y no van al artículo tal cu
 
 | # | Contenido | Datos / figura de trabajo | Estado (7-nov) |
 |---|---|---|---|
-| 1 | Mapa: bahía, canal, ensenadas, zonas, ríos y focos; recuadro de Cuba | **`docs/figuras/articulo/fig01_map.png`** (`scripts/figuras_articulo.py 1`) | **inglés hecho (8-nov)**, con recuadro de Cuba (Natural Earth) |
-| 2 | Batimetría: superficies 1879 / 1887 con sondeos, diferencia (solo donde las dos tienen sondeos a < 100 m), miembro dragado, campo de error, volumen frente a α | **`docs/figuras/articulo/fig02_bathymetry.png`** | **inglés hecho (8-nov)**, con las correcciones del 21-oct |
+| 1 | Mapa: bahía, canal, ensenadas, zonas, ríos y focos; recuadro de Cuba | **`docs/figuras/articulo/fig01_map.png`** (`scripts/figuras_articulo.py 1`) | **inglés hecho (8-nov)**, con recuadro de Cuba (Natural Earth); **190 × 98 mm** (9-nov) |
+| 2 | Batimetría: superficies 1879 / 1887 con sondeos, diferencia (solo donde las dos tienen sondeos a < 100 m), miembro dragado, campo de error, volumen frente a α | **`docs/figuras/articulo/fig02_bathymetry.png`** | **inglés hecho (8-nov)**, con las correcciones del 21-oct; **190 × 118 mm** (9-nov, pedido ≤ 120) |
 | 3 | Malla: dominio con profundidad, borde abierto y esponja; bahía; detalle del canal | **`docs/figuras/articulo/fig03_mesh.png`** (profundidad del miembro central) | **inglés hecho (8-nov)** |
-| 4 | Control analítico (prisma) | `resultados/prisma_marea.png` | **lista en inglés**; copiarla a `articulo/figuras/fig_prisma_marea.png` (la de allí es vieja) |
-| 5 | P(edad > 7/14/30 d) por zona y mapa; mediana y P5–P95 | conjunto + `analisis_conjunto.py` | espera al conjunto (598/704 el 6-nov) |
-| 6 | Índices de Sobol S1 y ST por zona, con IC | conjunto | espera al conjunto |
-| 7 | Mecanismo: edad media por experimento (marea / + viento / + densidad) | `docs/figuras/mecanismo.png` | trabajo hecho; falta inglés. Sin caudal neto ni bruto (no fiables) |
-| 8 | Destino del agua de los ríos | — | protocolo aprobado y congelado 8-nov (`docs/protocolo_trazadores_rios.md`); trazador por río, 4 casos; resultados pendientes (primero compilar y validar) |
-| 9 | Sentinel-2: agua dulce en superficie frente a persistencia de anomalías + distribución nula por desplazamientos | `docs/figuras/s2_vs_dulce.png`, `resultados/comparacion_s2/*.json` | trabajo hecho; falta inglés y mostrar el nulo |
-| 10 | Marea en el borde: FES2022 frente a EOT20 | `docs/figuras/marea_fes_eot20.png` | trabajo hecho (correcciones del 21-oct) |
-| S1 | Corriente espuria del borde y su insensibilidad en la bahía | `revisar_real.py` | datos hechos |
-| S2 | Robustez de la densidad (k-ε, 32 niveles, mezcla × 10, flujo de calor) | `docs/figuras/robustez.png` | trabajo hecho; falta el caso con SST ⏳ |
+| 4 | Control analítico (prisma) | `resultados/prisma_marea.csv`; `scripts/prisma_marea.py` | **hecha a tamaño final (9-nov)**: `fig_prisma.png/.pdf`, 190 × 72 mm |
+| 5 | Edad media por zona entre miembros (mediana, P5–P95) y mapas de P(edad en superficie > 7 y 14 d) | `scripts/analisis_conjunto.py` → `resultados/conjunto/prob_zonas.csv`, `prob_edad_sup.npz`; `scripts/figuras_resultados.py conjunto` | código listo y probado con el conjunto sintético (`analisis_conjunto.py --prueba`); espera al conjunto → `fig_ensemble`, 190 × 72 mm |
+| 6 | Índices de Sobol: S1 y ST con IC 95 % de la bahía y ST por zona | `resultados/conjunto/sobol.csv`; `figuras_resultados.py sobol` | código listo y probado; espera al conjunto → `fig_sobol`, 190 × 80 mm |
+| 7 | Mecanismo: edad de la bahía en el año y edad por zona (media ponderada por volumen, últimos 30 d; ver `cifras.md`) | `runs/mecanismo/m000{0,1,2}/resumen.*` | **hecha (9-nov)**: `fig_mechanism.png/.pdf`, 190 × 72 mm. Sin caudal neto ni bruto |
+| 8 | Destino del agua de los ríos | — | protocolo aprobado y congelado 8-nov (`docs/protocolo_trazadores_rios.md`); resultados pendientes (primero compilar y validar) |
+| 9 | Sentinel-2: frecuencia de anomalías, agua dulce del modelo y distribución nula de ρ | `datos/sentinel2`, `runs/mecanismo/m0002`, `resultados/comparacion_s2/m0002_s2_dulce.json` | **hecha (9-nov)**: `fig_sentinel2.png/.pdf`, 190 × 70 mm; el script reproduce ρ, p y P95 del JSON (aserción) |
+| 10 | Marea en el borde: amplitudes FES2022 / EOT20 y diferencia de nivel en enero de 2016 | `datos/marea/*_habana.json` | **hecha (9-nov)**: `fig_tide.png/.pdf`, 190 × 70 mm; RMS de la diferencia 1,15 cm |
+| S1 | Corriente espuria del borde y su insensibilidad en la bahía | `revisar_real.py` | datos hechos; sin figura final |
+| S2 | Robustez de la densidad (k-ε, 32 niveles, mezcla × 10, flujo de calor) | `runs/robustez/m000*/resumen.npz` | **hecha (9-nov)**: `fig_robustness.png/.pdf`, **90 × 62 mm** (una columna); dibuja m0005 (calor con SST OISST) sola cuando exista su `resumen.npz` |
 | S3 | (si sale) caudal por el canal con salida cada 10 min frente a cada 4 h | `cluster/hf_caudal.sh` + `diag_caudal.py --hf` | prueba en marcha |
+
+**Numeración:** los documentos del chat del artículo no coinciden entre sí (en `REQUISITOS_FIGURAS.md` el mecanismo es la fig. 5; en la lista de pendientes la fig. 5 es la de P(edad > umbral)). Los archivos de resultados llevan nombre descriptivo (`fig_mechanism`, `fig_sentinel2`…) y no el número; las figuras 1–3 conservan `fig01_map`, `fig02_bathymetry`, `fig03_mesh`.
 
 Obsoletas: S0 (`edad_primeras_corridas.png`, corridas provisionales) y la curva de 1 año sin ríos; las sustituyen 7 y S2.
 
-Convenciones: UTM 17N en metros; paleta y estilo comunes en un único `scripts/figuras_articulo.py` (8-nov: figuras 1–3; las de resultados se añaden ahí con el mismo estilo). Salida: `docs/figuras/articulo/` (inglés, 300 ppp, 190 mm de ancho).
+Convenciones: tamaño final y 7 pt (`docs/figuras_requisitos.md`); estilo común en `scripts/estilo_figuras.py`; mapas en `scripts/figuras_articulo.py` (necesita scipy; corre en el contenedor), figuras de resultados en `scripts/figuras_resultados.py` (solo numpy + matplotlib; corre en el Mac). Salida: `docs/figuras/articulo/` (inglés, 300 ppp, 90 o 190 mm).
 
 ## Revisión 21-oct-2026 (qué falta en cada figura antes de pasarla al artículo)
 
