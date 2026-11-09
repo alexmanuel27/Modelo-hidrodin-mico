@@ -206,7 +206,7 @@ def fig_conjunto(dir=CONJUNTO, salida=SALIDA):
     x = np.arange(len(filas)); med, lo, hi = (np.array([float(r[k]) for r in filas]) for k in ("p50", "p5", "p95"))
     a.errorbar(x, med, yerr=[med - lo, hi - med], fmt="o", color=AZUL, ms=3, capsize=2, lw=0.8)
     for u, ls in ((7, "--"), (14, ":")):
-        a.axhline(u, color=NEGRO, ls=ls, lw=0.6); a.text(len(x) - 0.55, u + 0.25, f"{u} d", ha="right", va="bottom", fontsize=6)
+        a.axhline(u, color=NEGRO, ls=ls, lw=0.6); a.text(-0.45, u + 0.25, f"{u} d", ha="left", va="bottom", fontsize=6)
     a.set_xlim(-0.5, len(x) - 0.5); a.set_xticks(x); a.set_xticklabels(ZNOM6[:len(x)], rotation=25, ha="right", rotation_mode="anchor")
     a.set_ylim(0, max(16, hi.max() * 1.1)); a.set_ylabel("Mean age, last 30 d (d)")
     for ax, u in ((b, 7), (c, 14)):
@@ -216,7 +216,7 @@ def fig_conjunto(dir=CONJUNTO, salida=SALIDA):
         ax.ticklabel_format(useOffset=False, style="plain")
     b.set_ylabel("Northing (km)"); c.set_yticklabels([])
     fig.colorbar(im, ax=[b, c], fraction=0.04, pad=0.02).set_label("Probability across members")
-    for ax_, l_ in zip((a, b, c), "abc"): letra(ax_, l_)
+    letra(a, "a"); letra(b, "b", x=0.84); letra(c, "c", x=0.84)      # en los mapas, arriba a la derecha (el NO tiene mar abierto)
     guarda(fig, "fig_ensemble", 190, salida)
 
 
@@ -232,7 +232,7 @@ def fig_sobol(dir=CONJUNTO, salida=SALIDA):
         v = np.array([g(m, q, k) for q in params]); l = np.array([g(m, q, lo) for q in params]); h = np.array([g(m, q, hi) for q in params])
         a.errorbar(v, y + off, xerr=[v - l, h - v], fmt=mk, color=c, mfc=c if mk == "o" else "white", ms=3, capsize=1.5, lw=0.8, label=lab)
     a.axvline(0, color=NEGRO, lw=0.4); a.set_yticks(y); a.set_yticklabels([PARAM.get(q, q) for q in params])
-    a.set_xlabel("Sobol index (bay-mean age; bars: 95 % CI)"); a.legend(frameon=False, loc="lower right")
+    a.set_xlabel("Sobol index (bay-mean age; bars: 95 % CI)"); a.legend(frameon=False, loc="upper right")
     T = np.array([[g(f"edad_media_d_{z}", q, "ST") for z in zon] for q in params])
     im = b.imshow(T, cmap="Blues", vmin=0, vmax=1, aspect="auto")
     for i in range(T.shape[0]):

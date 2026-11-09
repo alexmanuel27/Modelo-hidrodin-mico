@@ -82,3 +82,5 @@ Los índices de Sobol se dan siempre con su IC 95 % (bootstrap). Con N = 64 su e
   escribe además `prob_zonas.csv` con P(edad media de la zona > 7, 14 y 30 d) entre los miembros A y B y su mediana y P5–P95 por zona. Sale de
   `edad_media_d_*` de `resumen.json` (ya existente), no de la fracción de volumen. Probado solo con el conjunto sintético
   (`analisis_conjunto.py --prueba`). Las figuras 5 y 6 del artículo (`figuras_resultados.py conjunto sobol`) leen estos ficheros.
+
+- 2026-11-09 — Conjunto terminado (704/704) y analizado con el protocolo tal como estaba congelado, sin cambios: resultados en `docs/articulo/cifras.md` y `resultados/conjunto/`. Sin ajustes posteriores a ver los datos salvo el diseño visual de las figuras.

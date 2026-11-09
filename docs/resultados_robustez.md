@@ -17,6 +17,8 @@ Figura: `docs/figuras/robustez.png`. Datos: `runs/robustez/m000{0..4}/resumen.*`
 | Deriva al final (d/d) | +0,02 | +0,01 | +0,01 | +0,03 | **−0,10** (no estable) |
 | Canal: edad sup / fondo | 6,6 / 1,8 | 6,7 / 2,1 | 7,5 / 2,3 | 6,6 / 1,9 | 14,2 / 10,6 |
 
+**Adenda 9-nov: m0005 (flujo de calor con SST OISST en el borde y como T inicial, 120 d).** Edad por zona (d, días 90–120): canal 7,6 · cuenca 11,8 · Marimelena 12,9 · Guasabacoa 12,1 · Atarés 13,3 · **bahía 11,2**; deriva +0,24 d/d (sin equilibrio; media de los últimos 5 d: 12,7; mín/máx en la ventana 9,0/13,5). Menos extremo que con el borde a 28 °C (16,8), pero ×1,7 sobre la base y sin estabilizarse. `runs/robustez/m0005/resumen.json`.
+
 ## Lectura
 
 1. **Robusta frente a la turbulencia y la resolución vertical.** Con otro cierre (k-ε), con el doble de niveles o con

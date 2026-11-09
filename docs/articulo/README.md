@@ -11,9 +11,9 @@ Para el chat del artículo: lo que el texto debe decir, con su fuente. No es pro
 | Área de estudio, datos públicos, control analítico | firme | `secciones/02`, `03`, `04` |
 | Métodos | firme, salvo horas-núcleo totales y destino de los ríos | `secciones/05_metodos.md` |
 | Mecanismo (marea / viento / densidad) | **firme** | `secciones/06_resultados.md` 6.4 |
-| Robustez de la densidad | firme, salvo el flujo de calor (repetición con SST real corriendo) | 6.4 y `07_discusion.md` |
+| Robustez de la densidad | firme salvo el flujo de calor: con SST real (m0005) 11,2 d, sin equilibrio; **no es robusta a incluir el balance de calor** (cifras.md) | 6.4 y `07_discusion.md` |
 | Sentinel-2 | **firme, resultado negativo** | 6.6 |
-| Conjunto de 704 (mapas, Sobol, robusta/frágil) | corriendo: 598/704 el 6-nov | 6.2, 6.3, 7.1 |
+| Conjunto de 704 (mapas, Sobol, robusta/frágil) | **terminado (9-nov): 704/704**; bahía 7,8 d (P5–P95 5,6–10,4), C1–C2, C4–C7 robustas, C3 frágil, P(>14 d) = 0, C8 caudal S_T 0,67; figs 5 y 6 hechas (cifras.md) | 6.2, 6.3, 7.1 |
 | Destino del agua de los ríos (fig. 8) | protocolo congelado 8-nov; sin resultados (falta compilar con `USE_GEN`, validar y correr 4 casos) | 6.5 |
 | Caudal por el canal | **no usar** como resultado ni como acuerdo con el prisma | avisos en `cifras.md` |
 | Figuras finales en inglés | 1–3 y el prisma; el resto a tamaño final en curso | `figuras.md`, `../figuras_requisitos.md` |

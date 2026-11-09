@@ -106,10 +106,10 @@ Con densidad: canal 6,5 d en superficie y 1,9 d en el fondo (circulación estuar
 
 | | Base | k-ε | 32 niveles | Difusividad × 10 | + calor (borde 28 °C) | + calor (SST OISST) |
 |---|---|---|---|---|---|---|
-| Edad de la bahía (d, días 90–120) | 6,6 | 6,9 | 7,5 | 6,6 | 16,8 (sin equilibrio, deriva −0,10) | ⏳ |
-| Canal sup / fondo (d) | 6,6 / 1,8 | 6,7 / 2,1 | 7,5 / 2,3 | 6,6 / 1,9 | 14,2 / 10,6 | ⏳ |
+| Edad de la bahía (d, días 90–120) | 6,6 | 6,9 | 7,5 | 6,6 | 16,8 (sin equilibrio, deriva −0,10) | **11,2 (sin equilibrio, deriva +0,24; últimos 5 d: 12,7)** |
+| Canal sup / fondo (d) | 6,6 / 1,8 | 6,7 / 2,1 | 7,5 / 2,3 | 6,6 / 1,9 | 14,2 / 10,6 | pendiente (mismo script que las otras columnas) |
 
-El orden de las zonas no cambia en ninguno. El experimento con calor y borde a 28 °C es sospechoso: la SST real de ene–abr 2016 es 24,5–27,9 °C.
+El orden de las zonas no cambia en ninguno (en m0005: canal 7,6 < cuenca 11,8 < Guasabacoa 12,1 < Marimelena 12,9 < Atarés 13,3; C3 y C1 se cumplen). El experimento con calor y borde a 28 °C es sospechoso: la SST real de ene–abr 2016 es 24,5–27,9 °C. **Con la SST real (m0005) el efecto se reduce (11,2 d frente a 16,8) pero no desaparece: la edad sigue ×1,7 sobre la base y no se estabiliza en 120 d (oscila 9–13,5 d en la ventana). La conclusión honesta es que la renovación es robusta a la turbulencia, a la resolución vertical y a la difusividad, y NO a incluir el balance de calor.** Falta saber si con calor la edad converge a otro valor o sigue creciendo; 120 d no lo dicen.
 
 ### Sentinel-2 — firme, resultado negativo (protocolo congelado 21-oct + control 26-oct)
 
@@ -122,9 +122,28 @@ El orden de las zonas no cambia en ninguno. El experimento con calor y borde a 2
 
 Fuentes: `resultados/comparacion_s2/m0002_s2_dulce.json` (principal), `m0002_s2_edad.json` (fila «ríos y densidad · edad»; ρ = 0,465, p = 0,147), `m0001_s2_edad.json` (+ viento), `m0000_s2_edad.json` (solo marea). 8908 píxeles, 145 bloques. Regla registrada: criterio principal cumplido, pero p ≥ 0,05 → **no distinguible del azar espacial**: los dos mapas solo comparten el gradiente boca → cabeceras.
 
-### Conjunto de 704 — ⏳ (598/704 terminados el 6-nov)
+### Conjunto de 704 — resultados (9-nov, 704/704 miembros terminados)
 
-Se informará según el protocolo congelado: C1–C7 y P(edad > 7/14/30 d) con su clase (robusta/frágil/rechazada), C8 (parámetro con mayor ST) e IC. Todo condicional a "densidad solo por salinidad, ene–abr 2016".
+Protocolo congelado (27-oct); `scripts/analisis_conjunto.py` → `resultados/conjunto/`. 704 = 64 × (2 + 9): bloques A y B = **128 miembros** para distribuciones y probabilidades; los AB_i solo entran en Sobol. **117 de 128 están en equilibrio** (|deriva| ≤ 0,05 d/d); las clases son las mismas con solo esos 117. Todo condicional a "densidad solo por salinidad, ene–abr 2016, caudales JICA × 0,25–2 (log-uniforme)".
+
+| Zona | Edad media, últimos 30 d (d): mediana (P5–P95) | P(> 7 d) | P(> 14 d) | P(> 30 d) |
+|---|---|---|---|---|
+| Canal | 4,6 (3,2–6,4) | 0,02 | 0 | 0 |
+| Cuenca | 7,7 (5,6–10,2) | 0,69 | 0 | 0 |
+| Marimelena | 8,1 (6,3–10,4) | 0,82 | 0 | 0 |
+| Guasabacoa | 9,1 (6,4–12,5) | 0,85 | 0 | 0 |
+| Atarés | 10,5 (7,3–14,6) | 0,96 | 0,11 | 0 |
+| **Bahía** | **7,8 (5,6–10,4)** | **0,68** | **0** | **0** |
+
+Conclusiones del protocolo (fracción de los 128 miembros que las cumplen): **C1** orden canal < cuenca < Guasabacoa < Atarés 1,00 robusta · **C2** Atarés más vieja que el canal 1,00 robusta · **C3** Marimelena más vieja que la cuenca **0,76 frágil** · **C4** Guasabacoa y Atarés más viejas que la cuenca 1,00 robusta · **C5** edad de la bahía < 30 d 1,00 robusta · **C6** < 120 d (JICA "~4 meses") 1,00 robusta · **C7** canal con superficie más vieja que el fondo 1,00 robusta · **P(edad bahía > 7 d)** 0,68 frágil · **> 14 d** 0 rechazada · **> 30 d** 0 rechazada.
+
+**C8 (Sobol, Jansen, bootstrap 1000, N = 64):** el parámetro con mayor S_T en la edad de la bahía es el **caudal de los ríos (qfac): S_T = 0,67 (IC 95 % 0,49–0,89), S_1 = 0,86 (0,80–0,90)**. Todos los demás tienen S_T ≤ 0,10 (campo de error de la carta, es decir la semilla, 0,095; dirección del viento 0,046; edición de la carta 0,032; el resto ≤ 0,013 y la amplitud de la marea 0,003). Mismo reparto en las cinco zonas (qfac 0,56–0,70). Cautelas: con N = 64 los IC de S_1 de los parámetros sin efecto son de ±0,3 (el estimador resta dos cantidades casi iguales), así que de esos S_1 solo se lee "no distinguible de 0"; S_T(qfac) < S_1(qfac) es ruido del estimador (los IC se solapan; en teoría S_T ≥ S_1); y "S_T del caudal 0,67" no significa que el resto sea irrelevante, solo que no se distingue en este diseño.
+
+**Lo que NO cubre el conjunto:** el flujo de calor (la sección de robustez de arriba): m0001 da 16,8 d y m0005 11,2 d, los dos sin equilibrio, y m0001 estaría por encima de 14 d. "P(> 14 d) = 0" vale dentro de la estructura del modelo del conjunto, no frente a esa alternativa estructural.
+
+**Sentinel-2 (conjunto, `resultados/comparacion_s2/conjunto_s2_dulce.json`):** ρ > 0 en **128/128** miembros con ríos (mediana 0,447, P5–P95 0,434–0,465) → por el protocolo el resultado es "robusto" (≥ 90 %), pero la dispersión es mínima porque el patrón espacial apenas depende de los parámetros, y el control de desplazamientos del caso central sigue en p = 0,16: **no distinguible del azar espacial** (regla del 26-oct). El control de desplazamientos no se ha repetido por miembro.
+
+Figuras: `fig_ensemble` (5) y `fig_sobol` (6) generadas con estos datos.
 
 ### Avisos sobre el caudal por el canal — no usar como resultado
 

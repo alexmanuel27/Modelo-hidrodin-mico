@@ -1,0 +1,12 @@
+conclusion,frac_todos,clase,frac_en_equilibrio,clase_eq,n_todos,n_eq
+C1 orden canal < cuenca < Guasabacoa < Atares,1.000,robusta,1.000,robusta,128,117
+C2 Atares mas vieja que el canal,1.000,robusta,1.000,robusta,128,117
+C3 Marimelena mas vieja que la cuenca,0.758,fragil,0.761,fragil,128,117
+C4 Guasabacoa y Atares mas viejas que la cuenca,1.000,robusta,1.000,robusta,128,117
+C5 edad de la bahia < 30 d,1.000,robusta,1.000,robusta,128,117
+C6 edad de la bahia < 120 d (JICA ~4 meses),1.000,robusta,1.000,robusta,128,117
+C7 canal: superficie mas vieja que el fondo (circulacion estuarina),1.000,robusta,1.000,robusta,128,117
+P edad de la bahia > 7 d,0.680,fragil,0.675,fragil,128,117
+P edad de la bahia > 14 d,0.000,rechazada,0.000,rechazada,128,117
+P edad de la bahia > 30 d,0.000,rechazada,0.000,rechazada,128,117
+"C8 parametro con mayor ST en la edad de la bahia: qfac (ST 0.67, IC 0.49-0.89)",,,,,,
