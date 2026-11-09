@@ -5,7 +5,8 @@ Luyano, Martin Perez, Tadeo). Protocolo congelado el 8-nov-2026: docs/protocolo_
 Por caso (ultimos 30 d): T_i = M_i / Q_i (M_i = volumen de agua del rio i en la bahia), fraccion de cada zona que es agua del rio i y
 reparto de M_i por zona (volumen y superficie / fondo), mapas, equilibrio (M_i crece <= 1 % de su media por dia en los ultimos 10 d)
 y control: la suma de los tres trazadores contra el agua dulce de la salinidad (1 - S/36), diferencia del inventario < 5 %.
-  python trazadores_rios.py <caso>               -> <caso>/trazadores.json y trazadores.npz (mapas)
+  python trazadores_rios.py <caso> [dia]         -> <caso>/trazadores.json y trazadores.npz (mapas); [dia]: ultimo dia de la ventana
+                                                    (por defecto el ultimo; con la corrida a medias solo vale el control de la suma)
   python trazadores_rios.py --clasifica <dir>    -> lee <dir>/m0000..m0003/trazadores.json y clasifica R1-R4 (robusta si se cumple en los 4)
   python trazadores_rios.py --prueba             -> autoprueba con solucion conocida
 Necesita GEN_i_*.nc, salinity_*.nc y out2d_*.nc (netCDF4: solo en el cluster o en el entorno bahia del Mac)."""
@@ -72,9 +73,9 @@ def clasifica(dirc):
     return tabla
 
 
-def carga(dirm):
+def carga(dirm, n=None):
     from netCDF4 import Dataset
-    out = Path(dirm) / "outputs"; n = max(int(f.stem.split("_")[-1]) for f in out.glob("salinity_*.nc"))
+    out = Path(dirm) / "outputs"; n = n or max(int(f.stem.split("_")[-1]) for f in out.glob("salinity_*.nc"))
     eta, S, C = [], [], []
     for k in range(n - VENTANA + 1, n + 1):
         with Dataset(out / f"out2d_{k}.nc") as d:
@@ -109,7 +110,7 @@ if __name__ == "__main__":
     M = dict(np.load(R / "datos" / "conjunto" / "posproceso_malla.npz"))
     if sys.argv[1] == "--prueba": prueba(M); sys.exit()
     if sys.argv[1] == "--clasifica": clasifica(sys.argv[2]); sys.exit()
-    dirm = Path(sys.argv[1]); eta, C, S, prof, n = carga(dirm)
+    dirm = Path(sys.argv[1]); eta, C, S, prof, n = carga(dirm, int(sys.argv[2]) if len(sys.argv) > 2 else None)
     t = np.arange(len(eta)) / 6.0 + (n - VENTANA)                      # dias, 6 salidas por dia (4 h)
     r, mapas = metricas(t, eta, C, S, prof, M, caudales(dirm))
     (dirm / "trazadores.json").write_text(json.dumps(r, indent=1)); np.savez_compressed(dirm / "trazadores.npz", **mapas)

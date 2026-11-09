@@ -1,0 +1,25 @@
+[lm4-f001:1355933] pml_ucx.c:313  Error: Failed to create UCP worker
+{"dias": 40.0, "nan": 0, "vmax": 4.227, "vmax_nodo": 4625, "vmax_bahia": 1.353, "vmax_bahia_nodo": 4205, "marea_bahia_cm": 19.906, "edad_media_d_canal": 3.482, "frac_vol_edad_mayor_30d_canal": 0.0, "edad_media_d_cuenca": 5.879, "frac_vol_edad_mayor_30d_cuenca": 0.0, "edad_media_d_Marimelena": 6.174, "frac_vol_edad_mayor_30d_Marimelena": 0.0, "edad_media_d_Guasabacoa": 6.258, "frac_vol_edad_mayor_30d_Guasabacoa": 0.0, "edad_media_d_Atares": 6.652, "frac_vol_edad_mayor_30d_Atares": 0.0, "edad_media_d_bahia": 5.55, "frac_vol_edad_mayor_30d_bahia": 0.0, "deriva_edad_bahia_d_por_d": 0.247, "edad_equilibrio_d_canal": 6.096, "tau_d_canal": 25.312, "edad_equilibrio_d_cuenca": 16.376, "tau_d_cuenca": 48.402, "edad_equilibrio_d_Marimelena": 13.593, "tau_d_Marimelena": 33.293, "edad_equilibrio_d_Guasabacoa": 15.73, "tau_d_Guasabacoa": 43.399, "edad_equilibrio_d_Atares": 13.038, "tau_d_Atares": 29.599, "edad_equilibrio_d_bahia": 12.346, "tau_d_bahia": 35.522, "Q_neto_m3s": -1.234, "Q_bruto_m3s": 61.259, "s2_imagenes": 30, "frac_dulce_sup_bahia": 0.018}
+[lm4-f001:1356049] pml_ucx.c:313  Error: Failed to create UCP worker
+{"dias": 30.0, "nan": 0, "vmax": 5.95, "vmax_nodo": 4799, "vmax_bahia": 1.41, "vmax_bahia_nodo": 4205, "marea_bahia_cm": 19.321, "edad_media_d_canal": 3.08, "frac_vol_edad_mayor_30d_canal": 0.0, "edad_media_d_cuenca": 5.219, "frac_vol_edad_mayor_30d_cuenca": 0.0, "edad_media_d_Marimelena": 5.888, "frac_vol_edad_mayor_30d_Marimelena": 0.0, "edad_media_d_Guasabacoa": 5.905, "frac_vol_edad_mayor_30d_Guasabacoa": 0.0, "edad_media_d_Atares": 6.12, "frac_vol_edad_mayor_30d_Atares": 0.0, "edad_media_d_bahia": 5.055, "frac_vol_edad_mayor_30d_bahia": 0.0, "deriva_edad_bahia_d_por_d": 0.098, "edad_equilibrio_d_canal": 6.519, "tau_d_canal": 20.661, "edad_equilibrio_d_cuenca": 10.058, "tau_d_cuenca": 17.681, "edad_equilibrio_d_Marimelena": 15.75, "tau_d_Marimelena": 28.739, "edad_equilibrio_d_Guasabacoa": 11.258, "tau_d_Guasabacoa": 17.696, "edad_equilibrio_d_Atares": 11.36, "tau_d_Atares": 17.008, "edad_equilibrio_d_bahia": 9.878, "tau_d_bahia": 18.159, "Q_neto_m3s": -2.466, "Q_bruto_m3s": 63.786, "s2_imagenes": 30, "frac_dulce_sup_bahia": 0.02}
+=== T0 vs robustez m0000
+dias comunes: 0-40.0
+  canal       media ult. 10 d: nueva 3.895 ref 3.898 (dif 0.08%); dif max serie 0.38%  ok
+  cuenca      media ult. 10 d: nueva 6.619 ref 6.625 (dif 0.09%); dif max serie 0.13%  ok
+  Marimelena  media ult. 10 d: nueva 7.174 ref 7.180 (dif 0.09%); dif max serie 0.22%  ok
+  Guasabacoa  media ult. 10 d: nueva 7.201 ref 7.201 (dif 0.01%); dif max serie 0.07%  ok
+  Atares      media ult. 10 d: nueva 7.974 ref 7.976 (dif 0.02%); dif max serie 0.18%  ok
+  bahia       media ult. 10 d: nueva 6.353 ref 6.357 (dif 0.06%); dif max serie 0.10%  ok
+RESULTADO: pasa
+=== T3 vs robustez m0005
+dias comunes: 0-30.0
+  canal       media ult. 10 d: nueva 4.748 ref 4.755 (dif 0.16%); dif max serie 2.90%  ok
+  cuenca      media ult. 10 d: nueva 7.453 ref 7.461 (dif 0.12%); dif max serie 0.75%  ok
+  Marimelena  media ult. 10 d: nueva 8.361 ref 8.367 (dif 0.08%); dif max serie 0.67%  ok
+  Guasabacoa  media ult. 10 d: nueva 8.614 ref 8.622 (dif 0.09%); dif max serie 0.54%  ok
+  Atares      media ult. 10 d: nueva 9.063 ref 9.069 (dif 0.07%); dif max serie 0.28%  ok
+  bahia       media ult. 10 d: nueva 7.371 ref 7.378 (dif 0.10%); dif max serie 0.79%  ok
+RESULTADO: pasa
+=== control de la suma, T0 dia 40
+[1794251368.987584] [lm4-f001:1356138:0]        rc_iface.c:513  UCX  ERROR ibv_create_srq() failed: Operation not supported
+{"T_d": [1.6095050863459093, 1.429515124086492, 2.6577527249345954], "M_hm3": [0.18486801173850495, 0.0887790647111072, 0.02126372276122072], "equilibrio": [false, false, false], "control_dif_rel": 0.034804932214353934, "control_ok": true} {'R1 T_i < 7 d en los tres rios': True, 'R2 agua de rios: menos fraccion en Atares que en Guasabacoa': True, 'R3 Luyano y Martin Perez: > 50 % de M_i en Guasabacoa y cuenca': True, 'R4 Tadeo: > 50 % de M_Tadeo en Marimelena': False}

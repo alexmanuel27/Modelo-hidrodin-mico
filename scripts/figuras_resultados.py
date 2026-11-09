@@ -245,8 +245,48 @@ def fig_sobol(dir=CONJUNTO, salida=SALIDA):
     guarda(fig, "fig_sobol", 190, salida)
 
 
+TRAZ = RAIZ / "runs" / "trazadores"
+RIOS_NOM = ["Luyano", "Martín Pérez", "Tadeo"]; ZONAS_TRAZ = ["canal", "cuenca", "Marimelena", "Guasabacoa", "Atarés"]
+
+
+def fig_rios(dir=TRAZ, salida=SALIDA):
+    """Fig. 8: agua de cada rio (trazador pasivo por rio, protocolo del 8-nov). (a-c) fraccion en superficie, caso T0, escala comun;
+    (d) T_i = M_i/Q_i por rio (T0 en circulo; T1-T3 en puntos grises); (e) reparto de M_i por zona (T0; barras: rango de los 4 casos)."""
+    estilo(); dir = Path(dir)
+    R = [json.loads((dir / f"m000{k}" / "trazadores.json").read_text()) for k in range(4)]; mp = np.load(dir / "m0000" / "trazadores.npz")
+    M = np.load(RAIZ / "datos" / "conjunto" / "posproceso_malla.npz"); e, n = M["s2_e"] / 1000, M["s2_n"] / 1000
+    ext = [e[0] - 0.01, e[-1] + 0.01, n[0] - 0.01, n[-1] + 0.01]
+    from matplotlib.colors import LogNorm
+    fig = plt.figure(figsize=(ANCHO2, 108 * MM), constrained_layout=True)
+    g = fig.add_gridspec(2, 4, width_ratios=[1, 1, 1, 0.06], height_ratios=[1.25, 1])
+    mapas = [fig.add_subplot(g[0, i]) for i in range(3)]; d = fig.add_subplot(g[1, 0]); r = fig.add_subplot(g[1, 1:3])
+    for i, ax in enumerate(mapas):
+        z = 100 * _raster(M, mp[f"sup_{i}"].astype(float)); z = np.where(z > 0, z, np.nan)
+        im = ax.imshow(np.ma.masked_invalid(z), origin="lower", extent=ext, cmap="viridis", norm=LogNorm(0.01, 10), interpolation="nearest")
+        ax.set_title(RIOS_NOM[i]); ax.set_xlabel("Easting (km, UTM 17N)"); ax.ticklabel_format(useOffset=False, style="plain")
+        ax.set_aspect("equal"); letra(ax, "abc"[i], x=0.02)
+        if i: ax.set_yticklabels([])
+    mapas[0].set_ylabel("Northing (km)")
+    fig.colorbar(im, cax=fig.add_subplot(g[0, 3])).set_label("River water in surface layer (%)")
+    x = np.arange(3); T = np.array([q["T_d"] for q in R])                                  # (caso, rio)
+    d.axhline(7, color=NEGRO, ls="--", lw=0.6); d.text(2.4, 7.15, "7 d", ha="right", va="bottom", fontsize=6)
+    d.plot(x, T[0], "o", color=AZUL, ms=4, label="T0 (central)")
+    for k, (mk, c) in enumerate((("v", NARANJA), ("^", BERMELLON), ("s", VERDE)), 1): d.plot(x, T[k], mk, color=c, ms=3, label=("T1 Q×0.25", "T2 Q×2", "T3 heat flux")[k - 1])
+    d.set_xticks(x); d.set_xticklabels(RIOS_NOM, rotation=20, ha="right", rotation_mode="anchor"); d.set_xlim(-0.5, 2.5)
+    d.set_ylim(0, max(8, T.max() * 1.15)); d.set_ylabel("Residence time $T_i=M_i/Q_i$ (d)"); d.legend(frameon=False, fontsize=5.5, loc="upper right", ncol=1, handletextpad=0.2)
+    letra(d, "d", x=0.02)
+    rep = np.array([[q[f"reparto_{z.replace('é', 'e')}"] for z in ZONAS_TRAZ] for q in R])   # (caso, zona, rio)
+    w = 0.26
+    for i, c in enumerate((AZUL, NARANJA, VERDE)):
+        y = 100 * rep[0, :, i]; lo, hi = 100 * rep[:, :, i].min(0), 100 * rep[:, :, i].max(0)
+        r.bar(np.arange(len(ZONAS_TRAZ)) + (i - 1) * w, y, w, color=c, label=RIOS_NOM[i], yerr=[y - lo, hi - y], error_kw=dict(lw=0.6, capsize=1.2))
+    r.set_xticks(range(len(ZONAS_TRAZ))); r.set_xticklabels(["Channel", "Main basin", "Marimelena", "Guasabacoa", "Atarés"])
+    r.set_ylabel("Share of each river's water (%)"); r.set_ylim(0, r.get_ylim()[1] * 1.18); r.legend(frameon=False, fontsize=5.5, ncol=3, loc="upper right"); letra(r, "e", x=0.01)
+    guarda(fig, "fig_rivers", 190, salida, alto_max=115)
+
+
 TODAS = dict(mecanismo=fig_mecanismo, robustez=fig_robustez, s2=fig_s2, marea=fig_marea)
-CONJ = dict(conjunto=fig_conjunto, sobol=fig_sobol)      # solo con el conjunto terminado: python scripts/figuras_resultados.py conjunto sobol
+CONJ = dict(conjunto=fig_conjunto, sobol=fig_sobol, rios=fig_rios)      # solo con el conjunto terminado: python scripts/figuras_resultados.py conjunto sobol
 
 if __name__ == "__main__":
     for k in (sys.argv[1:] or TODAS): {**TODAS, **CONJ}[k]()
