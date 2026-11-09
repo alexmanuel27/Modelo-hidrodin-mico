@@ -109,7 +109,7 @@ TRAZADORES = [("T0 caudal x1 (referencia)", {}), ("T1 caudal x0,25", {"QFAC": "0
 
 
 TRABAJADOR = r"""#!/bin/bash -l
-#SBATCH --ntasks=7
+#SBATCH --ntasks=@NTASKS@
 #SBATCH --nodes=1
 #SBATCH --time=@HORAS@:00:00
 #SBATCH --mem-per-cpu=4000
@@ -212,7 +212,7 @@ done
     # en orden de indice y una tarea cuya dependencia no se cumple bloquea a las demas). En su lugar, CARRILES trabajos
     # fijos: cada uno avanza sus miembros (m % CARRILES == carril) tramo a tramo y deja en cola a su sucesor
     # (afterany: sigue aunque este muera por tiempo). Maximo CARRILES miembros a la vez; un corte no arrastra a nadie.
-    (RUNS / "trabajador.sh").write_text(TRABAJADOR.replace("@HORAS@", str(int(np.ceil(SEG * H_POR_DIA)) + 1))
+    (RUNS / "trabajador.sh").write_text(TRABAJADOR.replace("@NTASKS@", str(NUCLEOS + ESCRIBAS)).replace("@HORAS@", str(int(np.ceil(SEG * H_POR_DIA)) + 1))
                                          .replace("@MARGEN@", str(int(np.ceil(SEG * 0.2)))))   # empieza otro tramo si quedan >= 4 h (20 d: 1,5-3 h con <= 50 a la vez)
     (RUNS / "lanzar_trabajadores.sh").write_text("""#!/bin/bash -l
 # Uso: bash lanzar_trabajadores.sh [carriles, por defecto 50]
