@@ -1,0 +1,8 @@
+=== m0000
+{'control_dif_rel': 0.02195, 'control_ok': 1, 'control_signo_rel': -0.02195, 'control_psu_equiv': -0.00921, 'control_sin_recorte_rel': -0.02195, 'frac_vol_S_mayor_36': 0.0, 'control_por_zona_rel': {'canal': -0.031, 'cuenca': -0.0296, 'Marimelena': -0.0353, 'Guasabacoa': -0.0141, 'Atares': -0.0176}}
+=== m0001
+{'control_dif_rel': 0.0543, 'control_ok': 0, 'control_signo_rel': -0.0543, 'control_psu_equiv': -0.01207, 'control_sin_recorte_rel': -0.0543, 'frac_vol_S_mayor_36': 0.0, 'control_por_zona_rel': {'canal': -0.0735, 'cuenca': -0.0688, 'Marimelena': -0.0746, 'Guasabacoa': -0.0383, 'Atares': -0.0465}}
+=== m0002
+{'control_dif_rel': 0.00462, 'control_ok': 1, 'control_signo_rel': 0.00462, 'control_psu_equiv': 0.00259, 'control_sin_recorte_rel': 0.00462, 'frac_vol_S_mayor_36': 0.0, 'control_por_zona_rel': {'canal': -0.0054, 'cuenca': 0.0067, 'Marimelena': 0.0038, 'Guasabacoa': 0.0069, 'Atares': 0.0031}}
+=== m0003
+{'control_dif_rel': 0.00571, 'control_ok': 1, 'control_signo_rel': -0.00571, 'control_psu_equiv': -0.00346, 'control_sin_recorte_rel': -0.00571, 'frac_vol_S_mayor_36': 0.0, 'control_por_zona_rel': {'canal': -0.0105, 'cuenca': -0.0054, 'Marimelena': -0.0055, 'Guasabacoa': -0.0041, 'Atares': -0.0058}}

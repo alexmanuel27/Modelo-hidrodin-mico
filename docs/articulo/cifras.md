@@ -147,7 +147,7 @@ Figuras: `fig_ensemble` (5) y `fig_sobol` (6) generadas con estos datos.
 
 ### Trazadores por río (fig. 8) — ⏳ EN REVISIÓN, NO USAR todavía en el manuscrito (10-nov)
 
-Protocolo congelado 8-nov (`docs/protocolo_trazadores_rios.md`); 4 casos de 120 d, últimos 30 d. **Bloqueo por la regla del protocolo:** el control de la suma de trazadores frente al agua dulce de la salinidad debe dar < 5 % y en T1 da 5,43 % (T0 2,2 %, T2 0,46 %, T3 0,57 %); mientras no se entienda, no se usan resultados. Validación del ejecutable: T0 frente a robustez m0000 0,08–0,18 % en `resumen.json` (pasa).
+Protocolo congelado 8-nov (`docs/protocolo_trazadores_rios.md`); 4 casos de 120 d, últimos 30 d. **Bloqueo por la regla del protocolo:** el control de la suma de trazadores frente al agua dulce de la salinidad debe dar < 5 % y en T1 da 5,43 % (T0 2,2 %, T2 0,46 %, T3 0,57 %); mientras no se entienda, no se usan resultados. Validación del ejecutable: T0 frente a robustez m0000 0,08–0,18 % en `resumen.json` (pasa). **Diagnóstico del control (10-nov):** los trazadores suman menos agua dulce que la salinidad (−2,2 %, −5,4 %, +0,46 %, −0,57 % en T0–T3; ≈ 0,003–0,012 psu), sin recorte de S > 36 ni agua dulce inicial; causa no identificada (hipótesis sin comprobar: limitador TVD no lineal). Corrigiendo ese desajuste por zona no cambia ninguna de R1–R4 en ningún caso. Decisión pendiente de Alex.
 
 | Caso | T_i (d): Luyanó / Martín Pérez / Tadeo | M_i (hm³) | En equilibrio (≤ 1 %/d) |
 |---|---|---|---|
