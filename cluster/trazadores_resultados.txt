@@ -1,0 +1,53 @@
+Tue Nov 10 11:00:45 CET 2026
+trabajos en cola: 0
+=== m0000: 120 dias
+[1794304856.416209] [lm4-f001:4048295:0]        rc_iface.c:513  UCX  ERROR ibv_create_srq() failed: Operation not supported
+{"T_d": [1.9672654348166645, 1.6918153295648362, 2.5234628268425734], "M_hm3": [0.2259604226055116, 0.10506904060820006, 0.020189317630949766], "equilibrio": [false, true, false], "control_dif_rel": 0.02195133737039688, "control_ok": true} {'R1 T_i < 7 d en los tres rios': True, 'R2 agua de rios: menos fraccion en Atares que en Guasabacoa': True, 'R3 Luyano y Martin Perez: > 50 % de M_i en Guasabacoa y cuenca': True, 'R4 Tadeo: > 50 % de M_Tadeo en Marimelena': False}
+=== m0001: 120 dias
+[1794304871.595624] [lm4-f001:4050375:0]        rc_iface.c:513  UCX  ERROR ibv_create_srq() failed: Operation not supported
+{"T_d": [4.1732324392570685, 3.1148846614263963, 5.733419909206238], "M_hm3": [0.1198165080584267, 0.04836194844407914, 0.011492525539605718], "equilibrio": [true, true, true], "control_dif_rel": 0.054297999761493555, "control_ok": false} {'R1 T_i < 7 d en los tres rios': True, 'R2 agua de rios: menos fraccion en Atares que en Guasabacoa': True, 'R3 Luyano y Martin Perez: > 50 % de M_i en Guasabacoa y cuenca': True, 'R4 Tadeo: > 50 % de M_Tadeo en Marimelena': False}
+=== m0002: 120 dias
+[1794304885.149895] [lm4-f001:4051356:0]        rc_iface.c:513  UCX  ERROR ibv_create_srq() failed: Operation not supported
+{"T_d": [1.2671405364321833, 1.3303048652505343, 1.5449279657588766], "M_hm3": [0.2910879295141728, 0.16523535809815212, 0.024734173137562352], "equilibrio": [false, true, false], "control_dif_rel": 0.0046249196726815284, "control_ok": true} {'R1 T_i < 7 d en los tres rios': True, 'R2 agua de rios: menos fraccion en Atares que en Guasabacoa': True, 'R3 Luyano y Martin Perez: > 50 % de M_i en Guasabacoa y cuenca': True, 'R4 Tadeo: > 50 % de M_Tadeo en Marimelena': False}
+=== m0003: 120 dias
+[1794304898.750445] [lm4-f001:4052097:0]        rc_iface.c:513  UCX  ERROR ibv_create_srq() failed: Operation not supported
+{"T_d": [2.8400232883680077, 2.407517767992559, 4.955349093928179], "M_hm3": [0.3262055293056755, 0.14951725386909565, 0.03964596417484555], "equilibrio": [true, true, false], "control_dif_rel": 0.005712070847571878, "control_ok": true} {'R1 T_i < 7 d en los tres rios': True, 'R2 agua de rios: menos fraccion en Atares que en Guasabacoa': True, 'R3 Luyano y Martin Perez: > 50 % de M_i en Guasabacoa y cuenca': True, 'R4 Tadeo: > 50 % de M_Tadeo en Marimelena': False}
+=== validacion final
+dias comunes: 0-120.0
+  canal       media ult. 10 d: nueva 3.880 ref 3.880 (dif 0.00%); dif max serie 3.01%  FUERA DEL CRITERIO
+  cuenca      media ult. 10 d: nueva 6.429 ref 6.429 (dif 0.00%); dif max serie 0.77%  ok
+  Marimelena  media ult. 10 d: nueva 6.783 ref 6.784 (dif 0.03%); dif max serie 0.64%  ok
+  Guasabacoa  media ult. 10 d: nueva 7.554 ref 7.555 (dif 0.01%); dif max serie 0.65%  ok
+  Atares      media ult. 10 d: nueva 8.770 ref 8.771 (dif 0.02%); dif max serie 0.50%  ok
+  bahia       media ult. 10 d: nueva 6.426 ref 6.426 (dif 0.01%); dif max serie 0.71%  ok
+RESULTADO: NO pasa (parar y mirar antes de seguir)
+  edad_media_d_canal           nueva 4.037 ref 4.044 dif 0.18%  ok
+  edad_media_d_cuenca          nueva 6.653 ref 6.659 dif 0.09%  ok
+  edad_media_d_Marimelena      nueva 7.032 ref 7.038 dif 0.08%  ok
+  edad_media_d_Guasabacoa      nueva 7.611 ref 7.617 dif 0.08%  ok
+  edad_media_d_Atares          nueva 8.779 ref 8.787 dif 0.09%  ok
+  edad_media_d_bahia           nueva 6.575 ref 6.581 dif 0.09%  ok
+  frac_dulce_sup_bahia         nueva 0.025 ref 0.025 dif 0.17%  ok
+RESUMEN.JSON: pasa (< 1 %)
+dias comunes: 0-120.0
+  canal       media ult. 10 d: nueva 8.777 ref 8.724 (dif 0.60%); dif max serie 30.21%  FUERA DEL CRITERIO
+  cuenca      media ult. 10 d: nueva 12.797 ref 12.747 (dif 0.39%); dif max serie 6.05%  FUERA DEL CRITERIO
+  Marimelena  media ult. 10 d: nueva 13.351 ref 13.312 (dif 0.29%); dif max serie 5.48%  FUERA DEL CRITERIO
+  Guasabacoa  media ult. 10 d: nueva 13.062 ref 12.880 (dif 1.41%); dif max serie 5.30%  FUERA DEL CRITERIO
+  Atares      media ult. 10 d: nueva 13.903 ref 13.757 (dif 1.07%); dif max serie 5.17%  FUERA DEL CRITERIO
+  bahia       media ult. 10 d: nueva 12.151 ref 12.061 (dif 0.75%); dif max serie 6.92%  FUERA DEL CRITERIO
+RESULTADO: NO pasa (parar y mirar antes de seguir)
+  edad_media_d_canal           nueva 7.828 ref 7.552 dif 3.65%  FUERA
+  edad_media_d_cuenca          nueva 12.212 ref 11.813 dif 3.38%  FUERA
+  edad_media_d_Marimelena      nueva 13.255 ref 12.851 dif 3.14%  FUERA
+  edad_media_d_Guasabacoa      nueva 12.540 ref 12.102 dif 3.62%  FUERA
+  edad_media_d_Atares          nueva 13.719 ref 13.308 dif 3.09%  FUERA
+  edad_media_d_bahia           nueva 11.581 ref 11.199 dif 3.41%  FUERA
+  frac_dulce_sup_bahia         nueva 0.030 ref 0.029 dif 2.82%  FUERA
+RESUMEN.JSON: NO pasa
+=== clasificacion R1-R4
+!! control de la suma > 5% en ['m0001']: no se usa ningun resultado hasta entenderlo
+R1 T_i < 7 d en los tres rios: ROBUSTA
+R2 agua de rios: menos fraccion en Atares que en Guasabacoa: ROBUSTA
+R3 Luyano y Martin Perez: > 50 % de M_i en Guasabacoa y cuenca: ROBUSTA
+R4 Tadeo: > 50 % de M_Tadeo en Marimelena: FRAGIL (falla en m0000, m0001, m0002, m0003)
