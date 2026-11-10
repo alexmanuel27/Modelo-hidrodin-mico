@@ -45,6 +45,14 @@ def metricas(t, eta, C, S, prof, M, Q):
             r[f"frac_zona_{nom}_{nn}"] = [float((C[:, s, niv, i] * area[s]).sum(1).mean() / area[s].sum()) for i in range(len(RIOS))]
     Vf = (np.clip(1 - S / S_MAR, 0, 1).mean(2)[:, b] * vol[:, b]).sum(1)              # inventario de agua dulce por salinidad
     r["control_dif_rel"] = float(abs(Mi.sum(1).mean() - Vf.mean()) / Vf.mean()); r["control_ok"] = bool(r["control_dif_rel"] < CONTROL_MAX)
+    # Diagnostico del control (no cambia el criterio): signo, equivalente en salinidad, sin recorte de S > 36, y por zona
+    Vs = ((1 - S / S_MAR).mean(2)[:, b] * vol[:, b]).sum(1)                           # sin np.clip: deja entrar S > 36 (sobrepasos numericos)
+    r["control_signo_rel"] = float((Mi.sum(1).mean() - Vf.mean()) / Vf.mean())      # > 0: los trazadores suman mas agua dulce que la salinidad
+    r["control_psu_equiv"] = float(S_MAR * (Mi.sum(1).mean() - Vf.mean()) / vol[:, b].sum(1).mean())
+    r["control_sin_recorte_rel"] = float((Mi.sum(1).mean() - Vs.mean()) / Vs.mean())
+    r["frac_vol_S_mayor_36"] = float(((S > S_MAR + 1e-6).mean(2)[:, b] * vol[:, b]).sum(1).mean() / vol[:, b].sum(1).mean())
+    r["control_por_zona_rel"] = {nom: float(((Cm[:, z == k].sum(-1) * vol[:, z == k]).sum(1).mean() - (np.clip(1 - S / S_MAR, 0, 1).mean(2)[:, z == k] * vol[:, z == k]).sum(1).mean())
+                                      / (np.clip(1 - S / S_MAR, 0, 1).mean(2)[:, z == k] * vol[:, z == k]).sum(1).mean()) for k, nom in ZONAS.items()}
     mapas = {f"sup_{i}": C[:, :, -1, i].mean(0).astype(np.float32) for i in range(len(RIOS))}
     mapas.update({f"fondo_{i}": C[:, :, 0, i].mean(0).astype(np.float32) for i in range(len(RIOS))})
     return r, mapas
@@ -100,6 +108,11 @@ def prueba(M):
     assert np.allclose(r["reparto_Marimelena"], vz[3] / V, rtol=1e-5) and abs(sum(r[f"reparto_{n}"][0] for n in ZONAS.values()) - 1) < 1e-6
     r2, _ = metricas(t, eta, C * (1 + 0.05 * (t - 90))[None, :, None, None].transpose(1, 0, 2, 3)[:, :, :, :].astype(np.float32), S, prof, M, Q)
     assert not any(r2["equilibrio"]), r2["deriva_rel_por_d"]                                  # crece ~ 5 %/d de la media: sin equilibrio
+    assert abs(r["control_signo_rel"]) < 1e-5 and abs(r["control_sin_recorte_rel"]) < 1e-5 and r["frac_vol_S_mayor_36"] == 0
+    assert all(abs(v) < 1e-5 for v in r["control_por_zona_rel"].values())
+    S4 = S.copy(); z3 = np.where(M["zona"] == 3)[0]; S4[:, z3[::2]] = S_MAR * 1.002                       # mitad de los nodos de Marimelena con S 0,2 % sobre 36: el recorte los deja en 0
+    r4, _ = metricas(t, eta, C, S4, prof, M, Q)
+    assert r4["frac_vol_S_mayor_36"] > 0 and r4["control_signo_rel"] > 0 and r4["control_por_zona_rel"]["Marimelena"] > 0.3 and abs(r4["control_sin_recorte_rel"] - r4["control_signo_rel"]) > 1e-3
     r3, _ = metricas(t, eta, C * 0.5, S, prof, M, Q); assert not r3["control_ok"]            # inventario de rios 50 % del agua dulce
     assert reglas(r)["R2 agua de rios: menos fraccion en Atares que en Guasabacoa"] is False   # iguales: no es "menos"
     print("autoprueba trazadores: ok")

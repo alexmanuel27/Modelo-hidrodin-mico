@@ -145,6 +145,19 @@ Conclusiones del protocolo (fracción de los 128 miembros que las cumplen): **C1
 
 Figuras: `fig_ensemble` (5) y `fig_sobol` (6) generadas con estos datos.
 
+### Trazadores por río (fig. 8) — ⏳ EN REVISIÓN, NO USAR todavía en el manuscrito (10-nov)
+
+Protocolo congelado 8-nov (`docs/protocolo_trazadores_rios.md`); 4 casos de 120 d, últimos 30 d. **Bloqueo por la regla del protocolo:** el control de la suma de trazadores frente al agua dulce de la salinidad debe dar < 5 % y en T1 da 5,43 % (T0 2,2 %, T2 0,46 %, T3 0,57 %); mientras no se entienda, no se usan resultados. Validación del ejecutable: T0 frente a robustez m0000 0,08–0,18 % en `resumen.json` (pasa).
+
+| Caso | T_i (d): Luyanó / Martín Pérez / Tadeo | M_i (hm³) | En equilibrio (≤ 1 %/d) |
+|---|---|---|---|
+| T0 central | 1,97 / 1,69 / 2,52 | 0,226 / 0,105 / 0,020 | no / sí / no |
+| T1 caudal × 0,25 | 4,17 / 3,11 / 5,73 | 0,120 / 0,048 / 0,011 | sí / sí / sí |
+| T2 caudal × 2 | 1,27 / 1,33 / 1,54 | 0,291 / 0,165 / 0,025 | no / sí / no |
+| T3 calor + OISST | 2,84 / 2,41 / 4,96 | 0,326 / 0,150 / 0,040 | sí / sí / no |
+
+Provisional (si el control se resolviera): **R1** (T_i < 7 d) se cumple en los 4 casos (máximo 5,7 d, Tadeo en T1); **R2** (menos agua de los ríos en Atarés que en Guasabacoa) se cumple en los 4 pero con poco margen (Atarés 6–11 % por debajo); **R3** (> 50 % del agua del Luyanó y del Martín Pérez en Guasabacoa + cuenca) se cumple en los 4 (63–64 % y 67–69 %); **R4** (Tadeo sobre todo en Marimelena) **no se cumple en ninguno**: solo 10–15 % de M_Tadeo está en Marimelena y 44–48 % en la cuenca. Los T_i son mucho menores que el «≈ 4 meses» de JICA (como T_f = 1,8–2,0 d). En los casos sin equilibrio M_i deriva entre −2,3 y +1,5 %/d, así que esos T_i tienen esa incertidumbre añadida.
+
 ### Avisos sobre el caudal por el canal — no usar como resultado
 
 - **Neto:** −6 a +7 m³/s cuando debería ser ≈ −2,1 → error de ±6 m³/s.
