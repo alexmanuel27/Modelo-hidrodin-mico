@@ -53,9 +53,11 @@ CALOR, TURB = int(os.environ.get("CALOR", 0)), os.environ.get("TURB", "KL")
 DIFFMIN = float(os.environ.get("DIFFMIN", 1e-6))
 SST = os.environ.get("SST", "")
 TRAZ = int(os.environ.get("TRAZADORES", 0))   # 1: un trazador pasivo por rio (modulo GEN; protocolo_trazadores_rios.md); pide SCHISM con USE_GEN y RIOS=1
+                                              # 2: ademas un cuarto trazador que entra con 1 por los tres rios a la vez (comprobacion del control de la suma, 10-nov)
 # Caudales medios (m3/s) de JICA 2004, Informe final vol. IV, tabla 1.1 (datos CIMAB, ago-2002; no hay aforos permanentes):
 # Luyano 114 860, Martin Perez 62 105, Tadeo 8 004 m3/d. https://openjicareport.jica.go.jp/pdf/11767225.pdf
 Q_RIOS = {"luyano": 114860 / 86400, "martin perez": 62105 / 86400, "tadeo": 8004 / 86400}
+NGEN = len(Q_RIOS) + (1 if TRAZ == 2 else 0) if TRAZ else 0      # trazadores GEN: uno por rio (+ el de la suma con TRAZADORES=2)
 OSM_RIOS = RAIZ / "datos" / "batimetria" / "fuentes" / "osm_rios_habana.json"
 FREC = dict(m2=1.405189e-4, s2=1.454441e-4, n2=1.378797e-4, k2=1.458423e-4, k1=7.292117e-5, o1=6.759774e-5,
             p1=7.251056e-5, q1=6.495854e-5, m4=2.810378e-4, ms4=2.859630e-4, mn4=2.783986e-4)   # rad/s
@@ -167,7 +169,7 @@ def main():
     escribir_gr3(RUN / "AGE_hvar_2.ic", x, y, np.zeros(n), tri, "AGE 2")
     if TRAZ:                                                 # trazadores de los rios: concentracion inicial 0 (flag_ic(3) = 1 en param.nml)
         assert RIOS, "TRAZADORES=1 necesita RIOS=1"
-        for k in range(len(Q_RIOS)): escribir_gr3(RUN / f"GEN_hvar_{k + 1}.ic", x, y, np.zeros(n), tri, f"GEN {k + 1}: trazador del rio {k + 1}")
+        for k in range(NGEN): escribir_gr3(RUN / f"GEN_hvar_{k + 1}.ic", x, y, np.zeros(n), tri, f"GEN {k + 1}: " + (f"trazador del rio {k + 1}" if k < len(Q_RIOS) else "suma de los tres rios"))
     (RUN / "tvd.prop").write_text("".join(f"{k+1} 1\n" for k in range(ne)))
     (RUN / "vgrid.in").write_text(
         f"2 !ivcor\n{NV} 1 {H_TOPE + 10:.1f} !nvrt, kz, h_s\nZ levels\n1 -{H_TOPE + 10:.1f}\nS levels\n5. 0. 1.e-4 !h_c, theta_b, theta_f\n"
@@ -196,10 +198,11 @@ def main():
         # Columnas de msource.th = indice global de trazador (T, S, GEN_1..GEN_n, AGE_1, AGE_2), cada uno con una columna por fuente
         # (schism_step.F90: read(65,*) ath3(1:nsources, 1:ntracers)). GEN_k vale 1 en la fuente k y 0 en las demas (protocolo de trazadores).
         gen = [" ".join("1." if i == k else "0." for i in range(len(rio))) for k in range(len(rio))] if TRAZ else []
+        if TRAZ == 2: gen.append(" ".join("1." for _ in rio))                # GEN_4: 1 en las tres fuentes
         m = " ".join(["-9999."] * len(rio) + ["0."] * len(rio) + gen + ["1."] * len(rio) + ["0."] * len(rio))
         (RUN / "msource.th").write_text(f"0. {m}\n{RNDAY * 86400 + 86400:.0f}. {m}\n")
     GENF = " 2" if TRAZ else ""                      # bctides.in: una bandera por modulo de trazadores (T, S, [GEN], AGE); GEN tipo 2 = valor fijo 0 en el borde
-    if TRAZ: TS_BORDE += "0. " * len(Q_RIOS) + "\n1.\n"      # GEN: valores en el borde y factor de relajacion
+    if TRAZ: TS_BORDE += "0. " * NGEN + "\n1.\n"      # GEN: valores en el borde y factor de relajacion
     if MAREA in MODELOS_MAREA:
         arm = armonicos_fes(lon[abierto], lat[abierto]); cs = list(arm)
         ff, eq = nodales(cs, RNDAY)
@@ -227,7 +230,7 @@ def main():
     (s / "sflux_inputs.txt").write_text(
         "&sflux_inputs\nair_1_max_window_hours=745.,\nrad_1_max_window_hours=745.,\nprc_1_max_window_hours=745.,\n/\n")
     p = (SCHISM / "sample_inputs" / "param.nml").read_text()
-    cambios = {"CORE": dict(ipre=0, ibc=0 if RIOS else 1, ibtp=1, rnday=RNDAY, dt=DT, ntracer_age=2, **({"ntracer_gen": len(Q_RIOS)} if TRAZ else {}),
+    cambios = {"CORE": dict(ipre=0, ibc=0 if RIOS else 1, ibtp=1, rnday=RNDAY, dt=DT, ntracer_age=2, **({"ntracer_gen": NGEN} if TRAZ else {}),
                             nspool=int(SALIDA_H * 3600 / DT), ihfskip=int(86400 / DT)),
                "OPT": dict(start_year=INICIO[0], start_month=INICIO[1], start_day=INICIO[2],
                            start_hour=0, utc_start=0, if_source=RIOS, dramp_ss=2, ics=1, ihot=0, ncor=NCOR, coricoef=0,
@@ -236,7 +239,7 @@ def main():
                            ihconsv=CALOR, itur=3, mid=f"'{TURB}'", itr_met=3, level_age=-999, **{"flag_ic(1)": 2, "flag_ic(2)": 2}),
                "SCHOUT": {"nhot": 0, "iout_sta": 0, "iof_hydro(1)": 1, "iof_hydro(14)": 1,
                           "iof_hydro(16)": 1, "iof_hydro(19)": RIOS, "iof_hydro(25)": 0, "iof_hydro(26)": 0, "iof_age(1)": 1,
-                          **{f"iof_gen({k + 1})": 1 for k in range(len(Q_RIOS) if TRAZ else 0)}}}   # AGE_1 = edad en dias (alfa/C/86400)
+                          **{f"iof_gen({k + 1})": 1 for k in range(NGEN)}}}   # AGE_1 = edad en dias (alfa/C/86400)
     for sec, kv in cambios.items():
         a = p.index(f"&{sec}"); b = p.index("\n/", a); bloque = p[a:b]
         for k, v in kv.items():

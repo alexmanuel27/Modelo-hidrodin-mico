@@ -81,7 +81,7 @@ def clasifica(dirc):
     return tabla
 
 
-def carga(dirm, n=None):
+def carga(dirm, n=None, ntr=None):
     from netCDF4 import Dataset
     out = Path(dirm) / "outputs"; n = n or max(int(f.stem.split("_")[-1]) for f in out.glob("salinity_*.nc"))
     eta, S, C = [], [], []
@@ -89,7 +89,7 @@ def carga(dirm, n=None):
         with Dataset(out / f"out2d_{k}.nc") as d:
             eta.append(np.asarray(d["elevation"][:], np.float32)); prof = np.asarray(d["depth"][:]); t = np.asarray(d["time"][:], float)
         with Dataset(out / f"salinity_{k}.nc") as d: S.append(np.asarray(d["salinity"][:], np.float32))
-        C.append(np.stack([np.asarray(Dataset(out / f"GEN_{i + 1}_{k}.nc")[f"GEN_{i + 1}"][:], np.float32) for i in range(len(RIOS))], -1))
+        C.append(np.stack([np.asarray(Dataset(out / f"GEN_{i + 1}_{k}.nc")[f"GEN_{i + 1}"][:], np.float32) for i in range(ntr or len(RIOS))], -1))
     return np.concatenate([t / 86400 for t in [np.asarray(x) for x in []]] or [np.arange(0)]) if False else (
         np.concatenate(eta), np.concatenate(C), np.concatenate(S), prof, n)
 

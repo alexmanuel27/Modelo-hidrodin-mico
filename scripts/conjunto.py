@@ -212,8 +212,8 @@ done
     # en orden de indice y una tarea cuya dependencia no se cumple bloquea a las demas). En su lugar, CARRILES trabajos
     # fijos: cada uno avanza sus miembros (m % CARRILES == carril) tramo a tramo y deja en cola a su sucesor
     # (afterany: sigue aunque este muera por tiempo). Maximo CARRILES miembros a la vez; un corte no arrastra a nadie.
-    (RUNS / "trabajador.sh").write_text(TRABAJADOR.replace("@NTASKS@", str(NUCLEOS + ESCRIBAS)).replace("@HORAS@", str(int(np.ceil(SEG * H_POR_DIA)) + 1))
-                                         .replace("@MARGEN@", str(int(np.ceil(SEG * 0.2)))))   # empieza otro tramo si quedan >= 4 h (20 d: 1,5-3 h con <= 50 a la vez)
+    (RUNS / "trabajador.sh").write_text(TRABAJADOR.replace("@NTASKS@", str(NUCLEOS + ESCRIBAS)).replace("@HORAS@", os.environ.get("CONJ_HORAS", str(int(np.ceil(SEG * H_POR_DIA)) + 1)))
+                                         .replace("@MARGEN@", os.environ.get("CONJ_MARGEN", str(int(np.ceil(SEG * 0.2))))))   # CONJ_HORAS / CONJ_MARGEN: horas del trabajador y margen para otro tramo   # empieza otro tramo si quedan >= 4 h (20 d: 1,5-3 h con <= 50 a la vez)
     (RUNS / "lanzar_trabajadores.sh").write_text("""#!/bin/bash -l
 # Uso: bash lanzar_trabajadores.sh [carriles, por defecto 50]
 N=${1:-50}
@@ -243,6 +243,8 @@ if __name__ == "__main__":
         filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", "TRAZADORES": "1", **e}) for k, (_, e) in enumerate(TRAZADORES)]
         for k, (nom, _) in enumerate(TRAZADORES): print(f"m{k:04d}: {nom}")
         generar(4, filas=filas)
+    elif accion == "trazador_suma":   # comprobacion del control (10-nov): T1 con un 4.o trazador que entra por los tres rios. CONJ_DIR=runs/trazador_suma CONJ_DIAS=120 CONJ_SEG=10 CONJ_ESCRIBAS=7 CONJ_POSPROCESO=0 CONJ_HORAS=8 CONJ_MARGEN=1 CONJ_BIN=... python scripts/conjunto.py trazador_suma
+        print("m0000: T1 (caudal x0,25) + GEN_4 = suma de los tres rios"); generar(1, filas=[dict(BASE, miembro="0", extra={"MAREA": "eot20", "TRAZADORES": "2", "QFAC": "0.25"})])
     elif accion == "generar":
         generar(int(sys.argv[2]) if len(sys.argv) > 2 else 6,
                 [int(m) for m in sys.argv[3].split(",")] if len(sys.argv) > 3 else None)
