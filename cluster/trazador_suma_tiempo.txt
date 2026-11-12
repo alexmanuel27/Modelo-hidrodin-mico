@@ -1,0 +1,16 @@
+# Salida de scripts/trazador_suma_tiempo.py runs/trazador_suma/m0000 (Lemaitre4, 2026-11-12; pegada por Alex). Se omite el aviso de UCX.
+dia: d(dominio)   d(bahia)   I_Vf/I_Q   I_C4/I_Q
+   1   -0.315%   -0.315%     0.166     0.166
+   2   -0.332%   -0.332%     0.252     0.251
+   3   -0.632%   -0.632%     0.297     0.295
+   5   -1.257%   -1.259%     0.319     0.315
+  10   -2.611%   -2.421%     0.263     0.256
+  11   -2.631%   -2.460%     0.258     0.251
+  20   -4.399%   -4.024%     0.214     0.205
+  21   -4.610%   -4.201%     0.206     0.196
+  30   -5.842%   -5.744%     0.135     0.127
+  60   -6.541%   -6.233%     0.077     0.072
+  90   -5.290%   -5.158%     0.042     0.040
+ 120   -5.576%   -5.648%     0.034     0.032
+{'d_fin': -0.05461, 'd_pri': -0.00827, 'A': False, 'B': False, 'C': False, 'spearman': 0.28018, 'cambio_mediano_reinicios': 0.0002, 'cambio_mediano_resto': 0.0021, 'lectura': 'intermedio: sin conclusion', 'd_bahia_fin': -0.05531}
+LECTURA: intermedio: sin conclusion
