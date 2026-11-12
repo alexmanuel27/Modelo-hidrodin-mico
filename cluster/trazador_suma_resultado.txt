@@ -1,0 +1,8 @@
+# Salida de scripts/trazador_suma.py runs/trazador_suma/m0000 (Lemaitre4, 2026-11-12; pegada por Alex). Se omite una linea de aviso de UCX (ibv_create_srq), sin efecto.
+dia 120; bahia: a (suma de 3 vs salinidad) -5.45%, b (trazador suma vs salinidad) -5.51%, c (3 vs suma) +0.07%
+  canal       a -7.37%  b -7.41%  c +0.05%
+  cuenca      a -6.90%  b -6.98%  c +0.08%
+  Marimelena  a -7.48%  b -7.60%  c +0.13%
+  Guasabacoa  a -3.84%  b -3.91%  c +0.07%
+  Atares      a -4.64%  b -4.66%  c +0.03%
+LECTURA: el trazador de la suma tiene el mismo deficit que los tres separados: diferencia modulo de trazadores vs salinidad
