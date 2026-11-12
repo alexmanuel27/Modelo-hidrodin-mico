@@ -245,6 +245,8 @@ if __name__ == "__main__":
         generar(4, filas=filas)
     elif accion == "trazador_suma":   # comprobacion del control (10-nov): T1 con un 4.o trazador que entra por los tres rios. CONJ_DIR=runs/trazador_suma CONJ_DIAS=120 CONJ_SEG=10 CONJ_ESCRIBAS=7 CONJ_POSPROCESO=0 CONJ_HORAS=8 CONJ_MARGEN=1 CONJ_BIN=... python scripts/conjunto.py trazador_suma
         print("m0000: T1 (caudal x0,25) + GEN_4 = suma de los tres rios"); generar(1, filas=[dict(BASE, miembro="0", extra={"MAREA": "eot20", "TRAZADORES": "2", "QFAC": "0.25"})])
+    elif accion == "trazador_suma_eps":   # comprobacion del 12-nov: igual que trazador_suma con eps1_tvd_imp = 1e-9 (mismas CONJ_* con CONJ_DIR=runs/trazador_suma_eps)
+        print("m0000: T1 + GEN_4, eps1_tvd_imp = 1.e-9"); generar(1, filas=[dict(BASE, miembro="0", extra={"MAREA": "eot20", "TRAZADORES": "2", "QFAC": "0.25", "EPS_TVD": "1.e-9"})])
     elif accion == "generar":
         generar(int(sys.argv[2]) if len(sys.argv) > 2 else 6,
                 [int(m) for m in sys.argv[3].split(",")] if len(sys.argv) > 3 else None)

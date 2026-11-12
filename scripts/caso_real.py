@@ -52,6 +52,7 @@ RIOS, QFAC = int(os.environ.get("RIOS", 0)), float(os.environ.get("QFAC", 1))
 CALOR, TURB = int(os.environ.get("CALOR", 0)), os.environ.get("TURB", "KL")
 DIFFMIN = float(os.environ.get("DIFFMIN", 1e-6))
 SST = os.environ.get("SST", "")
+EPS_TVD = os.environ.get("EPS_TVD")   # tolerancia del TVD vertical implicito (eps1_tvd_imp; SCHISM 1.e-4). Comprobacion del 12-nov: 1.e-9
 TRAZ = int(os.environ.get("TRAZADORES", 0))   # 1: un trazador pasivo por rio (modulo GEN; protocolo_trazadores_rios.md); pide SCHISM con USE_GEN y RIOS=1
                                               # 2: ademas un cuarto trazador que entra con 1 por los tres rios a la vez (comprobacion del control de la suma, 10-nov)
 # Caudales medios (m3/s) de JICA 2004, Informe final vol. IV, tabla 1.1 (datos CIMAB, ago-2002; no hay aforos permanentes):
@@ -236,7 +237,7 @@ def main():
                            start_hour=0, utc_start=0, if_source=RIOS, dramp_ss=2, ics=1, ihot=0, ncor=NCOR, coricoef=0,
                            slam0=round(float(lon.mean()), 4), sfea0=round(float(lat.mean()), 4),
                            nchi=0, ic_elev=0, nadv=0, nws=NWS, wtiminc=DT, ishapiro=1, drampwind=1, iwindoff=ESPONJA,
-                           ihconsv=CALOR, itur=3, mid=f"'{TURB}'", itr_met=3, level_age=-999, **{"flag_ic(1)": 2, "flag_ic(2)": 2}),
+                           ihconsv=CALOR, itur=3, mid=f"'{TURB}'", itr_met=3, level_age=-999, **({"eps1_tvd_imp": EPS_TVD} if EPS_TVD else {}), **{"flag_ic(1)": 2, "flag_ic(2)": 2}),
                "SCHOUT": {"nhot": 0, "iout_sta": 0, "iof_hydro(1)": 1, "iof_hydro(14)": 1,
                           "iof_hydro(16)": 1, "iof_hydro(19)": RIOS, "iof_hydro(25)": 0, "iof_hydro(26)": 0, "iof_age(1)": 1,
                           **{f"iof_gen({k + 1})": 1 for k in range(NGEN)}}}   # AGE_1 = edad en dias (alfa/C/86400)
