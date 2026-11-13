@@ -1,4 +1,4 @@
-# Del chat técnico al chat del artículo (13-nov-2026) — BORRADOR: faltan 2 datos del clúster (marcados ⏳)
+# Del chat técnico al chat del artículo (13-nov-2026)
 
 Fuente de cada número: `docs/articulo/cifras.md` del repo de trabajo. Nada de esto contradice cifras.md (se ha actualizado hoy).
 
@@ -12,7 +12,7 @@ Fuente de cada número: `docs/articulo/cifras.md` del repo de trabajo. Nada de e
 
 ## 2. Robustez m0005 (calor con SST OISST)
 - Edad por zona (ponderada por volumen, días 90–120): canal 7,6 · cuenca 11,8 · Marimelena 12,9 · Guasabacoa 12,1 · Atarés 13,3 · **bahía 11,2 d**; **canal superficie / fondo 10,0 / 6,6 d** (nuevo); deriva +0,24 d/d, **sin equilibrio** (últimos 5 d 12,7; oscila 9,0–13,5).
-- T_f de m0005: ⏳ (si el clúster conserva sus campos; si no, no se puede sin repetir la corrida).
+- T_f de m0005: **no disponible** (el clúster no conserva sus campos de salinidad; haría falta repetir la corrida). No escribir T_f para m0005.
 - Lectura: «≈ 1 semana» es **robusta** a turbulencia, resolución vertical y mezcla (6,6–7,5 d) y **frágil frente al balance de calor**: con SST real 11,2 d (× 1,7) y sin estabilizarse. El 16,8 d con el borde a 28 °C **no era solo un artefacto**: con la SST real el efecto baja, pero no desaparece. El orden de las zonas no cambia (C1 y C3 se cumplen en m0005).
 - `fig_robustness` (90 × 62 mm) ya incluye m0005.
 
@@ -24,7 +24,7 @@ Fuente de cada número: `docs/articulo/cifras.md` del repo de trabajo. Nada de e
 - Fig. 8 (`fig_rivers`) ya enviada.
 
 ## 4. Confirmaciones
-- **Tolerancia 1e-9:** no se va a repetir el conjunto ni m0005 (704 corridas). Propuesta: informar la salvedad con el número del caso central ⏳ (corrida `base_eps` en marcha: dirá cuánto cambian la edad, T_f y ρ de Sentinel-2 con 1e-9). La decisión final es de Alex.
+- **Tolerancia del transporte (`eps1_tvd_imp`):** no se repite el conjunto ni m0005. Caso central con 1e-9 en lugar de 1e-4: **edad +3,7 a +5,6 % por zona (bahía 6,58 → 6,91 d)**, T_f −3 % (1,94 → 1,88 d; «1,8–2,0 d» se mantiene), ρ de Sentinel-2 0,450 → 0,449 (se mantiene), R1–R4 iguales. No se sabe cuál de las dos tolerancias es más exacta. Escalando el conjunto con ese cambio (aproximación, no una corrida), ninguna clase cambia (bahía 7,8 → 8,2 d; P(> 7 d) 0,68 → 0,76, sigue frágil; P(> 14 d) sigue 0; C3 0,76 → 0,66, sigue frágil). Propuesta para limitaciones: «incertidumbre numérica de la edad ≈ 5 % por la tolerancia del solver de transporte, pequeña frente a la dispersión del conjunto». **Ojo con la frase de la desviación de T1** que os pasé: la explicación «la tolerancia deja la salinidad menos resuelta» no se sostiene del todo (con 1e-9 el control del caso central empeora, 2,2 → 4,4 %). Esperad a la decisión de Alex antes de escribirla; lo que sí se sostiene es que R1–R4 no cambian con la tolerancia.
 - **Hashes de los protocolos** (repo privado; solo verificables si se publica el historial o se depositan en Zenodo):
   - Sentinel-2: texto `773b9fb` (21-oct), congelado `fb8ad7d` (21-oct); control por desplazamientos `231696a` (26-oct).
   - Métricas C1–C8: texto `4564b7e` (commit del 26-oct, aprobado por Alex el 27-oct); cabecera «congelado» `8f3bf73` (8-nov).
