@@ -50,6 +50,7 @@ if __name__ == "__main__":
     M = dict(np.load(sys.argv[2] if len(sys.argv) > 2 else R / "datos" / "conjunto" / "posproceso_malla.npz"))
     if sys.argv[1] == "--prueba": prueba(M); sys.exit()
     dirm = Path(sys.argv[1]); eta, S, prof, n = carga(dirm); r = renovacion(eta, S, prof, M, caudal_rios(dirm))
+    (dirm / "renovacion_dulce.json").write_text(json.dumps({k: float(v) for k, v in r.items()}, indent=1))
     js = dirm / "resumen.json"; ref = json.loads(js.read_text()).get("frac_dulce_sup_bahia") if js.exists() else None
     print(f"{dirm} (dias {n - VENTANA + 1}-{n}): V = {r['V_hm3']:.1f} hm3, agua dulce media {100 * r['f_media']:.2f} % "
           f"(superficie {100 * r['f_sup']:.2f} %; resumen.json {100 * ref:.2f} %), Q = {r['Q_m3s']:.2f} m3/s -> T_f = {r['Tf_d']:.1f} d"

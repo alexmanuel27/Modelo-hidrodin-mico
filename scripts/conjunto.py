@@ -247,6 +247,8 @@ if __name__ == "__main__":
         print("m0000: T1 (caudal x0,25) + GEN_4 = suma de los tres rios"); generar(1, filas=[dict(BASE, miembro="0", extra={"MAREA": "eot20", "TRAZADORES": "2", "QFAC": "0.25"})])
     elif accion == "trazador_suma_eps":   # comprobacion del 12-nov: igual que trazador_suma con eps1_tvd_imp = 1e-9 (mismas CONJ_* con CONJ_DIR=runs/trazador_suma_eps)
         print("m0000: T1 + GEN_4, eps1_tvd_imp = 1.e-9"); generar(1, filas=[dict(BASE, miembro="0", extra={"MAREA": "eot20", "TRAZADORES": "2", "QFAC": "0.25", "EPS_TVD": "1.e-9"})])
+    elif accion == "base_eps":   # comprobacion del 13-nov: T0 (caso central con trazadores) con eps1_tvd_imp = 1e-9. CONJ_DIR=runs/base_eps CONJ_DIAS=120 CONJ_SEG=10 CONJ_ESCRIBAS=6 CONJ_POSPROCESO=0 CONJ_HORAS=8 CONJ_MARGEN=1 CONJ_BIN=...
+        print("m0000: T0 (caudal x1), eps1_tvd_imp = 1.e-9"); generar(1, filas=[dict(BASE, miembro="0", extra={"MAREA": "eot20", "TRAZADORES": "1", "EPS_TVD": "1.e-9"})])
     elif accion == "generar":
         generar(int(sys.argv[2]) if len(sys.argv) > 2 else 6,
                 [int(m) for m in sys.argv[3].split(",")] if len(sys.argv) > 3 else None)
