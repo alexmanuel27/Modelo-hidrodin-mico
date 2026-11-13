@@ -1,0 +1,4 @@
+# trazadores_rios.py sobre runs/trazador_suma_eps/m0000 (T1 con eps1_tvd_imp = 1e-9; GEN_1..3), Lemaitre4, 2026-11-13; pegado por Alex. Se omite el aviso de UCX.
+{"T_d": [4.277608456911421, 3.160490456127056, 5.884742031451552], "M_hm3": [0.12281321867601588, 0.049070027661065156, 0.011795847707204005], "equilibrio": [true, true, true], "control_dif_rel": 0.016718328198199944, "control_ok": true} {'R1 T_i < 7 d en los tres rios': True, 'R2 agua de rios: menos fraccion en Atares que en Guasabacoa': True, 'R3 Luyano y Martin Perez: > 50 % de M_i en Guasabacoa y cuenca': True, 'R4 Tadeo: > 50 % de M_Tadeo en Marimelena': False}
+# Comparacion con T1 original (runs/trazadores/m0001, 1e-4): T_d 4.17->4.28 (+2.5 %), 3.11->3.16 (+1.5 %), 5.73->5.88 (+2.6 %);
+# control 5.43 % -> 1.67 %; R2 (Atares/Guasabacoa) 0.921 -> 0.920; R3 0.637/0.673 -> 0.638/0.673; R4 0.105 -> 0.105; max |dif| reparto 0.004.
