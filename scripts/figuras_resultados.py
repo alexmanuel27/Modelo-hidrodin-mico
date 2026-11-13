@@ -246,7 +246,7 @@ def fig_sobol(dir=CONJUNTO, salida=SALIDA):
 
 
 TRAZ = RAIZ / "runs" / "trazadores"
-RIOS_NOM = ["Luyano", "Martín Pérez", "Tadeo"]; ZONAS_TRAZ = ["canal", "cuenca", "Marimelena", "Guasabacoa", "Atarés"]
+RIOS_NOM = ["Luyanó", "Martín Pérez", "Tadeo"]; ZONAS_TRAZ = ["canal", "cuenca", "Marimelena", "Guasabacoa", "Atarés"]
 
 
 def fig_rios(dir=TRAZ, salida=SALIDA):
@@ -269,11 +269,11 @@ def fig_rios(dir=TRAZ, salida=SALIDA):
     mapas[0].set_ylabel("Northing (km)")
     fig.colorbar(im, cax=fig.add_subplot(g[0, 3])).set_label("River water in surface layer (%)")
     x = np.arange(3); T = np.array([q["T_d"] for q in R])                                  # (caso, rio)
-    d.axhline(7, color=NEGRO, ls="--", lw=0.6); d.text(2.4, 7.15, "7 d", ha="right", va="bottom", fontsize=6)
+    d.axhline(7, color=NEGRO, ls="--", lw=0.6); d.text(-0.4, 7.15, "7 d", ha="left", va="bottom", fontsize=6)
     d.plot(x, T[0], "o", color=AZUL, ms=4, label="T0 (central)")
     for k, (mk, c) in enumerate((("v", NARANJA), ("^", BERMELLON), ("s", VERDE)), 1): d.plot(x, T[k], mk, color=c, ms=3, label=("T1 Q×0.25", "T2 Q×2", "T3 heat flux")[k - 1])
     d.set_xticks(x); d.set_xticklabels(RIOS_NOM, rotation=20, ha="right", rotation_mode="anchor"); d.set_xlim(-0.5, 2.5)
-    d.set_ylim(0, max(8, T.max() * 1.15)); d.set_ylabel("Residence time $T_i=M_i/Q_i$ (d)"); d.legend(frameon=False, fontsize=5.5, loc="upper right", ncol=1, handletextpad=0.2)
+    d.set_ylim(0, max(10, T.max() * 1.15)); d.set_ylabel("Residence time $T_i=M_i/Q_i$ (d)"); d.legend(frameon=False, fontsize=5.5, loc="upper right", ncol=2, handletextpad=0.2, columnspacing=0.8)
     letra(d, "d", x=0.02)
     rep = np.array([[q[f"reparto_{z.replace('é', 'e')}"] for z in ZONAS_TRAZ] for q in R])   # (caso, zona, rio)
     w = 0.26
