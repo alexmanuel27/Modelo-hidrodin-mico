@@ -249,6 +249,10 @@ if __name__ == "__main__":
         print("m0000: T1 + GEN_4, eps1_tvd_imp = 1.e-9"); generar(1, filas=[dict(BASE, miembro="0", extra={"MAREA": "eot20", "TRAZADORES": "2", "QFAC": "0.25", "EPS_TVD": "1.e-9"})])
     elif accion == "base_eps":   # comprobacion del 13-nov: T0 (caso central con trazadores) con eps1_tvd_imp = 1e-9. CONJ_DIR=runs/base_eps CONJ_DIAS=120 CONJ_SEG=10 CONJ_ESCRIBAS=6 CONJ_POSPROCESO=0 CONJ_HORAS=8 CONJ_MARGEN=1 CONJ_BIN=...
         print("m0000: T0 (caudal x1), eps1_tvd_imp = 1.e-9"); generar(1, filas=[dict(BASE, miembro="0", extra={"MAREA": "eot20", "TRAZADORES": "1", "EPS_TVD": "1.e-9"})])
+    elif accion == "trazadores_eps":   # 13-nov: T2 y T3 con eps1_tvd_imp = 1e-9 (m0002, m0003; T0 y T1 ya estan en base_eps y trazador_suma_eps). CONJ_DIR=runs/trazadores_eps, mismas CONJ_* que base_eps
+        filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", "TRAZADORES": "1", "EPS_TVD": "1.e-9", **TRAZADORES[k][1]}) for k in (2, 3)]
+        for k in (2, 3): print(f"m{k:04d}: {TRAZADORES[k][0]}, eps1_tvd_imp = 1.e-9")
+        generar(2, filas=filas)
     elif accion == "generar":
         generar(int(sys.argv[2]) if len(sys.argv) > 2 else 6,
                 [int(m) for m in sys.argv[3].split(",")] if len(sys.argv) > 3 else None)
