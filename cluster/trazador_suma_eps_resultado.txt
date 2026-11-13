@@ -1,0 +1,5 @@
+# Salida de scripts/trazador_suma.py --eps runs/trazador_suma_eps/m0000 runs/trazador_suma/m0000 (Lemaitre4, 2026-11-13; pegada por Alex). Se omite el aviso de UCX.
+autoprueba trazador_suma: ok
+a (suma de 3 vs salinidad): -5.45% con 1e-4 -> +1.67% con 1e-9; b +1.61%
+cambio del inventario 1e-9 frente a 1e-4: salinidad -6.57%, trazador suma +0.46%
+LECTURA: IV: intermedio, sin conclusion
