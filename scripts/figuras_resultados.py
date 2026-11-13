@@ -285,8 +285,68 @@ def fig_rios(dir=TRAZ, salida=SALIDA):
     guarda(fig, "fig_rivers", 190, salida, alto_max=115)
 
 
+def fig_borde(dir=RAIZ / "runs" / "conjunto", salida=SALIDA):
+    """S1: velocidades espurias en los 704 miembros. (a) donde esta la velocidad maxima (media en la vertical, maximo en los
+    120 d) de cada miembro; (b) esa velocidad frente a la edad de la bahia; (c) lo mismo con la maxima dentro de la bahia
+    (nodos someros que tocan el limite rmaxvel = 5 m/s por componente). Spearman en (b) y (c)."""
+    estilo(); L = (dir / "m0000" / "hgrid.gr3").read_text().split("\n"); ne, nn = map(int, L[1].split()[:2])
+    xy = np.array([[float(v) for v in l.split()[1:3]] for l in L[2:2 + nn]]) / 1000
+    tri = np.array([[int(c) - 1 for c in l.split()[2:5]] for l in L[2 + nn:2 + nn + ne]])
+    k = 2 + nn + ne; nb = int(L[k + 2].split()[0]); borde = np.array([int(L[k + 3 + i].split()[0]) - 1 for i in range(nb)])
+    R = [json.loads(f.read_text()) for f in sorted(dir.glob("m[0-9]*/resumen.json"))]
+    v = np.array([r["vmax"] for r in R]); e = np.array([r["edad_media_d_bahia"] for r in R]); nod = np.array([r["vmax_nodo"] for r in R]) - 1
+    zona = np.load(RAIZ / "datos" / "conjunto" / "posproceso_malla.npz")["zona"]
+    vb = np.array([r["vmax_bahia"] for r in R]); rk = lambda a: np.argsort(np.argsort(a))
+    rho, rhob = (float(np.corrcoef(rk(x), rk(e))[0, 1]) for x in (v, vb))
+    fig, (a, b, c3) = plt.subplots(1, 3, figsize=(ANCHO2, 66 * MM), constrained_layout=True, gridspec_kw=dict(width_ratios=[1.3, 1, 1]))
+    a.triplot(xy[:, 0], xy[:, 1], tri, color=GRIS, lw=0.1)
+    a.tripcolor(xy[:, 0], xy[:, 1], tri, np.where(zona > 0, 1.0, np.nan), cmap="Blues", vmin=0, vmax=2.5)
+    a.plot(xy[borde, 0], xy[borde, 1], color=NEGRO, lw=1.2, label="Open boundary")
+    u, c = np.unique(nod, return_counts=True)
+    a.scatter(xy[u, 0], xy[u, 1], s=4 + 60 * c / c.max(), color=BERMELLON, zorder=3, label="Location of max. speed\n(size: no. of members)")
+    a.set_aspect("equal"); a.set_xlabel("Easting (km, UTM 17N)"); a.set_ylabel("Northing (km)"); a.ticklabel_format(useOffset=False, style="plain")
+    a.legend(frameon=False, loc="lower left", fontsize=6); letra(a, "a")
+    b.scatter(v, e, s=3, color=AZUL, lw=0)
+    b.set_xlabel("Max. speed in the domain (m s$^{-1}$)"); b.set_ylabel("Bay mean age, last 30 d (d)")
+    c3.scatter(vb, e, s=3, color=AZUL, lw=0); c3.set_xlabel("Max. speed inside the bay (m s$^{-1}$)"); c3.set_yticklabels([])
+    c3.set_ylim(b.get_ylim()); c3.text(0.97, 0.97, f"Spearman $\\rho$ = {rhob:.2f}", transform=c3.transAxes, ha="right", va="top", fontsize=6, bbox=dict(fc="white", ec="none", alpha=0.85, pad=1)); letra(c3, "c")
+    b.text(0.97, 0.97, f"Spearman $\\rho$ = {rho:.2f}\nn = {len(v)}", transform=b.transAxes, ha="right", va="top", fontsize=6, bbox=dict(fc="white", ec="none", alpha=0.85, pad=1)); letra(b, "b")
+    print(f"S1: {np.isin(nod, borde).mean():.0%} de los maximos en nodos del borde abierto; rho = {rho:.3f}; vmax P5-P50-P95 {np.percentile(v, [5, 50, 95]).round(2)}; "
+          f"bahia: rho = {rhob:.3f}, P50 {np.median(vb):.2f}, > 3 m/s en {(vb > 3).sum()} miembros")
+    guarda(fig, "figS_boundary", 190, salida, alto_max=80)
+
+
+def fig_resumen(dir=CONJUNTO, salida=SALIDA):
+    """Resumen grafico (Elsevier: >= 1328 x 531 px, legible a 13 x 5 cm): mapa de la edad mediana en superficie, edad por zona
+    (mediana y P5-P95 de los 128 miembros) e indices de Sobol S_T de la edad de la bahia."""
+    estilo(); plt.rcParams.update({"font.size": 7.5, "axes.titlesize": 7.5})
+    filas = list(csv.DictReader(open(Path(dir) / "prob_zonas.csv"))); p = np.load(Path(dir) / "prob_edad_sup.npz")
+    sob = [r for r in csv.DictReader(open(Path(dir) / "sobol.csv")) if r["metrica"] == "edad_media_d_bahia"]
+    sob.sort(key=lambda r: float(r["ST"]))
+    M = np.load(RAIZ / "datos" / "conjunto" / "posproceso_malla.npz"); e, n = M["s2_e"] / 1000, M["s2_n"] / 1000
+    ext = [e[0] - 0.01, e[-1] + 0.01, n[0] - 0.01, n[-1] + 0.01]
+    fig = plt.figure(figsize=(130 * MM, 50 * MM), constrained_layout=True)
+    a, b, c = (fig.add_subplot(g) for g in fig.add_gridspec(1, 3, width_ratios=[1.1, 1, 1.05]))
+    im = a.imshow(np.ma.masked_invalid(_raster(M, p["p50"])), origin="lower", extent=ext, cmap="viridis", vmin=0, vmax=14, interpolation="nearest")
+    a.set_xticks([]); a.set_yticks([]); a.set_title("Median surface age")
+    fig.colorbar(im, ax=a, fraction=0.05, pad=0.02, ticks=[0, 7, 14]).set_label("d", labelpad=1)
+    x = np.arange(len(filas)); med, lo, hi = (np.array([float(r[k]) for r in filas]) for k in ("p50", "p5", "p95"))
+    b.errorbar(x, med, yerr=[med - lo, hi - med], fmt="o", color=AZUL, ms=3.5, capsize=2, lw=1)
+    b.axhline(7, color=NEGRO, ls="--", lw=0.7); b.text(-0.4, 7.3, "1 week", ha="left", va="bottom", fontsize=6.5)
+    b.set_xticks(x); b.set_xticklabels(["Channel", "Basin", "Marimelena", "Guasabacoa", "Atarés", "Bay"][:len(x)], rotation=35, ha="right", rotation_mode="anchor", fontsize=6.5)
+    b.set_ylim(0, 16); b.set_ylabel("Mean age (d)"); b.set_title("Renewal of about one week")
+    y = np.arange(len(sob)); st = np.array([float(r["ST"]) for r in sob])
+    c.barh(y, st, color=[BERMELLON if r["parametro"] == "qfac" else GRIS for r in sob], height=0.7)
+    c.set_yticks(y); c.set_yticklabels([PARAM.get(r["parametro"], r["parametro"]) for r in sob], fontsize=6.5)
+    c.set_xlim(0, 1); c.set_xlabel("Total Sobol index $S_T$"); c.set_title("River flow controls it")
+    fig.suptitle("Havana Bay from public data only: 704-member 3D SCHISM ensemble", fontsize=8, fontweight="bold")
+    png = salida / "graphical_abstract.png"; fig.savefig(png, dpi=300); fig.savefig(salida / "graphical_abstract.pdf"); plt.close(fig)
+    from PIL import Image
+    w, h = Image.open(png).size; assert w >= 1328 and h >= 531, (w, h); print(f"-> {png.name}: {w} x {h} px")
+
+
 TODAS = dict(mecanismo=fig_mecanismo, robustez=fig_robustez, s2=fig_s2, marea=fig_marea)
-CONJ = dict(conjunto=fig_conjunto, sobol=fig_sobol, rios=fig_rios)      # solo con el conjunto terminado: python scripts/figuras_resultados.py conjunto sobol
+CONJ = dict(conjunto=fig_conjunto, sobol=fig_sobol, rios=fig_rios, borde=fig_borde, resumen=fig_resumen)      # solo con el conjunto terminado: python scripts/figuras_resultados.py conjunto sobol
 
 if __name__ == "__main__":
     for k in (sys.argv[1:] or TODAS): {**TODAS, **CONJ}[k]()

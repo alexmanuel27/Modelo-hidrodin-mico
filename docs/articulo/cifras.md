@@ -107,9 +107,13 @@ Con densidad: canal 6,5 d en superficie y 1,9 d en el fondo (circulación estuar
 | | Base | k-ε | 32 niveles | Difusividad × 10 | + calor (borde 28 °C) | + calor (SST OISST) |
 |---|---|---|---|---|---|---|
 | Edad de la bahía (d, días 90–120) | 6,6 | 6,9 | 7,5 | 6,6 | 16,8 (sin equilibrio, deriva −0,10) | **11,2 (sin equilibrio, deriva +0,24; últimos 5 d: 12,7)** |
-| Canal sup / fondo (d) | 6,6 / 1,8 | 6,7 / 2,1 | 7,5 / 2,3 | 6,6 / 1,9 | 14,2 / 10,6 | pendiente (mismo script que las otras columnas) |
+| Canal sup / fondo (d) | 6,6 / 1,8 | 6,7 / 2,1 | 7,5 / 2,3 | 6,6 / 1,9 | 14,2 / 10,6 | **10,0 / 6,6** (13-nov; media ponderada por área de los nodos del canal en `resumen.npz`, como `analisis_conjunto.py`; reproduce la base 6,6 / 1,8) |
 
 El orden de las zonas no cambia en ninguno (en m0005: canal 7,6 < cuenca 11,8 < Guasabacoa 12,1 < Marimelena 12,9 < Atarés 13,3; C3 y C1 se cumplen). El experimento con calor y borde a 28 °C es sospechoso: la SST real de ene–abr 2016 es 24,5–27,9 °C. **Con la SST real (m0005) el efecto se reduce (11,2 d frente a 16,8) pero no desaparece: la edad sigue ×1,7 sobre la base y no se estabiliza en 120 d (oscila 9–13,5 d en la ventana). La conclusión honesta es que la renovación es robusta a la turbulencia, a la resolución vertical y a la difusividad, y NO a incluir el balance de calor.** Falta saber si con calor la edad converge a otro valor o sigue creciendo; 120 d no lo dicen.
+
+### Velocidades espurias (S1, 13-nov) — `figuras_resultados.py borde` → `figS_boundary`
+
+En los 704 miembros, la velocidad máxima (media en la vertical, máximo en los 120 d) está en nodos del **borde abierto** en el 94 % (a 4–5 km de la boca, 200 m de fondo): P5–P50–P95 = 4,5 / 6,0 / 6,1 m/s. No se relaciona con la edad de la bahía (Spearman ρ = −0,07). Dentro de la bahía la máxima es 2,0 m/s de mediana (nodo somero de la boca), pero en **68 de 704 miembros pasa de 3 m/s y llega a 6,9 m/s**, en nodos de 0,3–0,5 m de fondo (sobre todo Guasabacoa y Marimelena), en miembros con datum bajo: tocan el límite `rmaxvel` = 5 m/s por componente de SCHISM. Tampoco se relaciona con la edad (ρ = −0,04). **Sensibilidad (fuera del protocolo):** sin los 15 de esos miembros que están en los bloques A+B, la edad de la bahía queda en 7,73 d (P5–P95 5,58–10,40) frente a 7,78 (5,58–10,42), P(> 7 d) 0,69 frente a 0,68, C1 1,00 y C3 0,78 frente a 0,76: ninguna clase cambia. Prueba de 2 días (13-oct, configuración antigua, solo esquinas): con y sin esponja la velocidad del borde cambia × 2 (2,08 → 1,09 m/s) y las cifras de la bahía son idénticas a la décima (marea 14,9 cm; canal 2,5 / 7,7 cm/s; bahía 1,20 cm/s, p99 5,5 cm/s).
 
 ### Sentinel-2 — firme, resultado negativo (protocolo congelado 21-oct + control 26-oct)
 

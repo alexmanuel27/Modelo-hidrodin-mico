@@ -1,4 +1,4 @@
-# Puente con el manuscrito — LEER PRIMERO (actualizado 9-nov-2026)
+# Puente con el manuscrito — LEER PRIMERO (actualizado 13-nov-2026)
 
 Para el chat del artículo: lo que el texto debe decir, con su fuente. No es prosa del artículo.
 
@@ -11,12 +11,12 @@ Para el chat del artículo: lo que el texto debe decir, con su fuente. No es pro
 | Área de estudio, datos públicos, control analítico | firme | `secciones/02`, `03`, `04` |
 | Métodos | firme, salvo horas-núcleo totales y destino de los ríos | `secciones/05_metodos.md` |
 | Mecanismo (marea / viento / densidad) | **firme** | `secciones/06_resultados.md` 6.4 |
-| Robustez de la densidad | firme salvo el flujo de calor: con SST real (m0005) 11,2 d, sin equilibrio; **no es robusta a incluir el balance de calor** (cifras.md) | 6.4 y `07_discusion.md` |
+| Robustez de la densidad | firme salvo el flujo de calor: con SST real (m0005) 11,2 d, sin equilibrio, canal 10,0 / 6,6 d; **no es robusta a incluir el balance de calor** (cifras.md) | 6.4 y `07_discusion.md` |
 | Sentinel-2 | **firme, resultado negativo** | 6.6 |
 | Conjunto de 704 (mapas, Sobol, robusta/frágil) | **terminado (9-nov): 704/704**; bahía 7,8 d (P5–P95 5,6–10,4), C1–C2, C4–C7 robustas, C3 frágil, P(>14 d) = 0, C8 caudal S_T 0,67; figs 5 y 6 hechas (cifras.md) | 6.2, 6.3, 7.1 |
-| Destino del agua de los ríos (fig. 8) | protocolo congelado 8-nov; sin resultados (falta compilar con `USE_GEN`, validar y correr 4 casos) | 6.5 |
+| Destino del agua de los ríos (fig. 8) | **hecho (13-nov)**: R1–R3 robustas, R4 falla; T1 aceptado con desviación anotada; fig. 8 hecha (cifras.md) | 6.5 |
 | Caudal por el canal | **no usar** como resultado ni como acuerdo con el prisma | avisos en `cifras.md` |
-| Figuras finales en inglés | 1–3 y el prisma; el resto a tamaño final en curso | `figuras.md`, `../figuras_requisitos.md` |
+| Figuras finales en inglés | **todas hechas (13-nov)**: 1–10, S1, S2, S4 y resumen gráfico; S3 no sale | `figuras.md`, `../figuras_requisitos.md` |
 
 ## Qué NO hay que reescribir y qué falta
 
@@ -48,5 +48,5 @@ Las fechas del manuscrito (métricas 27-oct, S2 21-oct con control 26-oct, traza
 - Resultados en detalle: `../resultados_mecanismo.md`, `../resultados_robustez.md`; comparación S2 en `../../resultados/comparacion_s2/`.
 - Procedencia de los datos (URL, fecha, licencia): `../procedencia_datos.md` y los `descargas.tsv` de `datos/`.
 - Bitácora completa: `../00_estado_y_plan.md`. **Este repo es la única fuente**: desde el 8-nov no se guarda nada en el Project de Claude (`claude/`); las copias que hay allí están congeladas y pueden estar viejas.
-- Figura 8 (destino del agua de cada río): protocolo **congelado el 8-nov** (aprobado por Alex), `../protocolo_trazadores_rios.md`; sin resultados todavía.
+- Figura 8 (destino del agua de cada río): protocolo **congelado el 8-nov** (aprobado por Alex), `../protocolo_trazadores_rios.md`; resultados del 13-nov en `cifras.md`.
 - **Histórico, no usar:** `../historico/` (resúmenes viejos, cuerpo antiguo de la nota del vault y copia de lo que había en el Project de Claude, con su índice en `../historico/README.md`).
