@@ -4,6 +4,7 @@
   python scripts/conjunto.py diseno  [N=64]      -> datos/conjunto/diseno.csv (versionado)
   CONJ_DIR=runs/mecanismo CONJ_DIAS=365 python scripts/conjunto.py mecanismo   -> 3 experimentos de mecanismo
   CONJ_DIR=runs/robustez CONJ_DIAS=120 CONJ_SEG=20 python scripts/conjunto.py robustez -> 5 pruebas de la densidad
+  CONJ_DIR=runs/robustez_largo CONJ_DIAS=365 CONJ_SEG=10 CONJ_HORAS=12 CONJ_MARGEN=3 python scripts/conjunto.py robustez_largo -> m0000, m0001, m0005 a 365 d
   CONJ_DIR=runs/trazadores CONJ_DIAS=120 CONJ_SEG=10 CONJ_ESCRIBAS=6 CONJ_POSPROCESO=0 CONJ_BIN=... python scripts/conjunto.py trazadores -> 4 casos
   python scripts/conjunto.py prueba               -> autoprueba: Jansen sobre Ishigami con la misma construccion
   python scripts/conjunto.py generar [J=6] [m,m,...]  -> runs/conjunto/mNNNN/ (caso_real.py por miembro, J a la vez;
@@ -239,6 +240,10 @@ if __name__ == "__main__":
         filas = [dict(BASE, miembro=str(k), extra=e) for k, (_, e) in enumerate(ROBUSTEZ)]
         for k, (nom, _) in enumerate(ROBUSTEZ): print(f"m{k:04d}: {nom}")
         generar(6, filas=filas)
+    elif accion == "robustez_largo":   # 14-nov (revision, A1): base, m0001 (calor, borde 28 C) y m0005 (calor + OISST) de robustez hasta todo 2016. CONJ_DIR=runs/robustez_largo CONJ_DIAS=365 CONJ_SEG=10 CONJ_HORAS=12 CONJ_MARGEN=3
+        filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", **ROBUSTEZ[k][1]}) for k in (0, 1, 5)]
+        for k in (0, 1, 5): print(f"m{k:04d}: {ROBUSTEZ[k][0]}, 365 d")
+        generar(3, filas=filas)
     elif accion == "trazadores":    # CONJ_DIR=runs/trazadores CONJ_DIAS=120 CONJ_SEG=10 CONJ_ESCRIBAS=6 CONJ_POSPROCESO=0 CONJ_BIN='$HOME/schism/build_gen/bin/<ejecutable>' python scripts/conjunto.py trazadores
         filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", "TRAZADORES": "1", **e}) for k, (_, e) in enumerate(TRAZADORES)]
         for k, (nom, _) in enumerate(TRAZADORES): print(f"m{k:04d}: {nom}")
