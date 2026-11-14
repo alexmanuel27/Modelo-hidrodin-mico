@@ -166,6 +166,8 @@ Protocolo congelado 8-nov (`docs/protocolo_trazadores_rios.md`); 4 casos de 120 
 
 Resultado (regla del protocolo: robusta si se cumple en los 4 casos): **R1** (T_i < 7 d) se cumple en los 4 casos (máximo 5,7 d, Tadeo en T1); **R2** (menos agua de los ríos en Atarés que en Guasabacoa) se cumple en los 4 pero con poco margen (Atarés 6–11 % por debajo); **R3** (> 50 % del agua del Luyanó y del Martín Pérez en Guasabacoa + cuenca) se cumple en los 4 (63–64 % y 67–69 %); **R1, R2 y R3 son robustas. R4** (Tadeo sobre todo en Marimelena) **no se cumple en ninguno**: solo 10–15 % de M_Tadeo está en Marimelena y 44–48 % en la cuenca; la conclusión del borrador sobre el Tadeo no se sostiene. Los T_i son mucho menores que el «≈ 4 meses» de JICA (como T_f = 1,8–2,0 d). En los casos sin equilibrio M_i deriva entre −2,3 y +1,5 %/d, así que esos T_i tienen esa incertidumbre añadida.
 
+**T2 y T3 con `eps1_tvd_imp` = 1e-9 (14-nov, `runs/trazadores_eps`):** R1–R4 iguales a las de 1e-4 en los cuatro casos (R1–R3 se cumplen, R4 no). T_i (Luyanó / Martín Pérez / Tadeo): T2 1,58 / 1,62 / 1,79 d (+24 / +22 / +16 %), T3 2,81 / 2,30 / 3,93 d (−1 / −5 / −21 %). Control de la suma con 1e-9: T0 4,4 %, T1 1,67 %, T2 8,5 %, T3 5,8 % (con 1e-4: 2,2 / 5,43 / 0,46 / 0,57 %). **La incertidumbre numérica de T_i no es ~4 %: el rango observado es −21 a +24 %** (decisión de redacción: de Alex). Detalle: `docs/protocolo_trazadores_rios.md` 14-nov (1).
+
 ### Avisos sobre el caudal por el canal — no usar como resultado
 
 - **Neto:** −6 a +7 m³/s cuando debería ser ≈ −2,1 → error de ±6 m³/s.
