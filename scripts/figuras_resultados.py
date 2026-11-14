@@ -273,7 +273,7 @@ def fig_rios(dir=TRAZ, salida=SALIDA):
     d.plot(x, T[0], "o", color=AZUL, ms=4, label="T0 (central)")
     for k, (mk, c) in enumerate((("v", NARANJA), ("^", BERMELLON), ("s", VERDE)), 1): d.plot(x, T[k], mk, color=c, ms=3, label=("T1 Q×0.25", "T2 Q×2", "T3 heat flux")[k - 1])
     d.set_xticks(x); d.set_xticklabels(RIOS_NOM, rotation=20, ha="right", rotation_mode="anchor"); d.set_xlim(-0.5, 2.5)
-    d.set_ylim(0, max(10, T.max() * 1.15)); d.set_ylabel("Residence time $T_i=M_i/Q_i$ (d)"); d.legend(frameon=False, fontsize=5.5, loc="upper right", ncol=2, handletextpad=0.2, columnspacing=0.8)
+    d.set_ylim(0, max(10, T.max() * 1.15)); d.set_ylabel("Renewal time $T_i=M_i/Q_i$ (d)"); d.legend(frameon=False, fontsize=5.5, loc="upper right", ncol=2, handletextpad=0.2, columnspacing=0.8)
     letra(d, "d", x=0.02)
     rep = np.array([[q[f"reparto_{z.replace('é', 'e')}"] for z in ZONAS_TRAZ] for q in R])   # (caso, zona, rio)
     w = 0.26
