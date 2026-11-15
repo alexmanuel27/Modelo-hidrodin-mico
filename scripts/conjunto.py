@@ -244,6 +244,14 @@ if __name__ == "__main__":
         filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", **ROBUSTEZ[k][1]}) for k in (0, 1, 5)]
         for k in (0, 1, 5): print(f"m{k:04d}: {ROBUSTEZ[k][0]}, 365 d")
         generar(3, filas=filas)
+    elif accion == "calor16":   # 15-nov (revision, A1 opcional): miembros 0-15 (los 16 primeros del bloque A) con flujo de calor + SST OISST, 120 d. CONJ_DIR=runs/conjunto_calor CONJ_DIAS=120 CONJ_SEG=20 python scripts/conjunto.py calor16
+        filas = [dict(f, extra={"CALOR": "1", "SST": "oisst"}) for f in lee() if int(f["miembro"]) < 16]
+        print(f"{len(filas)} miembros del conjunto con CALOR=1 y SST=oisst"); generar(6, filas=filas)
+    elif accion == "borde_prueba":   # 15-nov (revision, A9): miembro central 10 d: control, sin Coriolis, sin viento. CONJ_DIR=runs/borde_prueba CONJ_DIAS=10 CONJ_SEG=10 python scripts/conjunto.py borde_prueba
+        casos = [("control (Coriolis y viento)", {}), ("sin Coriolis (NCOR=0)", {"NCOR": "0"}), ("sin viento (NWS=0)", {"NWS": "0"})]
+        filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", **e}) for k, (_, e) in enumerate(casos)]
+        for k, (nom, _) in enumerate(casos): print(f"m{k:04d}: {nom}")
+        generar(3, filas=filas)
     elif accion == "trazadores":    # CONJ_DIR=runs/trazadores CONJ_DIAS=120 CONJ_SEG=10 CONJ_ESCRIBAS=6 CONJ_POSPROCESO=0 CONJ_BIN='$HOME/schism/build_gen/bin/<ejecutable>' python scripts/conjunto.py trazadores
         filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", "TRAZADORES": "1", **e}) for k, (_, e) in enumerate(TRAZADORES)]
         for k, (nom, _) in enumerate(TRAZADORES): print(f"m{k:04d}: {nom}")
