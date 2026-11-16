@@ -32,3 +32,14 @@ Hasta entonces, en el texto: la variabilidad con calor es un resultado del model
 3. En el clúster, para B2 (barato, solo lectura): `cd bahia && python3 scripts/mecanismo_calor.py extrae` (módulo `netcdf4-python`), traer `resultados/forzamiento_2016_horario.csv` y avisarme; y traer los `coste.txt` de `runs/robustez_largo` y `runs/conjunto_calor` para medir los core-h reales.
 4. Si se elige (a): `CONJ_DIR=runs/conjunto_calor CONJ_DIAS=120 CONJ_SEG=20 python scripts/conjunto.py calor64`, rsync como en calor16, y `bash lanzar.sh 16-63` (+ `lanzar_trabajadores.sh N`).
 5. Lo suyo, no mío: B8 (referencia Ponce Portela), B9 (enlaces), B5, CRediT/afiliaciones/financiación.
+
+## Actualización de la noche del 16-nov: resultado de B2 (proxy) y costes medidos
+
+`calor64` está lanzado (24 carriles, 48 miembros nuevos). El proxy se ha leído con la regla fijada (protocolo 16-nov (5), `resultados/mecanismo_calor.txt`, commit en el log):
+
+- m0005 (calor + OISST): T1 (enfriamiento frente a crecimiento de la edad en bloques de 5 d) +0,32 → confirmada por un margen de 0,02 (con lag 1 sería +0,28); control sin calor −0,01, pasa; T2 mensual (feb–dic) +0,75 → confirmada; **T3 (separar del viento) +0,14 < 0,25 → no se cumple**. **Veredicto por la regla: no concluyente / parcial.** Réplica con m0001: T1 +0,51, T2 +0,66, parcial +0,33.
+- **Frase que sostiene el resultado (inglés):** «The age with heat flux is highest in the months with negative net surface heat flux and stronger winds (November–March and October–December), but in this single year-long series cooling and wind stress cannot be separated; the pattern is consistent with, but does not demonstrate, a weakening of the estuarine circulation by winter cooling.»
+- **Cautela que el artículo no debe esconder:** el proxy da un balance anual de −18,5 W/m² (calor latente 148 W/m², probablemente sobreestimado por usar coeficientes constantes). Se usa solo por rangos; no es el flujo de SCHISM.
+- No hay Δρ del canal. Repetir m0005 con salidas queda en reserva: cuesta ≈ 130–180 core-h (medido: los 365 d de `robustez_largo` salieron a 120–133 core-h).
+- **Costes medidos:** `conjunto_calor` a 120 d ≈ 49 core-h por miembro (no 72–76); los 48 nuevos ≈ 2.400 core-h.
+- Qué cambia en el texto: «hipótesis del enfriamiento» pasa de «propuesta» a «compatible con el proxy, no separable del viento, Δρ sin medir».

@@ -1,0 +1,17 @@
+PROXY de flujo (formulas bulk con Cd, Ch, Ce constantes y SST OISST diaria; no es el flujo calculado por SCHISM). 365 d de 2016; bloques de 5 d; se descartan los 30 d de arranque.
+forzamiento 2016: Qnet medio -18.5 W/m2 (SW 212, LW -66, H 16, LE 148), U10 medio 5.3 m/s, tau medio 0.049 N/m2
+calor 28 C (m0001): T1 rho(enfriamiento, crecimiento) lag0 +0.51 lag1 +0.28 -> confirmada; control (sin calor) -0.01 (ok); parcial dado tau (lag 0, n = 66) +0.33; rho(tau, crecimiento) +0.40; T2 mensual (feb-dic) rho(enfriamiento, edad) +0.66 -> confirmada; veredicto B2: apoyada (compatible, no prueba el mecanismo)
+calor + OISST (m0005): T1 rho(enfriamiento, crecimiento) lag0 +0.32 lag1 +0.28 -> confirmada; control (sin calor) -0.01 (ok); parcial dado tau (lag 0, n = 66) +0.14; rho(tau, crecimiento) +0.30; T2 mensual (feb-dic) rho(enfriamiento, edad) +0.75 -> confirmada; veredicto B2: no concluyente / parcial
+[descriptivo] mes: Qnet (W/m2), tau (N/m2), U10, edad sin calor, con calor 28 C, con calor + OISST
+   1  -154.4 0.062  6.0     4.2   4.9   5.2
+   2  -127.0 0.062  6.1     7.3  11.4  13.7
+   3    +7.5 0.048  5.1     6.5  17.0  13.9
+   4   +30.4 0.049  5.4     6.6  17.3  11.4
+   5   +63.3 0.041  4.8     6.7   9.9  12.0
+   6   +87.2 0.031  4.1     6.5   5.4   9.6
+   7   +71.3 0.042  5.0     6.4   4.2   8.4
+   8   +56.4 0.045  5.1     6.3   4.2   6.1
+   9   +62.4 0.027  3.9     6.3   5.1   8.0
+  10   -90.1 0.064  6.1     7.3   9.1  12.0
+  11  -156.7 0.063  6.1     6.8  20.6  21.0
+  12   -77.9 0.054  5.6     6.6  16.7  15.5
