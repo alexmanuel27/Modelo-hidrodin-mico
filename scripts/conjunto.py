@@ -247,6 +247,10 @@ if __name__ == "__main__":
     elif accion == "calor16":   # 15-nov (revision, A1 opcional): miembros 0-15 (los 16 primeros del bloque A) con flujo de calor + SST OISST, 120 d. CONJ_DIR=runs/conjunto_calor CONJ_DIAS=120 CONJ_SEG=20 python scripts/conjunto.py calor16
         filas = [dict(f, extra={"CALOR": "1", "SST": "oisst"}) for f in lee() if int(f["miembro"]) < 16]
         print(f"{len(filas)} miembros del conjunto con CALOR=1 y SST=oisst"); generar(6, filas=filas)
+    elif accion == "calor64":   # 16-nov (V2 B4): los 64 miembros del bloque A (0-63) con calor + OISST, 120 d; los 0-15 ya existen en runs/conjunto_calor (uno() los salta). CONJ_DIR=runs/conjunto_calor CONJ_DIAS=120 CONJ_SEG=20 python scripts/conjunto.py calor64; luego bash lanzar.sh 16-63
+        filas = [dict(f, extra={"CALOR": "1", "SST": "oisst"}) for f in lee() if int(f["miembro"]) < 64]
+        ya = sum((RUNS / f"m{int(f['miembro']):04d}" / "param.nml").exists() for f in filas)
+        print(f"{len(filas)} miembros con CALOR=1 y SST=oisst ({ya} ya generados)"); generar(6, filas=filas)
     elif accion == "borde_prueba":   # 15-nov (revision, A9): miembro central 10 d: control, sin Coriolis, sin viento. CONJ_DIR=runs/borde_prueba CONJ_DIAS=10 CONJ_SEG=10 python scripts/conjunto.py borde_prueba
         casos = [("control (Coriolis y viento)", {}), ("sin Coriolis (NCOR=0)", {"NCOR": "0"}), ("sin viento (NWS=0)", {"NWS": "0"})]
         filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", **e}) for k, (_, e) in enumerate(casos)]

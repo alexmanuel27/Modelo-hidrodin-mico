@@ -3,14 +3,14 @@
 Lectura fijada en docs/protocolo_metricas_conjunto.md (15-nov (2)). Solo numpy.
   python scripts/conjunto_calor.py [runs/conjunto_calor] [runs/conjunto]  -> resultados/conjunto_calor.txt
   python scripts/conjunto_calor.py --prueba"""
-import csv, json, sys
+import csv, json, os, sys
 from pathlib import Path
 import numpy as np
 
 RAIZ = Path(__file__).resolve().parent.parent
 PARAMS = ("carta", "alfa", "semilla", "datum", "cd", "vfac", "vrot", "mfac", "qfac")
 ZONAS = ("canal", "cuenca", "Marimelena", "Guasabacoa", "Atares")
-N = 16
+N = int(os.environ.get("CALOR_N", 16))   # 16 (15-nov) o 64 (calor64, 16-nov: CALOR_N=64 python scripts/conjunto_calor.py -> resultados/conjunto_calor64.txt)
 
 
 def rangos(x):
@@ -55,6 +55,10 @@ if __name__ == "__main__":
     mayor = max(PARAMS, key=lambda p: abs(rho[p]["calor"]))
     out.append(f"parametro con mayor |rho| con calor: {mayor} ({rho[mayor]['calor']:+.2f}); caudal (qfac) con calor {rho['qfac']['calor']:+.2f} -> "
                + ("el caudal sigue dominando (mayor |rho| y >= 0,50)" if mayor == "qfac" and abs(rho["qfac"]["calor"]) >= 0.5 else "el dominio del caudal NO se sostiene con calor en estos miembros"))
+    if N > 16:   # lectura del 16-nov (calor64): desplazamiento pareado frente al rango P5-P95 de los MISMOS miembros sin calor
+        pw = np.percentile(age["sin"], 95) - np.percentile(age["sin"], 5); dm = np.median(d)
+        out.append(f"cociente R = diferencia pareada mediana / ancho P5-P95 sin calor = {dm:.2f} / {pw:.2f} = {dm / pw:.2f}; calor > sin en {np.mean(d > 0):.2f} de los miembros -> "
+                   + ("el efecto estructural supera el rango parametrico (R > 1 y >= 0,90 de miembros)" if dm / pw > 1 and np.mean(d > 0) >= 0.9 else "no se cumple R > 1 con >= 0,90 de miembros"))
     # C1-C7 y P(edad > umbral) con las clases del protocolo (robusta >= 0,90, fragil, rechazada <= 0,10), n = 16 en cada condicion;
     # misma logica que analisis_conjunto.conclusiones (lectura fijada: si una clase cambia con calor, se informa tal cual)
     M = np.load(RAIZ / "datos" / "conjunto" / "posproceso_malla.npz"); cz = M["zona"] == 1; w = M["area"][cz]
@@ -81,4 +85,4 @@ if __name__ == "__main__":
         return float(np.corrcoef(res(rangos(y), rangos(z)), res(rangos(x), rangos(z)))[0, 1])
     for c in ("sin", "calor"):
         out.append(f"[descriptivo] {c}: rho parcial de la edad con qfac dado mfac {parcial(age[c], X['qfac'][ok], X['mfac'][ok]):+.2f}; con mfac dado qfac {parcial(age[c], X['mfac'][ok], X['qfac'][ok]):+.2f}")
-    texto = "\n".join(out); print(texto); (RAIZ / "resultados" / "conjunto_calor.txt").write_text(texto + "\n")
+    texto = "\n".join(out); print(texto); (RAIZ / "resultados" / ("conjunto_calor.txt" if N == 16 else f"conjunto_calor{N}.txt")).write_text(texto + "\n")
