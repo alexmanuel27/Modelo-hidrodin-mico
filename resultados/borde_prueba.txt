@@ -1,0 +1,4 @@
+m0000 control (Coriolis y viento): 10 d, vmax 1.80 m/s en el nodo 4533 (borde abierto); vmax dentro de la bahia 0.29; nan=0
+m0001 sin Coriolis: 10 d, vmax 1.25 m/s en el nodo 4533 (borde abierto); vmax dentro de la bahia 0.29; nan=0
+m0002 sin viento: 10 d, vmax 1.78 m/s en el nodo 4533 (borde abierto); vmax dentro de la bahia 0.12; nan=0
+control NO reproduce la velocidad del borde en 10 d: la prueba no es concluyente

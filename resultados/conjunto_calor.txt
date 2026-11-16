@@ -1,0 +1,30 @@
+16/16 miembros emparejados validos (calor + OISST, 120 d) frente a los mismos sin calor
+sin  : edad bahia mediana 7.36 (P5-P95 5.90-10.41); P(>7 d) 0.56; P(>14 d) 0.00; |deriva|<=0,05: 14/16
+calor: edad bahia mediana 13.77 (P5-P95 9.15-17.74); P(>7 d) 1.00; P(>14 d) 0.44; |deriva|<=0,05: 0/16
+pareado: diferencia mediana (calor - sin) +5.47 d; calor > sin en 16/16 miembros
+fraccion de miembros en que el canal es la zona mas joven: sin 1.00, calor 1.00
+Spearman de la edad de la bahia con cada parametro (n = 16; |rho| >= 0,50 ~ p < 0,05):
+  carta    sin -0.19   calor -0.54
+  alfa     sin +0.46   calor +0.22
+  semilla  sin -0.02   calor +0.00
+  datum    sin -0.11   calor -0.06
+  cd       sin -0.20   calor +0.02
+  vfac     sin -0.12   calor -0.49
+  vrot     sin -0.21   calor -0.14
+  mfac     sin -0.86   calor -0.76
+  qfac     sin -0.91   calor -0.80
+parametro con mayor |rho| con calor: qfac (-0.80); caudal (qfac) con calor -0.80 -> el caudal sigue dominando (mayor |rho| y >= 0,50)
+clases del protocolo (n = 16): conclusion | sin calor | con calor
+  C1 canal < cuenca < Guasabacoa < Atares: 1.00 robusta | 0.94 robusta
+  C2 Atares mas vieja que el canal: 1.00 robusta | 1.00 robusta
+  C3 Marimelena mas vieja que la cuenca: 0.69 fragil | 1.00 robusta   <-- CAMBIA
+  C4 Guasabacoa y Atares mas viejas que la cuenca: 1.00 robusta | 0.94 robusta
+  C5 edad de la bahia < 30 d: 1.00 robusta | 1.00 robusta
+  C6 edad de la bahia < 120 d: 1.00 robusta | 1.00 robusta
+  C7 canal: superficie mas vieja que el fondo: 1.00 robusta | 1.00 robusta
+  P edad de la bahia > 7 d: 0.56 fragil | 1.00 robusta   <-- CAMBIA
+  P edad de la bahia > 14 d: 0.00 rechazada | 0.44 fragil   <-- CAMBIA
+  P edad de la bahia > 30 d: 0.00 rechazada | 0.00 rechazada
+[descriptivo] rho entre parametros en estos miembros con |rho| >= 0,5: carta-vfac +0.87, alfa-vrot -0.75, mfac-qfac +0.93
+[descriptivo] sin: rho parcial de la edad con qfac dado mfac -0.62; con mfac dado qfac -0.04
+[descriptivo] calor: rho parcial de la edad con qfac dado mfac -0.39; con mfac dado qfac -0.07

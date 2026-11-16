@@ -55,4 +55,30 @@ if __name__ == "__main__":
     mayor = max(PARAMS, key=lambda p: abs(rho[p]["calor"]))
     out.append(f"parametro con mayor |rho| con calor: {mayor} ({rho[mayor]['calor']:+.2f}); caudal (qfac) con calor {rho['qfac']['calor']:+.2f} -> "
                + ("el caudal sigue dominando (mayor |rho| y >= 0,50)" if mayor == "qfac" and abs(rho["qfac"]["calor"]) >= 0.5 else "el dominio del caudal NO se sostiene con calor en estos miembros"))
+    # C1-C7 y P(edad > umbral) con las clases del protocolo (robusta >= 0,90, fragil, rechazada <= 0,10), n = 16 en cada condicion;
+    # misma logica que analisis_conjunto.conclusiones (lectura fijada: si una clase cambia con calor, se informa tal cual)
+    M = np.load(RAIZ / "datos" / "conjunto" / "posproceso_malla.npz"); cz = M["zona"] == 1; w = M["area"][cz]
+    def sf(c, i):
+        nz = np.load((dc if c == "calor" else ds) / f"m{int(filas[i]['miembro']):04d}" / "resumen.npz")
+        return (nz["edad_sup"][cz] * w).sum() / w.sum() > (nz["edad_fondo"][cz] * w).sum() / w.sum()
+    e = lambda c, i, z: R[c][i][f"edad_media_d_{z}"]
+    C = {"C1 canal < cuenca < Guasabacoa < Atares": lambda c, i: e(c, i, "canal") < e(c, i, "cuenca") < e(c, i, "Guasabacoa") < e(c, i, "Atares"),
+         "C2 Atares mas vieja que el canal": lambda c, i: e(c, i, "Atares") > e(c, i, "canal"),
+         "C3 Marimelena mas vieja que la cuenca": lambda c, i: e(c, i, "Marimelena") > e(c, i, "cuenca"),
+         "C4 Guasabacoa y Atares mas viejas que la cuenca": lambda c, i: min(e(c, i, "Guasabacoa"), e(c, i, "Atares")) > e(c, i, "cuenca"),
+         "C5 edad de la bahia < 30 d": lambda c, i: e(c, i, "bahia") < 30, "C6 edad de la bahia < 120 d": lambda c, i: e(c, i, "bahia") < 120,
+         "C7 canal: superficie mas vieja que el fondo": sf, "P edad de la bahia > 7 d": lambda c, i: e(c, i, "bahia") > 7,
+         "P edad de la bahia > 14 d": lambda c, i: e(c, i, "bahia") > 14, "P edad de la bahia > 30 d": lambda c, i: e(c, i, "bahia") > 30}
+    cl = lambda x: "robusta" if x >= 0.9 else "rechazada" if x <= 0.1 else "fragil"
+    out.append("clases del protocolo (n = %d): conclusion | sin calor | con calor" % len(ok))
+    for nom, fn in C.items():
+        a, b = (np.mean([float(fn(c, i)) for i in ok]) for c in ("sin", "calor")); out.append(f"  {nom}: {a:.2f} {cl(a)} | {b:.2f} {cl(b)}" + ("   <-- CAMBIA" if cl(a) != cl(b) else ""))
+    # [descriptivo, no pre-registrado] correlaciones entre parametros en estos 16 y correlacion parcial de rangos con qfac y mfac
+    rr = lambda a: rangos(np.asarray(a)[ok])
+    out.append("[descriptivo] rho entre parametros en estos miembros con |rho| >= 0,5: " + ", ".join(f"{a}-{b} {spearman(X[a][ok], X[b][ok]):+.2f}" for i, a in enumerate(PARAMS) for b in PARAMS[i + 1:] if abs(spearman(X[a][ok], X[b][ok])) >= 0.5))
+    def parcial(y, x, z):
+        res = lambda a, b: a - np.polyval(np.polyfit(b, a, 1), b)
+        return float(np.corrcoef(res(rangos(y), rangos(z)), res(rangos(x), rangos(z)))[0, 1])
+    for c in ("sin", "calor"):
+        out.append(f"[descriptivo] {c}: rho parcial de la edad con qfac dado mfac {parcial(age[c], X['qfac'][ok], X['mfac'][ok]):+.2f}; con mfac dado qfac {parcial(age[c], X['mfac'][ok], X['qfac'][ok]):+.2f}")
     texto = "\n".join(out); print(texto); (RAIZ / "resultados" / "conjunto_calor.txt").write_text(texto + "\n")
