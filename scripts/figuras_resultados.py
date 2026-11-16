@@ -317,32 +317,42 @@ def fig_borde(dir=RAIZ / "runs" / "conjunto", salida=SALIDA):
 
 
 def fig_resumen(dir=CONJUNTO, salida=SALIDA):
-    """Resumen grafico (Elsevier: >= 1328 x 531 px, legible a 13 x 5 cm): mapa de la edad mediana en superficie, edad por zona
-    (mediana y P5-P95 de los 128 miembros) e indices de Sobol S_T de la edad de la bahia."""
+    """Resumen grafico (Elsevier: >= 1328 x 531 px; 15 x 6,2 cm), mensaje en dos niveles (16-nov, V2 B6): mapa de la edad mediana (conjunto sin calor),
+    edad por zona (mediana y P5-P95) del conjunto (128 miembros) y de los 16 miembros con flujo de calor + OISST, e indices S_T; el flujo de calor va aparte, en dias."""
     estilo(); plt.rcParams.update({"font.size": 7.5, "axes.titlesize": 7.5})
     filas = list(csv.DictReader(open(Path(dir) / "prob_zonas.csv"))); p = np.load(Path(dir) / "prob_edad_sup.npz")
     sob = [r for r in csv.DictReader(open(Path(dir) / "sobol.csv")) if r["metrica"] == "edad_media_d_bahia"]
     sob.sort(key=lambda r: float(r["ST"]))
     M = np.load(RAIZ / "datos" / "conjunto" / "posproceso_malla.npz"); e, n = M["s2_e"] / 1000, M["s2_n"] / 1000
     ext = [e[0] - 0.01, e[-1] + 0.01, n[0] - 0.01, n[-1] + 0.01]
-    fig = plt.figure(figsize=(130 * MM, 50 * MM), constrained_layout=True)
-    a, b, c = (fig.add_subplot(g) for g in fig.add_gridspec(1, 3, width_ratios=[1.1, 1, 1.05]))
+    zonas = ["canal", "cuenca", "Marimelena", "Guasabacoa", "Atares", "bahia"]
+    lee = lambda d, k, z: json.loads((RAIZ / "runs" / d / f"m{k:04d}" / "resumen.json").read_text())[f"edad_media_d_{z}"]
+    cal = {z: np.array([lee("conjunto_calor", k, z) for k in range(16)]) for z in zonas}; sin16 = np.array([lee("conjunto", k, "bahia") for k in range(16)])
+    desp = float(np.median(cal["bahia"]) - np.median(sin16)); fb = next(r for r in filas if r["zona"] == "bahia"); rango = float(fb["p95"]) - float(fb["p5"])
+    print(f"calor (n=16): bahia mediana {np.median(cal['bahia']):.2f} d, P5-P95 {np.percentile(cal['bahia'], 5):.2f}-{np.percentile(cal['bahia'], 95):.2f}; sin calor (mismos 16) {np.median(sin16):.2f}; desplazamiento {desp:.2f} d; rango P5-P95 del conjunto {rango:.2f} d")
+    fig = plt.figure(figsize=(150 * MM, 62 * MM), constrained_layout=True)
+    g = fig.add_gridspec(1, 3, width_ratios=[0.85, 1.15, 1.25])
+    a, b = fig.add_subplot(g[0]), fig.add_subplot(g[1]); cc = g[2].subgridspec(2, 1, height_ratios=[3.2, 1.25]); c, d = fig.add_subplot(cc[0]), fig.add_subplot(cc[1])
     im = a.imshow(np.ma.masked_invalid(_raster(M, p["p50"])), origin="lower", extent=ext, cmap="viridis", vmin=0, vmax=14, interpolation="nearest")
-    a.set_xticks([]); a.set_yticks([]); a.set_title("Median surface age")
+    a.set_xticks([]); a.set_yticks([]); a.set_title("Median surface age\n(no heat flux)")
     fig.colorbar(im, ax=a, fraction=0.05, pad=0.02, ticks=[0, 7, 14]).set_label("d", labelpad=1)
     x = np.arange(len(filas)); med, lo, hi = (np.array([float(r[k]) for r in filas]) for k in ("p50", "p5", "p95"))
-    b.errorbar(x, med, yerr=[med - lo, hi - med], fmt="o", color=AZUL, ms=3.5, capsize=2, lw=1)
-    b.axhline(7, color=NEGRO, ls="--", lw=0.7); b.annotate("1 week", xy=(1.01, 7), xycoords=("axes fraction", "data"), ha="left", va="center", fontsize=6.5, annotation_clip=False)
-    e5 = json.loads((RAIZ / "runs" / "robustez" / "m0005" / "resumen.json").read_text())["edad_media_d_bahia"]   # calor + SST OISST, fuera del conjunto
-    b.plot(len(x) - 1 + 0.3, e5, "D", mfc="white", mec=BERMELLON, ms=3.5, mew=1, label="Bay, with heat\nbudget (no equil.)")
-    b.legend(frameon=False, loc="lower right", fontsize=6, handletextpad=0.2, borderaxespad=0.2)
-    b.set_xticks(x); b.set_xticklabels(["Channel", "Basin", "Marimelena", "Guasabacoa", "Atarés", "Bay"][:len(x)], rotation=35, ha="right", rotation_mode="anchor", fontsize=6.5)
-    b.set_ylim(0, 18); b.set_xlim(-0.5, len(x) - 0.3); b.set_ylabel("Mean age (d)"); b.set_title("About one week within the ensemble")
+    b.errorbar(x - 0.13, med, yerr=[med - lo, hi - med], fmt="o", color=AZUL, ms=3.2, capsize=2, lw=1, label="Ensemble, no heat flux (128)")
+    mc = np.array([np.median(cal[z]) for z in zonas]); lc, hc = (np.array([np.percentile(cal[z], q) for z in zonas]) for q in (5, 95))
+    b.errorbar(x + 0.13, mc, yerr=[mc - lc, hc - mc], fmt="s", color=NARANJA, ms=3.0, capsize=2, lw=1, label="With heat flux (16)")
+    for v, t in ((7, "1 week"), (14, "2 weeks")):
+        b.axhline(v, color=NEGRO, ls="--", lw=0.6); b.text(-1.05, v + 0.3, t, ha="left", va="bottom", fontsize=5.8)
+    b.legend(frameon=False, loc="upper left", fontsize=5.4, handletextpad=0.2, borderaxespad=0.1)
+    b.set_xticks(x); b.set_xticklabels(["Channel", "Basin", "Marimelena", "Guasabacoa", "Atarés", "Bay"], rotation=35, ha="right", rotation_mode="anchor", fontsize=6.5)
+    b.set_ylim(0, 24); b.set_xlim(-1.1, len(x) - 0.4); b.set_ylabel("Mean age (d)"); b.set_title("Age by zone")
     y = np.arange(len(sob)); st = np.array([float(r["ST"]) for r in sob])
     c.barh(y, st, color=[BERMELLON if r["parametro"] == "qfac" else GRIS for r in sob], height=0.7)
-    c.set_yticks(y); c.set_yticklabels([PARAM.get(r["parametro"], r["parametro"]) for r in sob], fontsize=6.5)
-    c.set_xlim(0, 1); c.set_xlabel("Total Sobol index $S_T$"); c.set_title("River flow controls it")
-    fig.suptitle("Havana Bay from public data only: 704-member 3D SCHISM ensemble", fontsize=8, fontweight="bold")
+    c.set_yticks(y); c.set_yticklabels([PARAM.get(r["parametro"], r["parametro"]) for r in sob], fontsize=5.8)
+    c.set_xlim(0, 1); c.set_xlabel("Total Sobol index $S_T$", labelpad=1); c.set_title("Parameter effects")
+    d.barh([1, 0], [desp, rango], color=[NARANJA, GRIS], height=0.7); d.set_yticks([1, 0]); d.set_yticklabels(["Heat flux (structural):\nshift of median", "Parameters:\nP5–P95 range"], fontsize=5.8)
+    d.set_xlim(0, 9); d.set_xticks([0, 3, 6, 9]); d.set_xlabel("Bay age (d)", labelpad=1)
+    for yy, v in ((1, desp), (0, rango)): d.text(v + 0.15, yy, f"{v:.1f}", va="center", fontsize=6)
+    fig.suptitle("About one week without the heat flux, about two weeks with it, never months", fontsize=8, fontweight="bold")
     png = salida / "graphical_abstract.png"; fig.savefig(png, dpi=300); fig.savefig(salida / "graphical_abstract.pdf"); plt.close(fig)
     from PIL import Image
     w, h = Image.open(png).size; assert w >= 1328 and h >= 531, (w, h); print(f"-> {png.name}: {w} x {h} px")
