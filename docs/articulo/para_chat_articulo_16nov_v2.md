@@ -27,7 +27,7 @@ Hasta entonces, en el texto: la variabilidad con calor es un resultado del model
 
 ## Lo que necesito de Alex
 
-1. `git push` (≥ 24 commits sin subir).
+1. `git push` (22 commits sin subir, según `git rev-list origin/HEAD..HEAD`).
 2. Decidir B4 (a), (b) o ninguno; y si se repite m0005 365 d con salidas (B2).
 3. En el clúster, para B2 (barato, solo lectura): `cd bahia && python3 scripts/mecanismo_calor.py extrae` (módulo `netcdf4-python`), traer `resultados/forzamiento_2016_horario.csv` y avisarme; y traer los `coste.txt` de `runs/robustez_largo` y `runs/conjunto_calor` para medir los core-h reales.
 4. Si se elige (a): `CONJ_DIR=runs/conjunto_calor CONJ_DIAS=120 CONJ_SEG=20 python scripts/conjunto.py calor64`, rsync como en calor16, y `bash lanzar.sh 16-63` (+ `lanzar_trabajadores.sh N`).
