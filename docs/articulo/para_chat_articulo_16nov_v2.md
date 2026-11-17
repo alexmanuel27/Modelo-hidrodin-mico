@@ -43,3 +43,17 @@ Hasta entonces, en el texto: la variabilidad con calor es un resultado del model
 - No hay Δρ del canal. Repetir m0005 con salidas queda en reserva: cuesta ≈ 130–180 core-h (medido: los 365 d de `robustez_largo` salieron a 120–133 core-h).
 - **Costes medidos:** `conjunto_calor` a 120 d ≈ 49 core-h por miembro (no 72–76); los 48 nuevos ≈ 2.400 core-h.
 - Qué cambia en el texto: «hipótesis del enfriamiento» pasa de «propuesta» a «compatible con el proxy, no separable del viento, Δρ sin medir».
+
+## Actualización del 17-nov: resultado del conjunto con calor de 64 (B4)
+
+Leído con la regla del protocolo (16-nov (4)), umbrales sin tocar. Detalle en `docs/articulo/cifras.md` y `resultados/conjunto_calor64.txt`.
+
+**Tabla 4 (n/64, sin → con calor):** C1 64 → 58; C2 64 → 64; C3 49 → 64; C4 64 → 58; C5–C7 64 → 64; P(>7 d) 42 → 63; P(>14 d) 0 → 27; P(>30 d) 0 → 0. Bahía: mediana 7,57 d (5,45–10,71) → 13,20 d (8,34–18,42); calor mayor en 64/64; desplazamiento pareado +5,40 d.
+
+- **Cambia respecto al borrador de 16 miembros (antes → después):** mediana con calor 13,8 d (9,2–17,7) → **13,2 d (8,3–18,4)**; desplazamiento 6,4 d → **5,4 d** (ya pareado); C1 y C4 con calor 0,94 (15/16) → **0,91 (58/64)**; P(>14 d) 0,44 → **0,42 (27/64)**. C3, P(>7 d) y P(>14 d) cambian de clase igual que con 16.
+- **Caudal frente a marea, resuelto:** con calor |ρ(edad, qfac)| = 0,79, el mayor de los nueve; ρ parcial qfac dado mfac −0,79, mfac dado qfac −0,13. Se puede escribir que el caudal domina con calor y que no es un efecto de la marea.
+- **«6,4 d frente a 4,8 d» → «5,4 d frente a 5,25 d» (R = 1,03).** El efecto del calor es del mismo orden que el rango P5–P95 de todos los parámetros juntos; la regla fijada (R > 1 y ≥ 90 % de miembros) se cumple por 0,03, así que **decir «del mismo orden», no «mayor»**. El titular «about two weeks with it» es la mediana 13,2 d, con P(>14 d) = 0,42: «about two weeks» vale; «never months» vale (P(>30 d) = 0/64).
+- C1 y C4 son 0,906: un miembro más en contra las dejaría frágiles; describirlas como «robustas, por poco».
+- Descriptivo: con calor sale vfac con ρ = −0,35; coherente con B2 (el viento no se separa del enfriamiento); no se interpreta más.
+- **Resumen gráfico regenerado** con los 64 (naranja n = 64; barra «paired median shift» 5,4 d frente a «P5–P95 range (same 64)» 5,3; en el PNG 5,25 sale redondeado a 5,3). `docs/figuras/articulo/graphical_abstract.{png,pdf}`.
+- Con (a) C8 (Sobol) no se evalúa. Alcance: enero–abril de 2016, 120 d, últimos 30 d.

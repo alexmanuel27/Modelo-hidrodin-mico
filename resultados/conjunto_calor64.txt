@@ -1,0 +1,31 @@
+64/64 miembros emparejados validos (calor + OISST, 120 d) frente a los mismos sin calor
+sin  : edad bahia mediana 7.57 (P5-P95 5.45-10.71); P(>7 d) 0.66; P(>14 d) 0.00; |deriva|<=0,05: 59/64
+calor: edad bahia mediana 13.20 (P5-P95 8.34-18.42); P(>7 d) 0.98; P(>14 d) 0.42; |deriva|<=0,05: 1/64
+pareado: diferencia mediana (calor - sin) +5.40 d; calor > sin en 64/64 miembros
+fraccion de miembros en que el canal es la zona mas joven: sin 1.00, calor 1.00
+Spearman de la edad de la bahia con cada parametro (n = 64; |rho| >= 0,50 ~ p < 0,05):
+  carta    sin -0.20   calor -0.25
+  alfa     sin +0.05   calor -0.10
+  semilla  sin -0.25   calor -0.21
+  datum    sin +0.01   calor +0.16
+  cd       sin -0.09   calor -0.05
+  vfac     sin +0.09   calor -0.35
+  vrot     sin -0.14   calor -0.14
+  mfac     sin -0.06   calor -0.08
+  qfac     sin -0.91   calor -0.79
+parametro con mayor |rho| con calor: qfac (-0.79); caudal (qfac) con calor -0.79 -> el caudal sigue dominando (mayor |rho| y >= 0,50)
+cociente R = diferencia pareada mediana / ancho P5-P95 sin calor = 5.40 / 5.25 = 1.03; calor > sin en 1.00 de los miembros -> el efecto estructural supera el rango parametrico (R > 1 y >= 0,90 de miembros)
+clases del protocolo (n = 64): conclusion | sin calor | con calor
+  C1 canal < cuenca < Guasabacoa < Atares: 1.00 (64/64) robusta | 0.91 (58/64) robusta
+  C2 Atares mas vieja que el canal: 1.00 (64/64) robusta | 1.00 (64/64) robusta
+  C3 Marimelena mas vieja que la cuenca: 0.77 (49/64) fragil | 1.00 (64/64) robusta   <-- CAMBIA
+  C4 Guasabacoa y Atares mas viejas que la cuenca: 1.00 (64/64) robusta | 0.91 (58/64) robusta
+  C5 edad de la bahia < 30 d: 1.00 (64/64) robusta | 1.00 (64/64) robusta
+  C6 edad de la bahia < 120 d: 1.00 (64/64) robusta | 1.00 (64/64) robusta
+  C7 canal: superficie mas vieja que el fondo: 1.00 (64/64) robusta | 1.00 (64/64) robusta
+  P edad de la bahia > 7 d: 0.66 (42/64) fragil | 0.98 (63/64) robusta   <-- CAMBIA
+  P edad de la bahia > 14 d: 0.00 (0/64) rechazada | 0.42 (27/64) fragil   <-- CAMBIA
+  P edad de la bahia > 30 d: 0.00 (0/64) rechazada | 0.00 (0/64) rechazada
+[descriptivo] rho entre parametros en estos miembros con |rho| >= 0,5: 
+[descriptivo] sin: rho parcial de la edad con qfac dado mfac -0.92; con mfac dado qfac -0.15
+[descriptivo] calor: rho parcial de la edad con qfac dado mfac -0.79; con mfac dado qfac -0.13

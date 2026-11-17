@@ -76,7 +76,7 @@ if __name__ == "__main__":
     cl = lambda x: "robusta" if x >= 0.9 else "rechazada" if x <= 0.1 else "fragil"
     out.append("clases del protocolo (n = %d): conclusion | sin calor | con calor" % len(ok))
     for nom, fn in C.items():
-        a, b = (np.mean([float(fn(c, i)) for i in ok]) for c in ("sin", "calor")); out.append(f"  {nom}: {a:.2f} {cl(a)} | {b:.2f} {cl(b)}" + ("   <-- CAMBIA" if cl(a) != cl(b) else ""))
+        a, b = (np.mean([float(fn(c, i)) for i in ok]) for c in ("sin", "calor")); out.append(f"  {nom}: {a:.2f} ({round(a * len(ok))}/{len(ok)}) {cl(a)} | {b:.2f} ({round(b * len(ok))}/{len(ok)}) {cl(b)}" + ("   <-- CAMBIA" if cl(a) != cl(b) else ""))
     # [descriptivo, no pre-registrado] correlaciones entre parametros en estos 16 y correlacion parcial de rangos con qfac y mfac
     rr = lambda a: rangos(np.asarray(a)[ok])
     out.append("[descriptivo] rho entre parametros en estos miembros con |rho| >= 0,5: " + ", ".join(f"{a}-{b} {spearman(X[a][ok], X[b][ok]):+.2f}" for i, a in enumerate(PARAMS) for b in PARAMS[i + 1:] if abs(spearman(X[a][ok], X[b][ok])) >= 0.5))

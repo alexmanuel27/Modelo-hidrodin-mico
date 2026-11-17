@@ -15,16 +15,16 @@ Spearman de la edad de la bahia con cada parametro (n = 16; |rho| >= 0,50 ~ p < 
   qfac     sin -0.91   calor -0.80
 parametro con mayor |rho| con calor: qfac (-0.80); caudal (qfac) con calor -0.80 -> el caudal sigue dominando (mayor |rho| y >= 0,50)
 clases del protocolo (n = 16): conclusion | sin calor | con calor
-  C1 canal < cuenca < Guasabacoa < Atares: 1.00 robusta | 0.94 robusta
-  C2 Atares mas vieja que el canal: 1.00 robusta | 1.00 robusta
-  C3 Marimelena mas vieja que la cuenca: 0.69 fragil | 1.00 robusta   <-- CAMBIA
-  C4 Guasabacoa y Atares mas viejas que la cuenca: 1.00 robusta | 0.94 robusta
-  C5 edad de la bahia < 30 d: 1.00 robusta | 1.00 robusta
-  C6 edad de la bahia < 120 d: 1.00 robusta | 1.00 robusta
-  C7 canal: superficie mas vieja que el fondo: 1.00 robusta | 1.00 robusta
-  P edad de la bahia > 7 d: 0.56 fragil | 1.00 robusta   <-- CAMBIA
-  P edad de la bahia > 14 d: 0.00 rechazada | 0.44 fragil   <-- CAMBIA
-  P edad de la bahia > 30 d: 0.00 rechazada | 0.00 rechazada
+  C1 canal < cuenca < Guasabacoa < Atares: 1.00 (16/16) robusta | 0.94 (15/16) robusta
+  C2 Atares mas vieja que el canal: 1.00 (16/16) robusta | 1.00 (16/16) robusta
+  C3 Marimelena mas vieja que la cuenca: 0.69 (11/16) fragil | 1.00 (16/16) robusta   <-- CAMBIA
+  C4 Guasabacoa y Atares mas viejas que la cuenca: 1.00 (16/16) robusta | 0.94 (15/16) robusta
+  C5 edad de la bahia < 30 d: 1.00 (16/16) robusta | 1.00 (16/16) robusta
+  C6 edad de la bahia < 120 d: 1.00 (16/16) robusta | 1.00 (16/16) robusta
+  C7 canal: superficie mas vieja que el fondo: 1.00 (16/16) robusta | 1.00 (16/16) robusta
+  P edad de la bahia > 7 d: 0.56 (9/16) fragil | 1.00 (16/16) robusta   <-- CAMBIA
+  P edad de la bahia > 14 d: 0.00 (0/16) rechazada | 0.44 (7/16) fragil   <-- CAMBIA
+  P edad de la bahia > 30 d: 0.00 (0/16) rechazada | 0.00 (0/16) rechazada
 [descriptivo] rho entre parametros en estos miembros con |rho| >= 0,5: carta-vfac +0.87, alfa-vrot -0.75, mfac-qfac +0.93
 [descriptivo] sin: rho parcial de la edad con qfac dado mfac -0.62; con mfac dado qfac -0.04
 [descriptivo] calor: rho parcial de la edad con qfac dado mfac -0.39; con mfac dado qfac -0.07
