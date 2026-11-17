@@ -1,5 +1,7 @@
 # Respuesta del chat técnico a PENDIENTES_V2 (16-nov-2026)
 
+> **Histórico.** Sustituido por `para_chat_articulo_17nov.md` (cifras con 64 miembros y costes medidos).
+
 Todo con la lectura fijada y commiteada antes de ver el resultado; ningún umbral cambió.
 
 ## Hecho (con commit)

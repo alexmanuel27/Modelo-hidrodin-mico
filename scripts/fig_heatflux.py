@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Figura del efecto del flujo de calor (B1 de la revision V2). Lee el repo tecnico (solo lectura) y escribe en --salida.
   python scripts/fig_heatflux.py [<raiz_repo_tecnico> <carpeta_salida>]   (por defecto: este repo y docs/figuras/articulo)
-Copiado el 16-nov de fig_trabajo/fig_heatflux.py del repo del articulo (V2); sin cambios en la figura. La salida impresa se guarda en
+Copiado el 16-nov de fig_trabajo/fig_heatflux.py del repo del articulo (V2); el 17-nov el panel (b) pasa a los 64 miembros de calor64. La salida impresa se guarda en
 resultados/heatflux_cifras.txt.
 (a) edad media de la bahia, 365 d: base, calor + borde 28 C, calor + OISST (runs/robustez_largo/m0001, m0005 y la base m0000).
-(b) 16 miembros del bloque A (0-15): edad en los ultimos 30 d de 120 sin y con calor+OISST, color = factor de caudal.
+(b) 64 miembros del bloque A (0-63; 16 hasta el 16-nov): edad en los ultimos 30 d de 120 sin y con calor+OISST, color = factor de caudal.
 Imprime tambien las cifras anuales y mensuales (B3)."""
 import csv, json, sys
 from pathlib import Path
@@ -48,15 +48,15 @@ ax.set_xlim(1, 365); ax.set_ylim(0, 30); ax.set_xticks(MES + 1, minor=False); ax
 ax.set_xlabel("2016"); ax.set_ylabel("Bay-mean water age (d)"); ax.legend(loc="upper left", frameon=False, bbox_to_anchor=(0.06, 1.0))
 E.letra(ax, "a")
 # (b)
-filas = [f for f in csv.DictReader(open(RAIZ / "datos" / "conjunto" / "diseno.csv")) if int(f["miembro"]) < 16]
+filas = [f for f in csv.DictReader(open(RAIZ / "datos" / "conjunto" / "diseno.csv")) if int(f["miembro"]) < 64]
 sin = np.array([json.loads((RAIZ / "runs" / "conjunto" / f"m{int(f['miembro']):04d}" / "resumen.json").read_text())["edad_media_d_bahia"] for f in filas])
 cal = np.array([json.loads((RAIZ / "runs" / "conjunto_calor" / f"m{int(f['miembro']):04d}" / "resumen.json").read_text())["edad_media_d_bahia"] for f in filas])
 q = np.array([float(f["qfac"]) for f in filas])
 sc = bx.scatter(sin, cal, c=q, cmap="viridis", norm=LogNorm(q.min(), q.max()), s=14, edgecolor="k", linewidth=0.3, zorder=3)
-bx.plot([0, 25], [0, 25], color="#555555", lw=0.6); bx.set_xlim(3, 14); bx.set_ylim(3, 22)
+bx.plot([0, 25], [0, 25], color="#555555", lw=0.6); bx.set_xlim(3, np.ceil(sin.max()) + 1); bx.set_ylim(3, np.ceil(cal.max()) + 1)
 for v, ls in ((14, ":"),): bx.axhline(v, color="#555555", lw=0.6, ls=ls)
 bx.set_xlabel("Age without heat flux (d)"); bx.set_ylabel("Age with heat flux and OISST (d)")
 cb = fig.colorbar(sc, cax=cx); cb.set_ticks([0.3, 0.5, 1, 2]); cb.set_ticklabels(["0.3", "0.5", "1", "2"]); cb.ax.minorticks_off(); cb.set_label("River discharge factor", fontsize=6.5); cb.ax.tick_params(labelsize=6)
 E.letra(bx, "b")
-print("16 miembros: sin mediana", np.median(sin).round(2), "calor", np.median(cal).round(2), "calor>sin", int((cal > sin).sum()))
+print(f"{len(filas)} miembros: sin mediana", np.median(sin).round(2), "calor", np.median(cal).round(2), "calor>sin", int((cal > sin).sum()))
 E.guarda(fig, "fig_heatflux", 190, salida=SAL, alto_max=110)
