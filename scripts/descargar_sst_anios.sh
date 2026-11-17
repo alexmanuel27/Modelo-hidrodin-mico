@@ -7,11 +7,12 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 D=datos/forzamiento/sst; mkdir -p "$D"
 [ -f "$D/descargas.tsv" ] || printf 'archivo\turl\tfecha_acceso_utc\tbytes\tsha256\n' > "$D/descargas.tsv"
+ERDDAP=${ERDDAP:-https://coastwatch.pfeg.noaa.gov/erddap}   # alternativa si este da 503: ERDDAP=https://upwell.pfeg.noaa.gov/erddap
 for Y in 2017 2018 2019 2020 2021 2022 2023 2024 2025; do
   F="$D/oisst_caja_$Y.csv"
   if [ ! -s "$F" ]; then
-    URL="https://coastwatch.pfeg.noaa.gov/erddap/griddap/ncdcOisst21Agg_LonPM180.csv?sst%5B($((Y - 1))-12-31T12:00:00Z):1:($Y-12-31T12:00:00Z)%5D%5B(0.0)%5D%5B(23.125):1:(23.625)%5D%5B(-82.875):1:(-81.875)%5D"
-    curl -fsS --connect-timeout 20 --max-time 300 --retry 3 --retry-delay 5 -o "$F.parcial" "$URL" && mv "$F.parcial" "$F"
+    URL="$ERDDAP/griddap/ncdcOisst21Agg_LonPM180.csv?sst%5B($((Y - 1))-12-31T12:00:00Z):1:($Y-12-31T12:00:00Z)%5D%5B(0.0)%5D%5B(23.125):1:(23.625)%5D%5B(-82.875):1:(-81.875)%5D"
+    curl -fsS --connect-timeout 20 --max-time 300 --retry 6 --retry-delay 30 --retry-all-errors -o "$F.parcial" "$URL" && mv "$F.parcial" "$F"
     printf '%s\t%s\t%s\t%s\t%s\n' "oisst_caja_$Y.csv" "$URL" "$(date -u +%Y-%m-%dT%H:%MZ)" "$(wc -c < "$F" | tr -d ' ')" "$(shasum -a 256 "$F" | cut -d' ' -f1)" >> "$D/descargas.tsv"
   fi
   echo "$Y ok ($(wc -l < "$F" | tr -d ' ') lineas)"
