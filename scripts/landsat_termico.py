@@ -55,7 +55,7 @@ def lectura(meses, dT, dctrl, modelo=None):
 def descarga():
     import planetary_computer as pc, pystac_client, rasterio
     from rasterio.windows import from_bounds
-    cat = pystac_client.Client.open("https://planetarycomputer.microsoft.com/api/stac/v1", modifier=pc.sign_inplace)
+    cat = pystac_client.Client.open("https://planetarycomputer.microsoft.com/api/stac/v1")   # sin firmar aqui: pc.sign no re-firma una URL ya firmada
     items = cat.search(collections=["landsat-c2-l2"], bbox=BAHIA_BOX, datetime="2014-01-01/2025-12-31", query={"platform": {"in": ["landsat-8", "landsat-9"]}, "eo:cloud_cover": {"lt": 40}}).item_collection()
     print(len(items), "escenas con nubosidad < 40 %"); OUT.mkdir(parents=True, exist_ok=True)
     ll = [l.split() for l in open(next((RAIZ / "runs").glob("*/m0000/hgrid.ll"))).read().splitlines()]; ne, nn = map(int, ll[1][:2]); nodos = np.array([[float(x) for x in l[1:3]] for l in ll[2:2 + nn]])
@@ -63,7 +63,7 @@ def descarga():
     filas = []
     for it in items:
         try:
-            it = pc.sign(it)   # la firma de la busqueda caduca (~1 h): sin esto las escenas viejas daban 403 (17-nov)
+            it = pc.sign(it)   # firma fresca por escena (token en cache, se renueva al caducar); firmar en la busqueda daba 403 pasada ~1 h (17-nov)
             with rasterio.open(it.assets["lwir11"].href) as a, rasterio.open(it.assets["qa_pixel"].href) as q:
                 from rasterio.warp import transform_bounds
                 bb = transform_bounds("EPSG:4326", a.crs, MAR_A[0], BAHIA_BOX[1], MAR_B[2], MAR_A[3]); w = from_bounds(*bb, a.transform)
