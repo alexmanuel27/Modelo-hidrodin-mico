@@ -63,6 +63,7 @@ def descarga():
     filas = []
     for it in items:
         try:
+            it = pc.sign(it)   # la firma de la busqueda caduca (~1 h): sin esto las escenas viejas daban 403 (17-nov)
             with rasterio.open(it.assets["lwir11"].href) as a, rasterio.open(it.assets["qa_pixel"].href) as q:
                 from rasterio.warp import transform_bounds
                 bb = transform_bounds("EPSG:4326", a.crs, MAR_A[0], BAHIA_BOX[1], MAR_B[2], MAR_A[3]); w = from_bounds(*bb, a.transform)
