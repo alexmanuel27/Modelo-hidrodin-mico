@@ -38,12 +38,15 @@ SALIDA_H = float(os.environ.get("SALIDA_H", 1))
 SCHISM = Path(os.environ.get("SCHISM_DIR", Path.home() / "modelos" / "schism"))
 BIN_MAC = SCHISM / "build" / "bin" / "pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL"
 SFLUX = RAIZ / "datos" / "forzamiento" / "sflux"
+SFLUX_AIR = RAIZ / os.environ.get("SFLUX_AIR", "datos/forzamiento/sflux")   # 17-nov (V3 X2): carpeta de los sflux_air (viento climatologico); por defecto, la de siempre
+SST_CSV = RAIZ / os.environ.get("SST_CSV", "datos/forzamiento/sst/oisst_habana.csv")   # 17-nov (V3 X4): OISST de otros anos
+TERMICO = int(os.environ.get("TERMICO", 0))   # 17-nov (V3 X1/X2): guarda temperatura (y salinidad), terminos de flujo de calor y esfuerzo del viento
 MALLA = RAIZ / "datos" / "malla"
 SUP = RAIZ / "datos" / "batimetria" / "superficies"
 
 RNDAY = float(sys.argv[1]) if len(sys.argv) > 1 else 2.0
 DT = 100.0
-INICIO = (2016, 1, 1)
+INICIO = (int(os.environ.get("ANIO", 2016)), 1, 1)   # 17-nov (V3 X4): ANIO = otro ano de ERA5 (2016-2025); por defecto 2016, sin cambios
 M2_AMP = 0.15                 # m, solo con MAREA=m2 (prueba)
 MODELOS_MAREA = {"fes": RAIZ / "datos" / "marea" / "fes2022_habana.json", "eot20": RAIZ / "datos" / "marea" / "eot20_habana.json"}
 MAREA = os.environ.get("MAREA", next((m for m, f in MODELOS_MAREA.items() if f.exists()), "m2"))
@@ -179,7 +182,7 @@ def main():
     TS, TS_BORDE = ("2 2", "28.\n1.\n36.\n1.\n") if RIOS else ("0 0", "")   # T, S constantes (28 C, 36) en el borde
     if RIOS and SST == "oisst":   # T del borde = SST diaria OISST (TEM_1.th, uniforme en el borde); T inicial = la del dia 0
         import csv as _csv
-        filas = list(_csv.DictReader(open(RAIZ / "datos" / "forzamiento" / "sst" / "oisst_habana.csv")))
+        filas = list(_csv.DictReader(open(SST_CSV)))
         t0 = np.datetime64(f"{INICIO[0]:04d}-{INICIO[1]:02d}-{INICIO[2]:02d}")
         serie = [((np.datetime64(f["fecha"]) - t0).astype(int), float(f["sst_C"])) for f in filas]
         serie = [(d, v) for d, v in serie if 0 <= d <= RNDAY + 1]
@@ -225,7 +228,7 @@ def main():
     for k in range(nmes):
         yy, mm = y0 + (m0 - 1 + k) // 12, (m0 - 1 + k) % 12 + 1
         for tipo in ("air", "rad", "prc"):
-            fuente = SFLUX / f"sflux_{tipo}_{yy}{mm:02d}.nc"
+            fuente = (SFLUX_AIR if tipo == "air" else SFLUX) / f"sflux_{tipo}_{yy}{mm:02d}.nc"
             assert fuente.exists(), f"falta {fuente}: ejecuta antes scripts/era5_a_sflux.py"
             (s / f"sflux_{tipo}_1.{k+1}.nc").symlink_to(os.path.relpath(fuente, s))
     (s / "sflux_inputs.txt").write_text(
@@ -240,7 +243,8 @@ def main():
                            ihconsv=CALOR, itur=3, mid=f"'{TURB}'", itr_met=3, level_age=-999, **({"eps1_tvd_imp": EPS_TVD} if EPS_TVD else {}), **{"flag_ic(1)": 2, "flag_ic(2)": 2}),
                "SCHOUT": {"nhot": 0, "iout_sta": 0, "iof_hydro(1)": 1, "iof_hydro(14)": 1,
                           "iof_hydro(16)": 1, "iof_hydro(19)": RIOS, "iof_hydro(25)": 0, "iof_hydro(26)": 0, "iof_age(1)": 1,
-                          **{f"iof_gen({k + 1})": 1 for k in range(NGEN)}}}   # AGE_1 = edad en dias (alfa/C/86400)
+                          **{f"iof_gen({k + 1})": 1 for k in range(NGEN)},
+                          **({f"iof_hydro({k})": 1 for k in (5, 6, 7, 8, 9, 10, 15, 18)} if TERMICO else {})}}   # 5-10 flujos, 15 esfuerzo del viento, 18 temperatura (indices del param.nml de SCHISM)   # AGE_1 = edad en dias (alfa/C/86400)
     for sec, kv in cambios.items():
         a = p.index(f"&{sec}"); b = p.index("\n/", a); bloque = p[a:b]
         for k, v in kv.items():

@@ -251,6 +251,19 @@ if __name__ == "__main__":
         filas = [dict(f, extra={"CALOR": "1", "SST": "oisst"}) for f in lee() if int(f["miembro"]) < 64]
         ya = sum((RUNS / f"m{int(f['miembro']):04d}" / "param.nml").exists() for f in filas)
         print(f"{len(filas)} miembros con CALOR=1 y SST=oisst ({ya} ya generados)"); generar(6, filas=filas)
+    elif accion == "termico":   # 17-nov (V3 X1/X2): 365 d con T y flujos guardados. m0000 calor+OISST viento real (repite m0005 de robustez_largo con salidas), m0001 calor+OISST viento climatologico, m0002 sin calor viento climatologico. Antes: python scripts/viento_climatologico.py. CONJ_DIR=runs/termico CONJ_DIAS=365 CONJ_SEG=10 CONJ_HORAS=12 CONJ_MARGEN=3 python scripts/conjunto.py termico
+        clim = {"SFLUX_AIR": "datos/forzamiento/sflux_climviento"}; t = {"MAREA": "eot20", "TERMICO": "1"}
+        casos = [("calor + OISST, viento real (repite m0005)", {"CALOR": "1", "SST": "oisst"}), ("calor + OISST, viento climatologico", {"CALOR": "1", "SST": "oisst", **clim}), ("sin calor, viento climatologico", clim)]
+        filas = [dict(BASE, miembro=str(k), extra={**t, **e}) for k, (_, e) in enumerate(casos)]
+        for k, (nom, _) in enumerate(casos): print(f"m{k:04d}: {nom}, 365 d")
+        generar(3, filas=filas)
+    elif accion == "anios":   # 17-nov (V3 X4): miembro central 120 d en 2017-2025, con y sin calor (+ OISST del ano). m = 2*(ano-2017) con calor, +1 sin calor. Antes: bash scripts/descargar_sst_anios.sh. CONJ_DIR=runs/anios CONJ_DIAS=120 CONJ_SEG=20 python scripts/conjunto.py anios
+        filas = []
+        for a in range(2017, 2026):
+            filas += [dict(BASE, miembro=str(2 * (a - 2017)), extra={"MAREA": "eot20", "CALOR": "1", "SST": "oisst", "ANIO": str(a), "SST_CSV": "datos/forzamiento/sst/oisst_habana_2017_2025.csv"}),
+                      dict(BASE, miembro=str(2 * (a - 2017) + 1), extra={"MAREA": "eot20", "ANIO": str(a)})]
+        for f in filas: print(f"m{int(f['miembro']):04d}: {f['extra']['ANIO']} {'con' if 'CALOR' in f['extra'] else 'sin'} calor")
+        generar(6, filas=filas)
     elif accion == "borde_prueba":   # 15-nov (revision, A9): miembro central 10 d: control, sin Coriolis, sin viento. CONJ_DIR=runs/borde_prueba CONJ_DIAS=10 CONJ_SEG=10 python scripts/conjunto.py borde_prueba
         casos = [("control (Coriolis y viento)", {}), ("sin Coriolis (NCOR=0)", {"NCOR": "0"}), ("sin viento (NWS=0)", {"NWS": "0"})]
         filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", **e}) for k, (_, e) in enumerate(casos)]
