@@ -3,7 +3,7 @@
 Quita la variabilidad sinoptica (frentes frios) y deja el ciclo estacional y el diurno; presion, temperatura, humedad y radiacion siguen siendo los reales de 2016.
 Aviso fijado de antemano: la media vectorial reduce la rapidez media y el viento tambien entra en los flujos turbulentos (calor sensible y latente) del flujo de calor,
 asi que el contraste «viento real / climatologico» no separa solo la cantidad de movimiento; el cociente de rapideces se imprime y se guarda.
-  python scripts/viento_climatologico.py          (Mac o cluster, con netCDF4) -> datos/forzamiento/sflux_climviento/sflux_air_2016MM.nc (y ene-feb de 2017) y resultados/viento_climatologico.txt
+  python scripts/viento_climatologico.py          (Mac o cluster, con netCDF4) -> datos/forzamiento/sflux_climviento/sflux_air_2016MM.nc (y ene-mar de 2017) y resultados/viento_climatologico.txt
   python scripts/viento_climatologico.py --prueba"""
 import shutil, sys
 from pathlib import Path
@@ -37,7 +37,7 @@ def main():
                 U.append(np.asarray(d["uwind"][:], float)); V.append(np.asarray(d["vwind"][:], float)); hor += [x.hour for x in t]; mes += [x.month for x in t]
         U, V, mes, hor = np.concatenate(U), np.concatenate(V), np.array(mes), np.array(hor)
         cu, cv = media_mes_hora(U, mes, hor), media_mes_hora(V, mes, hor)
-        for a in ((2016, 2017) if m <= 2 else (2016,)):   # 365 d piden 14 meses de sflux (caso_real: ceil(RNDAY/28) + 1), asi que tambien ene-feb de 2017 (17-nov: faltaban y m0001/m0002 no se generaron)
+        for a in ((2016, 2017) if m <= 3 else (2016,)):   # 365 d piden 15 meses de sflux (caso_real: ceil(365/28) + 1 = 15), asi que tambien ene-mar de 2017 (17-nov: faltaban y m0001/m0002 no se generaron)
             f = SAL / f"sflux_air_{a}{m:02d}.nc"; shutil.copyfile(SFLUX / f"sflux_air_{a}{m:02d}.nc", f)
             with Dataset(f, "r+") as d:
                 t = num2date(d["time"][:], d["time"].units, only_use_cftime_datetimes=False, only_use_python_datetimes=True)
