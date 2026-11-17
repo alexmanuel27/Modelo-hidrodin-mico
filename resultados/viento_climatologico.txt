@@ -1,0 +1,13 @@
+mes  1: rapidez media real 2016 6.02 m/s, climatologica 2.84 m/s (cociente 0.47)
+mes  2: rapidez media real 2016 6.14 m/s, climatologica 3.50 m/s (cociente 0.57)
+mes  3: rapidez media real 2016 5.20 m/s, climatologica 3.73 m/s (cociente 0.72)
+mes  4: rapidez media real 2016 5.41 m/s, climatologica 3.53 m/s (cociente 0.65)
+mes  5: rapidez media real 2016 4.88 m/s, climatologica 3.58 m/s (cociente 0.73)
+mes  6: rapidez media real 2016 4.15 m/s, climatologica 3.19 m/s (cociente 0.77)
+mes  7: rapidez media real 2016 5.05 m/s, climatologica 3.63 m/s (cociente 0.72)
+mes  8: rapidez media real 2016 5.18 m/s, climatologica 3.34 m/s (cociente 0.64)
+mes  9: rapidez media real 2016 3.99 m/s, climatologica 2.49 m/s (cociente 0.63)
+mes 10: rapidez media real 2016 6.11 m/s, climatologica 3.68 m/s (cociente 0.60)
+mes 11: rapidez media real 2016 6.18 m/s, climatologica 4.43 m/s (cociente 0.72)
+mes 12: rapidez media real 2016 5.69 m/s, climatologica 3.65 m/s (cociente 0.64)
+anual: cociente de rapidez media climatologica / real = 0.65
