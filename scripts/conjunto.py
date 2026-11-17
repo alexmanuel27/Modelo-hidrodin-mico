@@ -251,7 +251,7 @@ if __name__ == "__main__":
         filas = [dict(f, extra={"CALOR": "1", "SST": "oisst"}) for f in lee() if int(f["miembro"]) < 64]
         ya = sum((RUNS / f"m{int(f['miembro']):04d}" / "param.nml").exists() for f in filas)
         print(f"{len(filas)} miembros con CALOR=1 y SST=oisst ({ya} ya generados)"); generar(6, filas=filas)
-    elif accion == "termico":   # 17-nov (V3 X1/X2): 365 d con T y flujos guardados. m0000 calor+OISST viento real (repite m0005 de robustez_largo con salidas), m0001 calor+OISST viento climatologico, m0002 sin calor viento climatologico. Antes: python scripts/viento_climatologico.py. CONJ_DIR=runs/termico CONJ_DIAS=365 CONJ_SEG=10 CONJ_HORAS=12 CONJ_MARGEN=3 python scripts/conjunto.py termico
+    elif accion == "termico":   # 17-nov (V3 X1/X2): 365 d con T y flujos guardados. m0000 calor+OISST viento real (repite m0005 de robustez_largo con salidas), m0001 calor+OISST viento climatologico, m0002 sin calor viento climatologico. Antes: python scripts/viento_climatologico.py. CONJ_DIR=runs/termico CONJ_DIAS=365 CONJ_SEG=10 CONJ_HORAS=12 CONJ_MARGEN=3 CONJ_ESCRIBAS=4 python scripts/conjunto.py termico   (4 escribas: SCHISM abortó con 3, "Too few scribes (3) ... output variables (4)")
         clim = {"SFLUX_AIR": "datos/forzamiento/sflux_climviento"}; t = {"MAREA": "eot20", "TERMICO": "1"}
         casos = [("calor + OISST, viento real (repite m0005)", {"CALOR": "1", "SST": "oisst"}), ("calor + OISST, viento climatologico", {"CALOR": "1", "SST": "oisst", **clim}), ("sin calor, viento climatologico", clim)]
         filas = [dict(BASE, miembro=str(k), extra={**t, **e}) for k, (_, e) in enumerate(casos)]
