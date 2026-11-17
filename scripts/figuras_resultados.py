@@ -203,7 +203,7 @@ def fig_conjunto(dir=CONJUNTO, salida=SALIDA):
     ext = [e[0] - 0.01, e[-1] + 0.01, n[0] - 0.01, n[-1] + 0.01]
     fig = plt.figure(figsize=(ANCHO2, 72 * MM), constrained_layout=True)
     a, b, c = (fig.add_subplot(g) for g in fig.add_gridspec(1, 3, width_ratios=[1.15, 1, 1]))
-    x = np.arange(len(filas)); med, lo, hi = (np.array([float(r[k]) for r in filas]) for k in ("p50", "p5", "p95"))
+    x = np.arange(len(zonas)); med = np.array([np.median(sin[z]) for z in zonas]); lo, hi = (np.array([np.percentile(sin[z], q) for z in zonas]) for q in (5, 95))   # 17-nov (V3 X6): sin calor, los MISMOS 64 miembros
     a.errorbar(x, med, yerr=[med - lo, hi - med], fmt="o", color=AZUL, ms=3, capsize=2, lw=0.8)
     for u, ls in ((7, "--"), (14, ":")):
         a.axhline(u, color=NEGRO, ls=ls, lw=0.6); a.text(-0.45, u + 0.25, f"{u} d", ha="left", va="bottom", fontsize=6)
@@ -317,7 +317,7 @@ def fig_borde(dir=RAIZ / "runs" / "conjunto", salida=SALIDA):
 
 
 def fig_resumen(dir=CONJUNTO, salida=SALIDA):
-    """Resumen grafico (Elsevier: >= 1328 x 531 px; 15 x 6,2 cm), mensaje en dos niveles (16-nov, V2 B6): mapa de la edad mediana (conjunto sin calor),
+    """Resumen grafico (Elsevier: >= 1328 x 531 px; 15 x 6,2 cm), 17-nov (V3 X6) titular «One structural choice weighs as much as nine uncertain inputs»: mapa de la edad mediana (conjunto sin calor),
     edad por zona (mediana y P5-P95) del conjunto (128 miembros) y de los 64 miembros con flujo de calor + OISST, e indices S_T; el flujo de calor va aparte, en dias."""
     estilo(); plt.rcParams.update({"font.size": 7.5, "axes.titlesize": 7.5})
     filas = list(csv.DictReader(open(Path(dir) / "prob_zonas.csv"))); p = np.load(Path(dir) / "prob_edad_sup.npz")
@@ -327,7 +327,7 @@ def fig_resumen(dir=CONJUNTO, salida=SALIDA):
     ext = [e[0] - 0.01, e[-1] + 0.01, n[0] - 0.01, n[-1] + 0.01]
     zonas = ["canal", "cuenca", "Marimelena", "Guasabacoa", "Atares", "bahia"]
     lee = lambda d, k, z: json.loads((RAIZ / "runs" / d / f"m{k:04d}" / "resumen.json").read_text())[f"edad_media_d_{z}"]
-    cal = {z: np.array([lee("conjunto_calor", k, z) for k in range(64)]) for z in zonas}; sin64 = np.array([lee("conjunto", k, "bahia") for k in range(64)])
+    cal = {z: np.array([lee("conjunto_calor", k, z) for k in range(64)]) for z in zonas}; sin = {z: np.array([lee("conjunto", k, z) for k in range(64)]) for z in zonas}; sin64 = sin["bahia"]
     desp = float(np.median(cal["bahia"] - sin64)); rango = float(np.percentile(sin64, 95) - np.percentile(sin64, 5))   # 17-nov: 64 miembros, diferencia pareada y rango de los MISMOS 64 sin calor (R = desp / rango)
     print(f"calor (n=64): bahia mediana {np.median(cal['bahia']):.2f} d, P5-P95 {np.percentile(cal['bahia'], 5):.2f}-{np.percentile(cal['bahia'], 95):.2f}; sin calor (mismos 64) {np.median(sin64):.2f}; desplazamiento pareado {desp:.2f} d; rango P5-P95 sin calor (mismos 64) {rango:.2f} d")
     fig = plt.figure(figsize=(150 * MM, 62 * MM), constrained_layout=True)
@@ -337,7 +337,7 @@ def fig_resumen(dir=CONJUNTO, salida=SALIDA):
     a.set_xticks([]); a.set_yticks([]); a.set_title("Median surface age\n(no heat flux)")
     fig.colorbar(im, ax=a, fraction=0.05, pad=0.02, ticks=[0, 7, 14]).set_label("d", labelpad=1)
     x = np.arange(len(filas)); med, lo, hi = (np.array([float(r[k]) for r in filas]) for k in ("p50", "p5", "p95"))
-    b.errorbar(x - 0.13, med, yerr=[med - lo, hi - med], fmt="o", color=AZUL, ms=3.2, capsize=2, lw=1, label="Ensemble, no heat flux (128)")
+    b.errorbar(x - 0.13, med, yerr=[med - lo, hi - med], fmt="o", color=AZUL, ms=3.2, capsize=2, lw=1, label="No heat flux (64)")
     mc = np.array([np.median(cal[z]) for z in zonas]); lc, hc = (np.array([np.percentile(cal[z], q) for z in zonas]) for q in (5, 95))
     b.errorbar(x + 0.13, mc, yerr=[mc - lc, hc - mc], fmt="s", color=NARANJA, ms=3.0, capsize=2, lw=1, label="With heat flux (64)")
     for v, t in ((7, "1 week"), (14, "2 weeks")):
@@ -352,7 +352,7 @@ def fig_resumen(dir=CONJUNTO, salida=SALIDA):
     d.barh([1, 0], [desp, rango], color=[NARANJA, GRIS], height=0.7); d.set_yticks([1, 0]); d.set_yticklabels(["Heat flux (structural):\npaired median shift", "Parameters: P5–P95\nrange (same 64)"], fontsize=5.8)
     d.set_xlim(0, 9); d.set_xticks([0, 3, 6, 9]); d.set_xlabel("Bay age (d)", labelpad=1)
     for yy, v in ((1, desp), (0, rango)): d.text(v + 0.15, yy, f"{v:.1f}", va="center", fontsize=6)
-    fig.suptitle("About one week without the heat flux, about two weeks with it, never months", fontsize=8, fontweight="bold")
+    fig.suptitle("One structural choice weighs as much as nine uncertain inputs", fontsize=8, fontweight="bold")
     png = salida / "graphical_abstract.png"; fig.savefig(png, dpi=300); fig.savefig(salida / "graphical_abstract.pdf"); plt.close(fig)
     from PIL import Image
     w, h = Image.open(png).size; assert w >= 1328 and h >= 531, (w, h); print(f"-> {png.name}: {w} x {h} px")
