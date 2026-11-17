@@ -2,7 +2,7 @@
 # SST diaria NOAA OISST v2.1 (0,25 grados; dominio publico) frente a La Habana, 2016-12-31 a 2025-12-31, para los experimentos de otros anos (V3 X4).
 # Mismo ERDDAP y la misma caja que descargar_sst.sh; no toca los ficheros de 2016. Un pedido por ano, con limite de tiempo y reintentos (el pedido unico de nueve anos se colgo
 # el 17-nov). Salida: datos/forzamiento/sst/oisst_habana_2017_2025.csv (fecha,sst_C,celdas).
-# Uso (en el Mac, con red): bash scripts/descargar_sst_anios.sh
+# Uso (en el Mac, con red): until bash scripts/descargar_sst_anios.sh; do sleep 60; done   (reanuda donde se quedo; los anos ya bajados no se piden)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 D=datos/forzamiento/sst; mkdir -p "$D"
@@ -14,7 +14,7 @@ for Y in 2017 2018 2019 2020 2021 2022 2023 2024 2025; do
     URL="$ERDDAP/griddap/ncdcOisst21Agg_LonPM180.csv?sst%5B($((Y - 1))-12-31T12:00:00Z):1:($Y-12-31T12:00:00Z)%5D%5B(0.0)%5D%5B(23.125):1:(23.625)%5D%5B(-82.875):1:(-81.875)%5D"
     curl -fsS --connect-timeout 20 --max-time 300 --retry 6 --retry-delay 30 --retry-all-errors -o "$F.parcial" "$URL"
     head -1 "$F.parcial" | grep -q "^time,zlev" || { echo "$Y: respuesta vacia o no valida de $ERDDAP" >&2; rm -f "$F.parcial" 2>/dev/null || mv "$F.parcial" "$F.invalido"; exit 1; }
-    mv "$F.parcial" "$F"
+    mv "$F.parcial" "$F"; sleep 5   # pausa entre pedidos: el servidor da 503 a rafagas
     printf '%s\t%s\t%s\t%s\t%s\n' "oisst_caja_$Y.csv" "$URL" "$(date -u +%Y-%m-%dT%H:%MZ)" "$(wc -c < "$F" | tr -d ' ')" "$(shasum -a 256 "$F" | cut -d' ' -f1)" >> "$D/descargas.tsv"
   fi
   echo "$Y ok ($(wc -l < "$F" | tr -d ' ') lineas)"
