@@ -31,4 +31,4 @@ Todo con la lectura fijada y commiteada antes de lanzar o ver resultados; ningú
 
 ## Para Alex
 
-Comandos de lanzamiento (X1+X2 y X4), `git push` (≥ 26 commits), horas-núcleo totales, Zenodo/DOI, B5/B8/B9, CRediT/afiliaciones/financiación.
+Comandos de lanzamiento (X1+X2 y X4), `git push` (6 commits sin subir, según `git rev-list origin/HEAD..HEAD`), horas-núcleo totales, Zenodo/DOI, B5/B8/B9, CRediT/afiliaciones/financiación.
