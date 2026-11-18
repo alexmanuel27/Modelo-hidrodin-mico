@@ -7,7 +7,9 @@ Corre en el cluster sobre un miembro con campos completos (outputs/*.nc; solo nu
 Niveles (A2): sup = 0,5 m bajo la superficie; m5 y m10 = 5 y 10 m bajo la superficie; mid = mitad de la columna; fondo = 1 m sobre el fondo.
 Estaciones: nodo mas cercano (posicion principal) y media de los nodos de la bahia a <= 300 m (sensibilidad), de
 datos/observaciones/jica2004_estaciones_utm.csv. Ademas, la media de los nodos del canal (zona 1) de la velocidad a lo largo del canal
-(> 0 hacia dentro) y la salinidad por nivel, solo para describir (a). No se aplica ningun umbral aqui."""
+(> 0 hacia dentro) y la salinidad por nivel, solo para describir (a). No se aplica ningun umbral aqui.
+Las corridas del conjunto NO guardan velocidad 3D (iof_hydro(16) es la velocidad promediada en la vertical, la 3D es iof_hydro(25) = 0): sin
+horizontalVelX/Y_N.nc, V_n, V_r y canal_un salen NaN y solo se obtiene la salinidad por nivel, que es lo que usa (b)."""
 import csv, sys, warnings
 from pathlib import Path
 import numpy as np
@@ -22,7 +24,7 @@ def lee_vgrid(p):
     L = [l.split("!")[0].split() for l in Path(p).read_text().split("\n")]; L = [l for l in L if l]
     assert L[0][0] == "2", "solo ivcor = 2 (SZ con niveles S)"
     nvrt, kz = int(L[1][0]), int(L[1][1]); i = [j for j, l in enumerate(L) if l[0] == "S"][0]
-    return np.array([float(l[1]) for l in L[i + 2:i + 2 + nvrt - kz + 1]]), *map(float, L[i + 1][:3])
+    return (np.array([float(l[1]) for l in L[i + 2:i + 2 + nvrt - kz + 1]]), *map(float, L[i + 1][:3]))
 
 
 def zcor(h, eta, vg):
@@ -94,9 +96,11 @@ def extrae(dirm, d0, d1):
                 t = np.asarray(d["time"][:], float) / 86400; sel = np.where((t >= d0) & (t <= d1))[0]
                 if not len(sel): continue
                 eta_all = np.asarray(d["elevation"][sel], np.float32); h = np.asarray(d["depth"][:], float)[uni]
-            def campo(pref, var):
+            def campo(pref, var, opcional=False):
+                if opcional and not (out / f"{pref}_{n}.nc").exists(): return None
                 with Dataset(out / f"{pref}_{n}.nc") as d: return np.asarray(d[var][sel][:, uni], np.float32)
-            S, U, V = campo("salinity", "salinity"), campo("horizontalVelX", "horizontalVelX"), campo("horizontalVelY", "horizontalVelY")
+            S, U, V = campo("salinity", "salinity"), campo("horizontalVelX", "horizontalVelX", True), campo("horizontalVelY", "horizontalVelY", True)
+            if U is None or V is None: U = V = np.full_like(S, np.nan)           # sin velocidad 3D (iof_hydro(25) = 0): V_*, canal_un = NaN; (b) solo usa S
         except (OSError, IndexError, KeyError) as e:
             print("dia", n, "no legible, se omite:", e); continue
         eta = eta_all[:, uni].astype(float); z = zcor(h, eta, vg)
