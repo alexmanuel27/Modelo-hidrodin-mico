@@ -1,0 +1,22 @@
+S11 de los 704 miembros con dato: mediana 35.37, P5-P95 34.94-35.68; observado (32,2 + 30,3)/2 = 31.25; HUECO = +4.12
+H1 regresion (n 704, R2 0.92): coef ln qfac -0.389, (ln qfac)^2 -0.064; raices qfac para S11 = 31.25: [0.0, 227.57]; menor con qfac >= 1: 227.57 -> no es cuestion de caudal
+H4 (F = 1.70, n 519): cambio mediano de S11 -0.183; cierre +0.044 -> no explica
+   sensibilidad solo en equilibrio (n 639, R2 0.92): H1 menor raiz >= 1: 227.53 (no es cuestion de caudal); H4 cierre +0.044
+H2/H3(i) robustez (120 d, miembro central): control m0000 S11 = 35.21
+   m0002 H2 cierre k-epsilon          S11 35.30  cierre -0.020 -> no explica
+   m0003 H2 32 niveles                S11 35.38  cierre -0.041 -> no explica
+   m0004 H2 difusividad minima x10    S11 35.22  cierre -0.000 -> no explica
+   m0001 H3 calor, borde 28 C         S11 34.72  cierre +0.120 -> no explica
+   m0005 H3 calor + OISST             S11 35.07  cierre +0.035 -> no explica
+H3(ii) 64 pares calor+OISST vs sin calor: n 64, cierre mediano +0.041 (P5-P95 +0.022 a +0.062; min +0.016, max +0.356) -> no explica
+Control de muestreo (16:00 UTC vs 175 muestras, miembros 0-2 del conjunto):
+   m0000: mapas 35.00, muestras 35.01, dif -0.01 -> ok
+   m0001: mapas 35.60, muestras 35.57, dif +0.02 -> ok
+   m0002: mapas 35.49, muestras 35.46, dif +0.03 -> ok
+Zonas (superficie, ventana final; 704 miembros n 704) frente a tabla 4.11 nov. 2001 (alta, baja) con margen +-1:
+   Canal de Entrada    obs [35.46, 34.53] -> [33.53, 36.46]; modelo mediana 35.66 (P5-P95 35.47-35.82); dentro 100 %
+   Centro de la Bahia  obs [35.02, 34.87] -> [33.87, 36.02]; modelo mediana 35.60 (P5-P95 35.32-35.79); dentro 100 %
+   Marimelena          obs [36.15, 35.77] -> [34.77, 37.15]; modelo mediana 35.73 (P5-P95 35.53-35.85); dentro 100 %
+   Guasabacoa          obs [36.03, 35.57] -> [34.57, 37.03]; modelo mediana 34.63 (P5-P95 33.29-35.34); dentro 55 %
+   Atares              obs [27.11, 21.37] -> [20.37, 28.11]; modelo mediana 35.29 (P5-P95 34.76-35.64); dentro 0 %
+Bahia: S media 35.31; fraccion con S < 34.3 (tabla 4.12, maximo mensual superficie): 0.3 %
