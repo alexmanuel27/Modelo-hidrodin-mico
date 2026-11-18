@@ -88,6 +88,7 @@ def extrae(dirm, d0, d1):
     n1 = np.array([int(r["nodo"]) - 1 for r in est]); bahia = np.where(zona > 0)[0]
     sets = [bahia[np.hypot(xy[bahia, 0] - float(r["E_utm17n"]), xy[bahia, 1] - float(r["N_utm17n"])) <= R_SENS] for r in est]
     canal = np.where(zona == 1)[0]; uni = np.unique(np.concatenate([n1, canal, *sets])); pos = {int(n): i for i, n in enumerate(uni)}
+    dzs = []                                                                  # F2 (protocolo_salinidad_superficie.md): max |zCoordinates guardada - zcor reconstruida|
     vg = lee_vgrid(dirm / "vgrid.in"); S_, ns = [], len(est); salida = {k: [] for k in ("t", "eta_bay", "S_n", "V_n", "S_r", "V_r", "canal_un", "canal_S")}
     for f2 in sorted(out.glob("out2d_*.nc"), key=num):
         n = num(f2)
@@ -100,10 +101,12 @@ def extrae(dirm, d0, d1):
                 if opcional and not (out / f"{pref}_{n}.nc").exists(): return None
                 with Dataset(out / f"{pref}_{n}.nc") as d: return np.asarray(d[var][sel][:, uni], np.float32)
             S, U, V = campo("salinity", "salinity"), campo("horizontalVelX", "horizontalVelX", True), campo("horizontalVelY", "horizontalVelY", True)
+            zr = campo("zCoordinates", "zCoordinates", True)                     # cotas reales (iof_hydro(25) = 1), si se guardaron
             if U is None or V is None: U = V = np.full_like(S, np.nan)           # sin velocidad 3D (iof_hydro(26) = 0): V_*, canal_un = NaN; (b) solo usa S
         except (OSError, IndexError, KeyError) as e:
             print("dia", n, "no legible, se omite:", e); continue
         eta = eta_all[:, uni].astype(float); z = zcor(h, eta, vg)
+        if zr is not None: dzs.append(float(np.abs(np.where((np.abs(zr) < 1e4) & ((h + eta) > 0.1)[:, :, None], zr - z, 0.0)).max()))
         Sl, Ul, Vl = (en_niveles(z, a.astype(float), h, eta) for a in (S, U, V)); Vm = np.hypot(Ul, Vl); un = Ul * sd[0] + Vl * sd[1]
         salida["t"].append(t[sel]); salida["eta_bay"].append((eta_all[:, bahia] * area[bahia]).sum(1) / area[bahia].sum())
         salida["S_n"].append(Sl[:, [pos[int(i)] for i in n1]]); salida["V_n"].append(Vm[:, [pos[int(i)] for i in n1]])
@@ -112,9 +115,9 @@ def extrae(dirm, d0, d1):
         ic = [pos[int(i)] for i in canal]; salida["canal_un"].append(np.nanmean(un[:, ic], 1)); salida["canal_S"].append(np.nanmean(Sl[:, ic], 1))
     assert salida["t"], f"ningun dia entre {d0} y {d1} en {out}"
     np.savez_compressed(dirm / "jica_estaciones.npz", niveles=np.array(NIVELES), estaciones=np.array([r["estacion"] for r in est]),
-                        prof_nodo_m=np.array([float(r["prof_hgrid_m"]) for r in est]), dias_ventana=np.array([d0, d1]),
+                        prof_nodo_m=np.array([float(r["prof_hgrid_m"]) for r in est]), dias_ventana=np.array([d0, d1]), dz_max=np.array(max(dzs) if dzs else np.nan),
                         **{k: np.concatenate(v) for k, v in salida.items()})
-    print(dirm, "->", dirm / "jica_estaciones.npz", len(np.concatenate(salida["t"])), "muestras")
+    print(dirm, "->", dirm / "jica_estaciones.npz", len(np.concatenate(salida["t"])), "muestras;", f"max |z guardada - z reconstruida| = {max(dzs):.4f} m" if dzs else "sin zCoordinates guardada")
 
 
 if __name__ == "__main__":

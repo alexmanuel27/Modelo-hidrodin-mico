@@ -67,6 +67,8 @@ FREC = dict(m2=1.405189e-4, s2=1.454441e-4, n2=1.378797e-4, k2=1.458423e-4, k1=7
             p1=7.251056e-5, q1=6.495854e-5, m4=2.810378e-4, ms4=2.859630e-4, mn4=2.783986e-4)   # rad/s
 H_TOPE = 200.0                # m: profundidad maxima del modelo (el talud llega a 1200 m; solo importa la onda de marea)
 NV = int(os.environ.get("NIVELES", 16))                       # niveles verticales: S puros; con h_s > fondo maximo SCHISM no pide niveles Z (h_s = H_TOPE+10)
+VEL3D = int(os.environ.get("VEL3D", 0))   # 18-nov (fase II de protocolo_salinidad_superficie.md): 1 guarda velocidad 3D (iof_hydro(26)) y cotas verticales (iof_hydro(25))
+LEVSRC = os.environ.get("LEVSRC", "")   # 18-nov: nivel de inyeccion de T y S de los rios (lev_tr_source): "" = defecto de SCHISM (-9, fondo), "sup" = capa superior (NV), "col" = toda la columna (0)
 D_ADV = 800.0                 # m: sin adveccion de momento a menos de esto del borde abierto
 CD = float(os.environ.get("CD", 0.0025))
 # Correccion del borde abierto (prueba del 13-oct: chorro espurio de hasta 2 m/s donde el arco abierto
@@ -240,9 +242,9 @@ def main():
                            start_hour=0, utc_start=0, if_source=RIOS, dramp_ss=2, ics=1, ihot=0, ncor=NCOR, coricoef=0,
                            slam0=round(float(lon.mean()), 4), sfea0=round(float(lat.mean()), 4),
                            nchi=0, ic_elev=0, nadv=0, nws=NWS, wtiminc=DT, ishapiro=1, drampwind=1, iwindoff=ESPONJA,
-                           ihconsv=CALOR, itur=3, mid=f"'{TURB}'", itr_met=3, level_age=-999, **({"eps1_tvd_imp": EPS_TVD} if EPS_TVD else {}), **{"flag_ic(1)": 2, "flag_ic(2)": 2}),
+                           ihconsv=CALOR, itur=3, mid=f"'{TURB}'", itr_met=3, level_age=-999, **({"lev_tr_source(1)": {"sup": NV, "col": 0}[LEVSRC], "lev_tr_source(2)": {"sup": NV, "col": 0}[LEVSRC]} if LEVSRC else {}), **({"eps1_tvd_imp": EPS_TVD} if EPS_TVD else {}), **{"flag_ic(1)": 2, "flag_ic(2)": 2}),
                "SCHOUT": {"nhot": 0, "iout_sta": 0, "iof_hydro(1)": 1, "iof_hydro(14)": 1,
-                          "iof_hydro(16)": 1, "iof_hydro(19)": RIOS, "iof_hydro(25)": 0, "iof_hydro(26)": 0, "iof_age(1)": 1,
+                          "iof_hydro(16)": 1, "iof_hydro(19)": RIOS, "iof_hydro(25)": VEL3D, "iof_hydro(26)": VEL3D, "iof_age(1)": 1,
                           **{f"iof_gen({k + 1})": 1 for k in range(NGEN)},
                           **({f"iof_hydro({k})": 1 for k in (5, 6, 7, 8, 9, 10, 15, 18)} if TERMICO else {})}}   # 5-10 flujos, 15 esfuerzo del viento, 18 temperatura (indices del param.nml de SCHISM)   # AGE_1 = edad en dias (alfa/C/86400)
     for sec, kv in cambios.items():

@@ -264,6 +264,11 @@ if __name__ == "__main__":
                       dict(BASE, miembro=str(2 * (a - 2017) + 1), extra={"MAREA": "eot20", "ANIO": str(a)})]
         for f in filas: print(f"m{int(f['miembro']):04d}: {f['extra']['ANIO']} {'con' if 'CALOR' in f['extra'] else 'sin'} calor")
         generar(6, filas=filas)
+    elif accion == "salinidad":   # 18-nov (fase II de docs/protocolo_salinidad_superficie.md): miembro central 120 d con velocidad 3D y cotas; m0000 control (T y S de los rios en el fondo, defecto de SCHISM), m0001 en la capa superior, m0002 en toda la columna, m0003 = m0001 con caudal x1,7005. CONJ_DIR=runs/salinidad CONJ_DIAS=120 CONJ_SEG=20 CONJ_ESCRIBAS=6 python scripts/conjunto.py salinidad
+        casos = [("control: rios en el fondo (defecto), velocidad 3D", {}), ("rios en la capa superior", {"LEVSRC": "sup"}), ("rios en toda la columna", {"LEVSRC": "col"}), ("rios en la capa superior, caudal x1,7005", {"LEVSRC": "sup", "QFAC": "1.7005"})]
+        filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", "VEL3D": "1", **e}) for k, (_, e) in enumerate(casos)]
+        for k, (nom, _) in enumerate(casos): print(f"m{k:04d}: {nom}")
+        generar(4, filas=filas)
     elif accion == "borde_prueba":   # 15-nov (revision, A9): miembro central 10 d: control, sin Coriolis, sin viento. CONJ_DIR=runs/borde_prueba CONJ_DIAS=10 CONJ_SEG=10 python scripts/conjunto.py borde_prueba
         casos = [("control (Coriolis y viento)", {}), ("sin Coriolis (NCOR=0)", {"NCOR": "0"}), ("sin viento (NWS=0)", {"NWS": "0"})]
         filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", **e}) for k, (_, e) in enumerate(casos)]
