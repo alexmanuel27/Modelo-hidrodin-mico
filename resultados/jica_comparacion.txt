@@ -9,4 +9,10 @@
   bajamar, 300 m    obs oct 2002 33.3 +- 0.9: modelo P5/P50/P95 34.9/35.4/35.7, dentro: 0 % de 704 | en equilibrio: 0 %
   (abril de 2016 frente a diciembre/octubre de 2002; una sola hora del dia; sin veredicto, A2)
 2. (b) dS = S(fondo) - S(sup), observado (dic 2002, S(10 m) - S(sup)): creciente +3.7 +- 1.0, bajamar +5.5 +- 3.5; rango [3.7, 5.5]; contradice si el signo es opuesto, > 11.0 o < 1.85
-  sin jica_estaciones.npz: falta ejecutar scripts/jica_extrae_estaciones.py en el cluster (fase A)
+  runs/conjunto: 3 miembros
+    m0000: n fases 29/29; dS_b nodo cr +0.77 ba +0.84 media +0.80 | 300 m media +0.70 | dS_10 nodo media +0.68
+    m0001: n fases 29/28; dS_b nodo cr +0.16 ba +0.20 media +0.18 | 300 m media +0.15 | dS_10 nodo media +0.21
+    m0002: n fases 28/29; dS_b nodo cr +0.26 ba +0.31 media +0.28 | 300 m media +0.26 | dS_10 nodo media +0.32
+    mediana de 3 (nodo): cr +0.26 -> CONTRADICE; ba +0.31 -> CONTRADICE; media +0.28 -> CONTRADICE
+    mediana de 3 (300 m): cr +0.24 -> CONTRADICE; ba +0.28 -> CONTRADICE; media +0.26 -> CONTRADICE
+    VEREDICTO (b) runs/conjunto: CONTRADICE
