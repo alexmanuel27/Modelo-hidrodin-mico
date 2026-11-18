@@ -1,0 +1,12 @@
+1. Salinidad en superficie (media de las 11 estaciones; creciente = Q > 0 a las 16:00 UTC; bajamar = Q <= 0), 704 miembros validos, 639 en equilibrio
+  creciente, nodo   obs dic 2002 32.2 +- 1.0: modelo P5/P50/P95 35.0/35.4/35.7, dentro: 0 % de 704 | en equilibrio: 0 %
+  creciente, nodo   obs oct 2002 32.4 +- 1.5: modelo P5/P50/P95 35.0/35.4/35.7, dentro: 0 % de 704 | en equilibrio: 0 %
+  bajamar, nodo     obs dic 2002 30.3 +- 3.5: modelo P5/P50/P95 34.9/35.4/35.7, dentro: 0 % de 704 | en equilibrio: 0 %
+  bajamar, nodo     obs oct 2002 33.3 +- 0.9: modelo P5/P50/P95 34.9/35.4/35.7, dentro: 0 % de 704 | en equilibrio: 0 %
+  creciente, 300 m  obs dic 2002 32.2 +- 1.0: modelo P5/P50/P95 35.0/35.4/35.7, dentro: 0 % de 704 | en equilibrio: 0 %
+  creciente, 300 m  obs oct 2002 32.4 +- 1.5: modelo P5/P50/P95 35.0/35.4/35.7, dentro: 0 % de 704 | en equilibrio: 0 %
+  bajamar, 300 m    obs dic 2002 30.3 +- 3.5: modelo P5/P50/P95 34.9/35.4/35.7, dentro: 0 % de 704 | en equilibrio: 0 %
+  bajamar, 300 m    obs oct 2002 33.3 +- 0.9: modelo P5/P50/P95 34.9/35.4/35.7, dentro: 0 % de 704 | en equilibrio: 0 %
+  (abril de 2016 frente a diciembre/octubre de 2002; una sola hora del dia; sin veredicto, A2)
+2. (b) dS = S(fondo) - S(sup), observado (dic 2002, S(10 m) - S(sup)): creciente +3.7 +- 1.0, bajamar +5.5 +- 3.5; rango [3.7, 5.5]; contradice si el signo es opuesto, > 11.0 o < 1.85
+  sin jica_estaciones.npz: falta ejecutar scripts/jica_extrae_estaciones.py en el cluster (fase A)

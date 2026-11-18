@@ -123,19 +123,19 @@ def main(miembros):
     # --- figura
     estilo(); fig, ax = plt.subplots(1, 3, figsize=(ANCHO2, 62 / 25.4), gridspec_kw=dict(width_ratios=[1, 1, 1.15]))
     for a, k, fa in ((ax[0], 0, "creciente"), (ax[1], 1, "bajamar")):
-        x = A[:, k][~np.isnan(A[:, k])]; a.hist(x, bins=np.arange(10, 37, 0.5), color=GRIS, lw=0)
+        x = A[:, k][~np.isnan(A[:, k])]; a.hist(x, bins=np.arange(25, 37.01, 0.25), color=GRIS, lw=0)
         a.axvspan(o_dic[fa][0] - o_dic[fa][1], o_dic[fa][0] + o_dic[fa][1], color=AZUL, alpha=.3, lw=0, label="JICA dic 2002 ± 1 sd")
         a.axvspan(o_oct[fa][0] - o_oct[fa][1], o_oct[fa][0] + o_oct[fa][1], facecolor="none", edgecolor=NARANJA, hatch="///", lw=.5, label="JICA oct 2002 ± 1 sd")
-        a.set(xlabel="Surface salinity, mean of 11 stations", title=("Flood (Q > 0)" if fa == "creciente" else "Ebb (Q ≤ 0, low-water proxy)")); letra(a, "ab"[k])
-    ax[0].set_ylabel("Ensemble members (of 704)"); ax[0].legend(loc="upper left", frameon=False)
+        a.set(xlim=(25, 37), xlabel="Surface salinity, mean of 11 stations", title=("Flood (Q > 0)" if fa == "creciente" else "Ebb (Q ≤ 0, low-water proxy)")); letra(a, "ab"[k])
+    ax[0].set_ylabel("Ensemble members (of 704)"); ax[0].legend(loc="upper left", frameon=False, bbox_to_anchor=(0, .9))
     b = ax[2]; letra(b, "c"); b.axhspan(lo, hi, color=AZUL, alpha=.3, lw=0, label="JICA dic 2002 range")
     for i, fa in enumerate(("creciente", "bajamar")): b.errorbar([i], [d[fa][0]], yerr=[d[fa][1]], color=AZUL, marker="o", ms=3, capsize=2, lw=.8)
     colores = {"conjunto": GRIS, "termico": BERMELLON}
     for k, r in res.items():
         c = colores.get(Path(k).parent.name, NEGRO)
         b.plot([0, 1, 2], [r["b_n"]["creciente"], r["b_n"]["bajamar"], r["b_n"]["media"]], "o", color=c, ms=2.5, label=Path(k).parent.name if Path(k).name.endswith("0") else None)
-    if not res: b.text(.5, .5, "model: pending\n(phase A, cluster)", transform=b.transAxes, ha="center", fontsize=6.5)
-    b.set(xticks=[0, 1, 2], xticklabels=["flood", "ebb", "mean"], ylabel="ΔS = S(bottom) − S(surface)  (model)\n≈ S(10 m) − S(surface)  (JICA)"); b.legend(loc="upper left", frameon=False)
+    if not res: b.text(.5, .75, "model: pending\n(phase A, cluster)", transform=b.transAxes, ha="center", fontsize=6.5)
+    b.set(xlim=(-.5, 2.5), ylim=(0, 10), xticks=[0, 1, 2], xticklabels=["flood", "ebb", "mean"], ylabel="ΔS: bottom − surface (model)\n≈ 10 m − surface (JICA)"); b.legend(loc="upper right", frameon=False)
     fig.subplots_adjust(left=.07, right=.99, bottom=.2, top=.9, wspace=.33); guarda(fig, "fig_jica_comparison", 190)
 
 
