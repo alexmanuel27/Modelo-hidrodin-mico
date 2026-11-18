@@ -1,0 +1,292 @@
+tabla,pagina_informe,pagina_pdf,estacion,variable,nivel_m,fase,mes,valor,unidad,nota
+4.19,M4-44,03:6,bahia,salinidad_extremo_bajo,superficie,creciente,2002-10,30.2,mg/kg,"rotulada 'maxima' en la tabla; por los valores es el minimo; unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_extremo_bajo,superficie,creciente,2002-12,31.4,mg/kg,"rotulada 'maxima' en la tabla; por los valores es el minimo; unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_extremo_alto,superficie,creciente,2002-10,34.8,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_extremo_alto,superficie,creciente,2002-12,34.3,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_media,superficie,creciente,2002-10,32.4,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_sd,superficie,creciente,2002-10,1.5,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_media,superficie,creciente,2002-12,32.2,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_sd,superficie,creciente,2002-12,1.0,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_extremo_bajo,superficie,bajamar,2002-10,32.0,mg/kg,"rotulada 'maxima' en la tabla; por los valores es el minimo; unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_extremo_bajo,superficie,bajamar,2002-12,23.1,mg/kg,"rotulada 'maxima' en la tabla; por los valores es el minimo; unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_extremo_alto,superficie,bajamar,2002-10,35.2,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_extremo_alto,superficie,bajamar,2002-12,34.0,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_media,superficie,bajamar,2002-10,33.3,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_sd,superficie,bajamar,2002-10,0.9,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_media,superficie,bajamar,2002-12,30.3,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_sd,superficie,bajamar,2002-12,3.5,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_media,5,creciente,2002-10,35.8,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_sd,5,creciente,2002-10,0.1,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_media,5,creciente,2002-12,35.7,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_sd,5,creciente,2002-12,0.2,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_media,5,bajamar,2002-10,35.9,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_sd,5,bajamar,2002-10,0.1,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_media,5,bajamar,2002-12,35.5,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_sd,5,bajamar,2002-12,0.3,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_media,10,creciente,2002-10,35.9,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_sd,10,creciente,2002-10,0.1,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_media,10,creciente,2002-12,35.9,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_sd,10,creciente,2002-12,0.1,mg/kg,"unidad impresa mg/kg, sin convertir"
+4.19,M4-44,03:6,bahia,salinidad_media,10,bajamar,2002-10,36.0,mg/kg,"unidad impresa mg/kg, sin convertir; rotulada 'Capa media (10 m)' en la tabla; por posicion es 10 m"
+4.19,M4-44,03:6,bahia,salinidad_sd,10,bajamar,2002-10,0.1,mg/kg,"unidad impresa mg/kg, sin convertir; rotulada 'Capa media (10 m)' en la tabla; por posicion es 10 m"
+4.19,M4-44,03:6,bahia,salinidad_media,10,bajamar,2002-12,35.8,mg/kg,"unidad impresa mg/kg, sin convertir; rotulada 'Capa media (10 m)' en la tabla; por posicion es 10 m"
+4.19,M4-44,03:6,bahia,salinidad_sd,10,bajamar,2002-12,0.1,mg/kg,"unidad impresa mg/kg, sin convertir; rotulada 'Capa media (10 m)' en la tabla; por posicion es 10 m"
+4.20,M4-48,03:7,bahia,velocidad_media,superficie,creciente,2002-10,8.6,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_sd,superficie,creciente,2002-10,6.5,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_media,superficie,creciente,2002-12,4.5,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_sd,superficie,creciente,2002-12,2.0,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_media,5,creciente,2002-10,7.2,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_sd,5,creciente,2002-10,6.6,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_media,5,creciente,2002-12,8.4,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_sd,5,creciente,2002-12,4.8,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_media,10,creciente,2002-10,5.0,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_sd,10,creciente,2002-10,5.0,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_media,10,creciente,2002-12,5.3,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_sd,10,creciente,2002-12,2.7,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_media,superficie,bajamar,2002-10,5.2,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_sd,superficie,bajamar,2002-10,3.4,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_media,superficie,bajamar,2002-12,8.7,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_sd,superficie,bajamar,2002-12,3.7,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_media,5,bajamar,2002-10,4.5,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_sd,5,bajamar,2002-10,2.4,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_media,5,bajamar,2002-12,6.2,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_sd,5,bajamar,2002-12,2.3,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_media,10,bajamar,2002-10,2.5,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_sd,10,bajamar,2002-10,1.8,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_media,10,bajamar,2002-12,4.8,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,bahia,velocidad_sd,10,bajamar,2002-12,3.3,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,1,velocidad_media,superficie,media_24h,2002-10,11.5,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,1,velocidad_sd,superficie,media_24h,2002-10,5.2,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,1,velocidad_media,superficie,media_24h,2002-12,15.9,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,1,velocidad_sd,superficie,media_24h,2002-12,7.8,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,1,velocidad_media,5,media_24h,2002-10,11.0,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,1,velocidad_sd,5,media_24h,2002-10,7.3,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,1,velocidad_media,5,media_24h,2002-12,16.3,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,1,velocidad_sd,5,media_24h,2002-12,5.6,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,1,velocidad_media,10,media_24h,2002-10,11.2,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,1,velocidad_sd,10,media_24h,2002-10,6.6,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,1,velocidad_media,10,media_24h,2002-12,17.1,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,1,velocidad_sd,10,media_24h,2002-12,7.0,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,3,velocidad_media,superficie,media_24h,2002-10,6.7,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,3,velocidad_sd,superficie,media_24h,2002-10,2.3,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,3,velocidad_media,superficie,media_24h,2002-12,5.2,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,3,velocidad_sd,superficie,media_24h,2002-12,2.2,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,3,velocidad_media,5,media_24h,2002-10,4.1,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,3,velocidad_sd,5,media_24h,2002-10,1.3,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,3,velocidad_media,5,media_24h,2002-12,6.5,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,3,velocidad_sd,5,media_24h,2002-12,5.9,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,3,velocidad_media,10,media_24h,2002-10,4.5,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,3,velocidad_sd,10,media_24h,2002-10,1.7,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,3,velocidad_media,10,media_24h,2002-12,3.6,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,3,velocidad_sd,10,media_24h,2002-12,4.3,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,5,velocidad_media,superficie,media_24h,2002-10,8.2,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,5,velocidad_sd,superficie,media_24h,2002-10,4.9,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,5,velocidad_media,superficie,media_24h,2002-12,5.6,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,5,velocidad_sd,superficie,media_24h,2002-12,2.0,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,5,velocidad_media,5,media_24h,2002-10,7.9,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,5,velocidad_sd,5,media_24h,2002-10,5.1,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,5,velocidad_media,5,media_24h,2002-12,5.8,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,5,velocidad_sd,5,media_24h,2002-12,5.2,cm/s,solo modulo: la tabla no da el sentido
+4.20,M4-48,03:7,5,velocidad_media,10,media_24h,2002-10,7.7,cm/s,solo modulo: la tabla no da el sentido; tercera fila de la estacion 5 rotulada '5 m' (repetida); asignada a 10 m por posicion; dudoso
+4.20,M4-48,03:7,5,velocidad_sd,10,media_24h,2002-10,5.0,cm/s,solo modulo: la tabla no da el sentido; tercera fila de la estacion 5 rotulada '5 m' (repetida); asignada a 10 m por posicion; dudoso
+4.20,M4-48,03:7,5,velocidad_media,10,media_24h,2002-12,3.9,cm/s,solo modulo: la tabla no da el sentido; tercera fila de la estacion 5 rotulada '5 m' (repetida); asignada a 10 m por posicion; dudoso
+4.20,M4-48,03:7,5,velocidad_sd,10,media_24h,2002-12,4.3,cm/s,solo modulo: la tabla no da el sentido; tercera fila de la estacion 5 rotulada '5 m' (repetida); asignada a 10 m por posicion; dudoso
+4.8,M4-13,02:13,S1 Luyano,x_celda,,,,80,celda,
+4.8,M4-13,02:13,S1 Luyano,y_celda,,,,19,celda,
+4.8,M4-13,02:13,S1 Luyano,z_capa,,,,3,capa,
+4.8,M4-13,02:13,S1 Luyano,caudal,,,,1.329,m3/s,
+4.8,M4-13,02:13,S1 Luyano,temperatura,,,,27,C,
+4.8,M4-13,02:13,S1 Luyano,salinidad,,,,1,per mil,
+4.8,M4-13,02:13,S2 Martin Perez,x_celda,,,,129,celda,
+4.8,M4-13,02:13,S2 Martin Perez,y_celda,,,,19,celda,
+4.8,M4-13,02:13,S2 Martin Perez,z_capa,,,,3,capa,
+4.8,M4-13,02:13,S2 Martin Perez,caudal,,,,0.719,m3/s,
+4.8,M4-13,02:13,S2 Martin Perez,temperatura,,,,27,C,
+4.8,M4-13,02:13,S2 Martin Perez,salinidad,,,,1,per mil,
+4.8,M4-13,02:13,S3 Tadeo,x_celda,,,,116,celda,
+4.8,M4-13,02:13,S3 Tadeo,y_celda,,,,82,celda,
+4.8,M4-13,02:13,S3 Tadeo,z_capa,,,,3,capa,
+4.8,M4-13,02:13,S3 Tadeo,caudal,,,,0.093,m3/s,
+4.8,M4-13,02:13,S3 Tadeo,temperatura,,,,27,C,
+4.8,M4-13,02:13,S3 Tadeo,salinidad,,,,1,per mil,
+4.8,M4-13,02:13,S4 San Nicolas,x_celda,,,,41,celda,
+4.8,M4-13,02:13,S4 San Nicolas,y_celda,,,,12,celda,
+4.8,M4-13,02:13,S4 San Nicolas,z_capa,,,,3,capa,
+4.8,M4-13,02:13,S4 San Nicolas,caudal,,,,0.099,m3/s,
+4.8,M4-13,02:13,S4 San Nicolas,temperatura,,,,27,C,
+4.8,M4-13,02:13,S4 San Nicolas,salinidad,,,,1,per mil,
+4.8,M4-13,02:13,S5 Arroyo Matadero,x_celda,,,,43,celda,
+4.8,M4-13,02:13,S5 Arroyo Matadero,y_celda,,,,10,celda,
+4.8,M4-13,02:13,S5 Arroyo Matadero,z_capa,,,,3,capa,
+4.8,M4-13,02:13,S5 Arroyo Matadero,caudal,,,,0.900,m3/s,
+4.8,M4-13,02:13,S5 Arroyo Matadero,temperatura,,,,27,C,
+4.8,M4-13,02:13,S5 Arroyo Matadero,salinidad,,,,1,per mil,
+4.8,M4-13,02:13,S6 Agua Dulce,x_celda,,,,51,celda,
+4.8,M4-13,02:13,S6 Agua Dulce,y_celda,,,,1,celda,
+4.8,M4-13,02:13,S6 Agua Dulce,z_capa,,,,3,capa,
+4.8,M4-13,02:13,S6 Agua Dulce,caudal,,,,0.500,m3/s,
+4.8,M4-13,02:13,S6 Agua Dulce,temperatura,,,,27,C,
+4.8,M4-13,02:13,S6 Agua Dulce,salinidad,,,,1,per mil,
+4.8,M4-13,02:13,S7 Refineria Nico Lopez (1),x_celda,,,,115,celda,
+4.8,M4-13,02:13,S7 Refineria Nico Lopez (1),y_celda,,,,91,celda,
+4.8,M4-13,02:13,S7 Refineria Nico Lopez (1),z_capa,,,,3,capa,
+4.8,M4-13,02:13,S7 Refineria Nico Lopez (1),caudal,,,,0.010,m3/s,
+4.8,M4-13,02:13,S7 Refineria Nico Lopez (1),temperatura,,,,27,C,
+4.8,M4-13,02:13,S7 Refineria Nico Lopez (1),salinidad,,,,1,per mil,
+4.8,M4-13,02:13,S8 Refineria Nico Lopez (2),x_celda,,,,112,celda,
+4.8,M4-13,02:13,S8 Refineria Nico Lopez (2),y_celda,,,,99,celda,
+4.8,M4-13,02:13,S8 Refineria Nico Lopez (2),z_capa,,,,3,capa,
+4.8,M4-13,02:13,S8 Refineria Nico Lopez (2),caudal,,,,0.037,m3/s,
+4.8,M4-13,02:13,S8 Refineria Nico Lopez (2),temperatura,,,,27,C,
+4.8,M4-13,02:13,S8 Refineria Nico Lopez (2),salinidad,,,,1,per mil,
+4.8,M4-13,02:13,S9 Refineria Nico Lopez (3),x_celda,,,,112,celda,
+4.8,M4-13,02:13,S9 Refineria Nico Lopez (3),y_celda,,,,101,celda,
+4.8,M4-13,02:13,S9 Refineria Nico Lopez (3),z_capa,,,,3,capa,
+4.8,M4-13,02:13,S9 Refineria Nico Lopez (3),caudal,,,,0.037,m3/s,
+4.8,M4-13,02:13,S9 Refineria Nico Lopez (3),temperatura,,,,27,C,
+4.8,M4-13,02:13,S9 Refineria Nico Lopez (3),salinidad,,,,1,per mil,
+4.8,M4-13,02:13,S10 Refineria Nico Lopez (4),x_celda,,,,110,celda,
+4.8,M4-13,02:13,S10 Refineria Nico Lopez (4),y_celda,,,,115,celda,
+4.8,M4-13,02:13,S10 Refineria Nico Lopez (4),z_capa,,,,3,capa,
+4.8,M4-13,02:13,S10 Refineria Nico Lopez (4),caudal,,,,0.010,m3/s,
+4.8,M4-13,02:13,S10 Refineria Nico Lopez (4),temperatura,,,,27,C,
+4.8,M4-13,02:13,S10 Refineria Nico Lopez (4),salinidad,,,,1,per mil,
+4.11,M4-16,02:16,Canal de Entrada,temperatura,surface,otra,2001-06,28.3,C,
+4.11,M4-16,02:16,Canal de Entrada,salinidad,surface,otra,2001-06,33.37,per mil,
+4.11,M4-16,02:16,Canal de Entrada,temperatura,surface,creciente,2001-11,27.0,C,
+4.11,M4-16,02:16,Canal de Entrada,salinidad,surface,creciente,2001-11,35.46,per mil,
+4.11,M4-16,02:16,Canal de Entrada,temperatura,surface,bajamar,2001-11,26.2,C,
+4.11,M4-16,02:16,Canal de Entrada,salinidad,surface,bajamar,2001-11,34.53,per mil,
+4.11,M4-16,02:16,Canal de Entrada,temperatura,middle,otra,2001-06,28.2,C,
+4.11,M4-16,02:16,Canal de Entrada,salinidad,middle,otra,2001-06,35.33,per mil,
+4.11,M4-16,02:16,Canal de Entrada,temperatura,middle,creciente,2001-11,26.8,C,
+4.11,M4-16,02:16,Canal de Entrada,salinidad,middle,creciente,2001-11,36.27,per mil,
+4.11,M4-16,02:16,Canal de Entrada,temperatura,middle,bajamar,2001-11,27.0,C,
+4.11,M4-16,02:16,Canal de Entrada,salinidad,middle,bajamar,2001-11,36.41,per mil,
+4.11,M4-16,02:16,Canal de Entrada,temperatura,bottom,otra,2001-06,28.6,C,
+4.11,M4-16,02:16,Canal de Entrada,salinidad,bottom,otra,2001-06,36.41,per mil,
+4.11,M4-16,02:16,Canal de Entrada,temperatura,bottom,creciente,2001-11,26.4,C,
+4.11,M4-16,02:16,Canal de Entrada,salinidad,bottom,creciente,2001-11,36.25,per mil,
+4.11,M4-16,02:16,Canal de Entrada,temperatura,bottom,bajamar,2001-11,27.0,C,
+4.11,M4-16,02:16,Canal de Entrada,salinidad,bottom,bajamar,2001-11,36.29,per mil,
+4.11,M4-16,02:16,Atares,temperatura,surface,otra,2001-06,28.3,C,
+4.11,M4-16,02:16,Atares,salinidad,surface,otra,2001-06,29.93,per mil,
+4.11,M4-16,02:16,Atares,temperatura,surface,creciente,2001-11,27.0,C,
+4.11,M4-16,02:16,Atares,salinidad,surface,creciente,2001-11,27.11,per mil,
+4.11,M4-16,02:16,Atares,temperatura,surface,bajamar,2001-11,26.4,C,
+4.11,M4-16,02:16,Atares,salinidad,surface,bajamar,2001-11,21.37,per mil,
+4.11,M4-16,02:16,Atares,temperatura,middle,otra,2001-06,28.6,C,
+4.11,M4-16,02:16,Atares,salinidad,middle,otra,2001-06,35.86,per mil,
+4.11,M4-16,02:16,Atares,temperatura,middle,creciente,2001-11,27.0,C,
+4.11,M4-16,02:16,Atares,salinidad,middle,creciente,2001-11,36.09,per mil,
+4.11,M4-16,02:16,Atares,temperatura,middle,bajamar,2001-11,26.8,C,
+4.11,M4-16,02:16,Atares,salinidad,middle,bajamar,2001-11,36.33,per mil,
+4.11,M4-16,02:16,Atares,temperatura,bottom,otra,2001-06,28.1,C,
+4.11,M4-16,02:16,Atares,salinidad,bottom,otra,2001-06,36.21,per mil,
+4.11,M4-16,02:16,Atares,temperatura,bottom,creciente,2001-11,27.0,C,
+4.11,M4-16,02:16,Atares,salinidad,bottom,creciente,2001-11,36.19,per mil,
+4.11,M4-16,02:16,Atares,temperatura,bottom,bajamar,2001-11,27.0,C,
+4.11,M4-16,02:16,Atares,salinidad,bottom,bajamar,2001-11,35.16,per mil,
+4.11,M4-16,02:16,Guasabacoa,temperatura,surface,otra,2001-06,28.1,C,
+4.11,M4-16,02:16,Guasabacoa,salinidad,surface,otra,2001-06,34.12,per mil,
+4.11,M4-16,02:16,Guasabacoa,temperatura,surface,creciente,2001-11,27.2,C,
+4.11,M4-16,02:16,Guasabacoa,salinidad,surface,creciente,2001-11,36.03,per mil,
+4.11,M4-16,02:16,Guasabacoa,temperatura,surface,bajamar,2001-11,27.0,C,
+4.11,M4-16,02:16,Guasabacoa,salinidad,surface,bajamar,2001-11,35.57,per mil,
+4.11,M4-16,02:16,Guasabacoa,temperatura,middle,otra,2001-06,28.6,C,
+4.11,M4-16,02:16,Guasabacoa,salinidad,middle,otra,2001-06,36.00,per mil,
+4.11,M4-16,02:16,Guasabacoa,temperatura,middle,creciente,2001-11,27.0,C,
+4.11,M4-16,02:16,Guasabacoa,salinidad,middle,creciente,2001-11,36.19,per mil,
+4.11,M4-16,02:16,Guasabacoa,temperatura,middle,bajamar,2001-11,26.8,C,
+4.11,M4-16,02:16,Guasabacoa,salinidad,middle,bajamar,2001-11,35.52,per mil,
+4.11,M4-16,02:16,Guasabacoa,temperatura,bottom,otra,2001-06,28.7,C,
+4.11,M4-16,02:16,Guasabacoa,salinidad,bottom,otra,2001-06,36.13,per mil,
+4.11,M4-16,02:16,Guasabacoa,temperatura,bottom,creciente,2001-11,27.0,C,
+4.11,M4-16,02:16,Guasabacoa,salinidad,bottom,creciente,2001-11,36.33,per mil,
+4.11,M4-16,02:16,Guasabacoa,temperatura,bottom,bajamar,2001-11,26.6,C,
+4.11,M4-16,02:16,Guasabacoa,salinidad,bottom,bajamar,2001-11,35.87,per mil,
+4.11,M4-16,02:16,Marimelena,temperatura,surface,otra,2001-06,28.3,C,
+4.11,M4-16,02:16,Marimelena,salinidad,surface,otra,2001-06,35.15,per mil,
+4.11,M4-16,02:16,Marimelena,temperatura,surface,creciente,2001-11,27.0,C,
+4.11,M4-16,02:16,Marimelena,salinidad,surface,creciente,2001-11,36.15,per mil,
+4.11,M4-16,02:16,Marimelena,temperatura,surface,bajamar,2001-11,26.8,C,
+4.11,M4-16,02:16,Marimelena,salinidad,surface,bajamar,2001-11,35.77,per mil,
+4.11,M4-16,02:16,Marimelena,temperatura,middle,otra,2001-06,28.4,C,
+4.11,M4-16,02:16,Marimelena,salinidad,middle,otra,2001-06,35.55,per mil,
+4.11,M4-16,02:16,Marimelena,temperatura,middle,creciente,2001-11,27.0,C,
+4.11,M4-16,02:16,Marimelena,salinidad,middle,creciente,2001-11,36.22,per mil,
+4.11,M4-16,02:16,Marimelena,temperatura,middle,bajamar,2001-11,27.0,C,
+4.11,M4-16,02:16,Marimelena,salinidad,middle,bajamar,2001-11,36.00,per mil,
+4.11,M4-16,02:16,Marimelena,temperatura,bottom,otra,2001-06,28.8,C,
+4.11,M4-16,02:16,Marimelena,salinidad,bottom,otra,2001-06,35.46,per mil,
+4.11,M4-16,02:16,Marimelena,temperatura,bottom,creciente,2001-11,27.0,C,
+4.11,M4-16,02:16,Marimelena,salinidad,bottom,creciente,2001-11,36.11,per mil,
+4.11,M4-16,02:16,Marimelena,temperatura,bottom,bajamar,2001-11,27.0,C,
+4.11,M4-16,02:16,Marimelena,salinidad,bottom,bajamar,2001-11,36.26,per mil,
+4.11,M4-16,02:16,Centro de la Bahia,temperatura,surface,otra,2001-06,28.7,C,
+4.11,M4-16,02:16,Centro de la Bahia,salinidad,surface,otra,2001-06,33.57,per mil,
+4.11,M4-16,02:16,Centro de la Bahia,temperatura,surface,creciente,2001-11,27.0,C,
+4.11,M4-16,02:16,Centro de la Bahia,salinidad,surface,creciente,2001-11,35.02,per mil,
+4.11,M4-16,02:16,Centro de la Bahia,temperatura,surface,bajamar,2001-11,26.8,C,
+4.11,M4-16,02:16,Centro de la Bahia,salinidad,surface,bajamar,2001-11,34.87,per mil,
+4.11,M4-16,02:16,Centro de la Bahia,temperatura,middle,otra,2001-06,28.9,C,
+4.11,M4-16,02:16,Centro de la Bahia,salinidad,middle,otra,2001-06,33.99,per mil,
+4.11,M4-16,02:16,Centro de la Bahia,temperatura,middle,creciente,2001-11,26.8,C,
+4.11,M4-16,02:16,Centro de la Bahia,salinidad,middle,creciente,2001-11,36.00,per mil,
+4.11,M4-16,02:16,Centro de la Bahia,temperatura,middle,bajamar,2001-11,27.0,C,
+4.11,M4-16,02:16,Centro de la Bahia,salinidad,middle,bajamar,2001-11,35.97,per mil,
+4.11,M4-16,02:16,Centro de la Bahia,temperatura,bottom,otra,2001-06,28.6,C,
+4.11,M4-16,02:16,Centro de la Bahia,salinidad,bottom,otra,2001-06,36.13,per mil,
+4.11,M4-16,02:16,Centro de la Bahia,temperatura,bottom,creciente,2001-11,26.8,C,
+4.11,M4-16,02:16,Centro de la Bahia,salinidad,bottom,creciente,2001-11,35.92,per mil,
+4.11,M4-16,02:16,Centro de la Bahia,temperatura,bottom,bajamar,2001-11,26.8,C,
+4.11,M4-16,02:16,Centro de la Bahia,salinidad,bottom,bajamar,2001-11,36.32,per mil,
+4.11,M4-16,02:16,P. del Chivo,temperatura,surface,otra,2001-06,28.3,C,
+4.11,M4-16,02:16,P. del Chivo,salinidad,surface,otra,2001-06,35.56,per mil,
+4.11,M4-16,02:16,P. del Chivo,temperatura,surface,bajamar,2001-11,27.0,C,
+4.11,M4-16,02:16,P. del Chivo,salinidad,surface,bajamar,2001-11,35.46,per mil,
+4.11,M4-16,02:16,P. del Chivo,temperatura,middle,otra,2001-06,28.4,C,
+4.11,M4-16,02:16,P. del Chivo,salinidad,middle,otra,2001-06,33.09,per mil,
+4.11,M4-16,02:16,P. del Chivo,temperatura,middle,bajamar,2001-11,26.8,C,
+4.11,M4-16,02:16,P. del Chivo,salinidad,middle,bajamar,2001-11,36.35,per mil,
+4.11,M4-16,02:16,P. del Chivo,temperatura,bottom,otra,2001-06,28.5,C,
+4.11,M4-16,02:16,P. del Chivo,salinidad,bottom,otra,2001-06,36.74,per mil,
+4.11,M4-16,02:16,P. del Chivo,temperatura,bottom,bajamar,2001-11,26.8,C,
+4.11,M4-16,02:16,P. del Chivo,salinidad,bottom,bajamar,2001-11,36.41,per mil,
+4.11,M4-16,02:16,Caleta de San Lazaro,temperatura,surface,otra,2001-06,28.3,C,
+4.11,M4-16,02:16,Caleta de San Lazaro,salinidad,surface,otra,2001-06,36.00,per mil,
+4.11,M4-16,02:16,Caleta de San Lazaro,temperatura,surface,bajamar,2001-11,27.0,C,
+4.11,M4-16,02:16,Caleta de San Lazaro,salinidad,surface,bajamar,2001-11,36.10,per mil,
+4.11,M4-16,02:16,Caleta de San Lazaro,temperatura,middle,otra,2001-06,28.6,C,
+4.11,M4-16,02:16,Caleta de San Lazaro,salinidad,middle,otra,2001-06,36.41,per mil,
+4.11,M4-16,02:16,Caleta de San Lazaro,temperatura,middle,bajamar,2001-11,27.0,C,
+4.11,M4-16,02:16,Caleta de San Lazaro,salinidad,middle,bajamar,2001-11,36.33,per mil,
+4.11,M4-16,02:16,Caleta de San Lazaro,temperatura,bottom,otra,2001-06,28.8,C,
+4.11,M4-16,02:16,Caleta de San Lazaro,salinidad,bottom,otra,2001-06,36.36,per mil,
+4.11,M4-16,02:16,Caleta de San Lazaro,temperatura,bottom,bajamar,2001-11,27.0,C,
+4.11,M4-16,02:16,Caleta de San Lazaro,salinidad,bottom,bajamar,2001-11,36.43,per mil,
+4.18,M4-42,03:1,todas,nivel_superficie,0.5,,,0.5,m bajo la superficie,"la tabla 4.19/4.20 rotula los niveles 'superficie', '5 m' y '10 m'"
+4.18,M4-42,03:1,todas,nivel_fondo,,,,1.0,m sobre el fondo,la tabla 4.19/4.20 rotula '10 m'; nivel medio sin profundidad numerica
+Fig. 4.25,M4-43,03:2,1,x_figura,,,,7.13,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,1,y_figura,,,,42.57,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,2,x_figura,,,,35.98,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,2,y_figura,,,,46.72,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,3,x_figura,,,,37.33,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,3,y_figura,,,,42.86,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,4,x_figura,,,,43.45,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador azul (punto adicional); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,4,y_figura,,,,45.04,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador azul (punto adicional); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,5,x_figura,,,,30.47,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,5,y_figura,,,,36.07,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,6,x_figura,,,,34.58,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,6,y_figura,,,,37.86,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,7,x_figura,,,,36.67,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador azul (punto adicional); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,7,y_figura,,,,30.55,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador azul (punto adicional); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,8,x_figura,,,,31.57,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,8,y_figura,,,,23.79,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,9,x_figura,,,,26.91,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador azul (punto adicional); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,9,y_figura,,,,14.20,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador azul (punto adicional); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,10,x_figura,,,,38.82,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,10,y_figura,,,,23.16,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,11,x_figura,,,,46.42,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,11,y_figura,,,,15.40,u_fig,"posicion leida por deteccion de pixeles en la pagina (marco x 0-60, y 0-65), +-0.2 u; marcador circulo (cerca de punto PNUD-PNUMA-UNESCO 1985); unidad de la figura sin escala impresa"
+Fig. 4.25,M4-43,03:2,12,posicion,,,,aprox. 500 m de la boca de la bahia,texto,sin coordenadas en la figura; lugar de referencia

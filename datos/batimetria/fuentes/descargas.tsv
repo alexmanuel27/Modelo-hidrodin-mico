@@ -9,3 +9,9 @@ osm_costa_habana.json	Overpass API (uno de los espejos de 01_descargar.sh; el pr
 jica_2004_bahia_habana_resumen.pdf	https://openjicareport.jica.go.jp/pdf/11767225.pdf	2026-10-17T22:31Z	4001021	b94cf93dbe7ee9295ca5584fae93293111c3760b986541f8117b0eb45d8cb7d3
 osm_rios_habana.json	Overpass API (https://overpass-api.de/api/interpreter) data=[out:json][timeout:90][bbox:23.03,-82.42,23.16,-82.27];way["waterway"~"^(river|stream|canal|drain)$"];out geom;	2026-10-17T22:43Z	529624	320a1b33d5ae09765f2ba24c49e555a2e3074f6089880c736418dde43f7ef3d8
 jica_2004_vol5_04.pdf	https://openjicareport.jica.go.jp/pdf/11767233_04.pdf	2026-11-18T12:09Z	1902291	a515215c74a2579acac85058da8a3a8a93f4fd94599aeaeacff8ef0e3d71677b
+jica_2004_vol5_01.pdf	https://openjicareport.jica.go.jp/pdf/11767233_01.pdf	2026-11-18T12:19Z	1718803	c780c7f82dda4959d9a5c1114dfd06249ce3049a266fe16614e101e1aad56eda
+jica_2004_vol5_02.pdf	https://openjicareport.jica.go.jp/pdf/11767233_02.pdf	2026-11-18T12:19Z	4526327	26eb8c2af701c7179f3bcf86f7c8cc24b3b5af8bbc5b250de50a349c30282a98
+jica_2004_vol5_03.pdf	https://openjicareport.jica.go.jp/pdf/11767233_03.pdf	2026-11-18T12:19Z	3334431	f396121758bdbdfe00064140bdd68f4b2afc508324c1ee3cea19cf018b66fb02
+jica_2004_vol5_05.pdf	https://openjicareport.jica.go.jp/pdf/11767233_05.pdf	2026-11-18T12:19Z	5414964	190e104d9f578e0f5e37ef1c268c477453382b384e54d586d593ed9c773f8189
+jica_2004_vol5_06.pdf	https://openjicareport.jica.go.jp/pdf/11767233_06.pdf	2026-11-18T12:19Z	4314396	3a38f35fc94c3721a1217d62094d2d39bff2e93cc5f2d7c9051dc4ba9ac877d8
+jica_2004_vol5_07.pdf	https://openjicareport.jica.go.jp/pdf/11767233_07.pdf	2026-11-18T12:19Z	802498	14767bcf8634c6fa9fc03cdc446cacce0295b783e00c02b70aae36eb3b638017

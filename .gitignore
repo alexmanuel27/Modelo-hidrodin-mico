@@ -20,3 +20,4 @@ datos/batimetria/superficies/*.nc
 runs/
 # entrega Sentinel-2 (4 MB): se versiona
 !datos/sentinel2/anomalias.nc
+datos/batimetria/fuentes/jica_2004_vol5_*.png
