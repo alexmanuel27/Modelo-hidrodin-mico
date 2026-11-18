@@ -1,0 +1,16 @@
+miembros del diseno 704; con resumen y sin NaN 704; en equilibrio (deriva <= 0,05 d/d) 639
+F = (2,14 + 0,9 + 0,5 + 0,099) / 2,14 = 1.700; qfac muestreado 0,25-2 (log-uniforme): F cae dentro, miembros con qfac <= 1.176: 519
+--- todos los validos (n = 704)
+  bahia       P5-P95   5.43- 10.74 d | efecto mediano  -1.22 d | R = -0.230 | coef ln qfac -0.31 | R2 0.92 | n 519 | PARCIAL
+  canal       P5-P95   3.11-  6.44 d | efecto mediano  -0.82 d | R = -0.246 | coef ln qfac -0.37 | R2 0.92 | n 519 | PARCIAL
+  cuenca      P5-P95   5.48- 10.52 d | efecto mediano  -1.15 d | R = -0.228 | coef ln qfac -0.29 | R2 0.90 | n 519 | PARCIAL
+  Marimelena  P5-P95   6.24- 10.53 d | efecto mediano  -0.88 d | R = -0.204 | coef ln qfac -0.19 | R2 0.85 | n 519 | PARCIAL
+  Guasabacoa  P5-P95   6.27- 12.73 d | efecto mediano  -1.46 d | R = -0.227 | coef ln qfac -0.33 | R2 0.92 | n 519 | PARCIAL
+  Atares      P5-P95   7.31- 14.61 d | efecto mediano  -1.81 d | R = -0.248 | coef ln qfac -0.35 | R2 0.92 | n 519 | PARCIAL
+--- solo en equilibrio (n = 639)
+  bahia       P5-P95   5.43- 10.68 d | efecto mediano  -1.23 d | R = -0.233 | coef ln qfac -0.31 | R2 0.92 | n 460 | PARCIAL
+  canal       P5-P95   3.12-  6.43 d | efecto mediano  -0.82 d | R = -0.248 | coef ln qfac -0.37 | R2 0.92 | n 460 | PARCIAL
+  cuenca      P5-P95   5.46- 10.51 d | efecto mediano  -1.15 d | R = -0.228 | coef ln qfac -0.29 | R2 0.91 | n 460 | PARCIAL
+  Marimelena  P5-P95   6.22- 10.53 d | efecto mediano  -0.88 d | R = -0.204 | coef ln qfac -0.19 | R2 0.86 | n 460 | PARCIAL
+  Guasabacoa  P5-P95   6.26- 12.66 d | efecto mediano  -1.47 d | R = -0.230 | coef ln qfac -0.33 | R2 0.92 | n 460 | PARCIAL
+  Atares      P5-P95   7.31- 14.60 d | efecto mediano  -1.82 d | R = -0.250 | coef ln qfac -0.35 | R2 0.92 | n 460 | CAMBIA
