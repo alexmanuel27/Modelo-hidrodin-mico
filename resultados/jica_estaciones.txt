@@ -1,0 +1,24 @@
+Ajuste por mascara (enmienda A1): reflexion del eje v = False, giro = 328.75 grados, escala = 67.0 m/unidad, IoU = 0.788
+  area de la mascara de la figura a esa escala = 5.38 km2 (JICA da 5,2 km2 para la bahia); area de la mascara del modelo (zona > 0) = 4.93 km2
+  traslacion respecto al centro del raster = (-140, -40) m
+  boca luyano: JICA (80, 19) -> (362122, 2557269) UTM; OSM (362118, 2557580); distancia 311 m
+  boca martin perez: JICA (129, 19) -> (363525, 2556417) UTM; OSM (363099, 2556684); distancia 503 m
+  boca tadeo: JICA (116, 82) -> (364248, 2558448) UTM; OSM (363939, 2558520); distancia 318 m
+  mediana de la distancia a las 3 bocas = 318 m (umbral 300); IoU >= 0.75: True; escala en [45, 75]: True
+  ==> TRANSFORMACION RECHAZADA (b) y (c) quedan no evaluables
+Estaciones (nodo de la bahia mas cercano; zona 1 = canal, 2 = cuenca, 3 = Marimelena, 4 = Guasabacoa, 5 = Atares; prof = z del hgrid):
+   1: E 361389 N 2560306 | nodo 3677 zona 1 a 13 m, prof 13.6 m | nodos de la bahia a <= 150 m: 107
+   2: E 363185 N 2559541 | nodo 2533 zona 2 a 15 m, prof 8.2 m | nodos de la bahia a <= 150 m: 44
+   3: E 363128 N 2559273 | nodo 2241 zona 2 a 19 m, prof 8.2 m | nodos de la bahia a <= 150 m: 46
+   4: E 363555 N 2559185 | nodo 2125 zona 2 a 19 m, prof 6.7 m | nodos de la bahia a <= 150 m: 45
+   5: E 362499 N 2559122 | nodo 2081 zona 2 a 14 m, prof 10.2 m | nodos de la bahia a <= 150 m: 47
+   6: E 362797 N 2559082 | nodo 2005 zona 2 a 15 m, prof 7.7 m | nodos de la bahia a <= 150 m: 46
+   7: E 362663 N 2558590 | nodo 1388 zona 4 a 11 m, prof 7.7 m | nodos de la bahia a <= 150 m: 44
+   8: E 362136 N 2558380 | nodo 1215 zona 5 a 14 m, prof 7.8 m | nodos de la bahia a <= 150 m: 45
+   9: E 361535 N 2557993 | nodo 832 zona 5 a 20 m, prof 4.7 m | nodos de la bahia a <= 150 m: 47
+  10: E 362529 N 2558092 | nodo 962 zona 4 a 21 m, prof 6.1 m | nodos de la bahia a <= 150 m: 46
+  11: E 362695 N 2557384 | nodo 294 zona 4 a 4 m, prof 2.1 m | nodos de la bahia a <= 150 m: 42
+Otros drenajes de la tabla 4.8 con la misma transformacion (celdas/2):
+  S4: (360883, 2557746) -> nodo 568 zona 5 a 5 m
+  S5: (360906, 2557654) -> nodo 480 zona 5 a 14 m
+  S6: (360978, 2557257) -> nodo 319 zona 5 a 144 m
