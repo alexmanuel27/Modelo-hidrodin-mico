@@ -29,7 +29,7 @@ H_POR_DIA = 0.35   # limite de Slurm por dia simulado: 2x el peor medido en el c
 ESCRIBAS = int(os.environ.get("CONJ_ESCRIBAS", 3))   # trazadores: 6 (3 mas por GEN_1..3) # SCHISM exige >= 1 scribe por variable 3D de salida (AGE_1 + salinidad + ...)
 BIN = os.environ.get("CONJ_BIN", "$HOME/schism/build/bin/pschism_AGE_BLD_STANDALONE_SH_MEM_COMM_TVD-VL")   # trazadores: el de build_gen
 POSPROCESO = int(os.environ.get("CONJ_POSPROCESO", 1))   # 0: sin posproceso ni borrado de campos (trazadores)
-GUARDAR = (0, 1, 2)                           # miembros que conservan los campos completos (figuras); el resto solo resumen.*
+GUARDAR = tuple(int(x) for x in os.environ.get("CONJ_GUARDAR", "0,1,2").split(","))   # CONJ_GUARDAR=0,1,2,3 para runs/salinidad (18-nov: m0003 tambien necesita los campos)                           # miembros que conservan los campos completos (figuras); el resto solo resumen.*
 SEMILLA_DISENO = 20261016
 
 # nombre, transformacion u in [0,1) -> valor
