@@ -13,6 +13,7 @@ datos/forzamiento/sflux/
 runs/prueba_idealizada*/
 datos/batimetria/fuentes/*.jpg
 datos/batimetria/fuentes/*.tif
+datos/batimetria/fuentes/jica_2004_vol5_*.pdf
 datos/batimetria/vistas/
 datos/batimetria/teselas/
 datos/batimetria/superficies/*.nc
