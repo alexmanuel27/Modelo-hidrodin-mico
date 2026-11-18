@@ -32,3 +32,10 @@ y pasa a causas estructurales que solo se prueban con corridas nuevas (fase II, 
 o que las observaciones de 2002 (lluvias previas por frentes fríos, texto de JICA M4-44) no sean representativas. Un resultado que contradiga la hipótesis del artículo se informa tal cual.
 
 ## Registro
+- 2026-11-18 — **Aclaraciones A1, escritas antes de ejecutar el script (no cambian umbrales ni lecturas).**
+  1. *H1, raíces.* La regresión es cuadrática en ln qfac y puede tener dos raíces. Se toma la menor raíz con qfac ≥ 1 (más agua dulce que el caso central, la dirección que cierra el hueco). Si no hay ninguna, «no es cuestión de caudal». Se listan todas las raíces.
+  2. *Miembros.* Todos los miembros con `resumen.json` y `nan = 0` (los mismos de `jica_sal_superficie_704.csv`); la regresión usa los que tienen S11 definido (≥ 3 mapas por fase). La versión «solo en equilibrio» (deriva ≤ 0,05 d/d) se informa como sensibilidad, sin cambiar la lectura.
+  3. *S11 de un directorio de corrida* = mismo cálculo que `sal_704` (nodo principal; creciente Q > 0, bajamar Q ≤ 0 en el mapa de 16:00 UTC más cercano). El script comprueba que reproduce las filas del CSV de los 704.
+  4. *Cierre* = (S11_control − S11_variante) / hueco; para H4 = −(cambio predicho) / hueco. En H3(ii) el hueco es el global (mediana de los 704 − 31,25), no uno por pareja.
+  5. *Zonas.* «Centro de la Bahía» = zona 2 (cuenca). Valores de la tabla 4.11 (nov. 2001, superficie): se toman los de «High tide» y «Low tide» (no los de junio). `dulce_sup` es la media de los mapas de la ventana final de `posproceso.py` (VENTANA); S = 36 · (1 − dulce).
+  6. *Verificado en el PDF antes de calcular:* tabla 4.12 (UNESCO vía JICA, M4-16), superficie: salinidad máxima 34,3 (dic.), mínima 27,4 (ene.), promedio anual 32,4; fondo 36,4 (abr.) / 34,4 (sep.) / 35,7. También figura allí la tabla 4.14 (UNESCO, «distribución vertical de la salinidad», 0–5 m: Atarés 12,9; Guasabacoa 13,3; Marimelena 3,3; Centro 4,9; Canal 3,8). La 4.14 se leyó antes de calcular, pero **no entra en ninguna lectura de este protocolo**; solo es contexto.
