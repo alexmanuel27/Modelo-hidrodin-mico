@@ -1,0 +1,38 @@
+Convergencia de S_T (Sarrazin et al. 2016; protocolo_analisis_x.md, 3): 1000 remuestreos, IC95 %, T = 0,05. Edad media por zona, N = filas j < N de cada bloque.
+
+canal:
+  N = 16: Stat_ind 0.533 (no); Stat_rank 0.05 (<1); Stat_scr 0.064 (X0 = 8 factores) ; S_T mayores: qfac 0.71, semilla 0.04, datum 0.03
+  N = 32: Stat_ind 0.425 (no); Stat_rank 0.03 (<1); Stat_scr 0.036 (X0 = 7 factores) ; S_T mayores: qfac 0.60, semilla 0.07, vfac 0.03
+  N = 48: Stat_ind 0.391 (no); Stat_rank 0.03 (<1); Stat_scr 0.042 (X0 = 7 factores) ; S_T mayores: qfac 0.54, semilla 0.09, vrot 0.03
+  N = 64: Stat_ind 0.407 (no); Stat_rank 0.01 (<1); Stat_scr 0.030 (X0 = 7 factores) ; S_T mayores: qfac 0.71, semilla 0.10, vfac 0.02
+  -> converge con N = indices None, orden 16, cribado 32 (None = no converge ni con 64)
+cuenca:
+  N = 16: Stat_ind 0.430 (no); Stat_rank 0.06 (<1); Stat_scr 0.065 (X0 = 8 factores) ; S_T mayores: qfac 0.68, vrot 0.04, semilla 0.04
+  N = 32: Stat_ind 0.419 (no); Stat_rank 0.05 (<1); Stat_scr 0.034 (X0 = 6 factores) ; S_T mayores: qfac 0.60, semilla 0.08, vrot 0.06
+  N = 48: Stat_ind 0.393 (no); Stat_rank 0.06 (<1); Stat_scr 0.033 (X0 = 6 factores) ; S_T mayores: qfac 0.51, semilla 0.09, vrot 0.06
+  N = 64: Stat_ind 0.402 (no); Stat_rank 0.01 (<1); Stat_scr 0.045 (X0 = 7 factores) ; S_T mayores: qfac 0.67, semilla 0.10, vrot 0.05
+  -> converge con N = indices None, orden 16, cribado 32 (None = no converge ni con 64)
+Marimelena:
+  N = 16: Stat_ind 0.391 (no); Stat_rank 0.31 (<1); Stat_scr 0.077 (X0 = 5 factores) ; S_T mayores: qfac 0.56, vfac 0.09, semilla 0.08
+  N = 32: Stat_ind 0.388 (no); Stat_rank 0.29 (<1); Stat_scr 0.058 (X0 = 5 factores) ; S_T mayores: qfac 0.48, semilla 0.12, vrot 0.09
+  N = 48: Stat_ind 0.318 (no); Stat_rank 0.29 (<1); Stat_scr 0.043 (X0 = 5 factores) ; S_T mayores: qfac 0.41, semilla 0.14, vfac 0.08
+  N = 64: Stat_ind 0.417 (no); Stat_rank 0.12 (<1); Stat_scr 0.042 (X0 = 5 factores) ; S_T mayores: qfac 0.58, semilla 0.14, vfac 0.08
+  -> converge con N = indices None, orden 16, cribado 48 (None = no converge ni con 64)
+Guasabacoa:
+  N = 16: Stat_ind 0.587 (no); Stat_rank 0.03 (<1); Stat_scr 0.044 (X0 = 7 factores) ; S_T mayores: qfac 0.73, vrot 0.07, semilla 0.03
+  N = 32: Stat_ind 0.469 (no); Stat_rank 0.07 (<1); Stat_scr 0.030 (X0 = 6 factores) ; S_T mayores: qfac 0.63, vrot 0.08, semilla 0.07
+  N = 48: Stat_ind 0.392 (no); Stat_rank 0.08 (<1); Stat_scr 0.031 (X0 = 6 factores) ; S_T mayores: qfac 0.54, vrot 0.08, semilla 0.07
+  N = 64: Stat_ind 0.378 (no); Stat_rank 0.04 (<1); Stat_scr 0.029 (X0 = 6 factores) ; S_T mayores: qfac 0.68, semilla 0.09, vrot 0.07
+  -> converge con N = indices None, orden 16, cribado 16 (None = no converge ni con 64)
+Atares:
+  N = 16: Stat_ind 0.619 (no); Stat_rank 0.03 (<1); Stat_scr 0.057 (X0 = 8 factores) ; S_T mayores: qfac 0.74, semilla 0.04, vrot 0.04
+  N = 32: Stat_ind 0.446 (no); Stat_rank 0.02 (<1); Stat_scr 0.044 (X0 = 7 factores) ; S_T mayores: qfac 0.60, semilla 0.09, vrot 0.04
+  N = 48: Stat_ind 0.362 (no); Stat_rank 0.02 (<1); Stat_scr 0.039 (X0 = 7 factores) ; S_T mayores: qfac 0.53, semilla 0.09, vrot 0.04
+  N = 64: Stat_ind 0.407 (no); Stat_rank 0.01 (<1); Stat_scr 0.034 (X0 = 7 factores) ; S_T mayores: qfac 0.68, semilla 0.10, vrot 0.04
+  -> converge con N = indices None, orden 16, cribado 32 (None = no converge ni con 64)
+bahia:
+  N = 16: Stat_ind 0.536 (no); Stat_rank 0.04 (<1); Stat_scr 0.056 (X0 = 8 factores) ; S_T mayores: qfac 0.72, vrot 0.04, semilla 0.03
+  N = 32: Stat_ind 0.472 (no); Stat_rank 0.05 (<1); Stat_scr 0.034 (X0 = 6 factores) ; S_T mayores: qfac 0.62, semilla 0.07, vrot 0.06
+  N = 48: Stat_ind 0.408 (no); Stat_rank 0.05 (<1); Stat_scr 0.036 (X0 = 6 factores) ; S_T mayores: qfac 0.53, semilla 0.08, vrot 0.05
+  N = 64: Stat_ind 0.404 (no); Stat_rank 0.01 (<1); Stat_scr 0.042 (X0 = 7 factores) ; S_T mayores: qfac 0.68, semilla 0.10, vrot 0.05
+  -> converge con N = indices None, orden 16, cribado 32 (None = no converge ni con 64)

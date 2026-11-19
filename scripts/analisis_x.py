@@ -274,19 +274,18 @@ def figuras(G, datos, R, P, conv, mapas, perf):
     from figuras_resultados import PARAM
     from matplotlib.tri import Triangulation
     estilo(); col = [GRIS, AMARILLO, VERDE, CELESTE, ROSA, NARANJA, AZUL, NEGRO, BERMELLON]
-    # (a) edad mensual (+ dS-dT si hay datos)
-    fig, axs = plt.subplots(1, 2, figsize=(ANCHO2, 75 * MM), constrained_layout=True); meses = np.arange(2, 13)
-    for (nom, g), c in zip(G.items(), (GRIS, AZUL, BERMELLON)): axs[1].plot(meses, g, marker="o", ms=2.5, color=c, label=nom)
-    axs[1].axhline(0, color=NEGRO, lw=0.4); axs[1].set_xlabel("Month of 2016"); axs[1].set_ylabel("Bay-mean age growth $G_m$ (d d$^{-1}$)"); axs[1].set_xticks(meses); axs[1].legend(frameon=False); letra(axs[1], "b")
-    hay = [n for n, dd in datos.items() if dd is not None]
+    # edad mensual; con T y S medias disponibles, tambien el diagrama dS-dT (fig_dst_diagram). Sin ellas solo se dibuja la edad: fig_age_growth_monthly
+    en = {"sin calor (m0000)": "No heat (m0000)", "calor, borde a 28 C (m0001)": "Heat, boundary 28 \u00b0C (m0001)", "calor + OISST (m0005)": "Heat + OISST (m0005)"}
+    hay = all(dd is not None for dd in datos.values()); meses = np.arange(2, 13); colores = dict(zip(G, (GRIS, AZUL, BERMELLON)))
+    fig, axs = plt.subplots(1, 2 if hay else 1, figsize=(ANCHO2 if hay else 90 * MM, 75 * MM), constrained_layout=True); axs = np.atleast_1d(axs); axb = axs[-1]
+    for nom, g in G.items(): axb.plot(meses, g, marker="o", ms=2.5, color=colores[nom], label=en[nom])
+    axb.axhline(0, color=NEGRO, lw=0.4); axb.set_xlabel("Month of 2016"); axb.set_ylabel("Bay-mean age growth $G_m$ (d d$^{-1}$)"); axb.set_xticks(meses); axb.legend(frameon=False, fontsize=5.5, loc="lower left")
     if hay:
-        x = np.linspace(-6, 0.5, 60); y = np.linspace(-4, 4, 60); XX, YY = np.meshgrid(x, y); Tb = 27.5
-        axs[0].contour(XX, YY, unesco(Tb + YY, 36 + XX) - unesco(Tb, 36), levels=np.arange(-5, 6, 1), colors=GRIS, linewidths=0.4)
-        for (nom, dd), c in zip(datos.items(), (GRIS, AZUL, BERMELLON)):
-            if dd is not None: axs[0].scatter(dd["dS_bahia"], dd["dT_bahia"], s=8, color=c, label=nom, zorder=3)
-        axs[0].set_xlabel(r"$\Delta S$ (bay − boundary)"); axs[0].set_ylabel(r"$\Delta T$ (K)"); axs[0].legend(frameon=False)
-    else: axs[0].text(0.5, 0.5, "Monthly bay-mean T and S were not saved;\nsee protocolo_analisis_x.md, 1", ha="center", va="center", transform=axs[0].transAxes, fontsize=6.5); axs[0].set_axis_off()
-    letra(axs[0], "a"); guarda(fig, "fig_dst_diagram", 190)
+        x = np.linspace(-6, 0.5, 60); y = np.linspace(-4, 4, 60); XX, YY = np.meshgrid(x, y)
+        axs[0].contour(XX, YY, unesco(27.5 + YY, 36 + XX) - unesco(27.5, 36), levels=np.arange(-5, 6, 1), colors=GRIS, linewidths=0.4)
+        for nom, dd in datos.items(): axs[0].scatter(dd["dS_bahia"], dd["dT_bahia"], s=8, color=colores[nom], label=en[nom], zorder=3)
+        axs[0].set_xlabel(r"$\Delta S$ (bay \u2212 boundary)"); axs[0].set_ylabel(r"$\Delta T$ (K)"); axs[0].legend(frameon=False, fontsize=5.5); letra(axs[0], "a"); letra(axb, "b")
+    guarda(fig, "fig_dst_diagram" if hay else "fig_age_growth_monthly", 190 if hay else 90)
     # indice de bajo aporte
     fig, axs = plt.subplots(2, 2, figsize=(ANCHO2, 100 * MM), constrained_layout=True)
     for (ax, x, y, xl, yl) in ((axs[0, 0], R[:, 1], R[:, 4], "River discharge factor", "Bay-mean age (d)"), (axs[0, 1], R[:, 2], R[:, 4], r"Low-inflow index $Q_r/(W u_t^3)$", "Bay-mean age (d)"),
@@ -300,7 +299,7 @@ def figuras(G, datos, R, P, conv, mapas, perf):
         for z, c in zip(ZONAS, (GRIS, VERDE, CELESTE, ROSA, NARANJA, BERMELLON)):
             axs[k].plot(ns, [s[k] for s in resumen[z][0]], marker="o", ms=2.5, color=c, lw=1.2 if z == "bahia" else 0.6, label="bay" if z == "bahia" else z)
         axs[k].axhline(umb, color=NEGRO, ls="--", lw=0.6); axs[k].set_xticks(ns); axs[k].set_xlabel("Base sample size $N$"); axs[k].set_ylabel(tit); letra(axs[k], "abc"[k])
-    axs[0].legend(frameon=False, fontsize=5.5); guarda(fig, "fig_sobol_convergence_stats", 190)
+    axs[0].legend(frameon=False, fontsize=5.5, loc="upper right"); guarda(fig, "fig_sobol_convergence_stats", 190)
     # mapa de S_T
     ST, params2, top3 = mapas; Mm = np.load(RAIZ / "datos" / "conjunto" / "posproceso_malla.npz"); zona = Mm["zona"]; Lh = (RAIZ / "datos" / "malla" / "hgrid.gr3").read_text().split("\n"); ne, nn = map(int, Lh[1].split()[:2])
     xy = np.array([l.split()[1:3] for l in Lh[2:2 + nn]], float); tri = np.array([l.split()[2:5] for l in Lh[2 + nn:2 + nn + ne]], int) - 1
@@ -314,6 +313,9 @@ def figuras(G, datos, R, P, conv, mapas, perf):
         axs[r, 3].tripcolor(tr, dom, vmin=-0.5, vmax=len(params2) - 0.5, cmap=ListedColormap(col), shading="flat" if False else "gouraud"); axs[r, 3].set_title("Dominant ($S_T \\geq 0.05$)", fontsize=6.5)
         for ax in axs[r]: ax.set_aspect("equal"); ax.set_xticks([]); ax.set_yticks([]); ax.set_xlim(xy[b, 0].min(), xy[b, 0].max()); ax.set_ylim(xy[b, 1].min(), xy[b, 1].max())
         axs[r, 0].set_ylabel("Surface age" if c == "edad_sup" else "Bottom age")
+    from matplotlib.patches import Patch
+    presentes = sorted({int(v) for c in ST for v in np.unique(np.where(b & (np.nanmax(ST[c], axis=0) >= T_CRIB), np.nanargmax(np.nan_to_num(ST[c], nan=-1), axis=0), -1)) if v >= 0})
+    fig.legend([Patch(color=col[i]) for i in presentes], [PARAM.get(params2[i], params2[i]) for i in presentes], loc="outside lower center", ncol=len(presentes), frameon=False, fontsize=5.5, title="Dominant parameter", title_fontsize=5.5)
     fig.colorbar(im, ax=axs[:, :3], shrink=0.6, label="$S_T$"); guarda(fig, "fig_st_map", 190)
     # perfil del canal
     M, obs = perf; fig, ax = plt.subplots(figsize=(90 * MM, 70 * MM), constrained_layout=True); yy = {"surface": 0, "middle": 1, "bottom": 2}

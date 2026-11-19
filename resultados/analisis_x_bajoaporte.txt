@@ -1,0 +1,7 @@
+Indice de bajo aporte I = Qr / (W u_t^3) (EXPLORATORIO). W = 330 m, A = 2751 m2, u_t = rms(Q - media)/A en los ultimos 30 d (sustituto de canal_un). 704 miembros validos.
+  u_t: mediana 0.031 m/s (P5-P95 0.025-0.036); I: P5-P95 52.4-451
+  edad media de la bahia, todos los validos (n 704): rho(I) -0.832, rho(qfac) -0.914; D = -0.082 [-0.104, -0.061] -> I es peor
+  edad media de la bahia, solo en equilibrio (n 639): rho(I) -0.854, rho(qfac) -0.922; D = -0.067 [-0.086, -0.051] -> I es peor
+Desplazamiento por calor + OISST (n 64 pares, conjunto_calor frente a conjunto, miembros 0-63):
+  en dias (calor - sin): rho(I) -0.456, rho(qfac) -0.525; D = -0.069 [-0.182, +0.045] -> no mejora
+  en cociente (calor / sin): rho(I) -0.080, rho(qfac) -0.117; D = -0.038 [-0.152, +0.105] -> no mejora

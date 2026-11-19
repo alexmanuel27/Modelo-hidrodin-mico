@@ -1,0 +1,6 @@
+Diagrama dS-dT (protocolo_analisis_x.md, 1). Crecimiento mensual de la edad de la bahia G_m (d/d), feb-dic de 2016, de runs/robustez_largo:
+  sin calor (m0000)              +0.047 -0.035 +0.000 -0.003 +0.007 -0.004 +0.016 +0.002 -0.009 +0.006 -0.005
+  calor, borde a 28 C (m0001)    +0.107 +0.327 -0.204 -0.347 -0.035 -0.008 +0.012 +0.023 +0.322 +0.211 -0.098
+  calor + OISST (m0005)          +0.342 -0.174 +0.011 -0.094 +0.036 -0.114 -0.065 +0.127 +0.272 +0.132 -0.135
+T y S medias mensuales NO disponibles para: sin calor (m0000); calor, borde a 28 C (m0001); calor + OISST (m0005). No se aplica la lectura (INCONCLUSO por falta de datos, no por resultado).
+Que hay que repetir/reducir: (1) m0001 (calor, borde 28 C) con TERMICO=1, 365 d, ~133 h-nucleo medidas en runs/robustez_largo/coste.txt (python scripts/conjunto.py deltast); (2) python scripts/delta_st.py reduce <carpeta> en el cluster para runs/robustez_largo/m0000, runs/borde28/m0000 y runs/termico/m0000 (= m0005 repetido con salidas).

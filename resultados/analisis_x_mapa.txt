@@ -1,0 +1,14 @@
+Mapa de S_T por nodo (Jansen, N = 64, 704 miembros validos). S_T de la edad media de la bahia, N = 64 (punto, sin IC): qfac 0.67, semilla 0.10, vrot 0.05, carta 0.03, datum 0.01, vfac 0.01, cd 0.01, alfa 0.01, mfac 0.00
+Tres parametros dibujados (regla fijada): qfac, semilla, vrot
+  edad_sup   canal      S_T medio ponderado por area: carta 0.05, alfa 0.05, semilla 0.10, datum 0.03, cd 0.03, vfac 0.04, vrot 0.06, mfac 0.02, qfac 0.66  | dominante: qfac
+  edad_sup   cuenca     S_T medio ponderado por area: carta 0.04, alfa 0.01, semilla 0.11, datum 0.01, cd 0.01, vfac 0.04, vrot 0.06, mfac 0.00, qfac 0.61  | dominante: qfac
+  edad_sup   Marimelena S_T medio ponderado por area: carta 0.04, alfa 0.01, semilla 0.15, datum 0.03, cd 0.02, vfac 0.11, vrot 0.07, mfac 0.00, qfac 0.52  | dominante: qfac
+  edad_sup   Guasabacoa S_T medio ponderado por area: carta 0.03, alfa 0.01, semilla 0.09, datum 0.01, cd 0.01, vfac 0.01, vrot 0.07, mfac 0.00, qfac 0.67  | dominante: qfac
+  edad_sup   Atares     S_T medio ponderado por area: carta 0.02, alfa 0.01, semilla 0.10, datum 0.01, cd 0.00, vfac 0.01, vrot 0.04, mfac 0.00, qfac 0.68  | dominante: qfac
+  edad_sup   bahia      S_T medio ponderado por area: carta 0.04, alfa 0.01, semilla 0.11, datum 0.02, cd 0.01, vfac 0.04, vrot 0.06, mfac 0.01, qfac 0.63  | dominante: qfac
+  edad_fondo canal      S_T medio ponderado por area: carta 0.11, alfa 0.15, semilla 0.16, datum 0.06, cd 0.07, vfac 0.10, vrot 0.06, mfac 0.04, qfac 0.52  | dominante: qfac
+  edad_fondo cuenca     S_T medio ponderado por area: carta 0.04, alfa 0.03, semilla 0.16, datum 0.02, cd 0.01, vfac 0.07, vrot 0.04, mfac 0.00, qfac 0.58  | dominante: qfac
+  edad_fondo Marimelena S_T medio ponderado por area: carta 0.03, alfa 0.02, semilla 0.16, datum 0.03, cd 0.02, vfac 0.11, vrot 0.08, mfac 0.01, qfac 0.52  | dominante: qfac
+  edad_fondo Guasabacoa S_T medio ponderado por area: carta 0.02, alfa 0.02, semilla 0.11, datum 0.01, cd 0.01, vfac 0.04, vrot 0.06, mfac 0.00, qfac 0.65  | dominante: qfac
+  edad_fondo Atares     S_T medio ponderado por area: carta 0.03, alfa 0.01, semilla 0.11, datum 0.01, cd 0.00, vfac 0.05, vrot 0.03, mfac 0.00, qfac 0.64  | dominante: qfac
+  edad_fondo bahia      S_T medio ponderado por area: carta 0.04, alfa 0.04, semilla 0.14, datum 0.02, cd 0.02, vfac 0.07, vrot 0.05, mfac 0.01, qfac 0.59  | dominante: qfac

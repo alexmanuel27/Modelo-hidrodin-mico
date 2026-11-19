@@ -1,0 +1,12 @@
+Perfil del canal frente a JICA, tabla 4.11 (Canal de Entrada; junio y noviembre de 2001). Modelo: media de los nodos de zona 1, dias 91-120, niveles sup / mid / fondo.
+Dentro = |modelo - observado| <= 1.
+  m0000: surface cre 35.55 baj 35.45; middle cre 35.80 baj 35.75; bottom cre 35.92 baj 35.91 | dentro 8/9
+          fondo - superficie: modelo +0.41
+  m0001: surface cre 35.79 baj 35.75; middle cre 35.86 baj 35.83; bottom cre 35.93 baj 35.92 | dentro 7/9
+          fondo - superficie: modelo +0.16
+  m0002: surface cre 35.76 baj 35.71; middle cre 35.87 baj 35.85; bottom cre 35.95 baj 35.95 | dentro 7/9
+          fondo - superficie: modelo +0.22
+  observado (nov. 2001, pleamar / bajamar; jun. 2001): surface 35.46 / 34.53; 33.37; middle 36.27 / 36.41; 35.33; bottom 36.25 / 36.29; 36.41
+  fondo - superficie observado: pleamar +0.79, bajamar +1.76, junio +3.04
+  TOTAL dentro 22/27 (3 miembros x 3 niveles x 3 observaciones)
+  Velocidad por nivel (estacion 1): NO evaluable, falta la velocidad 3D (runs/salinidad). GEF: no se usa (sin fuente publica).
