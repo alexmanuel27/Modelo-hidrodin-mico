@@ -269,6 +269,9 @@ if __name__ == "__main__":
         filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", "VEL3D": "1", **e}) for k, (_, e) in enumerate(casos)]
         for k, (nom, _) in enumerate(casos): print(f"m{k:04d}: {nom}")
         generar(4, filas=filas)
+    elif accion == "deltast":   # 19-nov (protocolo_analisis_x.md, 1): repite m0001 de robustez_largo (calor, borde a 28 C, viento real) con T y flujos guardados para el diagrama dS-dT. 133 h-nucleo medidas. CONJ_DIR=runs/borde28 CONJ_DIAS=365 CONJ_SEG=10 CONJ_HORAS=12 CONJ_MARGEN=3 CONJ_ESCRIBAS=4 python scripts/conjunto.py deltast
+        filas = [dict(BASE, miembro="0", extra={"MAREA": "eot20", "CALOR": "1", "TERMICO": "1"})]
+        print("m0000: calor, borde a 28 C, 365 d, con T y flujos guardados"); generar(1, filas=filas)
     elif accion == "borde_prueba":   # 15-nov (revision, A9): miembro central 10 d: control, sin Coriolis, sin viento. CONJ_DIR=runs/borde_prueba CONJ_DIAS=10 CONJ_SEG=10 python scripts/conjunto.py borde_prueba
         casos = [("control (Coriolis y viento)", {}), ("sin Coriolis (NCOR=0)", {"NCOR": "0"}), ("sin viento (NWS=0)", {"NWS": "0"})]
         filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", **e}) for k, (_, e) in enumerate(casos)]
