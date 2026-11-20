@@ -88,7 +88,7 @@ def main():
         un = np.nanmean(z["canal_un"], 0) * 100
         L += [f"  m000{n} (c) estacion 1 (prof {prof:.1f} m): modulo sup {U['sup']:.1f}, 5 m {U['m5']:.1f}, 10 m {U['m10']:.1f} cm/s frente a {OBS_C['sup']}, {OBS_C['m5']}, {OBS_C['m10']}; r_n = " + ", ".join(f"{x:.2f}" for x in r)
               + f" -> {veredicto_c(r)} (sensibilidad: superficie en bloques de 24,84 h, P5-P95 {np.nanpercentile(bl, 5):.1f}-{np.nanpercentile(bl, 95):.1f} cm/s)",
-              f"         (a) cualitativo, sin veredicto: velocidad media a lo largo del canal (> 0 hacia dentro) {dict(zip(ni, np.round(un, 1)))} cm/s -> superficie {'hacia dentro' if un[0] > 0 else 'hacia fuera'}, fondo {'hacia dentro' if un[-1] > 0 else 'hacia fuera'}"]
+              f"         (a) cualitativo, sin veredicto: velocidad media a lo largo del canal (> 0 hacia dentro) {dict(zip(map(str, ni), map(float, np.round(un, 1))))} cm/s -> superficie {'hacia dentro' if un[0] > 0 else 'hacia fuera'}, fondo {'hacia dentro' if un[-1] > 0 else 'hacia fuera'}"]
     t = "\n".join(L); print(t); (RAIZ / "resultados" / "salinidad_superficie_faseII.txt").write_text(t + "\n")
 
 
