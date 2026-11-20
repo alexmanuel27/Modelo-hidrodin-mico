@@ -1,6 +1,6 @@
 Fase II (runs/salinidad). Hueco de S11 = mediana(704) - 31.25 = +4.120 (n 704); P5-P95 de la edad media de la bahia de 704 miembros validos = 5.308 d
 F1 reproducibilidad: m0000 S11 35.215 frente a robustez/m0000 35.215 (dif +0.000, tol 0.05); edad media de la bahia 6.581 frente a 6.581 d (dif +0.000, tol 0.05) -> CUMPLE
-F2 cotas: NO EVALUABLE (el .npz no trae dz_max: extraido con una version antigua del extractor; hay que reextraer con scripts/jica_extrae_estaciones.py de bf5c608)
+F2 cotas: max |zCoordinates - zcor| = 0.0000 m (tol 0.01) -> CUMPLE
 F3 (cierre de S11 = (S11 control - S11 variante) / hueco), F4 ((b), media de las dos fases, nodo y 300 m, reglas A1) y F5 (R = (edad variante - control) / P5-P95 de los 704):
   m0000 control (fondo): S11 35.215; F3 cierre +0.000 -> no explica; edad media 6.581 d, F5 R = +0.000 -> NO CAMBIA; F4 dS_b media nodo +0.49 (cr +0.48, ba +0.51), 300 m +0.44 -> (b) CONTRADICE [rango observado 3.7-5.5]
   m0001 rios en la capa superior: S11 35.092; F3 cierre +0.030 -> no explica; edad media 6.025 d, F5 R = -0.105 -> PARCIAL; F4 dS_b media nodo +0.64 (cr +0.63, ba +0.65), 300 m +0.58 -> (b) CONTRADICE [rango observado 3.7-5.5]
