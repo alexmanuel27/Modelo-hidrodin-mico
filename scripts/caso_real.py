@@ -188,7 +188,7 @@ def main():
         t0 = np.datetime64(f"{INICIO[0]:04d}-{INICIO[1]:02d}-{INICIO[2]:02d}")
         serie = [((np.datetime64(f["fecha"]) - t0).astype(int), float(f["sst_C"])) for f in filas]
         serie = [(d, v) for d, v in serie if 0 <= d <= RNDAY + 1]
-        assert len(serie) >= RNDAY + 1 and serie[0][0] == 0, "faltan dias de SST: python scripts/descargar_sst.sh"
+        assert len(serie) >= RNDAY + 1 and serie[0][0] == 0 and [d for d, _ in serie] == list(range(len(serie))), "faltan o sobran dias de SST (SCHISM interpola TEM_1.th con paso fijo de 86400 s): python scripts/descargar_sst.sh"
         T0 = serie[0][1]
         (RUN / "TEM_1.th").write_text("".join(f"{d * 86400.0:.1f} {v:.3f}\n" for d, v in serie))
         TS, TS_BORDE = "1 2", "1.\n36.\n1.\n"

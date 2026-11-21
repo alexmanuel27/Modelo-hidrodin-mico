@@ -1,0 +1,11 @@
+Huecos de un dia de oisst_habana_2017_2025.csv rellenados por interpolacion lineal (celdas = 0 marca la fila); 17 dias faltaban (8 rellenados, 9 no) en la descarga de ERDDAP (ncdcOisst21Agg).
+fecha, dia anterior, dia posterior, valor interpolado
+2021-03-23, 25.603, 25.780, 25.692
+2021-09-07, 29.431, 29.772, 29.602
+2022-10-19, 28.876, 28.538, 28.707
+2023-02-01, 26.862, 26.875, 26.868
+2023-12-19, 27.045, 26.648, 26.846
+2023-12-21, 26.648, 26.458, 26.553
+2024-03-31, 26.011, 26.122, 26.066
+2025-06-22, 29.388, 29.386, 29.387
+Sin rellenar (hueco de 9 dias, 2023-12-23 a 2023-12-31, fuera de toda ventana de 120 d): no afecta a ninguna corrida.
