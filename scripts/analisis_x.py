@@ -80,13 +80,14 @@ def dst():
         c = ruta / "delta_st_diario.csv"; datos[nom] = mensual(c, oisst if borde else np.full(365, 28.0)) if c.exists() else None
         if datos[nom] is not None and not np.isfinite(datos[nom]["T_bahia"]).all():     # sin calor: T = 28 por construccion (supuesto del protocolo)
             if m == "m0000": datos[nom] = mensual_t28(c)
-    falta = [n for n, d in datos.items() if d is None]
+    falta = [n for n, d in datos.items() if d is None and "calor" in n and not n.startswith("sin ")]    # el control sin calor se informa y no entra en el veredicto (protocolo 1): su falta no impide la lectura
     if falta:
         L += ["T y S medias mensuales NO disponibles para: " + "; ".join(falta) + ". No se aplica la lectura (INCONCLUSO por falta de datos, no por resultado).",
               "Que hay que repetir/reducir: (1) m0001 (calor, borde 28 C) con TERMICO=1, 365 d, ~133 h-nucleo medidas en runs/robustez_largo/coste.txt (python scripts/conjunto.py deltast); "
               "(2) python scripts/delta_st.py reduce <carpeta> en el cluster para runs/robustez_largo/m0000, runs/borde28/m0000 y runs/termico/m0000 (= m0005 repetido con salidas)."]
     else:
-        r = {n: lectura_dst(datos[n]["drho_bahia"][1:], G[n]) for n in G}
+        r = {n: lectura_dst(datos[n]["drho_bahia"][1:], G[n]) for n in G if datos[n] is not None}
+        L += [f"  (sin T ni S medias para el control: {n}; se informa solo su crecimiento de edad)" for n, d in datos.items() if d is None]
         for n, x in r.items(): L.append(f"  {n:30s} rho(Drho, G) = {x['rho']:+.2f}; G en meses hipotermicos {x['m_hip']:+.3f} (n {x['n_hip']}) frente a {x['m_otros']:+.3f} en los demas")
         L.append("VEREDICTO (solo las dos corridas con calor): " + veredicto_dst(r["calor, borde a 28 C (m0001)"], r["calor + OISST (m0005)"]))
     escribe("analisis_x_dst.txt", L); return G, datos
