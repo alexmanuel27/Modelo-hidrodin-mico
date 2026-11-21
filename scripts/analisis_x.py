@@ -277,15 +277,18 @@ def figuras(G, datos, R, P, conv, mapas, perf):
     estilo(); col = [GRIS, AMARILLO, VERDE, CELESTE, ROSA, NARANJA, AZUL, NEGRO, BERMELLON]
     # edad mensual; con T y S medias disponibles, tambien el diagrama dS-dT (fig_dst_diagram). Sin ellas solo se dibuja la edad: fig_age_growth_monthly
     en = {"sin calor (m0000)": "No heat (m0000)", "calor, borde a 28 C (m0001)": "Heat, boundary 28 \u00b0C (m0001)", "calor + OISST (m0005)": "Heat + OISST (m0005)"}
-    hay = all(dd is not None for dd in datos.values()); meses = np.arange(2, 13); colores = dict(zip(G, (GRIS, AZUL, BERMELLON)))
+    hay = all(dd is not None for n, dd in datos.items() if not n.startswith("sin ")); meses = np.arange(2, 13); colores = dict(zip(G, (GRIS, AZUL, BERMELLON)))
     fig, axs = plt.subplots(1, 2 if hay else 1, figsize=(ANCHO2 if hay else 90 * MM, 75 * MM), constrained_layout=True); axs = np.atleast_1d(axs); axb = axs[-1]
     for nom, g in G.items(): axb.plot(meses, g, marker="o", ms=2.5, color=colores[nom], label=en[nom])
     axb.axhline(0, color=NEGRO, lw=0.4); axb.set_xlabel("Month of 2016"); axb.set_ylabel("Bay-mean age growth $G_m$ (d d$^{-1}$)"); axb.set_xticks(meses); axb.legend(frameon=False, fontsize=5.5, loc="lower left")
     if hay:
-        x = np.linspace(-6, 0.5, 60); y = np.linspace(-4, 4, 60); XX, YY = np.meshgrid(x, y)
-        axs[0].contour(XX, YY, unesco(27.5 + YY, 36 + XX) - unesco(27.5, 36), levels=np.arange(-5, 6, 1), colors=GRIS, linewidths=0.4)
-        for nom, dd in datos.items(): axs[0].scatter(dd["dS_bahia"], dd["dT_bahia"], s=8, color=colores[nom], label=en[nom], zorder=3)
-        axs[0].set_xlabel(r"$\Delta S$ (bay \u2212 boundary)"); axs[0].set_ylabel(r"$\Delta T$ (K)"); axs[0].legend(frameon=False, fontsize=5.5); letra(axs[0], "a"); letra(axb, "b")
+        x = np.linspace(-2, 0.5, 80); y = np.linspace(-5, 2, 80); XX, YY = np.meshgrid(x, y)
+        cs = axs[0].contour(XX, YY, unesco(27.5 + YY, 36 + XX) - unesco(27.5, 36), levels=np.arange(-6, 3, 0.5), colors=GRIS, linewidths=0.4)
+        axs[0].clabel(cs, fmt="%.1f", fontsize=5, inline=True); axs[0].set_xlim(-2, 0.5); axs[0].set_ylim(-5, 2)
+        axs[0].text(0.03, 0.04, r"contours: $\Delta\rho$ (kg m$^{-3}$) relative to the boundary", transform=axs[0].transAxes, fontsize=5.5, color=GRIS)
+        for nom, dd in datos.items():
+            if dd is not None: axs[0].scatter(dd["dS_bahia"], dd["dT_bahia"], s=8, color=colores[nom], label=en[nom], zorder=3)
+        axs[0].set_xlabel(r"$\Delta S$ (bay $-$ boundary)"); axs[0].set_ylabel(r"$\Delta T$ (K)"); axs[0].legend(frameon=False, fontsize=5.5); letra(axs[0], "a"); letra(axb, "b")
     guarda(fig, "fig_dst_diagram" if hay else "fig_age_growth_monthly", 190 if hay else 90)
     # indice de bajo aporte
     fig, axs = plt.subplots(2, 2, figsize=(ANCHO2, 100 * MM), constrained_layout=True)
