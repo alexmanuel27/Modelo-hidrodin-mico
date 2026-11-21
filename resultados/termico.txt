@@ -1,0 +1,27 @@
+X1 (repeticion con T y flujos, calor + OISST, viento real, 365 d):
+validacion: la repeticion con salidas frente a la m0005 original, diferencia maxima de la media mensual 0.000 d -> reproduce (<= 0,05 d)
+mes: anomalia de edad (calor - sin calor, d), drho del canal (kg/m3), T_bahia - T_borde (C)
+   1  +1.00  0.193  -2.55
+   2  +6.37  0.196  -3.10
+   3  +7.41  0.283  -1.43
+   4  +4.73  0.269  -0.61
+   5  +5.28  0.291  -0.37
+   6  +3.04  0.326  +0.03
+   7  +2.05  0.290  +0.06
+   8  -0.21  0.280  +0.20
+   9  +1.71  0.281  -0.29
+  10  +4.73  0.151  -1.65
+  11 +14.26  0.156  -3.53
+  12  +8.90  0.174  -2.15
+R1 rho(drho canal, anomalia), feb-dic (n = 11): -0.40 -> no concluyente; R2 rho(T_bahia - T_borde, anomalia): -0.87 -> confirma; R3 drho mediano de los 3 meses de mayor anomalia / los 3 de menor: 0.62 -> no concluyente
+veredicto X1: PARCIAL / NO CONCLUYENTE
+T1-T3 de 16-nov con el flujo del MODELO en lugar del proxy: T1 +0.36 (confirmada), control -0.07, parcial dado tau +0.18, T2 +0.46 (no concluyente) -> no concluyente / parcial
+
+X2 (factorial 2x2, 365 d; A y B son las corridas ya existentes de robustez_largo m0000 y m0005):
+  A sin calor, viento real: edad media dias 31-365 6.66 d; dias > 14 d 0; media movil de 30 d 6.2-7.6 d
+  B calor, viento real: edad media dias 31-365 11.92 d; dias > 14 d 87; media movil de 30 d 6.0-21.1 d
+  C sin calor, viento climatologico: edad media dias 31-365 7.47 d; dias > 14 d 0; media movil de 30 d 7.1-7.8 d
+  D calor, viento climatologico: edad media dias 31-365 12.87 d; dias > 14 d 115; media movil de 30 d 6.2-18.2 d
+efecto del calor con viento real +5.26 d; con viento climatologico +5.40 d; efecto del viento sin calor +0.82 d, con calor +0.95 d; interaccion +0.13 d
+veredicto X2: el efecto termico SE MANTIENE sin viento sinoptico (>= 50 %) (efecto con viento climatologico = 103 % del efecto con viento real)
+[descriptivo] drho mediano del canal: viento real 0.251, viento climatologico 0.351 kg/m3; Qdown medio +20.0 W/m2 (viento real), +41.1 (climatologico)

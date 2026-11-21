@@ -5,7 +5,7 @@ F3 (cierre de S11 = (S11 control - S11 variante) / hueco), F4 ((b), media de las
   m0000 control (fondo): S11 35.215; F3 cierre +0.000 -> no explica; edad media 6.581 d, F5 R = +0.000 -> NO CAMBIA; F4 dS_b media nodo +0.49 (cr +0.48, ba +0.51), 300 m +0.44 -> (b) CONTRADICE [rango observado 3.7-5.5]
   m0001 rios en la capa superior: S11 35.092; F3 cierre +0.030 -> no explica; edad media 6.025 d, F5 R = -0.105 -> PARCIAL; F4 dS_b media nodo +0.64 (cr +0.63, ba +0.65), 300 m +0.58 -> (b) CONTRADICE [rango observado 3.7-5.5]
   m0002 rios en toda la columna: S11 34.487; F3 cierre +0.177 -> no explica; edad media 4.170 d, F5 R = -0.454 -> CAMBIA; F4 dS_b media nodo +1.14 (cr +1.14, ba +1.15), 300 m +1.08 -> (b) CONTRADICE [rango observado 3.7-5.5]
-  m0003 capa superior, caudal x1,7005: pendiente (sin resumen.npz)
+  m0003 capa superior, caudal x1,7005: S11 34.497; F3 cierre +0.174 -> no explica; edad media 4.210 d, F5 R = -0.447 -> CAMBIA; F4 dS_b media nodo +1.14 (cr +1.15, ba +1.14), 300 m +1.07 -> (b) CONTRADICE [rango observado 3.7-5.5]
 CONCLUSION H6 (m0001, m0002): NO EXPLICA
 F6 (a) y (c), reglas de docs/protocolo_jica_observaciones.md sin cambios; aclaracion A3: el promedio «sobre 2 ciclos de M2» se estima con la ventana completa (dias 91-120, ~56 ciclos) porque las salidas son cada 4 h:
   m0000 (c) estacion 1 (prof 13.6 m): modulo sup 9.6, 5 m 3.8, 10 m 7.0 cm/s frente a 15.9, 16.3, 17.1; r_n = 0.60, 0.23, 0.41 -> CONTRADICE (sensibilidad: superficie en bloques de 24,84 h, P5-P95 5.1-12.5 cm/s)
