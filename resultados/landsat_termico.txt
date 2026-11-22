@@ -2,3 +2,4 @@ escenas validas 234; control mar-mar: |T_A - T_B| P95 = 2.15 C (suelo de ruido)
   fria (nov-mar): n = 99, T_bahia - T_mar mediana +0.83 C (IC95 +0.53 a +1.13); control mediano +0.04
   calida (jun-sep): n = 77, T_bahia - T_mar mediana +2.69 C (IC95 +2.31 a +3.09); control mediano +0.11
 veredicto X3 (observacion): CONTRADICE: la bahia es MAS CALIDA que el mar en la estacion fria
+modelo con calor (2016): fria -2.54, calida +0.00 C -> NO compatible en fria y calida
