@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Figuras del artículo, en inglés y con un estilo común (Environmental Modelling & Software: ancho completo 190 mm).
-Uso: python scripts/figuras_articulo.py [1 2 3 ...]   (sin argumentos: todas)  ->  docs/figuras/articulo/figNN_*.png
+Uso: python scripts/figuras_articulo.py [1 2 3 1sf ...]   (sin argumentos: 1 2 3)  ->  docs/figuras/articulo/figNN_*.png
+1sf = figura 1 sin los focos de Sentinel-2 (fig01_map_sin_focos.png).
 Necesita numpy, scipy y matplotlib. Solo lee datos de entrada versionados (no hacen falta resultados del conjunto).
 El recuadro de Cuba de la figura 1 sale si existe datos/mapa/ne_50m_admin_0_countries.geojson
 (Natural Earth, dominio público; scripts/descargar_natural_earth.sh)."""
@@ -115,7 +116,7 @@ def cuba(ax):
     ax.text(-79.6, 21.3, "Cuba", fontsize=6, ha="center"); ax.text(-80.4, 23.85, "Straits of Florida", fontsize=4.5, ha="center", style="italic", color="0.3")
 
 
-def fig1():
+def fig1(focos=True):
     """Mapa: zonas, canal, ríos y desembocaduras, sitios de turbidez de Sentinel-2; recuadro de Cuba."""
     costa = costa_km(); x, y, X, Y, h, b = rejilla_bahia()
     z = zonas(X, Y, b).astype(float); z[z == 0] = np.nan
@@ -131,9 +132,10 @@ def fig1():
         off = {"Luyanó": (-0.28, -0.08, "right"), "Martín Pérez": (0.14, -0.05, "left"), "Tadeo": (0.12, -0.14, "left")}[n]
         ax.text(e + off[0], nn + off[1], n, color="#0072B2", fontsize=6.5, ha=off[2], va="center", zorder=6, style="italic")
     lim = (359.3, 366.2, 2555.6, 2562.6)
-    with open(RAIZ / "datos" / "sentinel2" / "focos.csv") as f:
-        fo = [r for r in csv.DictReader(f) if lim[0] < float(r["E"]) / 1000 < lim[1] and lim[2] < float(r["N"]) / 1000 < lim[3]]
-    for r in fo: ax.plot(float(r["E"]) / 1000, float(r["N"]) / 1000, "o", mfc="none", mec="#D55E00", mew=1.2, ms=7, zorder=5)
+    if focos:
+        with open(RAIZ / "datos" / "sentinel2" / "focos.csv") as f:
+            fo = [r for r in csv.DictReader(f) if lim[0] < float(r["E"]) / 1000 < lim[1] and lim[2] < float(r["N"]) / 1000 < lim[3]]
+        for r in fo: ax.plot(float(r["E"]) / 1000, float(r["N"]) / 1000, "o", mfc="none", mec="#D55E00", mew=1.2, ms=7, zorder=5)
     etiquetas = {1: (360.55, 2560.15, "Entrance\nchannel"), 2: (363.0, 2559.4, "Main\nbasin"), 3: (364.35, 2559.6, "Marimelena"),
                  4: (362.85, 2557.25, "Guasa-\nbacoa"), 5: (361.5, 2557.95, "Atarés")}
     for k, (e, nn, t) in etiquetas.items():
@@ -144,11 +146,12 @@ def fig1():
     ejes_km(ax, lim); escala(ax); norte(ax)
     leg = [Patch(fc=c, alpha=0.55, label=n) for n, c in ZONAS.values()] + [
         Line2D([], [], color="k", ls="--", lw=0.6, label="Dredged channel (pilots, 2018)"),
-        Line2D([], [], color="#0072B2", lw=0.9, marker="v", mec="k", mew=0.4, ms=5, label="River and model inflow"),
-        Line2D([], [], ls="none", marker="o", mfc="none", mec="#D55E00", mew=1.2, ms=7, label="Recurrent turbidity site (Sentinel-2)")]
+        Line2D([], [], color="#0072B2", lw=0.9, marker="v", mec="k", mew=0.4, ms=5, label="River and model inflow")]
+    if focos:
+        leg.append(Line2D([], [], ls="none", marker="o", mfc="none", mec="#D55E00", mew=1.2, ms=7, label="Recurrent turbidity site (Sentinel-2)"))
     fig.legend(handles=leg, loc="upper left", bbox_to_anchor=(0.55, 0.50), frameon=False)
     cuba(fig.add_axes([0.57, 0.56, 0.40, 0.40]))
-    guarda(fig, "fig01_map")
+    guarda(fig, "fig01_map" if focos else "fig01_map_sin_focos")
 
 
 def fig2():
@@ -243,6 +246,6 @@ def guarda(fig, nombre):
 
 if __name__ == "__main__":
     estilo()
-    figs = {1: fig1, 2: fig2, 3: fig3}
-    for k in (map(int, sys.argv[1:]) if len(sys.argv) > 1 else figs):
+    figs = {"1": fig1, "2": fig2, "3": fig3, "1sf": lambda: fig1(focos=False)}
+    for k in (sys.argv[1:] or ["1", "2", "3"]):
         figs[k]()
