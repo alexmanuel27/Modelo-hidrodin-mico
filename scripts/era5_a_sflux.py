@@ -9,6 +9,7 @@ Cada caso enlaza los meses que necesite como sflux/sflux_air_1.N.nc (ver caso_pr
   prc: prate [kg/m2/s]       = tp [m] * 1000 / 3600
 Los acumulados de ERA5 cubren la hora anterior a valid_time: se fechan en el centro (-30 min).
 """
+import sys
 from pathlib import Path
 import numpy as np
 from netCDF4 import Dataset
@@ -75,6 +76,10 @@ def mes(base_nombre):
 if __name__ == "__main__":
     OUT.mkdir(parents=True, exist_ok=True)
     meses = sorted(p.name[:-len("_instant.nc")] for p in ERA5.glob("era5_habana_??????_instant.nc"))
+    if sys.argv[1:]:   # 22-nov: python scripts/era5_a_sflux.py AAAAMM AAAAMM -> solo esos meses (p. ej. 200209 200301); sin argumentos, todo 2016-2025 como siempre
+        meses = [m for m in meses if sys.argv[1] <= m[-6:] <= sys.argv[2]]
+        for m in meses: mes(m)
+        print(f"sflux: {len(meses)} meses ({meses[0][-6:]}-{meses[-1][-6:]}) en {OUT}"); sys.exit()
     assert len(meses) == 120, len(meses)
     for m in meses:
         mes(m)

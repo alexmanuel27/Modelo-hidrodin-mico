@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""Descarga ERA5 horario (single levels) sobre La Habana, 2016-2025, un mes por peticion.
-Uso:  conda activate bahia && python scripts/descargar_era5.py
+"""Descarga ERA5 horario (single levels) sobre La Habana, 2016-2025 (o los meses AAAAMM AAAAMM que se pasen), un mes por peticion.
+Uso:  conda activate bahia && python scripts/descargar_era5.py [200209 200301]
 Necesita ~/.cdsapirc. Se puede interrumpir y relanzar: salta los meses ya bajados.
 
 El CDS devuelve un ZIP (aunque se pida "unarchived") porque mezcla variables instantaneas
@@ -8,7 +8,7 @@ y acumuladas. Cada mes queda en dos NetCDF:
   era5_habana_AAAAMM_instant.nc  u10, v10, msl, t2m, d2m
   era5_habana_AAAAMM_accum.nc    ssrd, strd, tp  (acumulados en la hora previa)
 """
-import zipfile
+import sys, zipfile
 from pathlib import Path
 
 OUT = Path(__file__).resolve().parent.parent / "datos" / "forzamiento" / "era5"
@@ -38,8 +38,10 @@ def main():
         if zipfile.is_zipfile(z):
             desempaquetar(z, z.stem)
     c = None
-    for year in range(2016, 2026):
+    ini, fin = (sys.argv[1], sys.argv[2]) if sys.argv[1:] else ("201601", "202512")   # 22-nov: python scripts/descargar_era5.py 200209 200301 baja solo esos meses
+    for year in range(2016 if not sys.argv[1:] else int(ini[:4]), int(fin[:4]) + 1):
         for month in range(1, 13):
+            if not ini <= f"{year}{month:02d}" <= fin: continue
             base = f"era5_habana_{year}{month:02d}"
             if (OUT / f"{base}_instant.nc").exists() and (OUT / f"{base}_accum.nc").exists():
                 continue

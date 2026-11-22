@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Series del modelo en las estaciones de JICA (fig. 4.25) para la comparacion de docs/protocolo_jica_observaciones.md (A1 y A2).
 Corre en el cluster sobre un miembro con campos completos (outputs/*.nc; solo numpy + netCDF4):
-  python scripts/jica_extrae_estaciones.py <carpeta del miembro> <dia_ini> <dia_fin>   -> <miembro>/jica_estaciones.npz
+  python scripts/jica_extrae_estaciones.py <carpeta del miembro> <dia_ini> <dia_fin> [nombre.npz]   -> <miembro>/jica_estaciones.npz (o el nombre dado, 22-nov)
       (conjunto m0000-m0002: 91 120; runs/termico, diciembre: 335 365; los dias cuentan desde el inicio de la corrida)
   python scripts/jica_extrae_estaciones.py --prueba                               -> autoprueba (vgrid, niveles verticales, fases)
 Niveles (A2): sup = 0,5 m bajo la superficie; m5 y m10 = 5 y 10 m bajo la superficie; mid = mitad de la columna; fondo = 1 m sobre el fondo.
@@ -79,7 +79,7 @@ def prueba():
     print("autoprueba jica_extrae_estaciones: ok")
 
 
-def extrae(dirm, d0, d1):
+def extrae(dirm, d0, d1, nombre="jica_estaciones.npz"):
     from netCDF4 import Dataset
     dirm = Path(dirm); out = dirm / "outputs"; num = lambda p: int(p.stem.split("_")[-1])
     est = list(csv.DictReader(open(RAIZ / "datos" / "observaciones" / "jica2004_estaciones_utm.csv")))
@@ -114,11 +114,11 @@ def extrae(dirm, d0, d1):
         salida["V_r"].append(np.stack([np.nanmean(Vm[:, [pos[int(i)] for i in s]], 1) for s in sets], 1))
         ic = [pos[int(i)] for i in canal]; salida["canal_un"].append(np.nanmean(un[:, ic], 1)); salida["canal_S"].append(np.nanmean(Sl[:, ic], 1))
     assert salida["t"], f"ningun dia entre {d0} y {d1} en {out}"
-    np.savez_compressed(dirm / "jica_estaciones.npz", niveles=np.array(NIVELES), estaciones=np.array([r["estacion"] for r in est]),
+    np.savez_compressed(dirm / nombre, niveles=np.array(NIVELES), estaciones=np.array([r["estacion"] for r in est]),
                         prof_nodo_m=np.array([float(r["prof_hgrid_m"]) for r in est]), dias_ventana=np.array([d0, d1]), dz_max=np.array(max(dzs) if dzs else np.nan),
                         **{k: np.concatenate(v) for k, v in salida.items()})
-    print(dirm, "->", dirm / "jica_estaciones.npz", len(np.concatenate(salida["t"])), "muestras;", f"max |z guardada - z reconstruida| = {max(dzs):.4f} m" if dzs else "sin zCoordinates guardada")
+    print(dirm, "->", dirm / nombre, len(np.concatenate(salida["t"])), "muestras;", f"max |z guardada - z reconstruida| = {max(dzs):.4f} m" if dzs else "sin zCoordinates guardada")
 
 
 if __name__ == "__main__":
-    prueba() if sys.argv[1:] == ["--prueba"] else extrae(sys.argv[1], float(sys.argv[2]), float(sys.argv[3]))
+    prueba() if sys.argv[1:] == ["--prueba"] else extrae(sys.argv[1], float(sys.argv[2]), float(sys.argv[3]), *sys.argv[4:5])

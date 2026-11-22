@@ -46,12 +46,14 @@ SUP = RAIZ / "datos" / "batimetria" / "superficies"
 
 RNDAY = float(sys.argv[1]) if len(sys.argv) > 1 else 2.0
 DT = 100.0
-INICIO = (int(os.environ.get("ANIO", 2016)), 1, 1)   # 17-nov (V3 X4): ANIO = otro ano de ERA5 (2016-2025); por defecto 2016, sin cambios
+INICIO = (int(os.environ.get("ANIO", 2016)), int(os.environ.get("MES0", 1)), 1)   # 17-nov (V3 X4): ANIO = otro ano de ERA5; 22-nov (docs/protocolo_2002.md): MES0 = mes de inicio (1 por defecto, sin cambios)
 M2_AMP = 0.15                 # m, solo con MAREA=m2 (prueba)
 MODELOS_MAREA = {"fes": RAIZ / "datos" / "marea" / "fes2022_habana.json", "eot20": RAIZ / "datos" / "marea" / "eot20_habana.json"}
 MAREA = os.environ.get("MAREA", next((m for m, f in MODELOS_MAREA.items() if f.exists()), "m2"))
 FES = MODELOS_MAREA.get(MAREA)                   # archivo de armonicos del modelo elegido (mismo formato para los dos)
 RIOS, QFAC = int(os.environ.get("RIOS", 0)), float(os.environ.get("QFAC", 1))
+DRENAJES = int(os.environ.get("DRENAJES", 0))   # 22-nov (docs/protocolo_2002.md): 1 = anade los drenajes S4-S6 de la tabla 4.8 de JICA vol. V (los que caen en Atares)
+LLUVIA = int(os.environ.get("LLUVIA", 0))       # 22-nov: 1 = anade a cada fuente la escorrentia C*I*A con la lluvia horaria de ERA5 (sflux_prc)
 CALOR, TURB = int(os.environ.get("CALOR", 0)), os.environ.get("TURB", "KL")
 DIFFMIN = float(os.environ.get("DIFFMIN", 1e-6))
 SST = os.environ.get("SST", "")
@@ -61,6 +63,11 @@ TRAZ = int(os.environ.get("TRAZADORES", 0))   # 1: un trazador pasivo por rio (m
 # Caudales medios (m3/s) de JICA 2004, Informe final vol. IV, tabla 1.1 (datos CIMAB, ago-2002; no hay aforos permanentes):
 # Luyano 114 860, Martin Perez 62 105, Tadeo 8 004 m3/d. https://openjicareport.jica.go.jp/pdf/11767225.pdf
 Q_RIOS = {"luyano": 114860 / 86400, "martin perez": 62105 / 86400, "tadeo": 8004 / 86400}
+# 22-nov: drenajes de la tabla 4.8 (JICA vol. V, M4-13) que caen en Atares (zona 5) con la georreferencia de resultados/jica_estaciones.txt (aceptada solo con A2):
+# nombre: (E, N UTM17N, caudal m3/s, cuenca km2 de la tabla 2.1 de JICA vol. I (San Nicolas: la de Habana Vieja, cota superior), C)
+DRENES = {"san nicolas": (360883, 2557746, 0.099, 2.6, 0.5), "arroyo matadero": (360906, 2557654, 0.900, 6.8, 0.6), "agua dulce": (360978, 2557257, 0.500, 6.5, 0.5)}
+# C del metodo racional de JICA vol. V, cap. 6 (M4-12/M6): 0,6 en la cuenca del dren Matadero y 0,5 en las demas; cuencas de la tabla 2.1 (Luyano 30,0; Martin Perez 13,1; Tadeo 2,6 km2)
+AREA_C = {"luyano": (30.0, 0.5), "martin perez": (13.1, 0.5), "tadeo": (2.6, 0.5), **{n: (v[3], v[4]) for n, v in DRENES.items()}}
 NGEN = len(Q_RIOS) + (1 if TRAZ == 2 else 0) if TRAZ else 0      # trazadores GEN: uno por rio (+ el de la suma con TRAZADORES=2)
 OSM_RIOS = RAIZ / "datos" / "batimetria" / "fuentes" / "osm_rios_habana.json"
 FREC = dict(m2=1.405189e-4, s2=1.454441e-4, n2=1.378797e-4, k2=1.458423e-4, k1=7.292117e-5, o1=6.759774e-5,
@@ -142,6 +149,37 @@ def desembocaduras(xy, tri, bahia_nodo):
     return out
 
 
+def drenes(xy, tri, bahia_nodo, usados):
+    """Elemento de la bahia mas cercano (centroide) a cada punto de DRENES, sin repetir elementos ni los ya usados por los rios. [(nombre, elemento 0-based, distancia m)]"""
+    eb = np.where(bahia_nodo[tri].all(1))[0]; c = xy[tri[eb]].mean(1); out = []; usados = set(usados)
+    for nom, (E, N, *_) in DRENES.items():
+        d = np.hypot(c[:, 0] - E, c[:, 1] - N)
+        for j in np.argsort(d):
+            if int(eb[j]) not in usados: break
+        usados.add(int(eb[j])); out.append((nom, int(eb[j]), float(d[j])))
+    return out
+
+
+def lluvia_horaria(lon0, lat0, rnday):
+    """Intensidad de lluvia ERA5 (mm/h) en (lon0, lat0) (interpolacion bilineal de sflux_prc) en marcas horarias t = 0, 3600, ... (rnday + 1) d desde el inicio de la corrida."""
+    y0, m0, d0 = INICIO; t0 = np.datetime64(f"{y0:04d}-{m0:02d}-{d0:02d}"); tt, pp = [], []
+    for k in range(int(np.ceil(rnday / 28)) + 2):
+        yy, mm = y0 + (m0 - 1 + k) // 12, (m0 - 1 + k) % 12 + 1
+        f = SFLUX / f"sflux_prc_{yy}{mm:02d}.nc"
+        if not f.exists(): continue
+        from netCDF4 import Dataset
+        with Dataset(f) as nc:
+            lat, lon = np.asarray(nc["lat"][:, 0], float), np.asarray(nc["lon"][0, :], float); pr = np.asarray(nc["prate"][:], float)   # (t, lat, lon), kg/m2/s = mm/s
+            i, j = np.searchsorted(lat, lat0) - 1, np.searchsorted(lon, lon0) - 1; a, b = (lat0 - lat[i]) / (lat[i + 1] - lat[i]), (lon0 - lon[j]) / (lon[j + 1] - lon[j])
+            assert 0 <= a <= 1 and 0 <= b <= 1, (lon0, lat0)
+            p = (1 - a) * ((1 - b) * pr[:, i, j] + b * pr[:, i, j + 1]) + a * ((1 - b) * pr[:, i + 1, j] + b * pr[:, i + 1, j + 1])
+            base = (np.datetime64(f"{yy:04d}-{mm:02d}-01") - t0).astype(int) * 86400.0
+            tt += list(base + np.asarray(nc["time"][:], float) * 86400.0); pp += list(p * 3600.0)
+    assert tt and tt[0] <= 1800 and tt[-1] >= (rnday + 1) * 86400 - 3600, "faltan meses de sflux_prc para la lluvia"
+    th = np.arange(0, (rnday + 1) * 86400 + 1, 3600.0)
+    return th, np.clip(np.interp(th, tt, pp), 0, None)
+
+
 def main():
     RUN.mkdir(parents=True, exist_ok=True); (RUN / "outputs").mkdir(exist_ok=True)
     xy, tri, resto = lee_hgrid(MALLA / "hgrid.gr3")
@@ -196,10 +234,20 @@ def main():
     (RUN / "ts.ic").write_text(f"2\n1 -{H_TOPE + 10:.0f}. {T0:.2f} 36.\n2 0. {T0:.2f} 36.\n")
     if RIOS:
         rio = desembocaduras(xy, tri, malla.en_bahia(xy))
-        for nom, e, d in rio: print(f"rio {nom}: elemento {e + 1}, {Q_RIOS[nom] * QFAC:.2f} m3/s, a {d:.0f} m del cauce OSM")
+        if DRENAJES:
+            assert not TRAZ, "DRENAJES y TRAZADORES no se combinan"
+            rio += drenes(xy, tri, malla.en_bahia(xy), [e for _, e, _ in rio])
+        QB = {**Q_RIOS, **{n: v[2] for n, v in DRENES.items()}}
+        for nom, e, d in rio: print(f"{'rio' if nom in Q_RIOS else 'dren'} {nom}: elemento {e + 1}, {QB[nom] * QFAC:.3f} m3/s, a {d:.0f} m " + ("del cauce OSM" if nom in Q_RIOS else "de la posicion georreferenciada"))
         (RUN / "source_sink.in").write_text(f"{len(rio)} !fuentes\n" + "".join(f"{e + 1}\n" for _, e, _ in rio) + "\n0 !sumideros\n")
-        q = " ".join(f"{Q_RIOS[nom] * QFAC:.4f}" for nom, _, _ in rio)
-        (RUN / "vsource.th").write_text(f"0. {q}\n{RNDAY * 86400 + 86400:.0f}. {q}\n")
+        q = " ".join(f"{QB[nom] * QFAC:.4f}" for nom, _, _ in rio)
+        if LLUVIA:   # Q_i(t) = Q_i * QFAC + C_i * I(t) * A_i / 3,6 (m3/s; I en mm/h, A en km2); filas horarias (paso uniforme, como TEM_1.th), sin retardo ni perdidas
+            th, I = lluvia_horaria(float(lon.mean()), float(lat.mean()), RNDAY)
+            filas_q = [f"{t:.0f}. " + " ".join(f"{QB[nom] * QFAC + AREA_C[nom][1] * AREA_C[nom][0] * i / 3.6:.4f}" for nom, _, _ in rio) for t, i in zip(th, I)]
+            (RUN / "vsource.th").write_text("\n".join(filas_q) + "\n")
+            print(f"LLUVIA: ERA5 {I[:int(RNDAY * 24)].sum():.0f} mm en {RNDAY:g} d; caudal total medio {np.mean([sum(float(v) for v in f.split()[1:]) for f in filas_q[:int(RNDAY * 24)]]):.2f} m3/s (sin lluvia {sum(QB[nom] * QFAC for nom, _, _ in rio):.2f})")
+        else:
+            (RUN / "vsource.th").write_text(f"0. {q}\n{RNDAY * 86400 + 86400:.0f}. {q}\n")
         # T ambiente, S = 0, AGE: agua de rio = agua nueva (C = 1, alfa = 0 -> edad 0 al entrar)
         # Columnas de msource.th = indice global de trazador (T, S, GEN_1..GEN_n, AGE_1, AGE_2), cada uno con una columna por fuente
         # (schism_step.F90: read(65,*) ath3(1:nsources, 1:ntracers)). GEN_k vale 1 en la fuente k y 0 en las demas (protocolo de trazadores).

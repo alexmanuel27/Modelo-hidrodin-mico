@@ -269,6 +269,12 @@ if __name__ == "__main__":
         filas = [dict(BASE, miembro=str(k), extra={"MAREA": "eot20", "VEL3D": "1", **e}) for k, (_, e) in enumerate(casos)]
         for k, (nom, _) in enumerate(casos): print(f"m{k:04d}: {nom}")
         generar(4, filas=filas)
+    elif accion == "dos2002":   # 22-nov (docs/protocolo_2002.md): miembro central con ERA5 y OISST de 2002, 1-sep a 31-dic (122 d), calor, velocidad 3D, rios en la capa superior; m0000 caudales de la tabla 4.8 (tres rios), m0001 + drenajes S4-S6 en Atares, m0002 = m0001 + escorrentia de la lluvia de ERA5. Antes: descargar_era5.py 200209 200301, era5_a_sflux.py 200209 200301, descargar_sst_2002.sh. CONJ_DIR=runs/dos2002 CONJ_DIAS=122 CONJ_SEG=20 CONJ_ESCRIBAS=6 CONJ_HORAS=12 CONJ_MARGEN=3 python scripts/conjunto.py dos2002
+        d2 = {"MAREA": "eot20", "CALOR": "1", "SST": "oisst", "ANIO": "2002", "MES0": "9", "SST_CSV": "datos/forzamiento/sst/oisst_habana_2002.csv", "VEL3D": "1", "LEVSRC": "sup"}
+        casos = [("2002, caudales de la tabla 4.8 (tres rios)", {}), ("+ drenajes S4-S6 en Atares", {"DRENAJES": "1"}), ("+ drenajes y escorrentia de la lluvia de ERA5", {"DRENAJES": "1", "LLUVIA": "1"})]
+        filas = [dict(BASE, miembro=str(k), extra={**d2, **e}) for k, (_, e) in enumerate(casos)]
+        for k, (nom, _) in enumerate(casos): print(f"m{k:04d}: {nom}")
+        generar(3, filas=filas)
     elif accion == "deltast":   # 19-nov (protocolo_analisis_x.md, 1): repite m0001 de robustez_largo (calor, borde a 28 C, viento real) con T y flujos guardados para el diagrama dS-dT. 133 h-nucleo medidas. CONJ_DIR=runs/borde28 CONJ_DIAS=365 CONJ_SEG=10 CONJ_HORAS=12 CONJ_MARGEN=3 CONJ_ESCRIBAS=4 python scripts/conjunto.py deltast
         filas = [dict(BASE, miembro="0", extra={"MAREA": "eot20", "CALOR": "1", "TERMICO": "1"})]
         print("m0000: calor, borde a 28 C, 365 d, con T y flujos guardados"); generar(1, filas=filas)
