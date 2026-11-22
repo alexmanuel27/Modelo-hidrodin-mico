@@ -301,7 +301,7 @@ def figuras(G, datos, R, P, conv, mapas, perf):
     resumen, params, ns = conv; fig, axs = plt.subplots(1, 3, figsize=(ANCHO2, 65 * MM), constrained_layout=True)
     for k, (tit, umb) in enumerate((("Index width, max CI95 (S_T)", UMB_IND), ("Ranking statistic (Eq. 3)", UMB_RANK), ("Screening width (S_T < 0.05)", UMB_SCR))):
         for z, c in zip(ZONAS, (GRIS, VERDE, CELESTE, ROSA, NARANJA, BERMELLON)):
-            axs[k].plot(ns, [s[k] for s in resumen[z][0]], marker="o", ms=2.5, color=c, lw=1.2 if z == "bahia" else 0.6, label="bay" if z == "bahia" else z)
+            axs[k].plot(ns, [s[k] for s in resumen[z][0]], marker="o", ms=2.5, color=c, lw=1.2 if z == "bahia" else 0.6, label={"bahia": "bay", "canal": "channel", "cuenca": "main basin"}.get(z, z))
         axs[k].axhline(umb, color=NEGRO, ls="--", lw=0.6); axs[k].set_xticks(ns); axs[k].set_xlabel("Base sample size $N$"); axs[k].set_ylabel(tit); letra(axs[k], "abc"[k])
     axs[0].legend(frameon=False, fontsize=5.5, loc="upper right"); guarda(fig, "fig_sobol_convergence_stats", 190)
     # mapa de S_T
